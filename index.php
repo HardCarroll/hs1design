@@ -28,7 +28,7 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
         </p>
       </section>
       <!-- <span class="btn btn-warning btn-lg btn-normal" role="button" id="btn_index">了解更多</span> -->
-      <button class="btn btn-warning btn-lg btn-normal" data-loading-text="加载中..." autocomplete="off" id="btn_index">了解更多</button>
+      <button class="btn btn-warning btn-lg btn-normal" data-loading-text="努力加载中..." autocomplete="off" id="btn_index">了解更多</button>
     </div>
   </div>
   <div id="indexPage">
@@ -90,13 +90,53 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
 
     <!-- 网页内容区域 #pageContent begin-->
     <div id="pageContent">
+      <div id="carousel_banner" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+          <li data-target="#carousel_banner" data-slide-to="0" class="active"></li>
+          <li data-target="#carousel_banner" data-slide-to="1"></li>
+          <li data-target="#carousel_banner" data-slide-to="2"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+          <div class="item active">
+            <img src="/src/b_01.jpg" alt="湖南炉石空间设计精品案例展示轮播图片01">
+            <div class="carousel-caption text-hide">
+            湖南炉石空间设计精品案例展示轮播图片01
+            </div>
+          </div>
+          <div class="item">
+            <img src="/src/b_02.jpg" alt="湖南炉石空间设计精品案例展示轮播图片02">
+            <div class="carousel-caption text-hide">
+            湖南炉石空间设计精品案例展示轮播图片02
+            </div>
+          </div>
+          <div class="item">
+            <img src="/src/b_03.jpg" alt="湖南炉石空间设计精品案例展示轮播图片03">
+            <div class="carousel-caption text-hide">
+            湖南炉石空间设计精品案例展示轮播图片03
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel_banner" role="button" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#carousel_banner" role="button" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
       <ul>
-        <li>8801</li>
-        <li>8802</li>
-        <li>8803</li>
-        <li>8804</li>
-        <li>8805</li>
-        <li>8806</li>
+        <li>8801test</li>
+        <li>8802hello</li>
+        <li>8803world</li>
+        <li>8804haha</li>
+        <li>8805bbbb</li>
+        <li>8806cadddbb</li>
       </ul>
     </div><!-- // #pageContent end -->
 
@@ -209,10 +249,15 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
   </ul>
 
   <!-- 浮动侧边栏 -->
-  <ul class="list-group fixed fixed-rb" id="asidebar">
-    <li class="list-group-item" role="button" id="btn_aside_qq"><a href="http://wpa.qq.com/msgrd?v=3&uin=292610020&site=qq&menu=yes"><span class="glyphicon glyphicon-headphones"></a></span></li>
+  <ul class="list-group fixed fixed-rb" id="asidebar_tools">
+    <!-- <li class="list-group-item" role="button" id="btn_aside_qq"><a href="http://wpa.qq.com/msgrd?v=3&uin=292610020&site=qq&menu=yes"><span class="glyphicon glyphicon-headphones"></a></span></li>
     <li class="list-group-item" role="button" id="btn_aside_tel"><span class="glyphicon glyphicon-earphone"></span></li>
-    <li class="list-group-item" role="button" id="btn_aside_qrcode"><span class="glyphicon glyphicon-qrcode"></span></li>
+    <li class="list-group-item" role="button" id="btn_aside_qrcode"><span class="glyphicon glyphicon-qrcode"></span></li> -->
+    <ul class="list-group  <?php if(!$_SESSION['bFirst']) {echo 'hidden';} ?>" id="asidebar">
+      <li class="list-group-item" role="button" id="btn_aside_qq"><a href="http://wpa.qq.com/msgrd?v=3&uin=292610020&site=qq&menu=yes"><span class="glyphicon glyphicon-headphones"></a></span></li>
+      <li class="list-group-item" role="button" id="btn_aside_tel"><span class="glyphicon glyphicon-earphone"></span></li>
+      <li class="list-group-item" role="button" id="btn_aside_qrcode"><span class="glyphicon glyphicon-qrcode"></span></li>
+    </ul>
     <li class="list-group-item hidden" role="button" id="btn_backtop"><span class="glyphicon glyphicon-arrow-up"></span></li>
   </ul>
     

@@ -11,8 +11,8 @@ img {
   position: fixed;
 }
 .fixed-rb {
-  right: 5px;
-  bottom: 5px;
+  right: 15px;
+  bottom: 15px;
 }
 .fixed-top {
   top: 0;
@@ -86,6 +86,7 @@ img {
   line-height: 50px;
   background-color: #eee;
   width: 100%;
+  z-index: 1000;
 }
 #navbar_hsd .navbar-wrap {
   widows: 100%;
@@ -107,8 +108,12 @@ img {
   margin: 0 5px 0 0;
   padding: 0 5px;
   border: none;
-  border-radius: 0;
+  border-radius: 4px;
   height: 80px;
+  box-shadow: 0 0 1px 1px rgba(99, 99, 99, 0.3) inset;
+}
+.navbar-hsd .navbar-header .navbar-toggle:hover, .navbar-hsd .navbar-header .navbar-toggle:focus {
+  background-color: transparent;
 }
 .navbar-hsd .navbar-top {
   height: 80px;
@@ -159,25 +164,34 @@ img {
 .input-group-addon {
   border-radius: 0;
 }
-#asidebar {
+#asidebar_tools {
   margin-bottom: 0;
   overflow: hidden;
-  opacity: 0.8;
+  opacity: 0.68;
+  box-shadow: 0 1px 1px 1px rgba(66, 66, 66, 0.3);
 }
-#asidebar>li {
-  width: 40px;
-  height: 40px;
+#asidebar {
+  margin-bottom: 0;
+}
+#asidebar_tools li {
+  width: 60px;
+  height: 60px;
   border-radius: 0;
   padding: 0;
+  background-color: transparent;
+  margin-bottom: 0;
+  /* border: none; */
 }
-#asidebar>li>a {
+#asidebar_tools li>a {
   text-decoration: none;
 }
-#asidebar>li span {
+#asidebar_tools li span {
   display: block;
   width: 100%;
   height: 100%;
   font-size: 26px;
-  line-height: 38px;
+  line-height: 58px;
   text-align: center;
+  color: #FFF;
+  background-color: #000;
 }
