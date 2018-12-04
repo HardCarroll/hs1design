@@ -38,7 +38,7 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar_hsd" aria-expanded="false">
-            <span class="sr-only">炉石空间设计官方网站导航栏，专注于餐厅空间设计、酒店空间设计、KTV空间设计</span>
+            <!-- <span class="sr-only">炉石空间设计官方网站导航栏，专注于餐厅空间设计、酒店空间设计、KTV空间设计</span> -->
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -48,10 +48,12 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
         <div class="navbar-top pull-right hidden-xs">
           <section class="phone">
             <p>
-              <span class="glyphicon glyphicon-phone-alt"></span>
               <span>全国服务热线</span>
             </p>
-            <p>0731-86393210</p>
+            <p>
+              <span class="glyphicon glyphicon-phone-alt"></span>
+              <span>0731-86393210</span>
+            </p>
           </section>
           <section class="qrcode">
             <img src="/src/qrcode_for_hsd.jpg" alt="专注于餐厅空间设计,炉石空间设计的公众号二维码">
@@ -69,7 +71,7 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
             </div>
           </form>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">首页</a></li>
+            <li class="active"><a href="/">首页</a></li>
             <li><a href="#">服务</a></li>
             <li><a href="#">案例</a></li>
             <li><a href="#">关于</a></li>
@@ -89,7 +91,7 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
     </nav><!-- // .navbar-hsd end -->
 
     <!-- 网页内容区域 #pageContent begin-->
-    <div id="pageContent">
+    <div id="pageContent" class="container-fluid">
       <div id="carousel_banner" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
         <ol class="carousel-indicators">
@@ -136,7 +138,100 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
         <li>8803world</li>
         <li>8804haha</li>
         <li>8805bbbb</li>
-        <li>8806cadddbb</li>
+        <li>8806cccc</li>
+        <li>8807</li>
+        <li>8808</li>
+        <li>8809</li>
+        <li>8810</li>
+        <li>8811</li>
+        <li>8812</li>
+        <li>8813</li>
+        <li>8814</li>
+        <li>8815</li>
+        <li>8816</li>
+        <li>8817</li>
+        <li>8818</li>
+        <li>8819</li>
+        <li>8820</li>
+        <li>8821</li>
+        <li>8822</li>
+        <li>8823</li>
+        <li>8824</li>
+        <li>8825</li>
+        <li>8826</li>
+        <li>8827</li>
+        <li>8828</li>
+        <li>8829</li>
+        <li>8830</li>
+        <li>8831</li>
+        <li>8832</li>
+        <li>8833</li>
+        <li>8834</li>
+        <li>8835</li>
+        <li>8836</li>
+        <li>8837</li>
+        <li>8838</li>
+        <li>8839</li>
+        <li>8840</li>
+        <li>8841</li>
+        <li>8842</li>
+        <li>8843</li>
+        <li>8844</li>
+        <li>8845</li>
+        <li>8846</li>
+        <li>8847</li>
+        <li>8848</li>
+        <li>8849</li>
+        <li>8850</li>
+        <li>8851</li>
+        <li>8852</li>
+        <li>8853</li>
+        <li>8854</li>
+        <li>8855</li>
+        <li>8856</li>
+        <li>8857</li>
+        <li>8858</li>
+        <li>8859</li>
+        <li>8860</li>
+        <li>8861</li>
+        <li>8862</li>
+        <li>8863</li>
+        <li>8864</li>
+        <li>8865</li>
+        <li>8866</li>
+        <li>8867</li>
+        <li>8868</li>
+        <li>8869</li>
+        <li>8870</li>
+        <li>8871</li>
+        <li>8872</li>
+        <li>8873</li>
+        <li>8874</li>
+        <li>8875</li>
+        <li>8876</li>
+        <li>8877</li>
+        <li>8878</li>
+        <li>8879</li>
+        <li>8880</li>
+        <li>8881</li>
+        <li>8882</li>
+        <li>8883</li>
+        <li>8884</li>
+        <li>8885</li>
+        <li>8886</li>
+        <li>8887</li>
+        <li>8888</li>
+        <li>8889</li>
+        <li>8890</li>
+        <li>8891</li>
+        <li>8892</li>
+        <li>8893</li>
+        <li>8894</li>
+        <li>8895</li>
+        <li>8896</li>
+        <li>8897</li>
+        <li>8898</li>
+        <li>8899</li>
       </ul>
     </div><!-- // #pageContent end -->
 
@@ -145,121 +240,28 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
     </div><!-- // #pageFooter end -->
   </div>
 
-  <ul style="background-color: pink;">
-    <li>placeholder: 8001</li>
-    <li>placeholder: 8002</li>
-    <li>placeholder: 8003</li>
-    <li>placeholder: 8004</li>
-    <li>placeholder: 8005</li>
-    <li>placeholder: 8006</li>
-    <li>placeholder: 8007</li>
-    <li>placeholder: 8008</li>
-    <li>placeholder: 8009</li>
-    <li>placeholder: 8010</li>
-    <li>placeholder: 8011</li>
-    <li>placeholder: 8012</li>
-    <li>placeholder: 8013</li>
-    <li>placeholder: 8014</li>
-    <li>placeholder: 8015</li>
-    <li>placeholder: 8016</li>
-    <li>placeholder: 8017</li>
-    <li>placeholder: 8018</li>
-    <li>placeholder: 8019</li>
-    <li>placeholder: 8020</li>
-    <li>placeholder: 8021</li>
-    <li>placeholder: 8022</li>
-    <li>placeholder: 8023</li>
-    <li>placeholder: 8024</li>
-    <li>placeholder: 8025</li>
-    <li>placeholder: 8026</li>
-    <li>placeholder: 8027</li>
-    <li>placeholder: 8028</li>
-    <li>placeholder: 8029</li>
-    <li>placeholder: 8030</li>
-    <li>placeholder: 8031</li>
-    <li>placeholder: 8032</li>
-    <li>placeholder: 8033</li>
-    <li>placeholder: 8034</li>
-    <li>placeholder: 8035</li>
-    <li>placeholder: 8036</li>
-    <li>placeholder: 8037</li>
-    <li>placeholder: 8038</li>
-    <li>placeholder: 8039</li>
-    <li>placeholder: 8040</li>
-    <li>placeholder: 8041</li>
-    <li>placeholder: 8042</li>
-    <li>placeholder: 8043</li>
-    <li>placeholder: 8044</li>
-    <li>placeholder: 8045</li>
-    <li>placeholder: 8046</li>
-    <li>placeholder: 8047</li>
-    <li>placeholder: 8048</li>
-    <li>placeholder: 8049</li>
-    <li>placeholder: 8050</li>
-    <li>placeholder: 8051</li>
-    <li>placeholder: 8052</li>
-    <li>placeholder: 8053</li>
-    <li>placeholder: 8054</li>
-    <li>placeholder: 8055</li>
-    <li>placeholder: 8056</li>
-    <li>placeholder: 8057</li>
-    <li>placeholder: 8058</li>
-    <li>placeholder: 8059</li>
-    <li>placeholder: 8060</li>
-    <li>placeholder: 8061</li>
-    <li>placeholder: 8062</li>
-    <li>placeholder: 8063</li>
-    <li>placeholder: 8064</li>
-    <li>placeholder: 8065</li>
-    <li>placeholder: 8066</li>
-    <li>placeholder: 8067</li>
-    <li>placeholder: 8068</li>
-    <li>placeholder: 8069</li>
-    <li>placeholder: 8070</li>
-    <li>placeholder: 8071</li>
-    <li>placeholder: 8072</li>
-    <li>placeholder: 8073</li>
-    <li>placeholder: 8074</li>
-    <li>placeholder: 8075</li>
-    <li>placeholder: 8076</li>
-    <li>placeholder: 8077</li>
-    <li>placeholder: 8078</li>
-    <li>placeholder: 8079</li>
-    <li>placeholder: 8080</li>
-    <li>placeholder: 8081</li>
-    <li>placeholder: 8082</li>
-    <li>placeholder: 8083</li>
-    <li>placeholder: 8084</li>
-    <li>placeholder: 8085</li>
-    <li>placeholder: 8086</li>
-    <li>placeholder: 8087</li>
-    <li>placeholder: 8088</li>
-    <li>placeholder: 8089</li>
-    <li>placeholder: 8090</li>
-    <li>placeholder: 8091</li>
-    <li>placeholder: 8092</li>
-    <li>placeholder: 8093</li>
-    <li>placeholder: 8094</li>
-    <li>placeholder: 8095</li>
-    <li>placeholder: 8096</li>
-    <li>placeholder: 8097</li>
-    <li>placeholder: 8098</li>
-    <li>placeholder: 8099</li>
-    <li>placeholder: 8100</li>
-  </ul>
-
-  <!-- 浮动侧边栏 -->
+  <!-- 右下角fixed侧边栏 -->
   <ul class="list-group fixed fixed-rb" id="asidebar_tools">
-    <!-- <li class="list-group-item" role="button" id="btn_aside_qq"><a href="http://wpa.qq.com/msgrd?v=3&uin=292610020&site=qq&menu=yes"><span class="glyphicon glyphicon-headphones"></a></span></li>
-    <li class="list-group-item" role="button" id="btn_aside_tel"><span class="glyphicon glyphicon-earphone"></span></li>
-    <li class="list-group-item" role="button" id="btn_aside_qrcode"><span class="glyphicon glyphicon-qrcode"></span></li> -->
-    <ul class="list-group  <?php if(!$_SESSION['bFirst']) {echo 'hidden';} ?>" id="asidebar">
+    <ul class="hidden-xs list-group" id="asidebar">
       <li class="list-group-item" role="button" id="btn_aside_qq"><a href="http://wpa.qq.com/msgrd?v=3&uin=292610020&site=qq&menu=yes"><span class="glyphicon glyphicon-headphones"></a></span></li>
       <li class="list-group-item" role="button" id="btn_aside_tel"><span class="glyphicon glyphicon-earphone"></span></li>
       <li class="list-group-item" role="button" id="btn_aside_qrcode"><span class="glyphicon glyphicon-qrcode"></span></li>
     </ul>
     <li class="list-group-item hidden" role="button" id="btn_backtop"><span class="glyphicon glyphicon-arrow-up"></span></li>
   </ul>
+
+  <!-- 底部fixed功能栏 -->
+  <div class="bottom-nav-wrap <?php if(!$_SESSION["bFirst"]) {echo 'hidden';} ?>" id="tools_bottom">
+    <div role="navigation" class="navbar navbar-default navbar-fixed-bottom visible-xs-block">
+      <ul class="btn-group container-fluid" role="group">
+        <li role="button" class="btn btn-default"><a href="#"><span class="glyphicon glyphicon-home"></span><span>首页</span></a></li>
+        <li role="button" class="btn btn-default"><a href="#"><span class="glyphicon glyphicon-blackboard"></span><span>案例</span></a></li>
+        <li role="button" class="btn btn-default"><a href="#"><span class="glyphicon glyphicon-edit"></span><span>咨询</span></a></li>
+        <li role="button" class="btn btn-default"><a href="#"><span class="glyphicon glyphicon-phone"></span><span>致电</span></a></li>
+      </ul>
+    </div>
+  </div><!-- // .bottom-nav-wrap end -->
+  
     
 
   <script src="/lib/jquery/jquery.min.js"></script>
