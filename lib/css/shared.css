@@ -73,7 +73,6 @@ img {
   background-color: rgba(30, 144, 255, 0.6);
   padding: 5px 16px;
 }
-
 /* nav导航栏CSS */
 .navbar-hsd {
   border-radius: 0;
@@ -96,8 +95,26 @@ img {
 #navbar_hsd .navbar-wrap .navbar-right {
   margin-right: 0;
 }
-#navbar_hsd .navbar-wrap .navbar-right li.active a {
+@media (min-width: 768px) {
+  #navbar_hsd .navbar-wrap .navbar-right li:hover>a {
+    background-color: #ccc;
+  }
+  #nav_service:hover>.dropdown-menu {
+    display: block;
+  }
+  #nav_about:hover>.dropdown-menu {
+    display: block;
+  }
+}
+#navbar_hsd .navbar-wrap .navbar-right li.active>a {
   background-color: #fff;
+}
+.dropdown .dropdown-menu {
+  border-radius: 0;
+  opacity: 0.9;
+  left: 0;
+  min-width: 100px;
+  text-align: center;
 }
 @media (max-width: 768px) {
   #navbar_hsd .navbar-wrap .navbar-nav {
@@ -171,10 +188,27 @@ img {
 .input-group-addon {
   border-radius: 0;
 }
+/* 页面内容CSS */
 #pageContent.container-fluid {
   padding-left: 0;
   padding-right: 0;
 }
+.wrapper {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+  border: none;
+}
+.wrapper>.inner {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0;
+  background-color: pink;
+  height: 300px;
+}
+/* 侧边栏工具条CSS */
 #asidebar_tools {
   margin-bottom: 0;
   overflow: hidden;
@@ -241,7 +275,6 @@ img {
   margin-top: 4px;
   font-size: 10px;
 }
-
 .navbar-toggle[aria-expanded="true"] [class="icon-bar"]:nth-of-type(1) {
   transform: translateY(6px) rotateZ(45deg);
 }
