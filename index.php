@@ -11,8 +11,9 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
   <meta name="Description" content="湖南炉石空间设计是一家专注于酒店、餐饮、KTV等室内空间的专业设计机构，拥有专业优秀的空间设计、软装设计和施工工程监理的团队，服务客户遍布全国，近年来与国内众多知名商业连锁品牌保持着良好稳定持续的合作关系，在餐饮和娱乐设计领域积累了难得的宝贵经验，本着“风格至上，细节至美”的理念，设计作品得到越来越多的业内人士和客户的高度认可，湖南炉石空间设计为您的商业空间效果展现保驾护航。">
   <title>湖南炉石空间设计丨专注于餐厅空间设计、酒店空间设计、KTV空间设计</title>
   <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/lib/css/icons.css">
+  <link rel="stylesheet" href="/lib/css/iconcuz.css">
   <link rel="stylesheet" href="/lib/css/shared.css">
+  <link rel="stylesheet" href="/lib/css/home.css">
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 </head>
 <body <?php if(!$_SESSION["bFirst"]) {echo 'class="of-hidden"';} ?>>
@@ -140,8 +141,43 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
         </a>
       </div> <!-- 首页轮播大图 #carousel_banner end -->
 
-      <div class="wrapper">
-        <div class="inner">
+      <div class="wrapper container-fluid" id="service_item">
+        <ul class="inner row list-group">
+          <li class="list-group-item col-xs-6 col-md-4">
+            <span class="icon icon-serv icon-circle-compass"></span>
+            <span class="glyphicon glyphicon-minus"></span>
+            <span class="service-item-text">免费量房</span>
+          </li>
+          <li class="list-group-item col-xs-6 col-md-4">
+            <span class="icon icon-serv icon-presentation"></span>
+            <span class="glyphicon glyphicon-minus"></span>
+            <span class="service-item-text">免费方案</span>
+          </li>
+          <li class="list-group-item col-xs-6 col-md-4">
+            <span class="icon icon-serv icon-piechart"></span>
+            <span class="glyphicon glyphicon-minus"></span>
+            <span class="service-item-text">免费预算</span>
+          </li>
+          <li class="list-group-item col-xs-6 col-md-4">
+            <span class="icon icon-serv icon-tools"></span>
+            <span class="glyphicon glyphicon-minus"></span>
+            <span class="service-item-text">空间设计</span>
+          </li>
+          <li class="list-group-item col-xs-6 col-md-4">
+            <span class="icon icon-serv icon-lightbulb"></span>
+            <span class="glyphicon glyphicon-minus"></span>
+            <span class="service-item-text">品牌设计</span>
+          </li>
+          <li class="list-group-item col-xs-6 col-md-4">
+            <span class="icon icon-serv icon-global"></span>
+            <span class="glyphicon glyphicon-minus"></span>
+            <span class="service-item-text">网络运维</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="test">
+        <div class="shadow-test">
         </div>
       </div>
 
@@ -251,13 +287,16 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
 
     <!-- 网页脚注区域 #pageFooter begin-->
     <div id="pageFooter">
+      <ul class="copyright">
+        <span>Copyright©2018 <a href="https://www.hs1design.com"><strong>湖南炉石空间设计</strong></a></span>
+      </ul>
     </div><!-- // #pageFooter end -->
   </div>
 
   <!-- 右下角fixed侧边栏 -->
   <ul class="list-group fixed fixed-rb" id="asidebar_tools">
-    <ul class="hidden-xs list-group" id="asidebar">
-      <li class="list-group-item" role="button" id="btn_aside_qq"><a href="http://wpa.qq.com/msgrd?v=3&uin=292610020&site=qq&menu=yes"><span class="icon-qq"></a></span></li>
+    <ul class="hidden-xs list-group <?php if(!$_SESSION["bFirst"]) {echo 'hidden';} ?>" id="asidebar">
+      <li class="list-group-item" role="button" id="btn_aside_qq"><a href="http://wpa.qq.com/msgrd?v=3&uin=292610020&site=qq&menu=yes"><span class="icon icon-cuz icon-qq"></a></span></li>
       <li class="list-group-item" role="button" id="btn_aside_tel"><span class="glyphicon glyphicon-earphone"></span></li>
       <li class="list-group-item" role="button" id="btn_aside_qrcode"><span class="glyphicon glyphicon-qrcode"></span></li>
     </ul>
@@ -271,7 +310,7 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
         <li role="button" class="btn btn-default"><a href="#"><span class="glyphicon glyphicon-home"></span><span>首页</span></a></li>
         <li role="button" class="btn btn-default"><a href="#"><span class="glyphicon glyphicon-blackboard"></span><span>案例</span></a></li>
         <li role="button" class="btn btn-default"><a href="#"><span class="glyphicon glyphicon-edit"></span><span>咨询</span></a></li>
-        <li role="button" class="btn btn-default"><a href="#"><span class="glyphicon glyphicon-phone"></span><span>致电</span></a></li>
+        <li role="button" class="btn btn-default"><a href="tel:17752845216"><span class="glyphicon glyphicon-phone"></span><span>致电</span></a></li>
       </ul>
     </div>
   </div><!-- // .bottom-nav-wrap end -->
