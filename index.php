@@ -96,10 +96,10 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
       </div><!-- // #navbar_hsd end -->
     </nav><!-- // .navbar-hsd end -->
 
-    <!-- 网页内容区域 #pageContent begin-->
+    <!-- 网页内容区域开始 #pageContent begin-->
     <div id="pageContent" class="container-fluid">
 
-    <!-- 首页轮播大图区域 #carousel_banner begin -->
+    <!-- 首页轮播大图区域开始 #carousel_banner begin -->
       <div id="carousel_banner" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
         <ol class="carousel-indicators">
@@ -139,158 +139,56 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
           <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
           <span class="sr-only">Next</span>
         </a>
-      </div> <!-- 首页轮播大图 #carousel_banner end -->
+      </div> <!-- 首页轮播大图结束 #carousel_banner end -->
 
-      <div class="wrapper container-fluid" id="service_item">
-        <ul class="inner row list-group">
-          <li class="list-group-item col-xs-6 col-md-4">
-            <span class="icon icon-serv icon-circle-compass"></span>
-            <span class="glyphicon glyphicon-minus"></span>
-            <span class="service-item-text">免费量房</span>
+      <!-- 服务项目区域开始 #cando begin -->
+      <div class="container-fluid wrapper" id="cando">
+        <section class="cando-title">我们能做什么</section>
+        <section class="cando-sep">
+          <span class="sep-line"></span>
+          <span class="glyphicon glyphicon-triangle-bottom"></span>
+          <span class="sep-line"></span>
+        </section>
+        <ul class="row list-group cando-list">
+          <li class="col-xs-12 col-sm-6 col-md-3 cando-list-item">
+            <a href="#" class="item-des">
+              <span class="item-title">室内空间设计</span>
+              <span class="item-thumb icon icon-serv icon-tools"></span>
+              <span class="item-extra">extra text</span>
+            </a>
           </li>
-          <li class="list-group-item col-xs-6 col-md-4">
-            <span class="icon icon-serv icon-presentation"></span>
-            <span class="glyphicon glyphicon-minus"></span>
-            <span class="service-item-text">免费方案</span>
+          <li class="col-xs-12 col-sm-6 col-md-3 cando-list-item">
+            <a href="#" class="item-des">
+              <span class="item-title">室内空间设计</span>
+              <span class="item-thumb icon icon-serv icon-tools"></span>
+              <span class="item-extra">extra text</span>
+            </a>
           </li>
-          <li class="list-group-item col-xs-6 col-md-4">
-            <span class="icon icon-serv icon-piechart"></span>
-            <span class="glyphicon glyphicon-minus"></span>
-            <span class="service-item-text">免费预算</span>
+          <li class="col-xs-12 col-sm-6 col-md-3 cando-list-item">
+            <a href="#" class="item-des">
+              <span class="item-title">室内空间设计</span>
+              <span class="item-thumb icon icon-serv icon-tools"></span>
+              <span class="item-extra">extra text</span>
+            </a>
           </li>
-          <li class="list-group-item col-xs-6 col-md-4">
-            <span class="icon icon-serv icon-tools"></span>
-            <span class="glyphicon glyphicon-minus"></span>
-            <span class="service-item-text">空间设计</span>
-          </li>
-          <li class="list-group-item col-xs-6 col-md-4">
-            <span class="icon icon-serv icon-lightbulb"></span>
-            <span class="glyphicon glyphicon-minus"></span>
-            <span class="service-item-text">品牌设计</span>
-          </li>
-          <li class="list-group-item col-xs-6 col-md-4">
-            <span class="icon icon-serv icon-global"></span>
-            <span class="glyphicon glyphicon-minus"></span>
-            <span class="service-item-text">网络运维</span>
-          </li>
+          <li class="col-xs-12 col-sm-6 col-md-3 cando-list-item">
+            <a href="#" class="item-des">
+              <span class="item-title">室内空间设计</span>
+              <span class="item-thumb icon icon-serv icon-tools"></span>
+              <span class="item-extra">extra text</span>
+            </a></li>
         </ul>
-      </div>
+      </div> <!-- 服务项目区域结束 #cando end -->
 
-      <div class="test">
-        <div class="shadow-test">
-        </div>
-      </div>
+    </div><!-- 网页内容区域结束 // #pageContent end -->
 
-      <ul>
-        <li>placeholder: 8800</li>
-        <li>placeholder: 8801</li>
-        <li>placeholder: 8802</li>
-        <li>placeholder: 8803</li>
-        <li>placeholder: 8804</li>
-        <li>placeholder: 8805</li>
-        <li>placeholder: 8806</li>
-        <li>placeholder: 8807</li>
-        <li>placeholder: 8808</li>
-        <li>placeholder: 8809</li>
-        <li>placeholder: 8810</li>
-        <li>placeholder: 8811</li>
-        <li>placeholder: 8812</li>
-        <li>placeholder: 8813</li>
-        <li>placeholder: 8814</li>
-        <li>placeholder: 8815</li>
-        <li>placeholder: 8816</li>
-        <li>placeholder: 8817</li>
-        <li>placeholder: 8818</li>
-        <li>placeholder: 8819</li>
-        <li>placeholder: 8820</li>
-        <li>placeholder: 8821</li>
-        <li>placeholder: 8822</li>
-        <li>placeholder: 8823</li>
-        <li>placeholder: 8824</li>
-        <li>placeholder: 8825</li>
-        <li>placeholder: 8826</li>
-        <li>placeholder: 8827</li>
-        <li>placeholder: 8828</li>
-        <li>placeholder: 8829</li>
-        <li>placeholder: 8830</li>
-        <li>placeholder: 8831</li>
-        <li>placeholder: 8832</li>
-        <li>placeholder: 8833</li>
-        <li>placeholder: 8834</li>
-        <li>placeholder: 8835</li>
-        <li>placeholder: 8836</li>
-        <li>placeholder: 8837</li>
-        <li>placeholder: 8838</li>
-        <li>placeholder: 8839</li>
-        <li>placeholder: 8840</li>
-        <li>placeholder: 8841</li>
-        <li>placeholder: 8842</li>
-        <li>placeholder: 8843</li>
-        <li>placeholder: 8844</li>
-        <li>placeholder: 8845</li>
-        <li>placeholder: 8846</li>
-        <li>placeholder: 8847</li>
-        <li>placeholder: 8848</li>
-        <li>placeholder: 8849</li>
-        <li>placeholder: 8850</li>
-        <li>placeholder: 8851</li>
-        <li>placeholder: 8852</li>
-        <li>placeholder: 8853</li>
-        <li>placeholder: 8854</li>
-        <li>placeholder: 8855</li>
-        <li>placeholder: 8856</li>
-        <li>placeholder: 8857</li>
-        <li>placeholder: 8858</li>
-        <li>placeholder: 8859</li>
-        <li>placeholder: 8860</li>
-        <li>placeholder: 8861</li>
-        <li>placeholder: 8862</li>
-        <li>placeholder: 8863</li>
-        <li>placeholder: 8864</li>
-        <li>placeholder: 8865</li>
-        <li>placeholder: 8866</li>
-        <li>placeholder: 8867</li>
-        <li>placeholder: 8868</li>
-        <li>placeholder: 8869</li>
-        <li>placeholder: 8870</li>
-        <li>placeholder: 8871</li>
-        <li>placeholder: 8872</li>
-        <li>placeholder: 8873</li>
-        <li>placeholder: 8874</li>
-        <li>placeholder: 8875</li>
-        <li>placeholder: 8876</li>
-        <li>placeholder: 8877</li>
-        <li>placeholder: 8878</li>
-        <li>placeholder: 8879</li>
-        <li>placeholder: 8880</li>
-        <li>placeholder: 8881</li>
-        <li>placeholder: 8882</li>
-        <li>placeholder: 8883</li>
-        <li>placeholder: 8884</li>
-        <li>placeholder: 8885</li>
-        <li>placeholder: 8886</li>
-        <li>placeholder: 8887</li>
-        <li>placeholder: 8888</li>
-        <li>placeholder: 8889</li>
-        <li>placeholder: 8890</li>
-        <li>placeholder: 8891</li>
-        <li>placeholder: 8892</li>
-        <li>placeholder: 8893</li>
-        <li>placeholder: 8894</li>
-        <li>placeholder: 8895</li>
-        <li>placeholder: 8896</li>
-        <li>placeholder: 8897</li>
-        <li>placeholder: 8898</li>
-        <li>placeholder: 8899</li>
-      </ul>
-    </div><!-- // #pageContent end -->
-
-    <!-- 网页脚注区域 #pageFooter begin-->
-    <div id="pageFooter">
-      <ul class="copyright">
-        <span>Copyright©2018 <a href="https://www.hs1design.com"><strong>湖南炉石空间设计</strong></a></span>
-      </ul>
-    </div><!-- // #pageFooter end -->
+    <!-- 网页脚注区域开始 #pageFooter begin-->
+    <ul class="container-fluid" id="pageFooter">
+      <li class="row copyright">
+        <span class="col-xs-12 col-sm-9">Copyright&nbsp;©&nbsp;2018&nbsp;&nbsp;<a href="https://www.hs1design.com"><strong>炉石空间设计</strong></a>&nbsp;&nbsp;All Rights Reserved</span>
+        <span class="col-xs-12 col-sm-3"><a href="http://www.miitbeian.gov.cn/" class="text-muted"><img src="/src/ba.png" alt="湖南炉石空间设计ICP备案号图标">湘ICP备88888888-1号</a></span>
+      </li>
+    </ul><!-- 网页脚注区域结束 // #pageFooter end -->
   </div>
 
   <!-- 右下角fixed侧边栏 -->

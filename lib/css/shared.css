@@ -4,8 +4,15 @@ html, body {
   padding: 0;
   position: relative;
 }
+a {
+  text-decoration: none;
+}
 img {
   vertical-align: top;
+}
+strong {
+  font-style: normal;
+  font-weight: normal;
 }
 .fixed {
   position: fixed;
@@ -290,13 +297,22 @@ img {
 }
 
 /* 页面脚注部分.pageFooter CSS */
-.pageFooter {
+#pageFooter {
   position: relative;
-}
-.copyright {
+  list-style: none;
   margin-bottom: 0;
+  padding: 0;
+  text-align: center;
+}
+#pageFooter .copyright {
   padding: 10px 0;
   background-color: #a6a8a8;
+  margin: 0;
+  font-size: 10px;
+}
+#pageFooter a {
+  text-decoration: none;
+  line-height: 20px;
 }
 
 /* animations */
