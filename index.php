@@ -151,34 +151,143 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
         </section>
         <ul class="row list-group cando-list">
           <li class="col-xs-12 col-sm-6 col-md-3 cando-list-item">
-            <a href="#" class="item-des">
+            <a href="#" class="item-des text-muted">
               <span class="item-title">室内空间设计</span>
               <span class="item-thumb icon icon-serv icon-tools"></span>
               <span class="item-extra">extra text</span>
             </a>
           </li>
           <li class="col-xs-12 col-sm-6 col-md-3 cando-list-item">
-            <a href="#" class="item-des">
+            <a href="#" class="item-des text-muted">
               <span class="item-title">室内空间设计</span>
               <span class="item-thumb icon icon-serv icon-tools"></span>
               <span class="item-extra">extra text</span>
             </a>
           </li>
           <li class="col-xs-12 col-sm-6 col-md-3 cando-list-item">
-            <a href="#" class="item-des">
+            <a href="#" class="item-des text-muted">
               <span class="item-title">室内空间设计</span>
               <span class="item-thumb icon icon-serv icon-tools"></span>
               <span class="item-extra">extra text</span>
             </a>
           </li>
           <li class="col-xs-12 col-sm-6 col-md-3 cando-list-item">
-            <a href="#" class="item-des">
+            <a href="#" class="item-des text-muted">
               <span class="item-title">室内空间设计</span>
               <span class="item-thumb icon icon-serv icon-tools"></span>
               <span class="item-extra">extra text</span>
             </a></li>
         </ul>
-      </div> <!-- 服务项目区域结束 #cando end -->
+      </div> <!-- 服务项目区域结束 #case end -->
+
+      <!-- 关于我们版块开始 #about begin -->
+      <div class="container-fluid wrapper" id="about">
+        <a href="#" class="about row">
+          <div class="about-img hidden-xs col-sm-9">
+            <img src="/src/content.jpg" alt="关于炉石空间的图片，空间设计为什么选择炉石空间设计的图片">
+          </div>
+          <div class="about-text col-sm-3">
+            <p class="about-title">为什么选择我们</p>
+            <ul class="about-list">
+              <li class="about-list-item">
+                <span class="glyphicon glyphicon-check"></span>
+                <span>专业室内空间设计师1对1</span>
+              </li>
+              <li class="about-list-item">
+                <span class="glyphicon glyphicon-check"></span>
+                <span>免费上门量房，免费平面方案</span>
+              </li>
+              <li class="about-list-item">
+                <span class="glyphicon glyphicon-check"></span>
+                <span>根据您预算设计，缩减施工成本</span>
+              </li>
+              <li class="about-list-item">
+                <span class="glyphicon glyphicon-check"></span>
+                <span>360全景效果图，空间表现更直观</span>
+              </li>
+            </ul>
+          </div>
+        </a>
+      </div>
+      <!-- 关于我们版块结束 #about end -->
+
+      <!-- 设计案例展示开始 #case begin -->
+      <div class="container-fluid wrapper" id="case">
+        <section class="case-title">设计案例</section>
+        <section class="case-sep">
+          <span class="sep-line"></span>
+          <span class="glyphicon glyphicon-triangle-bottom"></span>
+          <span class="sep-line"></span>
+        </section>
+        <ul class="row list-group case-list">
+          <li class="col-xs-12 col-sm-6 col-md-3 case-list-item">
+            <a href="#" class="item-des text-muted">
+              <span class="item-title">室内空间设计</span>
+              <span class="item-thumb icon icon-serv icon-tools"></span>
+              <span class="item-extra">extra text</span>
+            </a>
+          </li>
+          <li class="col-xs-12 col-sm-6 col-md-3 case-list-item">
+            <a href="#" class="item-des text-muted">
+              <span class="item-title">室内空间设计</span>
+              <span class="item-thumb icon icon-serv icon-tools"></span>
+              <span class="item-extra">extra text</span>
+            </a>
+          </li>
+          <li class="col-xs-12 col-sm-6 col-md-3 case-list-item">
+            <a href="#" class="item-des text-muted">
+              <span class="item-title">室内空间设计</span>
+              <span class="item-thumb icon icon-serv icon-tools"></span>
+              <span class="item-extra">extra text</span>
+            </a>
+          </li>
+          <li class="col-xs-12 col-sm-6 col-md-3 case-list-item">
+            <a href="#" class="item-des text-muted">
+              <span class="item-title">室内空间设计</span>
+              <span class="item-thumb icon icon-serv icon-tools"></span>
+              <span class="item-extra">extra text</span>
+            </a></li>
+        </ul>
+      </div> <!-- 设计案例展示结束 #news end -->
+
+      <!-- 动态资讯开始 #news begin -->
+      <div class="container-fluid wrapper" id="news">
+        <section class="news-title">动态资讯</section>
+        <section class="news-sep">
+          <span class="sep-line"></span>
+          <span class="glyphicon glyphicon-triangle-bottom"></span>
+          <span class="sep-line"></span>
+        </section>
+        <ul class="row list-group news-list">
+          <li class="col-xs-12 col-sm-6 col-md-3 news-list-item">
+            <a href="#" class="item-des text-muted">
+              <span class="item-title">室内空间设计</span>
+              <span class="item-thumb icon icon-serv icon-tools"></span>
+              <span class="item-extra">extra text</span>
+            </a>
+          </li>
+          <li class="col-xs-12 col-sm-6 col-md-3 news-list-item">
+            <a href="#" class="item-des text-muted">
+              <span class="item-title">室内空间设计</span>
+              <span class="item-thumb icon icon-serv icon-tools"></span>
+              <span class="item-extra">extra text</span>
+            </a>
+          </li>
+          <li class="col-xs-12 col-sm-6 col-md-3 news-list-item">
+            <a href="#" class="item-des text-muted">
+              <span class="item-title">室内空间设计</span>
+              <span class="item-thumb icon icon-serv icon-tools"></span>
+              <span class="item-extra">extra text</span>
+            </a>
+          </li>
+          <li class="col-xs-12 col-sm-6 col-md-3 news-list-item">
+            <a href="#" class="item-des text-muted">
+              <span class="item-title">室内空间设计</span>
+              <span class="item-thumb icon icon-serv icon-tools"></span>
+              <span class="item-extra">extra text</span>
+            </a></li>
+        </ul>
+      </div> <!-- 动态资讯结束 #news end -->
 
     </div><!-- 网页内容区域结束 // #pageContent end -->
 
