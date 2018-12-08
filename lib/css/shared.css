@@ -9,6 +9,8 @@ a {
 }
 img {
   vertical-align: top;
+  margin: 0;
+  padding: 0;
 }
 strong {
   font-style: normal;
@@ -229,8 +231,8 @@ strong {
   margin-bottom: 0;
 }
 #asidebar_tools li {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   border-radius: 0;
   padding: 0;
   background-color: transparent;
@@ -245,7 +247,7 @@ strong {
   width: 100%;
   height: 100%;
   font-size: 26px;
-  line-height: 58px;
+  line-height: 48px;
   text-align: center;
   color: #f6f8f8;
   background-color: #060808;

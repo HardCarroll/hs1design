@@ -1,53 +1,55 @@
 /* #cando CSS */
-#cando, #case, #news {
+#cando, #news {
   background-color: #f6f8f8;
   padding: 50px 0;
 }
-#cando .cando-title, #case .case-title, #news .news-title {
+#cando .cando-title, #news .news-title {
   padding-top: 10px;
-  font-size: 26px;
+  font-size: 24px;
+  padding-bottom: 5px;
   text-align: center;
   cursor: default;
 }
-#cando .cando-sep, #case .case-sep, #news .news-sep {
+#cando .cando-sep, #news .news-sep {
   display: flex;
   text-align: center;
   height: 14px;
   margin-top: -6px;
 }
-#cando .cando-sep>.glyphicon, #case .case-sep>.glyphicon, #news .news-sep>.glyphicon {
+#cando .cando-sep>.glyphicon, #news .news-sep>.glyphicon {
   padding: 0 16px;
   width: 50px;
   height: 14px;
   color: #a6a8a8;
 }
-#cando .cando-sep>.sep-line, #case .case-sep>.sep-line, #news .news-sep>.sep-line {
+#cando .cando-sep>.sep-line, #news .news-sep>.sep-line {
   flex: 1;
   border-top: 7px solid #f6f8f8;
   border-bottom: 6px solid #f6f8f8;
   background-color: #a6a8a8;
 }
-#cando .cando-list, #case .case-list, #news .news-list {
+#cando .cando-list {
   margin: 0 auto;
   padding: 50px 0 0;
   max-width: 1080px;
   list-style: none;
   text-align: center;
 }
-#cando .cando-list .cando-list-item, #case .case-list .case-list-item, #news .news-list .news-list-item {
-  padding: 10px;
+#cando .cando-list .cando-list-item {
+  padding: 15px;
   position: relative;
-  transition: all 0.3s;
+  transition: all .3s;
 }
-#cando .cando-list .cando-list-item .item-des, #case .case-list .case-list-item .item-des, #news .news-list .news-list-item .item-des {
+#cando .cando-list .cando-list-item .item-des {
   display: flex;
   flex-direction: column;
   box-shadow: 0 0 2px 0px rgba(0, 0, 0, 0.3);
   text-decoration: none;
+  transition: all .3s;
 }
 #cando .cando-list .cando-list-item .item-des .item-title {
   font-size: 20px;
-  padding: 10px 0;
+  padding: 15px 0;
 }
 #cando .cando-list .cando-list-item .item-des .item-thumb {
   font-size: 8rem;
@@ -55,46 +57,199 @@
   margin: 60px 0;
 }
 #cando .cando-list .cando-list-item:hover {
-  transform: translateY(-6px);
+  transform: translateY(-16px);
+}
+#cando .cando-list .cando-list-item:hover .item-des{
+  box-shadow: 16px 26px 60px -16px rgba(0, 0, 0, 0.6);
 }
 #cando .cando-list .cando-list-item:hover .item-des .item-thumb {
   transform: rotateZ(360deg);
 }
 #cando .cando-list .cando-list-item .item-des .item-extra {
-  padding: 10px 0;
+  padding: 15px 0;
 }
 
-/* about CSS */
-.about, .about-img, .about-text {
-  margin: 0;
-  padding: 0;
-  position: relative;
+/* #advantage CSS */
+#advantage {
+  padding: 50px 0;
 }
-.about {
-  width: 100%;
-  height: 100%;
+.advantage {
+  box-shadow: 0 0 6px 0 #36383866;
 }
-.about .about-img {
+.advantage, .advantage-img, .advantage-text {
   margin: 0;
   padding: 0;
 }
-.about .about-img img {
+.advantage .advantage-img {
+  margin: 0;
+  padding: 0;
+}
+.advantage .advantage-img img {
   width: 100%;
   display: block;
+  filter: grayscale(1);
+  transition: all .6s;
 }
-.about .about-text {
+.advantage:hover .advantage-img img {
+  filter: grayscale(0);
+}
+.advantage .advantage-text {
   margin: 0;
   padding: 20px;
+}
+.advantage .advantage-text .advantage-title {
+  font-size: 21px;
   position: relative;
 }
-.about .about-text .about-title {
-  font-size: 20px;
+.advantage .advantage-text .advantage-title span.glyphicon {
+  position: absolute;
+  font-size: 30px;
+  right: 0;
+  transform: translate(12px, -28px);
 }
-.about .about-text .about-list {
+.advantage .advantage-text .advantage-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.about .about-text .about-list .about-list-item {
+.advantage .advantage-text .advantage-list .advantage-list-item {
   padding: 5px 0;
+  font-size: 16px
+}
+
+/* #case CSS */
+#case {
+  padding: 50px 0;
+  background-color: #363838;
+}
+#case .case-title {
+  font-size: 30px;
+  height: 50px;
+  line-height: 50px;
+  display: flex;
+  padding: 0 15px;
+}
+#case .case-title span {
+  padding-right: 50px;
+  color: #f6f8f8;
+}
+#case .case-title hr {
+  flex: 1;
+  border-color: #c6c8c8;
+  margin-top: 24px;
+}
+#case .case-title a {
+  padding-left: 50px;
+  text-decoration: none;
+  font-size: 16px;
+  /* color: #f6f8f8; */
+}
+#case .case-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#case .case-list .case-list-item {
+  padding: 5px;
+  position: relative;
+}
+#case .case-list .case-list-item::after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  background-color: #36383866;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: height 0.6s;
+}
+#case .case-list .case-list-item:hover::after {
+  height: 0;
+}
+#case .case-list .case-list-item .case-img {
+  width: 100%;
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+}
+#case .case-list .case-list-item .case-img img{
+  width: 100%;
+  height: 100%;
+  background-image: url(/src/d_01.jpg);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: grayscale(1);
+  transition: all .6s;
+}
+#case .case-list .case-list-item:nth-child(2) .case-img img {
+  background-image: url(/src/d_02.jpg);
+}
+#case .case-list .case-list-item:nth-child(3) .case-img img {
+  background-image: url(/src/d_03.jpg);
+}
+#case .case-list .case-list-item:nth-child(4) .case-img img {
+  background-image: url(/src/d_03.jpg);
+}
+#case .case-list .case-list-item:nth-child(5) .case-img img {
+  background-image: url(/src/d_02.jpg);
+}
+#case .case-list .case-list-item:nth-child(6) .case-img img {
+  background-image: url(/src/d_01.jpg);
+}
+#case .case-list .case-list-item:hover .case-img img {
+  transform: scale(1.16, 1.16);
+  filter: grayscale(0);
+}
+#case .case-list .case-list-item .case-des {
+  border-radius: 0 0 4px 4px;
+  padding-left: 15px;
+  padding-bottom: 10px;
+  background-color: #f6f8f8;
+  position: relative;
+}
+#case .case-list .case-list-item .case-des .des-title {
+  height: 40px;
+  line-height: 40px;
+  font-size: 18px;
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+  cursor: default;
+}
+#case .case-list .case-list-item .case-des .des-text {
+  height: 20px;
+  line-height: 20px;
+  font-size: 14px;
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+  cursor: default;
+}
+#case .case-list .case-list-item .case-des a {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 38px;
+  border-radius: 50%;
+  border: 1px solid #000;
+  text-decoration: none;
+  color: #060808;
+  transition: all .6s 0.1s;
+}
+#case .case-list .case-list-item:hover .case-des a {
+  transform: rotateZ(360deg);
+  color: royalblue;
+  border-color: royalblue;
+}
+
+/* #news CSS */
+#news .news-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: right;
 }

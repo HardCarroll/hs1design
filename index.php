@@ -146,7 +146,7 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
         <section class="cando-title">我们能做什么</section>
         <section class="cando-sep">
           <span class="sep-line"></span>
-          <span class="glyphicon glyphicon-triangle-bottom"></span>
+          <span class="glyphicon glyphicon-blackboard"></span>
           <span class="sep-line"></span>
         </section>
         <ul class="row list-group cando-list">
@@ -180,113 +180,171 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
         </ul>
       </div> <!-- 服务项目区域结束 #case end -->
 
-      <!-- 关于我们版块开始 #about begin -->
-      <div class="container-fluid wrapper" id="about">
-        <a href="#" class="about row">
-          <div class="about-img hidden-xs col-sm-9">
+      <!-- 设计案例展示开始 #case begin -->
+      <div class="wrapper" id="case">
+        <div class="container-fluid inner">
+          <section class="case-title">
+            <span>设计案例</span>
+            <hr>
+            <a href="#">MORE+</a>
+          </section>
+          <ul class="row case-list">
+            <li class="col-xs-12 col-sm-6 col-md-4 case-list-item">
+              <div class="case-img">
+                <img alt="">
+              </div>
+              <div class="case-des">
+                <h2 class="des-title">案例标题</h2>
+                <h3 class="des-text">案例文字描述</h3>
+                <a href="#" class="glyphicon glyphicon-menu-right"></a>
+              </div>
+            </li>
+            <li class="col-xs-12 col-sm-6 col-md-4 case-list-item">
+              <div class="case-img">
+                <img alt="">
+              </div>
+              <div class="case-des">
+                <h2 class="des-title">案例标题</h2>
+                <h3 class="des-text">案例文字描述</h3>
+                <a href="#" class="glyphicon glyphicon-menu-right"></a>
+              </div>
+            </li>
+            <li class="col-xs-12 col-sm-6 col-md-4 case-list-item">
+              <div class="case-img">
+                <img alt="">
+              </div>
+              <div class="case-des">
+                <h2 class="des-title">案例标题</h2>
+                <h3 class="des-text">案例文字描述</h3>
+                <a href="#" class="glyphicon glyphicon-menu-right"></a>
+              </div>
+            </li>
+            <li class="col-xs-12 col-sm-6 col-md-4 case-list-item">
+              <div class="case-img">
+                <img alt="">
+              </div>
+              <div class="case-des">
+                <h2 class="des-title">案例标题</h2>
+                <h3 class="des-text">案例文字描述</h3>
+                <a href="#" class="glyphicon glyphicon-menu-right"></a>
+              </div>
+            </li>
+            <li class="col-xs-12 col-sm-6 col-md-4 case-list-item">
+              <div class="case-img">
+                <img alt="">
+              </div>
+              <div class="case-des">
+                <h2 class="des-title">案例标题</h2>
+                <h3 class="des-text">案例文字描述</h3>
+                <a href="#" class="glyphicon glyphicon-menu-right"></a>
+              </div>
+            </li>
+            <li class="col-xs-12 col-sm-6 col-md-4 case-list-item">
+              <div class="case-img">
+                <img alt="">
+              </div>
+              <div class="case-des">
+                <h2 class="des-title">案例标题</h2>
+                <h3 class="des-text">案例文字描述</h3>
+                <a href="#" class="glyphicon glyphicon-menu-right"></a>
+              </div>
+            </li><li class="col-xs-12 col-sm-6 col-md-4 case-list-item">
+              <div class="case-img">
+                <img alt="">
+              </div>
+              <div class="case-des">
+                <h2 class="des-title">案例标题</h2>
+                <h3 class="des-text">案例文字描述</h3>
+                <a href="#" class="glyphicon glyphicon-menu-right"></a>
+              </div>
+            </li>
+            <li class="col-xs-12 col-sm-6 col-md-4 case-list-item">
+              <div class="case-img">
+                <img alt="">
+              </div>
+              <div class="case-des">
+                <h2 class="des-title">案例标题</h2>
+                <h3 class="des-text">案例文字描述</h3>
+                <a href="#" class="glyphicon glyphicon-menu-right"></a>
+              </div>
+            </li>
+            <li class="col-xs-12 col-sm-6 col-md-4 case-list-item">
+              <div class="case-img">
+                <img alt="">
+              </div>
+              <div class="case-des">
+                <h2 class="des-title">案例标题</h2>
+                <h3 class="des-text">案例文字描述</h3>
+                <a href="#" class="glyphicon glyphicon-menu-right"></a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div> <!-- 设计案例展示结束 #news end -->
+
+      <!-- 我们的优势版块开始 #advantage begin -->
+      <div class="container-fluid wrapper clearfix" id="advantage">
+        <div class="advantage row">
+          <div class="advantage-img hidden-xs col-sm-9">
             <img src="/src/content.jpg" alt="关于炉石空间的图片，空间设计为什么选择炉石空间设计的图片">
           </div>
-          <div class="about-text col-sm-3">
-            <p class="about-title">为什么选择我们</p>
-            <ul class="about-list">
-              <li class="about-list-item">
-                <span class="glyphicon glyphicon-check"></span>
-                <span>专业室内空间设计师1对1</span>
-              </li>
-              <li class="about-list-item">
-                <span class="glyphicon glyphicon-check"></span>
-                <span>免费上门量房，免费平面方案</span>
-              </li>
-              <li class="about-list-item">
-                <span class="glyphicon glyphicon-check"></span>
-                <span>根据您预算设计，缩减施工成本</span>
-              </li>
-              <li class="about-list-item">
-                <span class="glyphicon glyphicon-check"></span>
-                <span>360全景效果图，空间表现更直观</span>
-              </li>
-            </ul>
+          <div class="advantage-text col-xs-12 col-sm-3 pull-right">
+            <div class="advantage-inner">
+              <p class="advantage-title">
+                <span class="glyphicon glyphicon-bookmark"></span>
+                <span>为什么选择我们</span>
+              </p>
+              <ul class="advantage-list">
+                <li class="advantage-list-item">
+                  <span class="glyphicon glyphicon-check"></span>
+                  <span>专业室内空间设计师1对1</span>
+                </li>
+                <li class="advantage-list-item">
+                  <span class="glyphicon glyphicon-check"></span>
+                  <span>免费上门量房，免费平面方案</span>
+                </li>
+                <li class="advantage-list-item">
+                  <span class="glyphicon glyphicon-check"></span>
+                  <span>根据您预算设计，缩减施工成本</span>
+                </li>
+                <li class="advantage-list-item">
+                  <span class="glyphicon glyphicon-check"></span>
+                  <span>360全景效果图，空间表现更直观</span>
+                </li>
+              </ul>
+            </div>
           </div>
-        </a>
+        </div>
       </div>
-      <!-- 关于我们版块结束 #about end -->
-
-      <!-- 设计案例展示开始 #case begin -->
-      <div class="container-fluid wrapper" id="case">
-        <section class="case-title">设计案例</section>
-        <section class="case-sep">
-          <span class="sep-line"></span>
-          <span class="glyphicon glyphicon-triangle-bottom"></span>
-          <span class="sep-line"></span>
-        </section>
-        <ul class="row list-group case-list">
-          <li class="col-xs-12 col-sm-6 col-md-3 case-list-item">
-            <a href="#" class="item-des text-muted">
-              <span class="item-title">室内空间设计</span>
-              <span class="item-thumb icon icon-serv icon-tools"></span>
-              <span class="item-extra">extra text</span>
-            </a>
-          </li>
-          <li class="col-xs-12 col-sm-6 col-md-3 case-list-item">
-            <a href="#" class="item-des text-muted">
-              <span class="item-title">室内空间设计</span>
-              <span class="item-thumb icon icon-serv icon-tools"></span>
-              <span class="item-extra">extra text</span>
-            </a>
-          </li>
-          <li class="col-xs-12 col-sm-6 col-md-3 case-list-item">
-            <a href="#" class="item-des text-muted">
-              <span class="item-title">室内空间设计</span>
-              <span class="item-thumb icon icon-serv icon-tools"></span>
-              <span class="item-extra">extra text</span>
-            </a>
-          </li>
-          <li class="col-xs-12 col-sm-6 col-md-3 case-list-item">
-            <a href="#" class="item-des text-muted">
-              <span class="item-title">室内空间设计</span>
-              <span class="item-thumb icon icon-serv icon-tools"></span>
-              <span class="item-extra">extra text</span>
-            </a></li>
-        </ul>
-      </div> <!-- 设计案例展示结束 #news end -->
+      <!-- 我们的优势版块结束 #advantage end -->
 
       <!-- 动态资讯开始 #news begin -->
       <div class="container-fluid wrapper" id="news">
         <section class="news-title">动态资讯</section>
         <section class="news-sep">
           <span class="sep-line"></span>
-          <span class="glyphicon glyphicon-triangle-bottom"></span>
+          <span class="glyphicon glyphicon-bullhorn"></span>
           <span class="sep-line"></span>
         </section>
-        <ul class="row list-group news-list">
-          <li class="col-xs-12 col-sm-6 col-md-3 news-list-item">
-            <a href="#" class="item-des text-muted">
-              <span class="item-title">室内空间设计</span>
-              <span class="item-thumb icon icon-serv icon-tools"></span>
-              <span class="item-extra">extra text</span>
-            </a>
-          </li>
-          <li class="col-xs-12 col-sm-6 col-md-3 news-list-item">
-            <a href="#" class="item-des text-muted">
-              <span class="item-title">室内空间设计</span>
-              <span class="item-thumb icon icon-serv icon-tools"></span>
-              <span class="item-extra">extra text</span>
-            </a>
-          </li>
-          <li class="col-xs-12 col-sm-6 col-md-3 news-list-item">
-            <a href="#" class="item-des text-muted">
-              <span class="item-title">室内空间设计</span>
-              <span class="item-thumb icon icon-serv icon-tools"></span>
-              <span class="item-extra">extra text</span>
-            </a>
-          </li>
-          <li class="col-xs-12 col-sm-6 col-md-3 news-list-item">
-            <a href="#" class="item-des text-muted">
-              <span class="item-title">室内空间设计</span>
-              <span class="item-thumb icon icon-serv icon-tools"></span>
-              <span class="item-extra">extra text</span>
-            </a></li>
-        </ul>
+        <section class="row inner">
+          <ul class="col-xs-12 col-md-6 news-list news-cpy">
+            <li class="news-list-item">cpy1</li>
+            <li class="news-list-item">cpy2</li>
+            <li class="news-list-item">cpy3</li>
+            <li class="news-list-item">cpy4</li>
+            <li class="news-list-item">cpy5</li>
+            <li class="news-list-item">cpy6</li>
+          </ul>
+          <ul class="col-xs-12 col-md-6 news-list news-all">
+            <li class="news-list-item">all1</li>
+            <li class="news-list-item">all2</li>
+            <li class="news-list-item">all3</li>
+            <li class="news-list-item">all4</li>
+            <li class="news-list-item">all5</li>
+            <li class="news-list-item">all6</li>
+          </ul>
+        </section>
+        
       </div> <!-- 动态资讯结束 #news end -->
 
     </div><!-- 网页内容区域结束 // #pageContent end -->
