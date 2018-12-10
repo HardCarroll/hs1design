@@ -30,6 +30,11 @@ strong {
 .of-hidden {
   overflow: hidden;
 }
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 /* LOGO相关CSS */
 .logo {
@@ -92,6 +97,7 @@ strong {
   background-color: #f6f8f8;
   margin-bottom: 0;
   width: 100%;
+  cursor: default;
 }
 #navbar_hsd {
   line-height: 50px;
@@ -226,6 +232,7 @@ strong {
   overflow: hidden;
   opacity: 0.68;
   box-shadow: 0 1px 1px 1px rgba(66, 66, 66, 0.3);
+  z-index: 1000;
 }
 #asidebar {
   margin-bottom: 0;

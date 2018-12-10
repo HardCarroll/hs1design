@@ -86,7 +86,7 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
             <li class="dropdown" id="nav_about">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">关于 <span class="caret visible-xs-inline-block"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">动态资讯</a></li>
+                <li><a href="#">综合资讯</a></li>
                 <li><a href="#">关于我们</a></li>
                 <li><a href="#">加入我们</a></li>
               </ul>
@@ -189,95 +189,97 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
             <a href="#">MORE+</a>
           </section>
           <ul class="row case-list">
-            <li class="col-xs-12 col-sm-6 col-md-4 case-list-item">
+            <li class="col-xs-12 col-sm-6 col-md-4 case-list-item" data-title='案例标题'>
               <div class="case-img">
-                <img alt="">
+                <img src="/src/d_01.jpg" alt="">
               </div>
               <div class="case-des">
                 <h2 class="des-title">案例标题</h2>
-                <h3 class="des-text">案例文字描述</h3>
-                <a href="#" class="glyphicon glyphicon-menu-right"></a>
+                <h3 class="des-text text-ellipsis">案例文字描述，湖南炉石空间设计</h3>
               </div>
+              <a href="#" class="glyphicon glyphicon-menu-right"></a>
             </li>
-            <li class="col-xs-12 col-sm-6 col-md-4 case-list-item">
+            <li class="col-xs-12 col-sm-6 col-md-4 case-list-item" data-title='案例标题'>
               <div class="case-img">
-                <img alt="">
+                <img src="/src/d_02.jpg" alt="">
               </div>
               <div class="case-des">
                 <h2 class="des-title">案例标题</h2>
-                <h3 class="des-text">案例文字描述</h3>
-                <a href="#" class="glyphicon glyphicon-menu-right"></a>
+                <h3 class="des-text text-ellipsis">案例文字描述，专注于餐饮、酒店、KTV设计</h3>
               </div>
+              <a href="#" class="glyphicon glyphicon-menu-right"></a>
             </li>
-            <li class="col-xs-12 col-sm-6 col-md-4 case-list-item">
+            <li class="col-xs-12 col-sm-6 col-md-4 case-list-item" data-title='案例标题'>
               <div class="case-img">
-                <img alt="">
+                <img src="/src/d_03.jpg" alt="">
               </div>
               <div class="case-des">
                 <h2 class="des-title">案例标题</h2>
-                <h3 class="des-text">案例文字描述</h3>
-                <a href="#" class="glyphicon glyphicon-menu-right"></a>
+                <h3 class="des-text text-ellipsis">案例文字描述，承接效果图，施工图制作</h3>
               </div>
+              <a href="#" class="glyphicon glyphicon-menu-right"></a>
             </li>
-            <li class="col-xs-12 col-sm-6 col-md-4 case-list-item">
+            <li class="col-xs-12 col-sm-6 col-md-4 case-list-item" data-title='案例标题'>
               <div class="case-img">
-                <img alt="">
+                <img src="/src/d_03.jpg" alt="">
               </div>
               <div class="case-des">
                 <h2 class="des-title">案例标题</h2>
-                <h3 class="des-text">案例文字描述</h3>
-                <a href="#" class="glyphicon glyphicon-menu-right"></a>
+                <h3 class="des-text text-ellipsis">案例文字描述，湖南炉石空间设计</h3>
               </div>
+              <a href="#" class="glyphicon glyphicon-menu-right"></a>
             </li>
-            <li class="col-xs-12 col-sm-6 col-md-4 case-list-item">
+            <li class="col-xs-12 col-sm-6 col-md-4 case-list-item" data-title='案例标题'>
               <div class="case-img">
-                <img alt="">
+                <img src="/src/d_02.jpg" alt="">
               </div>
               <div class="case-des">
                 <h2 class="des-title">案例标题</h2>
-                <h3 class="des-text">案例文字描述</h3>
-                <a href="#" class="glyphicon glyphicon-menu-right"></a>
+                <h3 class="des-text text-ellipsis">案例文字描述，专注于餐饮、酒店、KTV设计</h3>
               </div>
+              <a href="#" class="glyphicon glyphicon-menu-right"></a>
             </li>
-            <li class="col-xs-12 col-sm-6 col-md-4 case-list-item">
+            <li class="col-xs-12 col-sm-6 col-md-4 case-list-item" data-title='案例标题'>
               <div class="case-img">
-                <img alt="">
+                <img src="/src/d_01.jpg" alt="">
               </div>
               <div class="case-des">
                 <h2 class="des-title">案例标题</h2>
-                <h3 class="des-text">案例文字描述</h3>
-                <a href="#" class="glyphicon glyphicon-menu-right"></a>
+                <h3 class="des-text text-ellipsis">案例文字描述，承接效果图，施工图制作</h3>
               </div>
-            </li><li class="col-xs-12 col-sm-6 col-md-4 case-list-item">
-              <div class="case-img">
-                <img alt="">
-              </div>
-              <div class="case-des">
-                <h2 class="des-title">案例标题</h2>
-                <h3 class="des-text">案例文字描述</h3>
-                <a href="#" class="glyphicon glyphicon-menu-right"></a>
-              </div>
+              <a href="#" class="glyphicon glyphicon-menu-right"></a>
             </li>
-            <li class="col-xs-12 col-sm-6 col-md-4 case-list-item">
+            <li class="col-xs-12 col-sm-6 col-md-4 case-list-item" data-title='案例标题'>
               <div class="case-img">
-                <img alt="">
+                <img src="/src/d_01.jpg" alt="">
               </div>
               <div class="case-des">
                 <h2 class="des-title">案例标题</h2>
-                <h3 class="des-text">案例文字描述</h3>
-                <a href="#" class="glyphicon glyphicon-menu-right"></a>
+                <h3 class="des-text text-ellipsis">案例文字描述，湖南炉石空间设计</h3>
               </div>
+              <a href="#" class="glyphicon glyphicon-menu-right"></a>
             </li>
-            <li class="col-xs-12 col-sm-6 col-md-4 case-list-item">
+            <li class="col-xs-12 col-sm-6 col-md-4 case-list-item" data-title='案例标题'>
               <div class="case-img">
-                <img alt="">
+                <img src="/src/d_02.jpg" alt="">
               </div>
               <div class="case-des">
                 <h2 class="des-title">案例标题</h2>
-                <h3 class="des-text">案例文字描述</h3>
-                <a href="#" class="glyphicon glyphicon-menu-right"></a>
+                <h3 class="des-text text-ellipsis">案例文字描述，专注于餐饮、酒店、KTV设计</h3>
               </div>
+              <a href="#" class="glyphicon glyphicon-menu-right"></a>
             </li>
+            <li class="col-xs-12 col-sm-6 col-md-4 case-list-item" data-title='案例标题'>
+              <div class="case-img">
+                <img src="/src/d_03.jpg" alt="">
+              </div>
+              <div class="case-des">
+                <h2 class="des-title">案例标题</h2>
+                <h3 class="des-text text-ellipsis">案例文字描述，承接效果图，施工图制作</h3>
+              </div>
+              <a href="#" class="glyphicon glyphicon-menu-right"></a>
+            </li>
+            
           </ul>
         </div>
       </div> <!-- 设计案例展示结束 #news end -->
@@ -318,34 +320,57 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
       </div>
       <!-- 我们的优势版块结束 #advantage end -->
 
-      <!-- 动态资讯开始 #news begin -->
+      <!-- 综合资讯开始 #news begin -->
       <div class="container-fluid wrapper" id="news">
-        <section class="news-title">动态资讯</section>
+        <section class="news-title">综合资讯</section>
         <section class="news-sep">
           <span class="sep-line"></span>
           <span class="glyphicon glyphicon-bullhorn"></span>
           <span class="sep-line"></span>
         </section>
         <section class="row inner">
-          <ul class="col-xs-12 col-md-6 news-list news-cpy">
-            <li class="news-list-item">cpy1</li>
-            <li class="news-list-item">cpy2</li>
-            <li class="news-list-item">cpy3</li>
-            <li class="news-list-item">cpy4</li>
-            <li class="news-list-item">cpy5</li>
-            <li class="news-list-item">cpy6</li>
-          </ul>
-          <ul class="col-xs-12 col-md-6 news-list news-all">
-            <li class="news-list-item">all1</li>
-            <li class="news-list-item">all2</li>
-            <li class="news-list-item">all3</li>
-            <li class="news-list-item">all4</li>
-            <li class="news-list-item">all5</li>
-            <li class="news-list-item">all6</li>
-          </ul>
+          <div class="col-xs-12 col-md-6 news-class">
+            <div class="news-company">
+              <h2>公司动向</h2>
+              <ul class="news-list">
+                <li class="news-list-item text-ellipsis"><a href="#">公司动向，标题01, 公司动向公司动向公司动向</a></li>
+                <li class="news-list-item text-ellipsis"><a href="#">公司动向，标题02, 公司动向公司动向公司动向</a></li>
+                <li class="news-list-item text-ellipsis"><a href="#">公司动向，标题03, 公司动向公司动向公司动向</a></li>
+              </ul>
+              <span class="glyphicon glyphicon-list-alt"></span>
+            </div>
+            <div class="news-industry">
+              <h2>行业资讯</h2>
+              <ul class="news-list">
+                <li class="news-list-item text-ellipsis"><a href="#">行业资讯，标题01, 行业资讯行业资讯行业资讯</a></li>
+                <li class="news-list-item text-ellipsis"><a href="#">行业资讯，标题02, 行业资讯行业资讯行业资讯</a></li>
+                <li class="news-list-item text-ellipsis"><a href="#">行业资讯，标题03, 行业资讯行业资讯行业资讯</a></li>
+              </ul>
+              <span class="glyphicon glyphicon-globe"></span>
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-6 hidden-xs" id="map">
+            <div class="map-back">
+							<span class="map-tag">2</span>
+							<span class="map-tag">16</span>
+							<span class="map-tag">23</span>
+							<span class="map-tag">12</span>
+							<span class="map-tag">8</span>
+							<span class="map-tag">5</span>
+							<span class="map-tag">9</span>
+						</div>
+          </div>
         </section>
-        
-      </div> <!-- 动态资讯结束 #news end -->
+      </div> <!-- 综合资讯结束 #news end -->
+
+      <div class="container-fluid wrapper" id="contact">
+        <section class="contact-title">联系我们</section>
+        <section class="contact-sep">
+          <span class="sep-line"></span>
+          <span class="glyphicon glyphicon-comment"></span>
+          <span class="sep-line"></span>
+        </section>
+      </div>
 
     </div><!-- 网页内容区域结束 // #pageContent end -->
 
