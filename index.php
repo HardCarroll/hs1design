@@ -329,35 +329,36 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
           <span class="sep-line"></span>
         </section>
         <section class="row inner">
-          <div class="col-xs-12 col-md-6 news-class">
+          <div class="col-xs-12 col-sm-6 col-md-6 news-class">
             <div class="news-company">
               <h2>公司动向</h2>
               <ul class="news-list">
-                <li class="news-list-item text-ellipsis"><a href="#">公司动向，标题01, 公司动向公司动向公司动向</a></li>
-                <li class="news-list-item text-ellipsis"><a href="#">公司动向，标题02, 公司动向公司动向公司动向</a></li>
-                <li class="news-list-item text-ellipsis"><a href="#">公司动向，标题03, 公司动向公司动向公司动向</a></li>
+                <li class="news-list-item text-ellipsis"><a href="#" data-issue="12/11">公司动向，标题01, 公司动向公司动向公司动向</a></li>
+                <li class="news-list-item text-ellipsis"><a href="#" data-issue="12/11">公司动向，标题02, 公司动向公司动向公司动向</a></li>
+                <li class="news-list-item text-ellipsis"><a href="#" data-issue="12/11">公司动向，标题03, 公司动向公司动向公司动向</a></li>
               </ul>
               <span class="glyphicon glyphicon-list-alt"></span>
             </div>
             <div class="news-industry">
               <h2>行业资讯</h2>
               <ul class="news-list">
-                <li class="news-list-item text-ellipsis"><a href="#">行业资讯，标题01, 行业资讯行业资讯行业资讯</a></li>
-                <li class="news-list-item text-ellipsis"><a href="#">行业资讯，标题02, 行业资讯行业资讯行业资讯</a></li>
-                <li class="news-list-item text-ellipsis"><a href="#">行业资讯，标题03, 行业资讯行业资讯行业资讯</a></li>
+                <li class="news-list-item text-ellipsis"><a href="#"  data-issue="12/11">行业资讯，标题01, 行业资讯行业资讯行业资讯</a></li>
+                <li class="news-list-item text-ellipsis"><a href="#"  data-issue="12/11">行业资讯，标题02, 行业资讯行业资讯行业资讯</a></li>
+                <li class="news-list-item text-ellipsis"><a href="#"  data-issue="12/11">行业资讯，标题03, 行业资讯行业资讯行业资讯</a></li>
               </ul>
               <span class="glyphicon glyphicon-globe"></span>
             </div>
           </div>
-          <div class="col-xs-12 col-md-6 hidden-xs" id="map">
+          <div class="col-xs-12 col-sm-6 col-md-6 hidden-xs" id="map">
+            <h2>全国案例分布点</h2>
             <div class="map-back">
-							<span class="map-tag">2</span>
-							<span class="map-tag">16</span>
-							<span class="map-tag">23</span>
-							<span class="map-tag">12</span>
-							<span class="map-tag">8</span>
-							<span class="map-tag">5</span>
-							<span class="map-tag">9</span>
+							<span class="map-province">2</span>
+							<span class="map-province">16</span>
+							<span class="map-province">23</span>
+							<span class="map-province">12</span>
+							<span class="map-province">8</span>
+							<span class="map-province">5</span>
+              <span class="map-province">9</span>
 						</div>
           </div>
         </section>
@@ -375,7 +376,23 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
     </div><!-- 网页内容区域结束 // #pageContent end -->
 
     <!-- 网页脚注区域开始 #pageFooter begin-->
-    <ul class="container-fluid" id="pageFooter">
+    <ul class="container-fluid wrapper" id="pageFooter">
+      <li class="hidden-xs row inner footer">
+        <div class="col-md-4 list-group footer-nav">
+          <h2>网站地图</h2>
+          <a href="#" class="list-group-item"><span class="glyphicon glyphicon-minus"></span>首页</a>
+          <a href="#" class="list-group-item"><span class="glyphicon glyphicon-minus"></span>服务</a>
+          <a href="#" class="list-group-item"><span class="glyphicon glyphicon-minus"></span>案例</a>
+          <a href="#" class="list-group-item"><span class="glyphicon glyphicon-minus"></span>关于</a>
+        </div>
+        <div class="col-md-4 list-group footer-address">
+        </div>
+        <div class="col-md-4 list-group footer-links">
+          <a href="#" class="list-group-item">互加友链</a>
+          <a href="#" class="list-group-item">请加QQ</a>
+          <a href="#" class="list-group-item">476000121</a>
+        </div>
+      </li>
       <li class="row copyright">
         <span class="col-xs-12 col-sm-9">Copyright&nbsp;©&nbsp;2018&nbsp;&nbsp;<a href="https://www.hs1design.com"><strong>炉石空间设计</strong></a>&nbsp;&nbsp;All Rights Reserved</span>
         <span class="col-xs-12 col-sm-3"><a href="http://www.miitbeian.gov.cn/" class="text-muted"><img src="/src/ba.png" alt="湖南炉石空间设计ICP备案号图标">湘ICP备88888888-1号</a></span>

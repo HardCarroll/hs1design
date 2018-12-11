@@ -277,16 +277,15 @@
 }
 #news .news-class .news-list .news-list-item {
   padding: 5px 0;
-  padding-right: 20px;
+  padding-right: 36px;
   border-bottom: 1px dashed #666;
-  text-align: right;
   position: relative;
 }
 #news .news-class .news-list .news-list-item a {
   text-decoration: none;
 }
 #news .news-class .news-list .news-list-item a::after {
-  content: '>>';
+  content: attr(data-issue);
   position: absolute;
   right: 0;
   top: 5px;
@@ -319,7 +318,18 @@
   background: url(/src/map_cn.png) top center no-repeat;
   position: relative;
 }
-#map .map-back .map-tag {
+#map h2 {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #333;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-45%);
+}
+.map-province {
   position: absolute;
   padding: 0 5px;
   height: 60px;
@@ -329,42 +339,89 @@
   opacity: 0;
   cursor: default;
 }
-#map .map-back span.map-tag:nth-child(1) {
+/* .map-province.province-xjx{
+  top: 12px;
+  left: 90px;
+}
+.province-xzz{
+  top: 130px;
+  left: 86px;
+}
+.province-yny{
+  top: 175px;
+  left: 155px;
+}
+.province-qhq{
+  top: 0;
+  left: 0;
+}
+.province-scc{}
+.province-gsg{}
+.province-nxn{}
+.province-nmgm{}
+.province-hljh{}
+.province-jlj{}
+.province-lll{}
+.province-hbj{}
+.province-hny{}
+.province-sxj{}
+.province-sdl{}
+.province-sxs{}
+.province-bjj{}
+.province-tjj{}
+.province-jss{}
+.province-shh{}
+.province-ahw{}
+.province-jxg{}
+.province-hbe{}
+.province-hnx{}
+.province-cqy{}
+.province-gzg{}
+.province-gxg{}
+.province-gdy{}
+.province-twt{}
+.province-xgg{}
+.province-ama{}
+.province-hnq{}
+.province-fjf{}
+.province-zjz{} */
+
+#map .map-back span.map-province:nth-child(1) {
 	top: 60px;
 	left: 66px;
 	transform: rotateZ(-45deg) translate(180px, -160px);
 }
-#map .map-back span.map-tag:nth-child(2) {
+#map .map-back span.map-province:nth-child(2) {
 	top: 90px;
 	left: 90px;
 	transform: rotateZ(90deg) translate(156px, -190px);
 }
-#map .map-back span.map-tag:nth-child(3) {
+#map .map-back span.map-province:nth-child(3) {
 	top: 140px;
 	left: 200px;
 	transform: rotateZ(-135deg) translate(46px, -240px);
 }
-#map .map-back span.map-tag:nth-child(4) {
+#map .map-back span.map-province:nth-child(4) {
 	top: 138px;
 	left: 276px;
 	transform: rotateZ(180deg) translate(-30px, -238px);
 }
-#map .map-back span.map-tag:nth-child(5) {
+#map .map-back span.map-province:nth-child(5) {
 	top: 0px;
 	left: 296px;
 	transform: rotateZ(-225deg) translate(-50px, -100px);
 }
-#map .map-back span.map-tag:nth-child(6) {
+#map .map-back span.map-province:nth-child(6) {
 	top: 100px;
 	left: 160px;
 	transform: rotateZ(270deg) translate(86px, -200px);
 }
-#map .map-back span.map-tag:nth-child(7) {
+#map .map-back span.map-province:nth-child(7) {
 	top: 50px;
 	left: 240px;
 	transform: rotateZ(-315deg) translate(6px, -150px);
 }
-#map .map-back:hover span.map-tag {
+#map .map-back:hover span.map-province {
 	transition: all 0.6s;
 	transform: rotateZ(0) translate(0, 0);
 	opacity: 0.75;
