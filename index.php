@@ -143,7 +143,9 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
 
       <!-- 服务项目区域开始 #cando begin -->
       <div class="container-fluid wrapper" id="cando">
-        <section class="cando-title">我们能做什么</section>
+        <section class="cando-title">
+          <span>我们能做什么</span>
+        </section>
         <section class="cando-sep">
           <span class="sep-line"></span>
           <span class="glyphicon glyphicon-blackboard"></span>
@@ -322,7 +324,9 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
 
       <!-- 综合资讯开始 #news begin -->
       <div class="container-fluid wrapper" id="news">
-        <section class="news-title">综合资讯</section>
+        <section class="news-title">
+          <span>综合资讯</span>
+        </section>
         <section class="news-sep">
           <span class="sep-line"></span>
           <span class="glyphicon glyphicon-bullhorn"></span>
@@ -353,51 +357,136 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
             <h2>全国案例分布点</h2>
             <div class="map-back">
 							<span class="map-province">2</span>
-							<span class="map-province">16</span>
+							<span class="map-province">5</span>
 							<span class="map-province">23</span>
 							<span class="map-province">12</span>
 							<span class="map-province">8</span>
-							<span class="map-province">5</span>
+							<span class="map-province">16</span>
               <span class="map-province">9</span>
 						</div>
           </div>
         </section>
       </div> <!-- 综合资讯结束 #news end -->
 
-      <div class="container-fluid wrapper" id="contact">
-        <section class="contact-title">联系我们</section>
-        <section class="contact-sep">
+      <div class="container-fluid wrapper" id="partner">
+        <section class="partner-title">
+          <span>合作品牌</span>
+        </section>
+        <section class="partner-sep">
           <span class="sep-line"></span>
-          <span class="glyphicon glyphicon-comment"></span>
+          <span class="glyphicon glyphicon-cutlery"></span>
           <span class="sep-line"></span>
         </section>
+        <ul class="inner row brand-list">
+          <li class="col-xs-12 col-sm-6 col-md-4 brand-list-item">
+            <div class="item-wrap">
+              <div class="item-detail">
+                <img src="/src/p_01.png" alt="">
+                <h2>湘聚·湘里人家</h2>
+              </div>
+            </div>
+          </li>
+          <li class="col-xs-12 col-sm-6 col-md-4 brand-list-item">
+            <div class="item-wrap">
+              <div class="item-detail">
+                <img src="/src/p_02.png" alt="">
+                <h2>柴灶鱼</h2>
+              </div>
+            </div>
+          </li>
+          <li class="col-xs-12 col-sm-6 col-md-4 brand-list-item">
+            <div class="item-wrap">
+              <div class="item-detail">
+                <img src="/src/p_03.png" alt="">
+                <h2>湘聚·味庄</h2>
+              </div>
+            </div>
+          </li>
+          <li class="col-xs-12 col-sm-6 col-md-4 brand-list-item">
+            <div class="item-wrap">
+              <div class="item-detail">
+                <img src="/src/p_04.png" alt="">
+                <h2>食在湘</h2>
+              </div>
+            </div>
+          </li>
+          <li class="col-xs-12 col-sm-6 col-md-4 brand-list-item">
+            <div class="item-wrap">
+              <div class="item-detail">
+                <img src="/src/p_05.png" alt="">
+                <h2>湘当有饭</h2>
+              </div>
+            </div>
+          </li>
+          <li class="col-xs-12 col-sm-6 col-md-4 brand-list-item">
+            <div class="item-wrap">
+              <div class="item-detail">
+                <img src="/src/p_06.png" alt="">
+                <h2>蒸粥道</h2>
+              </div>
+            </div>
+          </li>
+        </ul>
       </div>
 
     </div><!-- 网页内容区域结束 // #pageContent end -->
 
     <!-- 网页脚注区域开始 #pageFooter begin-->
-    <ul class="container-fluid wrapper" id="pageFooter">
-      <li class="hidden-xs row inner footer">
-        <div class="col-md-4 list-group footer-nav">
+    <div class="container-fluid wrapper" id="pageFooter">
+      <div class="hidden-xs row inner footer">
+        <ul class="col-md-4 list-group footer-nav">
           <h2>网站地图</h2>
-          <a href="#" class="list-group-item"><span class="glyphicon glyphicon-minus"></span>首页</a>
-          <a href="#" class="list-group-item"><span class="glyphicon glyphicon-minus"></span>服务</a>
-          <a href="#" class="list-group-item"><span class="glyphicon glyphicon-minus"></span>案例</a>
-          <a href="#" class="list-group-item"><span class="glyphicon glyphicon-minus"></span>关于</a>
-        </div>
-        <div class="col-md-4 list-group footer-address">
-        </div>
-        <div class="col-md-4 list-group footer-links">
-          <a href="#" class="list-group-item">互加友链</a>
-          <a href="#" class="list-group-item">请加QQ</a>
-          <a href="#" class="list-group-item">476000121</a>
-        </div>
-      </li>
-      <li class="row copyright">
+          <li class="list-group-item">
+            <a href="#">
+              <span class="glyphicon glyphicon-minus"></span>首页
+            </a>
+          </li>
+          <li class="list-group-item">
+            <a href="#">
+              <span class="glyphicon glyphicon-minus"></span>服务
+            </a>
+          </li>
+          <li class="list-group-item">
+            <a href="#">
+              <span class="glyphicon glyphicon-minus"></span>案例
+            </a>
+          </li>
+          <li class="list-group-item">
+            <a href="#">
+              <span class="glyphicon glyphicon-minus"></span>关于
+            </a>
+          </li>
+        </ul>
+        <ul class="col-md-4 list-group footer-info">
+          <h2>简要信息</h2>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-envelope"></span>
+            <span class="text">hs1design@163.com</span>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-earphone"></span>
+            <span class="text">15388933393</span>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-globe"></span>
+            <a href="https://www.hs1design.com">www.hs1design.com</a>
+          </li>
+          <li class="list-group-item">
+            <span class="glyphicon glyphicon-map-marker"></span>
+            <span class="text">长沙市星沙开元路星大花园1408</span>
+          </li>
+        </ul>
+        <ul class="col-md-4 list-group footer-links">
+          <h2>友情链接</h2>
+          <li class="list-group-item add-link"><a href="https://www.szwzny.com">洈洲农业发展有限公司</a></li>
+          <li class="list-group-item add-link">互加友链,请加QQ476000121</li>
+        </ul>
+      </div>
+      <div class="row copyright">
         <span class="col-xs-12 col-sm-9">Copyright&nbsp;©&nbsp;2018&nbsp;&nbsp;<a href="https://www.hs1design.com"><strong>炉石空间设计</strong></a>&nbsp;&nbsp;All Rights Reserved</span>
         <span class="col-xs-12 col-sm-3"><a href="http://www.miitbeian.gov.cn/" class="text-muted"><img src="/src/ba.png" alt="湖南炉石空间设计ICP备案号图标">湘ICP备88888888-1号</a></span>
-      </li>
-    </ul><!-- 网页脚注区域结束 // #pageFooter end -->
+      </div>
+    </div><!-- 网页脚注区域结束 // #pageFooter end -->
   </div>
 
   <!-- 右下角fixed侧边栏 -->
@@ -421,8 +510,6 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
       </ul>
     </div>
   </div><!-- // .bottom-nav-wrap end -->
-  
-    
 
   <script src="/lib/jquery/jquery.min.js"></script>
   <script src="/lib/bootstrap/js/bootstrap.min.js"></script>

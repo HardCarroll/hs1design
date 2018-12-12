@@ -305,7 +305,7 @@ strong {
   transform: translateY(-6px) rotateZ(-45deg);
 }
 
-/* 页面脚注部分.pageFooter CSS */
+/* 页面脚注部分#pageFooter CSS */
 #pageFooter {
   position: relative;
   list-style: none;
@@ -317,26 +317,39 @@ strong {
 }
 #pageFooter .footer {
   margin: 0 auto;
-  padding: 50px 0 0;
+  padding: 50px 0 30px;
+  text-align: left;
 }
-#pageFooter .footer .footer-nav {
+#pageFooter .footer .footer-nav, #pageFooter .footer .footer-info, #pageFooter .footer .footer-links {
   margin: 0;
-  padding: 0;
+  padding: 0 5px;
 }
-#pageFooter .footer .footer-nav h2 {
+#pageFooter .footer .footer-nav h2, #pageFooter .footer .footer-info h2, #pageFooter .footer .footer-links h2{
   margin: 0;
-  padding: 0;
+  padding: 0 0 5px;
   font-size: 16px;
+  font-weight: 700;
   color: #c6c8c8;
 }
-#pageFooter .footer .footer-nav .list-group-item {
+#pageFooter .footer .footer-nav .list-group-item, #pageFooter .footer .footer-info .list-group-item, #pageFooter .footer .footer-links .list-group-item {
   background-color: transparent;
   border: none;
+  padding: 5px 0 0;
   color: #c6c8c8;
-  padding: 5px;
+  line-height: 20px;
 }
-#pageFooter .footer .footer-nav .list-group-item span.glyphicon {
+#pageFooter .footer .footer-nav .list-group-item a, #pageFooter .footer .footer-info .list-group-item a, #pageFooter .footer .footer-links .list-group-item a {
+  color: #c6c8c8;
+}
+#pageFooter .footer .footer-nav .list-group-item span.glyphicon, #pageFooter .footer .footer-info .list-group-item span.glyphicon, #pageFooter .footer .footer-links .list-group-item span.glyphicon {
   margin-right: 10px;
+  line-height: 18px;
+}
+#pageFooter .footer .footer-info .list-group-item {
+  display: flex;
+}
+#pageFooter .footer .footer-links .list-group-item.add-link {
+  font-size: 12px;
 }
 #pageFooter .copyright {
   padding: 10px 0;
