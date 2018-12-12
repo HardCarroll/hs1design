@@ -368,6 +368,7 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
         </section>
       </div> <!-- 综合资讯结束 #news end -->
 
+      <!-- 合作品牌内容区域开始 #partner begin -->
       <div class="container-fluid wrapper" id="partner">
         <section class="partner-title">
           <span>合作品牌</span>
@@ -427,7 +428,7 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
             </div>
           </li>
         </ul>
-      </div>
+      </div> <!-- 合作品牌内容区域结束 #partner end -->
 
     </div><!-- 网页内容区域结束 // #pageContent end -->
 

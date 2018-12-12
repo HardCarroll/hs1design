@@ -231,7 +231,7 @@ strong {
   margin-bottom: 0;
   overflow: hidden;
   opacity: 0.68;
-  box-shadow: 0 1px 1px 1px rgba(66, 66, 66, 0.3);
+  box-shadow: 2px 2px 16px 2px rgba(66, 66, 66, 0.6);
   z-index: 1000;
 }
 #asidebar {
