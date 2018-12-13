@@ -16,6 +16,12 @@ strong {
   font-style: normal;
   font-weight: normal;
 }
+input, textarea, button, select {
+  border: none;
+  outline: none;
+  resize: none;
+  -webkit-appearance: none;
+}
 .fixed {
   position: fixed;
 }

@@ -430,6 +430,97 @@
 	opacity: 0.75;
 }
 
+/* #budget CSS */
+#budget {
+  cursor: default;
+  background-color: #f6f8f8;
+}
+#budget .budget-list {
+  list-style: none;
+  padding: 0 15px;
+}
+#budget .budget-list .budget-list-item {
+  padding-bottom: 15px;
+}
+#budget .budget-list .budget-list-item>.item-inner {
+  box-shadow: 2px 4px 16px 0 rgba(66, 66, 66, 0.3);
+  padding: 15px;
+  position: relative;
+}
+#budget .budget-list .budget-list-item .cal h2 {
+  margin: 0;
+  padding: 0 0 10px;
+  font-size: 26px;
+  text-align: center;
+}
+#budget .budget-list .budget-list-item .cal .budget-result {
+  position: relative;
+  text-align: right;
+  padding: 5px;
+  border-radius: 5px;
+  height: 60px;
+  box-shadow: 0 4px 10px 0 rgba(66, 66, 66, 0.3) inset;
+}
+#budget .budget-list .budget-list-item .cal .budget-result .lcd {
+  display: block;
+  border-radius: 4px;
+  border: 2px solid #363838;
+  background-color: rgb(216, 216, 184);
+  padding-right: 26px;
+  height: 100%;
+  line-height: 50px;
+  font-size: 40px;
+}
+#budget .budget-list .budget-list-item .cal .budget-result .rmb {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  text-align: center;
+  font-size: 12px;
+  right: 10px;
+  bottom: 10px;
+  z-index: 100;
+  font-weight: 700;
+}
+#budget .budget-list .budget-list-item .cal form {
+  padding: 15px 0;
+}
+#budget .budget-list .budget-list-item .cal form .input-group {
+  padding-bottom: 10px;
+  width: 100%;
+}
+#budget .budget-list .budget-list-item .cal form p {
+  display: flex;
+  color: #f00;
+}
+#budget .budget-list .budget-list-item .cal form p span{
+  line-height: 20px;
+  margin-right: 5px;
+}
+#budget .budget-list .budget-list-item .budget-guide h2.text-warning {
+  margin: 0;
+  padding: 0 0 10px;
+  font-size: 26px;
+}
+#budget .budget-list .budget-list-item .budget-guide .get {
+  margin: 0;
+  padding: 0 0 10px;
+  text-indent: 2em;
+}
+#budget .budget-list .budget-list-item .budget-guide .get span.counts {
+  padding: 0 5px;
+  font-size: 18px;
+}
+#budget .budget-list .budget-list-item .budget-guide img {
+  width: 100%;
+}
+#budget .budget-list .budget-list-item .budget-guide .button {
+  text-align: center;
+  margin-bottom: 0;
+  padding: 15px 0;
+}
+
 /* #partner CSS */
 #partner {
   padding-top: 0;

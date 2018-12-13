@@ -368,6 +368,48 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
         </section>
       </div> <!-- 综合资讯结束 #news end -->
 
+      <div class="container-fluid wrapper" id="budget">
+        <ul class="inner row budget-list">
+          <li class="col-xs-12 col-sm-6 col-md-4 budget-list-item">
+            <div class="item-inner cal">
+              <h2 class="text-info">免费获取装修报价</h2>
+              <section class="budget-result">
+                <span class="lcd">1234567890</span>
+                <span class="rmb">元</span>
+              </section>
+              <form action="#">
+                <div class="input-group budget-type">
+                  <select class="form-control" name="type">
+                    <option value="canteen">餐厅</option>
+                    <option value="hotel">酒店</option>
+                    <option value="ktv">KTV</option>
+                    <option value="others">其它</option>
+                  </select>
+                </div>
+                <div class="input-group budget-area">
+                  <input class="form-control" type="number" placeholder="请输入装修面积" name="area">
+                  <span class="input-group-addon" style="font-size:16px;">㎡</span>
+                </div>
+                <div class="input-group budget-tel">
+                  <input class="form-control" type="text" placeholder="您的手机号码" name="phone" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9.]+/,'');}).call(this)" onblur="(this.v=function(){this.value=this.value.replace(/[^0-9.]+/,'');}).call(this)">
+                </div>
+                <p><span class="glyphicon glyphicon-heart"></span>我们承诺对您的信息绝对保密</p>
+                <a href="javascript:;" class="btn btn-info form-control">立即获取报价</a>
+              </form>
+            </div>
+          </li>
+          <li class="col-xs-12 col-sm-6 col-md-4 budget-list-item">
+            <div class="item-inner budget-guide">
+              <h2 class="text-warning">30"获取装修报价</h2>
+              <p class="get">已有<span class="text-danger counts">1408</span>位业主成功获取报价</p>
+              <img src="/src/budget.jpg" alt="免费获得装修预算图片">
+              <p class="button"><span class="btn btn-info">免费咨询</span></p>
+            </div>
+          </li>
+          <li class="col-xs-12 col-sm-6 col-md-4 budget-list-item">3</li>
+        </ul>
+      </div>
+
       <!-- 合作品牌内容区域开始 #partner begin -->
       <div class="container-fluid wrapper" id="partner">
         <section class="partner-title">
