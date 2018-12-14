@@ -10,11 +10,11 @@
 }
 @font-face {
   font-family: 'icoserv';
-  src:  url('./fonts/icoserv.eot?x8ix3n');
-  src:  url('./fonts/icoserv.eot?x8ix3n#iefix') format('embedded-opentype'),
-    url('./fonts/icoserv.ttf?x8ix3n') format('truetype'),
-    url('./fonts/icoserv.woff?x8ix3n') format('woff'),
-    url('./fonts/icoserv.svg?x8ix3n#icoserv') format('svg');
+  src:  url('fonts/icoserv.eot?ega587');
+  src:  url('fonts/icoserv.eot?ega587#iefix') format('embedded-opentype'),
+    url('fonts/icoserv.ttf?ega587') format('truetype'),
+    url('fonts/icoserv.woff?ega587') format('woff'),
+    url('fonts/icoserv.svg?ega587#icoserv') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -62,8 +62,14 @@
 .icon-tools:before {
   content: "\e033";
 }
+.icon-paintbrush:before {
+  content: "\e036";
+}
 .icon-circle-compass:before {
   content: "\e038";
+}
+.icon-linegraph:before {
+  content: "\e039";
 }
 .icon-piechart:before {
   content: "\e050";

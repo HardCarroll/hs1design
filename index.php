@@ -11,7 +11,7 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
   <meta name="Description" content="湖南炉石空间设计是一家专注于酒店、餐饮、KTV等室内空间的专业设计机构，拥有专业优秀的空间设计、软装设计和施工工程监理的团队，服务客户遍布全国，近年来与国内众多知名商业连锁品牌保持着良好稳定持续的合作关系，在餐饮和娱乐设计领域积累了难得的宝贵经验，本着“风格至上，细节至美”的理念，设计作品得到越来越多的业内人士和客户的高度认可，湖南炉石空间设计为您的商业空间效果展现保驾护航。">
   <title>湖南炉石空间设计丨专注于餐厅空间设计、酒店空间设计、KTV空间设计</title>
   <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/lib/css/iconcuz.css">
+  <link rel="stylesheet" href="/lib/css/icons.css">
   <link rel="stylesheet" href="/lib/css/shared.css">
   <link rel="stylesheet" href="/lib/css/home.css">
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
@@ -154,29 +154,29 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
         <ul class="row list-group cando-list">
           <li class="col-xs-12 col-sm-6 col-md-3 cando-list-item">
             <a href="#" class="item-des text-muted">
-              <span class="item-title">室内空间设计</span>
+              <span class="item-title">空间设计</span>
               <span class="item-thumb icon icon-serv icon-tools"></span>
               <span class="item-extra">extra text</span>
             </a>
           </li>
           <li class="col-xs-12 col-sm-6 col-md-3 cando-list-item">
             <a href="#" class="item-des text-muted">
-              <span class="item-title">室内空间设计</span>
-              <span class="item-thumb icon icon-serv icon-tools"></span>
+              <span class="item-title">品牌策划</span>
+              <span class="item-thumb icon icon-serv icon-presentation"></span>
               <span class="item-extra">extra text</span>
             </a>
           </li>
           <li class="col-xs-12 col-sm-6 col-md-3 cando-list-item">
             <a href="#" class="item-des text-muted">
-              <span class="item-title">室内空间设计</span>
-              <span class="item-thumb icon icon-serv icon-tools"></span>
+              <span class="item-title">装饰施工</span>
+              <span class="item-thumb icon icon-serv icon-paintbrush"></span>
               <span class="item-extra">extra text</span>
             </a>
           </li>
           <li class="col-xs-12 col-sm-6 col-md-3 cando-list-item">
             <a href="#" class="item-des text-muted">
-              <span class="item-title">室内空间设计</span>
-              <span class="item-thumb icon icon-serv icon-tools"></span>
+              <span class="item-title">网络运维</span>
+              <span class="item-thumb icon icon-serv icon-global"></span>
               <span class="item-extra">extra text</span>
             </a></li>
         </ul>
@@ -368,13 +368,23 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
         </section>
       </div> <!-- 综合资讯结束 #news end -->
 
-      <div class="container-fluid wrapper" id="budget">
+      <!-- 装修预算区块 #budget -->
+      <!-- <div class="container-fluid wrapper" id="budget">
         <ul class="inner row budget-list">
           <li class="col-xs-12 col-sm-6 col-md-4 budget-list-item">
+            <div class="item-inner budget-guide">
+              <h2 class="text-warning">10"获取装修报价</h2>
+              <p class="get">已有<span class="text-danger counts">1408</span>位业主成功获取报价</p>
+              <img src="/src/budget.jpg" alt="免费获得装修预算图片">
+              <p class="button"><span class="btn btn-info">免费咨询</span></p>
+              <p class="slogan">感情是谈出来的，惊喜是聊出来的</p>
+            </div>
+          </li>
+          <li class="col-xs-12 col-sm-6 col-md-4 budget-list-item">
             <div class="item-inner cal">
-              <h2 class="text-info">免费获取装修报价</h2>
+              <h2 class="text-info">装修预算计算器</h2>
               <section class="budget-result">
-                <span class="lcd">1234567890</span>
+                <span class="lcd">0</span>
                 <span class="rmb">元</span>
               </section>
               <form action="#">
@@ -398,15 +408,68 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
               </form>
             </div>
           </li>
-          <li class="col-xs-12 col-sm-6 col-md-4 budget-list-item">
-            <div class="item-inner budget-guide">
-              <h2 class="text-warning">30"获取装修报价</h2>
-              <p class="get">已有<span class="text-danger counts">1408</span>位业主成功获取报价</p>
-              <img src="/src/budget.jpg" alt="免费获得装修预算图片">
-              <p class="button"><span class="btn btn-info">免费咨询</span></p>
+          <li class="col-xs-12 col-sm-6 col-md-4 budget-list-item">3</li>
+        </ul>
+      </div> -->
+
+      <!-- 在线咨询区块 #online -->
+      <div class="container-fluid wrapper" id="online">
+        <ul class="inner row online-list">
+          <li class="col-xs-12 col-sm-6 online-list-item">
+            <div class="online-msg">
+              <p class="text-warning">
+                <span>感情是谈出来的，惊喜是聊出来的</span>
+              </p>
+              <form id="consult">
+                <div class="input-group budget-type">
+                  <select class="form-control" name="type">
+                    <option value="canteen">餐厅</option>
+                    <option value="hotel">酒店</option>
+                    <option value="ktv">KTV</option>
+                    <option value="others">其它</option>
+                  </select>
+                </div>
+                <div class="input-group budget-area">
+                  <input class="form-control" type="number" placeholder="请输入装修面积" name="area">
+                  <span class="input-group-addon" style="font-size:16px;">㎡</span>
+                </div>
+                <div class="input-group budget-tel">
+                  <input class="form-control" type="text" placeholder="您的手机号码" name="phone" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9.]+/,'');}).call(this)" onblur="(this.v=function(){this.value=this.value.replace(/[^0-9.]+/,'');}).call(this)">
+                </div>
+                <div class="text-danger">
+                  <span class="glyphicon glyphicon-heart"></span>
+                  我们承诺对您的信息绝对保密
+                </div>
+                <!-- <a tabindex="0" class="btn btn-warning" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="Tips" data-content="It's very engaging. Right?" id="btn_consult1">在线咨询</a> -->
+                <!-- <a class="btn btn-warning" id="btn_consult">在线咨询</a> -->
+                <button type="button" class="btn btn-danger" id="btn_consult" data-toggle="popover">点我弹出/隐藏弹出框</button>
+                <!-- <div class="popover top" id="popConsult">
+                  <div class="arrow"></div>
+                    <h3 class="popover-title">Popover 顶部</h3>
+                    <div class="popover-content">
+                      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
+                  </div>
+                </div> -->
+              </form>
+            </>
+          </li>
+          <li class="col-xs-12 col-sm-6 online-list-item">
+            <div class="slogan-wrapper">
+              <p class="hd">
+                <span>专注</span>
+                <span class="glyphicon glyphicon-record"></span>
+                <span>专业</span>
+                <span class="glyphicon glyphicon-record"></span>
+                <span>专心</span>
+              </p>
+              <p class="md">
+                <span>专业缔造有价值的商业空间</span>
+              </p>
+              <p class="bd">
+                <span>空间设计、品牌策划、装饰施工、网络运维</span>
+              </p>
             </div>
           </li>
-          <li class="col-xs-12 col-sm-6 col-md-4 budget-list-item">3</li>
         </ul>
       </div>
 
@@ -421,7 +484,7 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
           <span class="sep-line"></span>
         </section>
         <ul class="inner row brand-list">
-          <li class="col-xs-12 col-sm-6 col-md-4 brand-list-item">
+          <li class="col-xs-6 col-sm-3 col-md-2 brand-list-item">
             <div class="item-wrap">
               <div class="item-detail">
                 <img src="/src/p_01.png" alt="">
@@ -429,7 +492,7 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
               </div>
             </div>
           </li>
-          <li class="col-xs-12 col-sm-6 col-md-4 brand-list-item">
+          <li class="col-xs-6 col-sm-3 col-md-2 brand-list-item">
             <div class="item-wrap">
               <div class="item-detail">
                 <img src="/src/p_02.png" alt="">
@@ -437,7 +500,7 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
               </div>
             </div>
           </li>
-          <li class="col-xs-12 col-sm-6 col-md-4 brand-list-item">
+          <li class="col-xs-6 col-sm-3 col-md-2 brand-list-item">
             <div class="item-wrap">
               <div class="item-detail">
                 <img src="/src/p_03.png" alt="">
@@ -445,7 +508,7 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
               </div>
             </div>
           </li>
-          <li class="col-xs-12 col-sm-6 col-md-4 brand-list-item">
+          <li class="col-xs-6 col-sm-3 col-md-2 brand-list-item">
             <div class="item-wrap">
               <div class="item-detail">
                 <img src="/src/p_04.png" alt="">
@@ -453,7 +516,7 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
               </div>
             </div>
           </li>
-          <li class="col-xs-12 col-sm-6 col-md-4 brand-list-item">
+          <li class="col-xs-6 col-sm-3 col-md-2 brand-list-item">
             <div class="item-wrap">
               <div class="item-detail">
                 <img src="/src/p_05.png" alt="">
@@ -461,7 +524,55 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
               </div>
             </div>
           </li>
-          <li class="col-xs-12 col-sm-6 col-md-4 brand-list-item">
+          <li class="col-xs-6 col-sm-3 col-md-2 brand-list-item">
+            <div class="item-wrap">
+              <div class="item-detail">
+                <img src="/src/p_06.png" alt="">
+                <h2>蒸粥道</h2>
+              </div>
+            </div>
+          </li>
+          <li class="col-xs-6 col-sm-3 col-md-2 brand-list-item">
+            <div class="item-wrap">
+              <div class="item-detail">
+                <img src="/src/p_01.png" alt="">
+                <h2>湘聚·湘里人家</h2>
+              </div>
+            </div>
+          </li>
+          <li class="col-xs-6 col-sm-3 col-md-2 brand-list-item">
+            <div class="item-wrap">
+              <div class="item-detail">
+                <img src="/src/p_02.png" alt="">
+                <h2>柴灶鱼</h2>
+              </div>
+            </div>
+          </li>
+          <li class="col-xs-6 col-sm-3 col-md-2 brand-list-item">
+            <div class="item-wrap">
+              <div class="item-detail">
+                <img src="/src/p_03.png" alt="">
+                <h2>湘聚·味庄</h2>
+              </div>
+            </div>
+          </li>
+          <li class="col-xs-6 col-sm-3 col-md-2 brand-list-item">
+            <div class="item-wrap">
+              <div class="item-detail">
+                <img src="/src/p_04.png" alt="">
+                <h2>食在湘</h2>
+              </div>
+            </div>
+          </li>
+          <li class="col-xs-6 col-sm-3 col-md-2 brand-list-item">
+            <div class="item-wrap">
+              <div class="item-detail">
+                <img src="/src/p_05.png" alt="">
+                <h2>湘当有饭</h2>
+              </div>
+            </div>
+          </li>
+          <li class="col-xs-6 col-sm-3 col-md-2 brand-list-item">
             <div class="item-wrap">
               <div class="item-detail">
                 <img src="/src/p_06.png" alt="">
@@ -548,7 +659,7 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
       <ul class="btn-group container-fluid" role="group">
         <li role="button" class="btn btn-default"><a href="#"><span class="glyphicon glyphicon-home"></span><span>首页</span></a></li>
         <li role="button" class="btn btn-default"><a href="#"><span class="glyphicon glyphicon-blackboard"></span><span>案例</span></a></li>
-        <li role="button" class="btn btn-default"><a href="#"><span class="glyphicon glyphicon-edit"></span><span>咨询</span></a></li>
+        <li role="button" class="btn btn-default"><a href="#online"><span class="glyphicon glyphicon-edit"></span><span>咨询</span></a></li>
         <li role="button" class="btn btn-default"><a href="tel:17752845216"><span class="glyphicon glyphicon-phone"></span><span>致电</span></a></li>
       </ul>
     </div>
