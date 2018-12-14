@@ -412,7 +412,7 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
         </ul>
       </div> -->
 
-      <!-- 在线咨询区块 #online -->
+      <!-- 免费咨询区块 #online -->
       <div class="container-fluid wrapper" id="online">
         <ul class="inner row online-list">
           <li class="col-xs-12 col-sm-6 online-list-item">
@@ -440,18 +440,10 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
                   <span class="glyphicon glyphicon-heart"></span>
                   我们承诺对您的信息绝对保密
                 </div>
-                <!-- <a tabindex="0" class="btn btn-warning" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="Tips" data-content="It's very engaging. Right?" id="btn_consult1">在线咨询</a> -->
-                <!-- <a class="btn btn-warning" id="btn_consult">在线咨询</a> -->
-                <button type="button" class="btn btn-danger" id="btn_consult" data-toggle="popover">点我弹出/隐藏弹出框</button>
-                <!-- <div class="popover top" id="popConsult">
-                  <div class="arrow"></div>
-                    <h3 class="popover-title">Popover 顶部</h3>
-                    <div class="popover-content">
-                      <p>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</p>
-                  </div>
-                </div> -->
+                <!-- <a tabindex="0" class="btn btn-warning" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="Tips" data-content="It's very engaging. Right?" id="btn_consult1">免费咨询</a> -->
+                <a role="button" class="btn btn-warning" id="btn_consult" data-toggle="popover" data-loading-text="资料提交中..." autocomplete="off" >免费咨询</a>
               </form>
-            </>
+            </div>
           </li>
           <li class="col-xs-12 col-sm-6 online-list-item">
             <div class="slogan-wrapper">
