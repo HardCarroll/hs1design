@@ -1,32 +1,32 @@
 /* #cando CSS */
-#cando, #news, #partner {
+#cando, #news {
   background-color: #f6f8f8;
   padding: 30px 0;
   overflow: hidden;
   cursor: default;
 }
-#cando .cando-title, #news .news-title, #partner .partner-title {
+#cando .cando-title, #news .news-title {
   padding-top: 10px;
   font-size: 22px;
   padding-bottom: 5px;
   text-align: center;
 }
-#cando .cando-title span, #news .news-title span, #partner .partner-title span {
+#cando .cando-title span, #news .news-title span {
   padding: 10px;
 }
-#cando .cando-sep, #news .news-sep, #partner .partner-sep {
+#cando .cando-sep, #news .news-sep {
   display: flex;
   text-align: center;
   height: 14px;
   margin-top: -6px;
 }
-#cando .cando-sep>.glyphicon, #news .news-sep>.glyphicon, #partner .partner-sep>.glyphicon {
+#cando .cando-sep>.glyphicon, #news .news-sep>.glyphicon {
   padding: 0 16px;
   width: 50px;
   height: 14px;
   color: #a6a8a8;
 }
-#cando .cando-sep>.sep-line, #news .news-sep>.sep-line, #partner .partner-sep>.sep-line {
+#cando .cando-sep>.sep-line, #news .news-sep>.sep-line {
   flex: 1;
   border-top: 7px solid #f6f8f8;
   border-bottom: 6px solid #f6f8f8;

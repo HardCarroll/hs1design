@@ -1,0 +1,16 @@
+/* #case_type CSS */
+.case-nav-list {
+  margin: 0;
+  padding: 0;
+  max-width: 160px;
+  border: none;
+}
+.case-nav-list .case-nav-item {
+  margin: 0;
+  width: 100%;
+  border: 1px solid transparent;
+  border-right-color: #c6c8c8;
+}
+.case-nav-list .case-nav-item.active {
+  border-right-color: transparent;
+}
