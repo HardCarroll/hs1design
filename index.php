@@ -29,7 +29,6 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
           一家专注于酒店、餐饮、KTV等室内空间的专业设计机构，拥有专业优秀的空间设计、软装设计和施工工程监理的团队，服务客户遍布全国，近年来与国内众多知名商业连锁品牌保持着良好稳定持续的合作关系，在餐饮和娱乐设计领域积累了难得的宝贵经验，本着“风格至上，细节至美”的理念，设计作品得到越来越多的业内人士和客户的高度认可，湖南炉石空间设计为您的商业空间效果展现保驾护航。
         </p>
       </section>
-      <!-- <span class="btn btn-warning btn-lg btn-normal" role="button" id="btn_index">了解更多</span> -->
       <button class="btn btn-warning btn-lg btn-normal" data-loading-text="努力加载中..." autocomplete="off" id="btn_index">了解更多</button>
     </div>
   </div>
@@ -79,10 +78,11 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
               <ul class="dropdown-menu">
                 <li><a href="#">空间设计</a></li>
                 <li><a href="#">品牌设计</a></li>
+                <li><a href="#">装饰施工</a></li>
                 <li><a href="#">网络运维</a></li>
               </ul>
             </li>
-            <li><a href="#">案例</a></li>
+            <li><a href="/case">案例</a></li>
             <li class="dropdown" id="nav_about">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">关于 <span class="caret visible-xs-inline-block"></span></a>
               <ul class="dropdown-menu">
@@ -440,7 +440,6 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
                   <span class="glyphicon glyphicon-heart"></span>
                   我们承诺对您的信息绝对保密
                 </div>
-                <!-- <a tabindex="0" class="btn btn-warning" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="Tips" data-content="It's very engaging. Right?" id="btn_consult1">免费咨询</a> -->
                 <a role="button" class="btn btn-warning" id="btn_consult" data-toggle="popover" data-loading-text="资料提交中..." autocomplete="off" >免费咨询</a>
               </form>
             </div>
