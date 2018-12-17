@@ -14,9 +14,19 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
   
   // 免费咨询按钮
   if("consult" === $_POST["token"]) {
-    $type = $_POST["type"];
-    $area = $_POST["area"];
-    $phone = $_POST["phone"];
+    $dataArray = json_decode($_POST["consultData"], true);
+    // $ret = '{"'.$key.'":"'.$value.'","'.$key1.'":".$value1."}';
+    $ret = '{"';
+    foreach($dataArray as $key=>$value) {
+      $ret .= $key;
+      $ret .= '":"';
+      $ret .= $value;
+      //判断是否是数组的最后一项
+      if($value !== end($dataArray)) {
+        $ret .= '","';
+      }
+    }
+    $ret .= '"}';
     /**
      * $err_no=0, success
     */
