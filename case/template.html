@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="/cms/common/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="/cms/common/css/icons.css">
   <link rel="stylesheet" href="/lib/css/shared.css">
-  <link rel="stylesheet" href="/lib/css/case.css">
+  <link rel="stylesheet" href="/lib/css/template.css">
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 </head>
 <body>
@@ -81,88 +81,19 @@
     <!-- 网页内容区域开始 #pageContent begin-->
     <div id="pageContent" class="container-fluid">
 
-      <!-- 案例分类区域开始 #case_type begin -->
-      <div class="container-fluid wrapper" id="case_type">
+      <!-- 案例展示区域开始 .case-display begin -->
+      <div class="case-display">
         <div class="inner row current-position">
           <div class="col-xs-2 col-sm-2 col-md-2 placeholder"></div>
           <ol class="col-xs-10 col-sm-10 col-md-10 breadcrumb">
             <span class="glyphicon glyphicon-map-marker rotateYcircle"></span>
             <li><a href="/">首页</a></li>
             <li><a href="/case">案例</a></li>
-            <li class="active">餐厅</li>
+            <li><a href="/case/index.php?type=hotel">酒店</a></li>
+            <li class="active">酒店空间设计案例展示作品</li>
           </ol>
         </div>
-        <div class="inner row case-nav">
-          <!-- Nav tabs -->
-          <ul class="col-xs-2 col-sm-2 col-md-2 nav nav-tabs case-nav-list" role="tablist">
-            <li class="case-nav-item active" role="presentation">
-              <a href="#canteen" aria-controls="canteen" role="tab" data-toggle="tab" data-type="餐厅">
-                <img src="/src/case-nav-list-canteen-xs.jpg" alt="炉石空间，专注于餐厅空间设计">
-              </a>
-            </li>
-            <li class="case-nav-item" role="presentation">
-              <a href="#hotel" aria-controls="hotel" role="tab" data-toggle="tab" data-type="酒店">
-                <img src="/src/case-nav-list-hotel-xs.jpg" alt="炉石空间，专注于酒店空间设计">
-              </a>
-            </li>
-            <li class="case-nav-item" role="presentation">
-              <a href="#ktv" aria-controls="ktv" role="tab" data-toggle="tab" data-type="娱乐">
-                <img src="/src/case-nav-list-ktv-xs.jpg" alt="炉石空间，专注于KTV空间设计">
-              </a>
-            </li>
-            <li class="case-nav-item" role="presentation">
-              <a href="#others" aria-controls="others" role="tab" data-toggle="tab" data-type="其它">
-                <img src="/src/case-nav-list-office-xs.jpg" alt="炉石空间，承接效果图、施工图制作">
-              </a>
-            </li>
-          </ul>
-          <!-- Tab panes -->
-          <div class="tab-content case-type-list">
-            <div role="tabpanel" class="row tab-pane case-type-item active" id="canteen">
-              <div class="col-xs-12 col-sm-6 col-md-4 case-item">
-                <a href="#"><img src="/src/case-thumb-canteen.jpg" alt="设计案例作品展示图片，餐厅空间设计案例"></a>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-4 case-item">
-                <a href="#"><img src="/src/case-thumb-hotel.jpg" alt="设计案例作品展示图片，酒店空间设计案例"></a>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-4 case-item">
-                <a href="#"><img src="/src/case-thumb-ktv.jpg" alt="设计案例作品展示图片，娱乐KTV空间设计案例"></a>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-4 case-item">
-                <a href="#"><img src="/src/case-thumb-office.jpg" alt="设计案例作品展示图片，其它空间设计案例"></a>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-4 case-item">
-                <a href="#"><img src="/src/case-thumb-canteen.jpg" alt="设计案例作品展示图片，餐厅空间设计案例"></a>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-4 case-item">
-                <a href="#"><img src="/src/case-thumb-hotel.jpg" alt="设计案例作品展示图片，酒店空间设计案例"></a>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-4 case-item">
-                <a href="#"><img src="/src/case-thumb-ktv.jpg" alt="设计案例作品展示图片，娱乐KTV空间设计案例"></a>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-4 case-item">
-                <a href="#"><img src="/src/case-thumb-office.jpg" alt="设计案例作品展示图片，其它空间设计案例"></a>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-4 case-item">
-                <a href="#"><img src="/src/case-thumb-canteen.jpg" alt="设计案例作品展示图片，餐厅空间设计案例"></a>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-4 case-item">
-                <a href="#"><img src="/src/case-thumb-hotel.jpg" alt="设计案例作品展示图片，酒店空间设计案例"></a>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-4 case-item">
-                <a href="#"><img src="/src/case-thumb-ktv.jpg" alt="设计案例作品展示图片，娱乐KTV空间设计案例"></a>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-4 case-item">
-                <a href="#"><img src="/src/case-thumb-office.jpg" alt="设计案例作品展示图片，其它空间设计案例"></a>
-              </div>
-            </div>
-            <div role="tabpanel" class="tab-pane case-type-item " id="hotel">hotel area</div>
-            <div role="tabpanel" class="tab-pane case-type-item " id="ktv">ktv area</div>
-            <div role="tabpanel" class="tab-pane case-type-item " id="others">others area</div>
-          </div>
-
-        </div> <!-- inner end -->
-      </div> <!-- 案例分类区域结束 #case_type end -->
+      </div> <!-- 案例展示区域结束 .case-display end -->
 
       <!-- 免费咨询区块开始 #online begin -->
       <div class="container-fluid wrapper" id="online">
