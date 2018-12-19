@@ -423,10 +423,10 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
               <form id="consult">
                 <div class="input-group budget-type">
                   <select class="form-control" name="type">
-                    <option value="canteen">餐厅</option>
-                    <option value="hotel">酒店</option>
-                    <option value="ktv">KTV</option>
-                    <option value="others">其它</option>
+                    <option value="0">餐厅</option>
+                    <option value="1">酒店</option>
+                    <option value="2">KTV</option>
+                    <option value="3">其它</option>
                   </select>
                 </div>
                 <div class="input-group budget-area">
@@ -648,8 +648,8 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
   <div class="bottom-nav-wrap" id="tools_bottom">
     <div role="navigation" class="navbar navbar-default navbar-fixed-bottom visible-xs-block">
       <ul class="btn-group container-fluid" role="group">
-        <li role="button" class="btn btn-default"><a href="#"><span class="glyphicon glyphicon-home"></span><span>首页</span></a></li>
-        <li role="button" class="btn btn-default"><a href="#"><span class="glyphicon glyphicon-blackboard"></span><span>案例</span></a></li>
+        <li role="button" class="btn btn-default"><a href="/"><span class="glyphicon glyphicon-home"></span><span>首页</span></a></li>
+        <li role="button" class="btn btn-default"><a href="/case"><span class="glyphicon glyphicon-blackboard"></span><span>案例</span></a></li>
         <li role="button" class="btn btn-default"><a href="#online"><span class="glyphicon glyphicon-edit"></span><span>咨询</span></a></li>
         <li role="button" class="btn btn-default"><a href="tel:17752845216"><span class="glyphicon glyphicon-phone"></span><span>致电</span></a></li>
       </ul>

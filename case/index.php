@@ -1,3 +1,30 @@
+<?php
+require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
+if(isset($_GET["type"]) && !empty($_GET["type"])) {
+  $type = $_GET["type"];
+  $type_text = "";
+  switch($type) {
+    case 1:
+      $type = 1;
+      $type_text = "酒店";
+      break;
+    case 2:
+      $type = 2;
+      $type_text = "娱乐";
+      break;
+    case 3:
+      $type = 3;
+      $type_text = "其它";
+      break;
+    default:
+      break;
+  }
+}
+else {
+  $type = 0;
+  $type_text = "餐厅";
+}
+?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -84,33 +111,33 @@
       <!-- 案例分类区域开始 #case_type begin -->
       <div class="container-fluid wrapper" id="case_type">
         <div class="inner row current-position">
-          <div class="col-xs-2 col-sm-2 col-md-2 placeholder"></div>
-          <ol class="col-xs-10 col-sm-10 col-md-10 breadcrumb">
+          <div class="hidden-xs col-sm-2 col-md-2 placeholder"></div>
+          <ol class="col-xs-12 col-sm-10 col-md-10 breadcrumb">
             <span class="glyphicon glyphicon-map-marker rotateYcircle"></span>
             <li><a href="/">首页</a></li>
             <li><a href="/case">案例</a></li>
-            <li class="active">餐厅</li>
+            <li class="active"><?php echo $type_text; ?></li>
           </ol>
         </div>
         <div class="inner row case-nav">
           <!-- Nav tabs -->
           <ul class="col-xs-2 col-sm-2 col-md-2 nav nav-tabs case-nav-list" role="tablist">
-            <li class="case-nav-item active" role="presentation">
+            <li class="case-nav-item<?php if($type === 0){echo ' active';} ?>" role="presentation">
               <a href="#canteen" aria-controls="canteen" role="tab" data-toggle="tab" data-type="餐厅">
                 <img src="/src/case-nav-list-canteen-xs.jpg" alt="炉石空间，专注于餐厅空间设计">
               </a>
             </li>
-            <li class="case-nav-item" role="presentation">
+            <li class="case-nav-item<?php if($type === 1){echo ' active';} ?>" role="presentation">
               <a href="#hotel" aria-controls="hotel" role="tab" data-toggle="tab" data-type="酒店">
                 <img src="/src/case-nav-list-hotel-xs.jpg" alt="炉石空间，专注于酒店空间设计">
               </a>
             </li>
-            <li class="case-nav-item" role="presentation">
+            <li class="case-nav-item<?php if($type === 2){echo ' active';} ?>" role="presentation">
               <a href="#ktv" aria-controls="ktv" role="tab" data-toggle="tab" data-type="娱乐">
                 <img src="/src/case-nav-list-ktv-xs.jpg" alt="炉石空间，专注于KTV空间设计">
               </a>
             </li>
-            <li class="case-nav-item" role="presentation">
+            <li class="case-nav-item<?php if($type === 3){echo ' active';} ?>" role="presentation">
               <a href="#others" aria-controls="others" role="tab" data-toggle="tab" data-type="其它">
                 <img src="/src/case-nav-list-office-xs.jpg" alt="炉石空间，承接效果图、施工图制作">
               </a>
@@ -118,47 +145,119 @@
           </ul>
           <!-- Tab panes -->
           <div class="tab-content case-type-list">
-            <div role="tabpanel" class="row tab-pane case-type-item active" id="canteen">
-              <div class="col-xs-12 col-sm-6 col-md-4 case-item">
-                <a href="#"><img src="/src/case-thumb-canteen.jpg" alt="设计案例作品展示图片，餐厅空间设计案例"></a>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-4 case-item">
-                <a href="#"><img src="/src/case-thumb-hotel.jpg" alt="设计案例作品展示图片，酒店空间设计案例"></a>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-4 case-item">
-                <a href="#"><img src="/src/case-thumb-ktv.jpg" alt="设计案例作品展示图片，娱乐KTV空间设计案例"></a>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-4 case-item">
-                <a href="#"><img src="/src/case-thumb-office.jpg" alt="设计案例作品展示图片，其它空间设计案例"></a>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-4 case-item">
-                <a href="#"><img src="/src/case-thumb-canteen.jpg" alt="设计案例作品展示图片，餐厅空间设计案例"></a>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-4 case-item">
-                <a href="#"><img src="/src/case-thumb-hotel.jpg" alt="设计案例作品展示图片，酒店空间设计案例"></a>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-4 case-item">
-                <a href="#"><img src="/src/case-thumb-ktv.jpg" alt="设计案例作品展示图片，娱乐KTV空间设计案例"></a>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-4 case-item">
-                <a href="#"><img src="/src/case-thumb-office.jpg" alt="设计案例作品展示图片，其它空间设计案例"></a>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-4 case-item">
-                <a href="#"><img src="/src/case-thumb-canteen.jpg" alt="设计案例作品展示图片，餐厅空间设计案例"></a>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-4 case-item">
-                <a href="#"><img src="/src/case-thumb-hotel.jpg" alt="设计案例作品展示图片，酒店空间设计案例"></a>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-4 case-item">
-                <a href="#"><img src="/src/case-thumb-ktv.jpg" alt="设计案例作品展示图片，娱乐KTV空间设计案例"></a>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-4 case-item">
-                <a href="#"><img src="/src/case-thumb-office.jpg" alt="设计案例作品展示图片，其它空间设计案例"></a>
-              </div>
+            <div role="tabpanel" class="row tab-pane case-type-item<?php if($type === 0){echo ' active';} ?>" id="canteen">
+              <a href="#" class="col-xs-12 col-sm-6 col-md-4 case-item">
+                <div class="case-thumb">
+                  <img src="/src/case-thumb-canteen.jpg" alt="设计案例作品展示图片，餐厅空间设计案例">
+                </div>
+                <div class="case-text">
+                  <h2 class="text-title text-ellipsis">案例标题案例标题案例标题案例标题案例标题</h2>
+                  <h3 class="text-description text-ellipsis">案例简介文字说明案例简介文字说明案例简介文字说明</h3>
+                </div>
+              </a>
+              <a href="#" class="col-xs-12 col-sm-6 col-md-4 case-item">
+                <div class="case-thumb">
+                  <img src="/src/case-thumb-hotel.jpg" alt="设计案例作品展示图片，餐厅空间设计案例">
+                </div>
+                <div class="case-text">
+                  <h2 class="text-title text-ellipsis">案例标题案例标题案例标题案例标题案例标题</h2>
+                  <h3 class="text-description text-ellipsis">案例简介文字说明案例简介文字说明案例简介文字说明</h3>
+                </div>
+              </a>
+              <a href="#" class="col-xs-12 col-sm-6 col-md-4 case-item">
+                <div class="case-thumb">
+                  <img src="/src/case-thumb-ktv.jpg" alt="设计案例作品展示图片，餐厅空间设计案例">
+                </div>
+                <div class="case-text">
+                  <h2 class="text-title text-ellipsis">案例标题案例标题案例标题案例标题案例标题</h2>
+                  <h3 class="text-description text-ellipsis">案例简介文字说明案例简介文字说明案例简介文字说明</h3>
+                </div>
+              </a>
+              <a href="#" class="col-xs-12 col-sm-6 col-md-4 case-item">
+                <div class="case-thumb">
+                  <img src="/src/case-thumb-office.jpg" alt="设计案例作品展示图片，餐厅空间设计案例">
+                </div>
+                <div class="case-text">
+                  <h2 class="text-title text-ellipsis">案例标题案例标题案例标题案例标题案例标题</h2>
+                  <h3 class="text-description text-ellipsis">案例简介文字说明案例简介文字说明案例简介文字说明</h3>
+                </div>
+              </a>
+              <a href="#" class="col-xs-12 col-sm-6 col-md-4 case-item">
+                <div class="case-thumb">
+                  <img src="/src/case-thumb-canteen.jpg" alt="设计案例作品展示图片，餐厅空间设计案例">
+                </div>
+                <div class="case-text">
+                  <h2 class="text-title text-ellipsis">案例标题案例标题案例标题案例标题案例标题</h2>
+                  <h3 class="text-description text-ellipsis">案例简介文字说明案例简介文字说明案例简介文字说明</h3>
+                </div>
+              </a>
+              <a href="#" class="col-xs-12 col-sm-6 col-md-4 case-item">
+                <div class="case-thumb">
+                  <img src="/src/case-thumb-hotel.jpg" alt="设计案例作品展示图片，餐厅空间设计案例">
+                </div>
+                <div class="case-text">
+                  <h2 class="text-title text-ellipsis">案例标题案例标题案例标题案例标题案例标题</h2>
+                  <h3 class="text-description text-ellipsis">案例简介文字说明案例简介文字说明案例简介文字说明</h3>
+                </div>
+              </a>
+              <a href="#" class="col-xs-12 col-sm-6 col-md-4 case-item">
+                <div class="case-thumb">
+                  <img src="/src/case-thumb-ktv.jpg" alt="设计案例作品展示图片，餐厅空间设计案例">
+                </div>
+                <div class="case-text">
+                  <h2 class="text-title text-ellipsis">案例标题案例标题案例标题案例标题案例标题</h2>
+                  <h3 class="text-description text-ellipsis">案例简介文字说明案例简介文字说明案例简介文字说明</h3>
+                </div>
+              </a>
+              <a href="#" class="col-xs-12 col-sm-6 col-md-4 case-item">
+                <div class="case-thumb">
+                  <img src="/src/case-thumb-office.jpg" alt="设计案例作品展示图片，餐厅空间设计案例">
+                </div>
+                <div class="case-text">
+                  <h2 class="text-title text-ellipsis">案例标题案例标题案例标题案例标题案例标题</h2>
+                  <h3 class="text-description text-ellipsis">案例简介文字说明案例简介文字说明案例简介文字说明</h3>
+                </div>
+              </a>
+              <a href="#" class="col-xs-12 col-sm-6 col-md-4 case-item">
+                <div class="case-thumb">
+                  <img src="/src/case-thumb-canteen.jpg" alt="设计案例作品展示图片，餐厅空间设计案例">
+                </div>
+                <div class="case-text">
+                  <h2 class="text-title text-ellipsis">案例标题案例标题案例标题案例标题案例标题</h2>
+                  <h3 class="text-description text-ellipsis">案例简介文字说明案例简介文字说明案例简介文字说明</h3>
+                </div>
+              </a>
+              <a href="#" class="col-xs-12 col-sm-6 col-md-4 case-item">
+                <div class="case-thumb">
+                  <img src="/src/case-thumb-hotel.jpg" alt="设计案例作品展示图片，餐厅空间设计案例">
+                </div>
+                <div class="case-text">
+                  <h2 class="text-title text-ellipsis">案例标题案例标题案例标题案例标题案例标题</h2>
+                  <h3 class="text-description text-ellipsis">案例简介文字说明案例简介文字说明案例简介文字说明</h3>
+                </div>
+              </a>
+              <a href="#" class="col-xs-12 col-sm-6 col-md-4 case-item">
+                <div class="case-thumb">
+                  <img src="/src/case-thumb-ktv.jpg" alt="设计案例作品展示图片，餐厅空间设计案例">
+                </div>
+                <div class="case-text">
+                  <h2 class="text-title text-ellipsis">案例标题案例标题案例标题案例标题案例标题</h2>
+                  <h3 class="text-description text-ellipsis">案例简介文字说明案例简介文字说明案例简介文字说明</h3>
+                </div>
+              </a>
+              <a href="#" class="col-xs-12 col-sm-6 col-md-4 case-item">
+                <div class="case-thumb">
+                  <img src="/src/case-thumb-office.jpg" alt="设计案例作品展示图片，餐厅空间设计案例">
+                </div>
+                <div class="case-text">
+                  <h2 class="text-title text-ellipsis">案例标题案例标题案例标题案例标题案例标题</h2>
+                  <h3 class="text-description text-ellipsis">案例简介文字说明案例简介文字说明案例简介文字说明</h3>
+                </div>
+              </a>
             </div>
-            <div role="tabpanel" class="tab-pane case-type-item " id="hotel">hotel area</div>
-            <div role="tabpanel" class="tab-pane case-type-item " id="ktv">ktv area</div>
-            <div role="tabpanel" class="tab-pane case-type-item " id="others">others area</div>
+            <div role="tabpanel" class="tab-pane case-type-item<?php if($type === 1){echo ' active';} ?>" id="hotel">hotel area</div>
+            <div role="tabpanel" class="tab-pane case-type-item<?php if($type === 2){echo ' active';} ?>" id="ktv">ktv area</div>
+            <div role="tabpanel" class="tab-pane case-type-item<?php if($type === 3){echo ' active';} ?>" id="others">others area</div>
           </div>
 
         </div> <!-- inner end -->
@@ -175,10 +274,10 @@
               <form id="consult">
                 <div class="input-group budget-type">
                   <select class="form-control" name="type">
-                    <option value="canteen">餐厅</option>
-                    <option value="hotel">酒店</option>
-                    <option value="ktv">KTV</option>
-                    <option value="others">其它</option>
+                    <option value="0">餐厅</option>
+                    <option value="1">酒店</option>
+                    <option value="2">KTV</option>
+                    <option value="3">其它</option>
                   </select>
                 </div>
                 <div class="input-group budget-area">
@@ -400,8 +499,8 @@
   <div class="bottom-nav-wrap" id="tools_bottom">
     <div role="navigation" class="navbar navbar-default navbar-fixed-bottom visible-xs-block">
       <ul class="btn-group container-fluid" role="group">
-        <li role="button" class="btn btn-default"><a href="#"><span class="glyphicon glyphicon-home"></span><span>首页</span></a></li>
-        <li role="button" class="btn btn-default"><a href="#"><span class="glyphicon glyphicon-blackboard"></span><span>案例</span></a></li>
+        <li role="button" class="btn btn-default"><a href="/"><span class="glyphicon glyphicon-home"></span><span>首页</span></a></li>
+        <li role="button" class="btn btn-default"><a href="/case"><span class="glyphicon glyphicon-blackboard"></span><span>案例</span></a></li>
         <li role="button" class="btn btn-default"><a href="#online"><span class="glyphicon glyphicon-edit"></span><span>咨询</span></a></li>
         <li role="button" class="btn btn-default"><a href="tel:17752845216"><span class="glyphicon glyphicon-phone"></span><span>致电</span></a></li>
       </ul>

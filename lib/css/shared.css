@@ -36,6 +36,9 @@ input, textarea, button, select {
   top: 0;
   left: 0;
 }
+.fixed-right {
+  right: 0;
+}
 .of-hidden {
   overflow: hidden;
 }
@@ -127,17 +130,6 @@ input, textarea, button, select {
 #navbar_hsd .navbar-wrap .navbar-right {
   margin-right: 0;
 }
-@media (min-width: 768px) {
-  #navbar_hsd .navbar-wrap .navbar-right li:hover>a {
-    background-color: #c6c8c8;
-  }
-  #nav_service:hover>.dropdown-menu {
-    display: block;
-  }
-  #nav_about:hover>.dropdown-menu {
-    display: block;
-  }
-}
 #navbar_hsd .navbar-wrap .navbar-right li.active>a {
   background-color: #f6f8f8;
 }
@@ -147,11 +139,6 @@ input, textarea, button, select {
   right: -21px;
   min-width: 100px;
   text-align: center;
-}
-@media (max-width: 768px) {
-  #navbar_hsd .navbar-wrap .navbar-nav {
-    margin: 7.5px auto;
-  }
 }
 .navbar-hsd .container-fluid {
   padding-top: 5px;
@@ -237,6 +224,35 @@ input, textarea, button, select {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0;
+}
+
+#pageContent .current-position {
+  background-color: #c6c8c8;
+  margin: 10px auto 0;
+}
+.current-position .placeholder {
+  margin: 0;
+  padding: 0;
+  max-width: 160px;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  border: none;
+}
+.current-position .breadcrumb {
+  margin: 0;
+  border-radius: 0;
+  background-color: transparent;
+  border-left: 1px solid #f6f8f8;
+}
+.current-position .breadcrumb li.active {
+  color: #363838;
+}
+.current-position .breadcrumb li::before {
+  color: #060808;
+}
+.current-position .breadcrumb li a {
+  text-decoration: none;
 }
 
 /* #online CSS */
@@ -521,6 +537,28 @@ input, textarea, button, select {
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
+
+/* screen-xs CSS */
+@media (max-width: 768px) {
+  #navbar_hsd .navbar-wrap .navbar-nav {
+    margin: 7.5px auto;
+  }
+  .current-position .breadcrumb {
+    border-left: none;
+  }
+}
+@media (min-width: 768px) {
+  #navbar_hsd .navbar-wrap .navbar-right li:hover>a {
+    background-color: #c6c8c8;
+  }
+  #nav_service:hover>.dropdown-menu {
+    display: block;
+  }
+  #nav_about:hover>.dropdown-menu {
+    display: block;
+  }
+}
+
 /* animations */
 @keyframes translateYup {
   0% {
