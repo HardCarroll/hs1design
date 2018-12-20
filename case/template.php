@@ -1,12 +1,26 @@
+<?php
+$meta_keywords = "湖南炉石空间设计";
+$meta_description = "湖南炉石空间设计是一家专注于酒店、餐饮、KTV等室内空间的专业设计机构，拥有专业优秀的空间设计、软装设计和施工工程监理的团队，服务客户遍布全国，近年来与国内众多知名商业连锁品牌保持着良好稳定持续的合作关系，在餐饮和娱乐设计领域积累了难得的宝贵经验，本着“风格至上，细节至美”的理念，设计作品得到越来越多的业内人士和客户的高度认可，湖南炉石空间设计为您的商业空间效果展现保驾护航。";
+$site_title = "湖南炉石空间设计丨专注于餐厅空间设计、酒店空间设计、KTV空间设计";
+$case_title = "模板-案例名称(xxx餐厅)";
+$case_address = "模板-案例地址(省\市\县\具体地址)";
+$case_area = "模板-案例面积大小(单位:平方米)";
+$case_type = "模板-案例类型(餐厅\酒店\KTV\其他)";
+$case_team = "模板-案例主创团队(餐厅空间设计小组)";
+$case_company = "模板-案例出品单位(湖南炉石空间设计)";
+$case_description = "模板-案例简介(关于此案例的详细介绍文案)";
+$more_prev = "<a href='#'>more artical previous</a>";
+$more_next = "<a href='#'>more artical next</a>";
+?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="Keywords" content="湖南炉石空间设计">
-  <meta name="Description" content="湖南炉石空间设计是一家专注于酒店、餐饮、KTV等室内空间的专业设计机构，拥有专业优秀的空间设计、软装设计和施工工程监理的团队，服务客户遍布全国，近年来与国内众多知名商业连锁品牌保持着良好稳定持续的合作关系，在餐饮和娱乐设计领域积累了难得的宝贵经验，本着“风格至上，细节至美”的理念，设计作品得到越来越多的业内人士和客户的高度认可，湖南炉石空间设计为您的商业空间效果展现保驾护航。">
-  <title>湖南炉石空间设计丨专注于餐厅空间设计、酒店空间设计、KTV空间设计</title>
+  <meta name="Keywords" content="<?php echo $meta_keywords; ?>">
+  <meta name="Description" content="<?php echo $meta_description; ?>">
+  <title><?php echo $site_title; ?></title>
   <link rel="stylesheet" href="/cms/common/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="/cms/common/css/icons.css">
   <link rel="stylesheet" href="/lib/css/shared.css">
@@ -95,40 +109,78 @@
         </div>
 
         <div class="inner row case-content">
-          <div class="col-md-8 col-lg-9 carousel-wrap">
-            <div id="carousel-case-display" class="carousel fade in" data-ride="carousel" data-interval="3000">
-              <!-- Indicators -->
-              <ol class="carousel-indicators">
-                <li data-target="#carousel-case-display" data-slide-to="0" class="active"></li>
-                <li data-target="#carousel-case-display" data-slide-to="1"></li>
-                <li data-target="#carousel-case-display" data-slide-to="2"></li>
-              </ol>
-            
-              <!-- Wrapper for slides -->
-              <div class="carousel-inner" role="listbox">
-                <div class="item active">
-                  <img src="/src/d_01.jpg" alt="...">
-                </div>
-                <div class="item">
-                  <img src="/src/d_02.jpg" alt="...">
-                </div>
-                <div class="item">
-                  <img src="/src/d_03.jpg" alt="...">
-                </div>
-              </div>
-            
-              <!-- Controls -->
-              <!-- <a class="left carousel-control" href="#carousel-case-display" role="button" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="right carousel-control" href="#carousel-case-display" role="button" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a> -->
-            </div>
+          <div class="col-xs-2 col-md-2 col-lg-2 case-thumb" style="background-color: pink;">
+            <ul class="thumb-list">
+              <li data-imgtitle="外立面效果图" data-imgurl="/src/b_01.jpg" data-imgalt="图片alt属性01">
+                <img src="/src/b_01.jpg" alt="图片alt属性01">
+              </li>
+              <li data-imgtitle="大厅效果图" data-imgurl="/src/b_02.jpg" data-imgalt="图片alt属性02">
+                <img src="/src/b_02.jpg" alt="图片alt属性02">
+              </li>
+              <li data-imgtitle="过道效果图" data-imgurl="/src/b_03.jpg" data-imgalt="图片alt属性03">
+                <img src="/src/b_03.jpg" alt="图片alt属性03">
+              </li>
+              <li data-imgtitle="包厢效果图" data-imgurl="/src/b_02.jpg" data-imgalt="图片alt属性02">
+                <img src="/src/b_02.jpg" alt="图片alt属性02">
+              </li>
+              <li data-imgtitle="吧台效果图" data-imgurl="/src/b_01.jpg" data-imgalt="图片alt属性01">
+                <img src="/src/b_01.jpg" alt="图片alt属性01">
+              </li>
+            </ul>
           </div>
-          <div class="col-md-4 col-lg-3 visible-md-block visible-lg-block">
+          <div class="col-xs-10 col-md-6 col-lg-7 case-card">
+            <ul class="card-list">
+              <span class="glyphicon glyphicon-bookmark"></span>
+              <li>
+                <span>项目名称：</span>
+                <span><?php echo $case_title ?></span>
+                <!-- <span><replace#title></span> -->
+              </li>
+              <li>
+                <span>项目地址：</span>
+                <span><?php echo $case_address ?></span>
+                <!-- <span><replace#addr></span> -->
+              </li>
+              <li>
+                <span>项目面积：</span>
+                <span><?php echo $case_area ?></span>
+                <!-- <span><replace#area></span> -->
+              </li>
+              <li>
+                <span>项目类型：</span>
+                <span><?php echo $case_type ?></span>
+                <!-- <span><replace#type></span> -->
+              </li>
+              <li>
+                <span>主创团队：</span>
+                <span><?php echo $case_team ?></span>
+                <!-- <span><replace#team></span> -->
+              </li>
+              <li>
+                <span>出品单位：</span>
+                <span><?php echo $case_company ?></span>
+                <!-- <span><replace#company></span> -->
+              </li>
+              <hr>
+              <div class="case-description">
+                <span>案例简介：</span>
+                <p><?php echo $case_description; ?></p>
+              </div>
+            </ul>
+            <ul class="more-list">
+              <li class="more-list-prev">
+                <span>上一篇</span>
+                <?php echo $more_prev; ?>
+                <!-- <a href="#">article-previous</a> -->
+              </li>
+              <li class="more-list-next">
+                <span>下一篇</span>
+                <?php echo $more_next; ?>
+                <!-- <a href="#">article-next</a> -->
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-4 col-lg-3 visible-md-block visible-lg-block recommends-wrap">
             <div class="panel panel-default recommends">
               <div class="panel-heading">
                 <h3 class="panel-title"><span class="glyphicon glyphicon-star"></span>推荐阅读</h3>
@@ -139,6 +191,7 @@
                 <div class="list-group-item text-info text-ellipsis"><a href="#">3、酒店空间设计案例展示作品酒店空间设计案例展示作品酒店空间设计案例展示作品</a></div>
                 <div class="list-group-item text-info text-ellipsis"><a href="#">4、酒店空间设计案例展示作品酒店空间设计案例展示作品酒店空间设计案例展示作品</a></div>
                 <div class="list-group-item text-info text-ellipsis"><a href="#">5、酒店空间设计案例展示作品酒店空间设计案例展示作品酒店空间设计案例展示作品</a></div>
+                <div class="list-group-item text-info text-ellipsis"><a href="#">6、酒店空间设计案例展示作品酒店空间设计案例展示作品酒店空间设计案例展示作品</a></div>
               </div>
             </div>
           </div>
@@ -318,22 +371,22 @@
         <ul class="col-md-4 list-group footer-nav">
           <h2>网站地图</h2>
           <li class="list-group-item">
-            <a href="#">
+            <a href="/">
               <span class="glyphicon glyphicon-minus"></span>首页
             </a>
           </li>
           <li class="list-group-item">
-            <a href="#">
+            <a href="/service">
               <span class="glyphicon glyphicon-minus"></span>服务
             </a>
           </li>
           <li class="list-group-item">
-            <a href="#">
+            <a href="/case">
               <span class="glyphicon glyphicon-minus"></span>案例
             </a>
           </li>
           <li class="list-group-item">
-            <a href="#">
+            <a href="/about">
               <span class="glyphicon glyphicon-minus"></span>关于
             </a>
           </li>
@@ -370,6 +423,21 @@
     </div><!-- 网页脚注区域结束 // #pageFooter end -->
   </div>
 
+  <!-- 案例图片展示模态框 -->
+  <div id="displayModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <h4 class="modal-title" id="displayModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-content">
+        <div class="modal-body">
+          <img src="/src/b_01.jpg" alt="">
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+
   <!-- 右下角fixed侧边栏 -->
   <ul class="list-group fixed fixed-rb" id="asidebar_tools">
     <ul class="hidden-xs list-group" id="asidebar">
@@ -384,8 +452,8 @@
   <div class="bottom-nav-wrap" id="tools_bottom">
     <div role="navigation" class="navbar navbar-default navbar-fixed-bottom visible-xs-block">
       <ul class="btn-group container-fluid" role="group">
-        <li role="button" class="btn btn-default"><a href="#"><span class="glyphicon glyphicon-home"></span><span>首页</span></a></li>
-        <li role="button" class="btn btn-default"><a href="#"><span class="glyphicon glyphicon-blackboard"></span><span>案例</span></a></li>
+        <li role="button" class="btn btn-default"><a href="/"><span class="glyphicon glyphicon-home"></span><span>首页</span></a></li>
+        <li role="button" class="btn btn-default"><a href="/case"><span class="glyphicon glyphicon-blackboard"></span><span>案例</span></a></li>
         <li role="button" class="btn btn-default"><a href="#online"><span class="glyphicon glyphicon-edit"></span><span>咨询</span></a></li>
         <li role="button" class="btn btn-default"><a href="tel:17752845216"><span class="glyphicon glyphicon-phone"></span><span>致电</span></a></li>
       </ul>
@@ -395,6 +463,6 @@
   <script src="/cms/common/jquery/jquery.min.js"></script>
   <script src="/cms/common/bootstrap/js/bootstrap.min.js"></script>
   <script src="/lib/js/shared.js"></script>
-  <script src="/lib/js/case.js"></script>
+  <script src="/lib/js/template.js"></script>
 </body>
 </html>

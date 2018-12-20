@@ -47,6 +47,26 @@ input, textarea, button, select {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.shape-tag {
+  display: inline-block;
+  padding: 0 20px 0 10px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  color: #f6f8f8;
+  background-color: #363838;
+  position: relative;
+}
+.shape-tag::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 30px;
+  right: 0;
+  border-left: 20px solid transparent;
+  border-top: 15px solid #f6f8f8;
+  border-bottom: 15px solid #f6f8f8;
+}
 
 /* Bootstrap CSS */
 .popover.top>.arrow {
@@ -358,6 +378,7 @@ input, textarea, button, select {
 }
 #partner .brand-list .brand-list-item {
   padding: 0 5px 10px;
+  transition: all 0.6s;
 }
 #partner .brand-list .brand-list-item .item-wrap {
   box-shadow: 0 0 1px 0 rgba(66, 66, 66, 0.5);

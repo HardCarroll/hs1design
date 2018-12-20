@@ -1,11 +1,23 @@
 <?php
-// $str = file_get_contents($_SERVER["DOCUMENT_ROOT"]."/case/index.php");
-// $str = str_replace("<replace#test>", '<h1 style="color:#F60; text-align:center;">hello world, replace test!</h1>', $str);
+// $str = file_get_contents($_SERVER["DOCUMENT_ROOT"]."/case/template.html");
+// $str = str_replace("<replace#title>", "标题替换测试", $str);
+// $str = str_replace("<replace#addr>", "地址替换测试", $str);
+// $str = str_replace("<replace#area>", "面积替换测试", $str);
+// $str = str_replace("<replace#type>", "类型替换测试", $str);
+// $str = str_replace("<replace#team>", "团队替换测试", $str);
+// $str = str_replace("<replace#company>", "公司替换测试", $str);
 // $result = file_put_contents($_SERVER["DOCUMENT_ROOT"]."/cms/update/save.html", $str);
 // var_dump($result);
-// $url = $_SERVER["DOCUMENT_ROOT"."/case/index.php"];
-$url = "http://192.168.0.216:8888/case/index.php?type=2";
+
+$url = "http://192.168.0.216:8888/case/template.php";
+// $url = "http://192.168.0.216:6510";
 $str = curl_request($url);
+// $str = str_replace("<replace#title>", "标题替换测试", $str);
+// $str = str_replace("<replace#addr>", "地址替换测试", $str);
+// $str = str_replace("<replace#area>", "面积替换测试", $str);
+// $str = str_replace("<replace#type>", "类型替换测试", $str);
+// $str = str_replace("<replace#team>", "团队替换测试", $str);
+// $str = str_replace("<replace#company>", "公司替换测试", $str);
 $result = file_put_contents($_SERVER["DOCUMENT_ROOT"]."/cms/update/save.html", $str);
 var_dump($result);
 

@@ -433,22 +433,22 @@ else {
         <ul class="col-md-4 list-group footer-nav">
           <h2>网站地图</h2>
           <li class="list-group-item">
-            <a href="#">
+            <a href="/">
               <span class="glyphicon glyphicon-minus"></span>首页
             </a>
           </li>
           <li class="list-group-item">
-            <a href="#">
+            <a href="/service">
               <span class="glyphicon glyphicon-minus"></span>服务
             </a>
           </li>
           <li class="list-group-item">
-            <a href="#">
+            <a href="/case">
               <span class="glyphicon glyphicon-minus"></span>案例
             </a>
           </li>
           <li class="list-group-item">
-            <a href="#">
+            <a href="/about">
               <span class="glyphicon glyphicon-minus"></span>关于
             </a>
           </li>

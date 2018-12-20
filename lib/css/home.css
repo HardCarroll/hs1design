@@ -32,8 +32,6 @@
   border-bottom: 6px solid #f6f8f8;
   background-color: #a6a8a8;
 }
-@media (min-width: 992px) {
-}
 #cando .cando-list {
   margin: 0 auto;
   padding: 30px 0 0;
@@ -59,7 +57,6 @@
 }
 #cando .cando-list .cando-list-item .item-des .item-thumb {
   font-size: 8rem;
-  transition: all 1s;
   margin: 60px 0;
 }
 #cando .cando-list .cando-list-item:hover {
@@ -70,6 +67,7 @@
 }
 #cando .cando-list .cando-list-item:hover .item-des .item-thumb {
   transform: rotateZ(360deg);
+  transition: all 0.6s;
 }
 #cando .cando-list .cando-list-item .item-des .item-extra {
   padding: 15px 0;
