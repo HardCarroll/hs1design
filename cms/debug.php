@@ -11,7 +11,8 @@
 
 $url = "http://192.168.0.216:8888/case/template.php";
 // $url = "http://192.168.0.216:6510";
-$str = curl_request($url);
+$post = '{"token": "test", "key": "中文测试"}';
+$str = curl_request($url, $post);
 // $str = str_replace("<replace#title>", "标题替换测试", $str);
 // $str = str_replace("<replace#addr>", "地址替换测试", $str);
 // $str = str_replace("<replace#area>", "面积替换测试", $str);

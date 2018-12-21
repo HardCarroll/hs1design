@@ -35,7 +35,7 @@
 .case-content .case-card .card-list{
   list-style: none;
   margin: 0;
-  padding: 10px;
+  padding: 20px 10px;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
   position: relative;
 }
@@ -46,14 +46,16 @@
   left: 8px;
 }
 .case-content .case-card .card-list>li {
-  height: 30px;
   padding: 5px;
   display: block;
 }
 .case-content .case-card .card-list hr {
   margin: 10px 0;
 }
-.case-content .case-card .card-list .case-description p {
+.case-content .case-card .card-list span {
+  font-weight: 700;
+}
+.case-content .case-card .card-list p {
   word-wrap:break-word;
   word-break:break-all;
   text-indent: 2em;
@@ -118,11 +120,25 @@
 }
 #displayModal .modal-content {
   border: none;
-  border-radius: 0;
+  border-radius: 0 0 4px 4px;
 }
 #displayModal .modal-content .modal-body {
   padding: 10px;
   border-radius: 0;
+}
+#displayModal .modal-content .modal-footer {
+  text-align: center;
+  padding: 10px;
+}
+#displayModal .modal-content .modal-footer .btn-group .glyphicon {
+  top: 0;
+}
+#displayModal .modal-content .modal-footer .btn-group .pos {
+  cursor: default;
+}
+#displayModal .modal-content .modal-footer .btn-group .pos:hover {
+  background-color: transparent;
+  border-color: #ccc;
 }
 #displayModal .modal-content img {
   width: 100%;

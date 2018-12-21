@@ -121,7 +121,7 @@ else {
         </div>
         <div class="inner row case-nav">
           <!-- Nav tabs -->
-          <ul class="col-xs-2 col-sm-2 col-md-2 nav nav-tabs case-nav-list" role="tablist">
+          <ul class="col-xs-2 col-sm-2 col-md-2 col-lg-2 nav nav-tabs case-nav-list" role="tablist">
             <li class="case-nav-item<?php if($type === 0){echo ' active';} ?>" role="presentation">
               <a href="#canteen" aria-controls="canteen" role="tab" data-toggle="tab" data-type="餐厅">
                 <img src="/src/case-nav-list-canteen-xs.jpg" alt="炉石空间，专注于餐厅空间设计">
@@ -144,7 +144,7 @@ else {
             </li>
           </ul>
           <!-- Tab panes -->
-          <div class="tab-content case-type-list">
+          <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 tab-content case-type-list">
             <div role="tabpanel" class="row tab-pane case-type-item<?php if($type === 0){echo ' active';} ?>" id="canteen">
               <a href="#" class="col-xs-12 col-sm-6 col-md-4 case-item">
                 <div class="case-thumb">

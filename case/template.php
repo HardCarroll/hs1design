@@ -3,14 +3,21 @@ $meta_keywords = "湖南炉石空间设计";
 $meta_description = "湖南炉石空间设计是一家专注于酒店、餐饮、KTV等室内空间的专业设计机构，拥有专业优秀的空间设计、软装设计和施工工程监理的团队，服务客户遍布全国，近年来与国内众多知名商业连锁品牌保持着良好稳定持续的合作关系，在餐饮和娱乐设计领域积累了难得的宝贵经验，本着“风格至上，细节至美”的理念，设计作品得到越来越多的业内人士和客户的高度认可，湖南炉石空间设计为您的商业空间效果展现保驾护航。";
 $site_title = "湖南炉石空间设计丨专注于餐厅空间设计、酒店空间设计、KTV空间设计";
 $case_title = "模板-案例名称(xxx餐厅)";
-$case_address = "模板-案例地址(省\市\县\具体地址)";
 $case_area = "模板-案例面积大小(单位:平方米)";
+$case_address = "模板-案例地址(省\市\县\街道)";
 $case_type = "模板-案例类型(餐厅\酒店\KTV\其他)";
 $case_team = "模板-案例主创团队(餐厅空间设计小组)";
 $case_company = "模板-案例出品单位(湖南炉石空间设计)";
 $case_description = "模板-案例简介(关于此案例的详细介绍文案)";
-$more_prev = "<a href='#'>more artical previous</a>";
-$more_next = "<a href='#'>more artical next</a>";
+$more_prev = "<a href='#'>模板-上一篇文章标题</a>";
+$more_next = "<a href='#'>模板-下一篇文章标题</a>";
+
+// 接收客户端传来的数据
+// $data = file_get_contents("php://input");
+if($data  = file_get_contents("php://input")) {
+  $dataArray = json_decode($data, true);
+  $case_title = $dataArray["key"];
+}
 ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -100,7 +107,7 @@ $more_next = "<a href='#'>more artical next</a>";
         <div class="inner row current-position">
           <div class="hidden-xs col-sm-2 col-md-2 placeholder"></div>
           <ol class="col-xs-12 col-sm-10 col-md-10 breadcrumb">
-            <span class="glyphicon glyphicon-map-marker rotateYcircle"></span>
+            <span class="glyphicon glyphicon-map-marker"></span>
             <li><a href="/">首页</a></li>
             <li><a href="/case">案例</a></li>
             <li><a href="/case/index.php?type=1">酒店</a></li>
@@ -109,7 +116,7 @@ $more_next = "<a href='#'>more artical next</a>";
         </div>
 
         <div class="inner row case-content">
-          <div class="col-xs-2 col-md-2 col-lg-2 case-thumb" style="background-color: pink;">
+          <div class="col-xs-2 col-md-2 col-lg-2 case-thumb">
             <ul class="thumb-list">
               <li data-imgtitle="外立面效果图" data-imgurl="/src/b_01.jpg" data-imgalt="图片alt属性01">
                 <img src="/src/b_01.jpg" alt="图片alt属性01">
@@ -133,33 +140,27 @@ $more_next = "<a href='#'>more artical next</a>";
               <span class="glyphicon glyphicon-bookmark"></span>
               <li>
                 <span>项目名称：</span>
-                <span><?php echo $case_title ?></span>
-                <!-- <span><replace#title></span> -->
-              </li>
-              <li>
-                <span>项目地址：</span>
-                <span><?php echo $case_address ?></span>
-                <!-- <span><replace#addr></span> -->
+                <p><?php echo $case_title ?></p>
               </li>
               <li>
                 <span>项目面积：</span>
-                <span><?php echo $case_area ?></span>
-                <!-- <span><replace#area></span> -->
+                <p><?php echo $case_area ?></p>
+              </li>
+              <li>
+                <span>项目地址：</span>
+                <p><?php echo $case_address ?></p>
               </li>
               <li>
                 <span>项目类型：</span>
-                <span><?php echo $case_type ?></span>
-                <!-- <span><replace#type></span> -->
+                <p><?php echo $case_type ?></p>
               </li>
               <li>
                 <span>主创团队：</span>
-                <span><?php echo $case_team ?></span>
-                <!-- <span><replace#team></span> -->
+                <p><?php echo $case_team ?></p>
               </li>
               <li>
                 <span>出品单位：</span>
-                <span><?php echo $case_company ?></span>
-                <!-- <span><replace#company></span> -->
+                <p><?php echo $case_company ?></p>
               </li>
               <hr>
               <div class="case-description">
@@ -171,12 +172,10 @@ $more_next = "<a href='#'>more artical next</a>";
               <li class="more-list-prev">
                 <span>上一篇</span>
                 <?php echo $more_prev; ?>
-                <!-- <a href="#">article-previous</a> -->
               </li>
               <li class="more-list-next">
                 <span>下一篇</span>
                 <?php echo $more_next; ?>
-                <!-- <a href="#">article-next</a> -->
               </li>
             </ul>
           </div>
@@ -424,7 +423,7 @@ $more_next = "<a href='#'>more artical next</a>";
   </div>
 
   <!-- 案例图片展示模态框 -->
-  <div id="displayModal" class="modal" tabindex="-1" role="dialog">
+  <div id="displayModal" class="modal" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -432,7 +431,14 @@ $more_next = "<a href='#'>more artical next</a>";
       </div>
       <div class="modal-content">
         <div class="modal-body">
-          <img src="/src/b_01.jpg" alt="">
+            <img src="/src/b_01.jpg" alt="1">
+        </div>
+        <div class="modal-footer">
+          <section class="btn-group">
+            <span class="btn btn-default glyphicon glyphicon-triangle-left prev"></span>
+            <span class="btn btn-default pos">1/5</span>
+            <span class="btn btn-default glyphicon glyphicon-triangle-right next"></span>
+          </section>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
