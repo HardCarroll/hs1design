@@ -1,23 +1,27 @@
 <?php
-$meta_keywords = "湖南炉石空间设计";
-$meta_description = "湖南炉石空间设计是一家专注于酒店、餐饮、KTV等室内空间的专业设计机构，拥有专业优秀的空间设计、软装设计和施工工程监理的团队，服务客户遍布全国，近年来与国内众多知名商业连锁品牌保持着良好稳定持续的合作关系，在餐饮和娱乐设计领域积累了难得的宝贵经验，本着“风格至上，细节至美”的理念，设计作品得到越来越多的业内人士和客户的高度认可，湖南炉石空间设计为您的商业空间效果展现保驾护航。";
-$site_title = "湖南炉石空间设计丨专注于餐厅空间设计、酒店空间设计、KTV空间设计";
-$case_title = "模板-案例名称(xxx餐厅)";
-$case_area = "模板-案例面积大小(单位:平方米)";
-$case_address = "模板-案例地址(省\市\县\街道)";
-$case_type = "模板-案例类型(餐厅\酒店\KTV\其他)";
-$case_team = "模板-案例主创团队(餐厅空间设计小组)";
-$case_company = "模板-案例出品单位(湖南炉石空间设计)";
-$case_description = "模板-案例简介(关于此案例的详细介绍文案)";
-$more_prev = "<a href='#'>模板-上一篇文章标题</a>";
-$more_next = "<a href='#'>模板-下一篇文章标题</a>";
+$dataJson = file_get_contents($_SERVER["DOCUMENT_ROOT"]."/lib/json/template.json");
+$dataArray = json_decode($dataJson, true);
+$page_title = $dataArray["page_title"];
+$meta_keywords = $dataArray["meta_keywords"];
+$meta_description = $dataArray["meta_description"];
+$case_name = $dataArray["case_name"];
+$case_area = $dataArray["case_area"];
+$case_address = $dataArray["case_address"];
+$case_type = $dataArray["case_type"];
+$case_team = $dataArray["case_team"];
+$case_company = $dataArray["case_company"];
+$case_description = $dataArray["case_description"];
+$more_prev = $dataArray["more_prev"];
+$more_next = $dataArray["more_next"];
+
+// var_dump($dataArray);
 
 // 接收客户端传来的数据
 // $data = file_get_contents("php://input");
-if($data  = file_get_contents("php://input")) {
-  $dataArray = json_decode($data, true);
-  $case_title = $dataArray["key"];
-}
+// if($data  = file_get_contents("php://input")) {
+//   $dataArray = json_decode($data, true);
+//   $case_name = $dataArray["key"];
+// }
 ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -27,7 +31,7 @@ if($data  = file_get_contents("php://input")) {
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="Keywords" content="<?php echo $meta_keywords; ?>">
   <meta name="Description" content="<?php echo $meta_description; ?>">
-  <title><?php echo $site_title; ?></title>
+  <title><?php echo $page_title; ?></title>
   <link rel="stylesheet" href="/cms/common/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="/cms/common/css/icons.css">
   <link rel="stylesheet" href="/lib/css/shared.css">
@@ -118,7 +122,7 @@ if($data  = file_get_contents("php://input")) {
         <div class="inner row case-content">
           <div class="col-xs-2 col-md-2 col-lg-2 case-thumb">
             <ul class="thumb-list">
-              <li data-imgtitle="外立面效果图" data-imgurl="/src/b_01.jpg" data-imgalt="图片alt属性01">
+              <!-- <li data-imgtitle="外立面效果图" data-imgurl="/src/b_01.jpg" data-imgalt="图片alt属性01">
                 <img src="/src/b_01.jpg" alt="图片alt属性01">
               </li>
               <li data-imgtitle="大厅效果图" data-imgurl="/src/b_02.jpg" data-imgalt="图片alt属性02">
@@ -132,7 +136,9 @@ if($data  = file_get_contents("php://input")) {
               </li>
               <li data-imgtitle="吧台效果图" data-imgurl="/src/b_01.jpg" data-imgalt="图片alt属性01">
                 <img src="/src/b_01.jpg" alt="图片alt属性01">
-              </li>
+              </li> -->
+              <?php
+              ?>
             </ul>
           </div>
           <div class="col-xs-10 col-md-6 col-lg-7 case-card">
@@ -140,7 +146,7 @@ if($data  = file_get_contents("php://input")) {
               <span class="glyphicon glyphicon-bookmark"></span>
               <li>
                 <span>项目名称：</span>
-                <p><?php echo $case_title ?></p>
+                <p><?php echo $case_name ?></p>
               </li>
               <li>
                 <span>项目面积：</span>
@@ -185,12 +191,18 @@ if($data  = file_get_contents("php://input")) {
                 <h3 class="panel-title"><span class="glyphicon glyphicon-star"></span>推荐阅读</h3>
               </div>
               <div class="panel-body list-group">
-                <div class="list-group-item text-info text-ellipsis"><a href="#">1、酒店空间设计案例展示作品酒店空间设计案例展示作品酒店空间设计案例展示作品</a></div>
+                <!-- <div class="list-group-item text-info text-ellipsis"><a href="#">1、酒店空间设计案例展示作品酒店空间设计案例展示作品酒店空间设计案例展示作品</a></div>
                 <div class="list-group-item text-info text-ellipsis"><a href="#">2、酒店空间设计案例展示作品酒店空间设计案例展示作品酒店空间设计案例展示作品</a></div>
                 <div class="list-group-item text-info text-ellipsis"><a href="#">3、酒店空间设计案例展示作品酒店空间设计案例展示作品酒店空间设计案例展示作品</a></div>
                 <div class="list-group-item text-info text-ellipsis"><a href="#">4、酒店空间设计案例展示作品酒店空间设计案例展示作品酒店空间设计案例展示作品</a></div>
                 <div class="list-group-item text-info text-ellipsis"><a href="#">5、酒店空间设计案例展示作品酒店空间设计案例展示作品酒店空间设计案例展示作品</a></div>
-                <div class="list-group-item text-info text-ellipsis"><a href="#">6、酒店空间设计案例展示作品酒店空间设计案例展示作品酒店空间设计案例展示作品</a></div>
+                <div class="list-group-item text-info text-ellipsis"><a href="#">6、酒店空间设计案例展示作品酒店空间设计案例展示作品酒店空间设计案例展示作品</a></div> -->
+                <?php
+                $recommends = $dataArray["recommends"];
+                foreach($recommends as $recommends_item) {
+                  echo '<div class="list-group-item text-info text-ellipsis"><a href="'.$recommends_item["url"].'">'.$recommends_item["title"].'</a></div>';
+                }
+                ?>
               </div>
             </div>
           </div>
