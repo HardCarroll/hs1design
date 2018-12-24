@@ -1,5 +1,5 @@
 <?php
-$dataJson = file_get_contents($_SERVER["DOCUMENT_ROOT"]."/lib/json/template.json");
+$dataJson = file_get_contents($_SERVER["DOCUMENT_ROOT"]."/lib/json/case_temp.json");
 $dataArray = json_decode($dataJson, true);
 $page_title = $dataArray["page_title"];
 $meta_keywords = $dataArray["meta_keywords"];
@@ -13,6 +13,24 @@ $case_company = $dataArray["case_company"];
 $case_description = $dataArray["case_description"];
 $more_prev = $dataArray["more_prev"];
 $more_next = $dataArray["more_next"];
+function transmitCasetype($key) {
+  $type = '';
+  switch($key) {
+    case 0:
+      $type = '餐厅';
+      break;
+    case 1:
+      $type = '酒店';
+      break;
+    case 2:
+      $type = '娱乐';
+      break;
+    case 3:
+      $type = '其它';
+      break;
+  }
+  return $type;
+}
 
 // var_dump($dataArray);
 
@@ -35,7 +53,7 @@ $more_next = $dataArray["more_next"];
   <link rel="stylesheet" href="/cms/common/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="/cms/common/css/icons.css">
   <link rel="stylesheet" href="/lib/css/shared.css">
-  <link rel="stylesheet" href="/lib/css/template.css">
+  <link rel="stylesheet" href="/lib/css/case_temp.css">
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 </head>
 <body>
@@ -80,22 +98,14 @@ $more_next = $dataArray["more_next"];
           </form>
           <ul class="nav navbar-nav navbar-right">
             <li class=""><a href="/">首页</a></li>
-            <li class="dropdown" id="nav_service">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">服务 <span class="caret visible-xs-inline-block"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">空间设计</a></li>
-                <li><a href="#">品牌设计</a></li>
-                <li><a href="#">装饰施工</a></li>
-                <li><a href="#">网络运维</a></li>
-              </ul>
-            </li>
+            <li><a href="/service">服务</a></li>
             <li class="active"><a href="/case">案例</a></li>
             <li class="dropdown" id="nav_about">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">关于 <span class="caret visible-xs-inline-block"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">更多 <span class="caret visible-xs-inline-block"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">综合资讯</a></li>
-                <li><a href="#">关于我们</a></li>
-                <li><a href="#">加入我们</a></li>
+                <li><a href="/news">综合资讯</a></li>
+                <li><a href="/about">关于我们</a></li>
+                <li><a href="/join">加入我们</a></li>
               </ul>
             </li>
           </ul>
@@ -108,82 +118,77 @@ $more_next = $dataArray["more_next"];
 
       <!-- 案例展示区域开始 .case-display begin -->
       <div class="container-fluid wrapper case-display">
-        <div class="inner row current-position">
-          <div class="hidden-xs col-sm-2 col-md-2 placeholder"></div>
-          <ol class="col-xs-12 col-sm-10 col-md-10 breadcrumb">
+        <div class="inner current-position">
+          <ol class="breadcrumb">
             <span class="glyphicon glyphicon-map-marker"></span>
             <li><a href="/">首页</a></li>
             <li><a href="/case">案例</a></li>
-            <li><a href="/case/index.php?type=1">酒店</a></li>
-            <li class="active">酒店空间设计案例展示作品</li>
+            <li><?php echo '<a href="/case/index.php?type='.$case_type.'">'.transmitCasetype($case_type).'</a>'; ?></li>
+            <li class="active"><?php echo $case_name; ?></li>
           </ol>
         </div>
 
         <div class="inner row case-content">
-          <div class="col-xs-2 col-md-2 col-lg-2 case-thumb">
-            <ul class="thumb-list">
-              <!-- <li data-imgtitle="外立面效果图" data-imgurl="/src/b_01.jpg" data-imgalt="图片alt属性01">
-                <img src="/src/b_01.jpg" alt="图片alt属性01">
-              </li>
-              <li data-imgtitle="大厅效果图" data-imgurl="/src/b_02.jpg" data-imgalt="图片alt属性02">
-                <img src="/src/b_02.jpg" alt="图片alt属性02">
-              </li>
-              <li data-imgtitle="过道效果图" data-imgurl="/src/b_03.jpg" data-imgalt="图片alt属性03">
-                <img src="/src/b_03.jpg" alt="图片alt属性03">
-              </li>
-              <li data-imgtitle="包厢效果图" data-imgurl="/src/b_02.jpg" data-imgalt="图片alt属性02">
-                <img src="/src/b_02.jpg" alt="图片alt属性02">
-              </li>
-              <li data-imgtitle="吧台效果图" data-imgurl="/src/b_01.jpg" data-imgalt="图片alt属性01">
-                <img src="/src/b_01.jpg" alt="图片alt属性01">
-              </li> -->
-              <?php
-              ?>
-            </ul>
-          </div>
-          <div class="col-xs-10 col-md-6 col-lg-7 case-card">
-            <ul class="card-list">
+          <div class="col-xs-12 col-md-8 col-lg-9 case-card">
+            <ul class="contain-fluid card-list">
               <span class="glyphicon glyphicon-bookmark"></span>
               <li>
                 <span>项目名称：</span>
-                <p><?php echo $case_name ?></p>
+                <p><?php echo $case_name; ?></p>
               </li>
               <li>
                 <span>项目面积：</span>
-                <p><?php echo $case_area ?></p>
+                <p><?php echo $case_area; ?></p>
               </li>
               <li>
                 <span>项目地址：</span>
-                <p><?php echo $case_address ?></p>
+                <p><?php echo $case_address; ?></p>
               </li>
               <li>
                 <span>项目类型：</span>
-                <p><?php echo $case_type ?></p>
+                <p><?php echo transmitCasetype($case_type); ?></p>
               </li>
               <li>
                 <span>主创团队：</span>
-                <p><?php echo $case_team ?></p>
+                <p><?php echo $case_team; ?></p>
               </li>
               <li>
                 <span>出品单位：</span>
-                <p><?php echo $case_company ?></p>
+                <p><?php echo $case_company; ?></p>
               </li>
               <hr>
               <div class="case-description">
                 <span>案例简介：</span>
                 <p><?php echo $case_description; ?></p>
               </div>
+              <hr>
+              <div class="row case-thumb">
+                <!-- <section class="col-xs-6 col-sm-4 col-md-3 col-lg-2 case-thumb-item">
+                  <img src="img_url" alt="img_alt" title="img_title">
+                </section> -->
+                <!-- 动态生成案例图片缩略图 -->
+                <?php
+                $imgs = $dataArray["case_images"];
+                foreach($imgs as $imgs_item) {
+                  echo '<section class="col-xs-6 col-sm-4 col-md-3 col-lg-2 case-thumb-item"><img src="'.$imgs_item["url"].'" title="'.$imgs_item["attr_title"].'" alt="'.$imgs_item["attr_alt"].'"></section>';
+                }
+                ?>
+              </div>
             </ul>
-            <ul class="more-list">
+            <!-- <ul class="more-list">
               <li class="more-list-prev">
                 <span>上一篇</span>
-                <?php echo $more_prev; ?>
+                <?php
+                // echo $more_prev;
+                ?>
               </li>
               <li class="more-list-next">
                 <span>下一篇</span>
-                <?php echo $more_next; ?>
+                <?php
+                // echo $more_next;
+                ?>
               </li>
-            </ul>
+            </ul> -->
           </div>
           <div class="col-md-4 col-lg-3 visible-md-block visible-lg-block recommends-wrap">
             <div class="panel panel-default recommends">
@@ -191,12 +196,8 @@ $more_next = $dataArray["more_next"];
                 <h3 class="panel-title"><span class="glyphicon glyphicon-star"></span>推荐阅读</h3>
               </div>
               <div class="panel-body list-group">
-                <!-- <div class="list-group-item text-info text-ellipsis"><a href="#">1、酒店空间设计案例展示作品酒店空间设计案例展示作品酒店空间设计案例展示作品</a></div>
-                <div class="list-group-item text-info text-ellipsis"><a href="#">2、酒店空间设计案例展示作品酒店空间设计案例展示作品酒店空间设计案例展示作品</a></div>
-                <div class="list-group-item text-info text-ellipsis"><a href="#">3、酒店空间设计案例展示作品酒店空间设计案例展示作品酒店空间设计案例展示作品</a></div>
-                <div class="list-group-item text-info text-ellipsis"><a href="#">4、酒店空间设计案例展示作品酒店空间设计案例展示作品酒店空间设计案例展示作品</a></div>
-                <div class="list-group-item text-info text-ellipsis"><a href="#">5、酒店空间设计案例展示作品酒店空间设计案例展示作品酒店空间设计案例展示作品</a></div>
-                <div class="list-group-item text-info text-ellipsis"><a href="#">6、酒店空间设计案例展示作品酒店空间设计案例展示作品酒店空间设计案例展示作品</a></div> -->
+                <!-- <div class="list-group-item text-info text-ellipsis"><a href="Article_url">Article_Title</a></div> -->
+                <!-- 动态生成推荐阅读列表 -->
                 <?php
                 $recommends = $dataArray["recommends"];
                 foreach($recommends as $recommends_item) {
@@ -443,12 +444,18 @@ $more_next = $dataArray["more_next"];
       </div>
       <div class="modal-content">
         <div class="modal-body">
-            <img src="/src/b_01.jpg" alt="1">
+          <!-- <img class="fade" src="img_url" title="img_title" alt="img_alt"> -->
+          <!-- 动态生成模态框内案例图片展示 -->
+          <?php
+          foreach($imgs as $imgs_item) {
+            echo '<img class="fade" src="'.$imgs_item["url"].'" title="'.$imgs_item["attr_title"].'" alt="'.$imgs_item["attr_alt"].'">';
+          }
+          ?>
         </div>
         <div class="modal-footer">
           <section class="btn-group">
             <span class="btn btn-default glyphicon glyphicon-triangle-left prev"></span>
-            <span class="btn btn-default pos">1/5</span>
+            <span class="btn btn-default pos">1 / 5</span>
             <span class="btn btn-default glyphicon glyphicon-triangle-right next"></span>
           </section>
         </div>
@@ -481,6 +488,6 @@ $more_next = $dataArray["more_next"];
   <script src="/cms/common/jquery/jquery.min.js"></script>
   <script src="/cms/common/bootstrap/js/bootstrap.min.js"></script>
   <script src="/lib/js/shared.js"></script>
-  <script src="/lib/js/template.js"></script>
+  <script src="/lib/js/case_temp.js"></script>
 </body>
 </html>

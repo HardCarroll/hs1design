@@ -73,22 +73,14 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
           </form>
           <ul class="nav navbar-nav navbar-right">
             <li class="active"><a href="/">首页</a></li>
-            <li class="dropdown" id="nav_service">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">服务 <span class="caret visible-xs-inline-block"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">空间设计</a></li>
-                <li><a href="#">品牌设计</a></li>
-                <li><a href="#">装饰施工</a></li>
-                <li><a href="#">网络运维</a></li>
-              </ul>
-            </li>
+            <li><a href="/service">服务</a></li>
             <li><a href="/case">案例</a></li>
             <li class="dropdown" id="nav_about">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">关于 <span class="caret visible-xs-inline-block"></span></a>
+              <a href="/about" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">更多 <span class="caret visible-xs-inline-block"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">综合资讯</a></li>
-                <li><a href="#">关于我们</a></li>
-                <li><a href="#">加入我们</a></li>
+                <li><a href="/news">综合资讯</a></li>
+                <li><a href="/about">关于我们</a></li>
+                <li><a href="/join">加入我们</a></li>
               </ul>
             </li>
           </ul>
@@ -156,29 +148,30 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
             <a href="#" class="item-des text-muted">
               <span class="item-title">空间设计</span>
               <span class="item-thumb icon icon-serv icon-tools"></span>
-              <span class="item-extra">extra text</span>
+              <span class="item-extra">Space Design</span>
             </a>
           </li>
           <li class="col-xs-12 col-sm-6 col-md-3 cando-list-item">
             <a href="#" class="item-des text-muted">
               <span class="item-title">品牌策划</span>
               <span class="item-thumb icon icon-serv icon-presentation"></span>
-              <span class="item-extra">extra text</span>
+              <span class="item-extra">Visual Design</span>
             </a>
           </li>
           <li class="col-xs-12 col-sm-6 col-md-3 cando-list-item">
             <a href="#" class="item-des text-muted">
               <span class="item-title">装饰施工</span>
               <span class="item-thumb icon icon-serv icon-paintbrush"></span>
-              <span class="item-extra">extra text</span>
+              <span class="item-extra">Decoration</span>
             </a>
           </li>
           <li class="col-xs-12 col-sm-6 col-md-3 cando-list-item">
             <a href="#" class="item-des text-muted">
               <span class="item-title">网络运维</span>
               <span class="item-thumb icon icon-serv icon-global"></span>
-              <span class="item-extra">extra text</span>
-            </a></li>
+              <span class="item-extra">Promotion</span>
+            </a>
+          </li>
         </ul>
       </div> <!-- 服务项目区域结束 #case end -->
 

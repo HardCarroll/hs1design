@@ -1,25 +1,8 @@
 <?php
-// $str = file_get_contents($_SERVER["DOCUMENT_ROOT"]."/case/template.html");
-// $str = str_replace("<replace#title>", "标题替换测试", $str);
-// $str = str_replace("<replace#addr>", "地址替换测试", $str);
-// $str = str_replace("<replace#area>", "面积替换测试", $str);
-// $str = str_replace("<replace#type>", "类型替换测试", $str);
-// $str = str_replace("<replace#team>", "团队替换测试", $str);
-// $str = str_replace("<replace#company>", "公司替换测试", $str);
-// $result = file_put_contents($_SERVER["DOCUMENT_ROOT"]."/cms/update/save.html", $str);
-// var_dump($result);
-
-$url = "http://192.168.0.216:8888/case/template.php";
-// $url = "http://192.168.0.216:6510";
+$url = "http://192.168.0.216:8888/lib/php/case_temp.php";
 $post = '{"token": "test", "key": "中文测试"}';
 $str = curl_request($url, $post);
-// $str = str_replace("<replace#title>", "标题替换测试", $str);
-// $str = str_replace("<replace#addr>", "地址替换测试", $str);
-// $str = str_replace("<replace#area>", "面积替换测试", $str);
-// $str = str_replace("<replace#type>", "类型替换测试", $str);
-// $str = str_replace("<replace#team>", "团队替换测试", $str);
-// $str = str_replace("<replace#company>", "公司替换测试", $str);
-$result = file_put_contents($_SERVER["DOCUMENT_ROOT"]."/cms/update/save.html", $str);
+$result = file_put_contents($_SERVER["DOCUMENT_ROOT"]."/case/upload/save.html", $str);
 var_dump($result);
 
 /**

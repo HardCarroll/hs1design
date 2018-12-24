@@ -82,22 +82,14 @@ else {
           </form>
           <ul class="nav navbar-nav navbar-right">
             <li class=""><a href="/">首页</a></li>
-            <li class="dropdown" id="nav_service">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">服务 <span class="caret visible-xs-inline-block"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">空间设计</a></li>
-                <li><a href="#">品牌设计</a></li>
-                <li><a href="#">装饰施工</a></li>
-                <li><a href="#">网络运维</a></li>
-              </ul>
-            </li>
+            <li><a href="/service">服务</a></li>
             <li class="active"><a href="/case">案例</a></li>
             <li class="dropdown" id="nav_about">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">关于 <span class="caret visible-xs-inline-block"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">更多 <span class="caret visible-xs-inline-block"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="#">综合资讯</a></li>
-                <li><a href="#">关于我们</a></li>
-                <li><a href="#">加入我们</a></li>
+                <li><a href="/news">综合资讯</a></li>
+                <li><a href="/about">关于我们</a></li>
+                <li><a href="/join">加入我们</a></li>
               </ul>
             </li>
           </ul>

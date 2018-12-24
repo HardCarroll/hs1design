@@ -1,0 +1,21 @@
+#service {
+  cursor: default;
+}
+#service>.service-title {
+  text-align: center;
+}
+#service>.service-title>h2 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+}
+#service>.service-title>h2>span.sep-vline {
+  display: block;
+  font-weight: 100;
+}
+#service>.service-title>h2>em {
+  font-style: normal;
+  font-size: 14px;
+  font-weight: normal;
+  display: block;
+}

@@ -2,34 +2,21 @@
   position: relative;
   cursor: default;
   background-color: #c6c8c8;
-  margin-top: 10px !important;
+  margin: 10px auto !important;
 }
 .case-content .case-thumb {
-  padding: 0;
+  padding: 10px 10px 0;
 }
-.case-content .case-thumb .thumb-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.case-content .case-thumb .case-thumb-item {
+  padding: 5px;
+  cursor: pointer;
 }
-.case-content .case-thumb .thumb-list li{
-  border: 2px solid #363838;
-  border-radius: 2px;
-}
-.case-content .case-thumb .thumb-list li+li{
-  margin-top: -2px;
-}
-.case-content .case-thumb .thumb-list li:hover, .case-content .case-thumb .thumb-list li.active{
-  border-color: #c6c8c8;
-}
-.case-content .case-thumb .thumb-list li:hover+li, .case-content .case-thumb .thumb-list li.active+li{
-  border-top-color: #c6c8c8;
-}
-.case-content .case-thumb .thumb-list li img {
+.case-content .case-thumb .case-thumb-item img {
   width: 100%;
 }
 .case-content .case-card {
   padding-top: 20px;
+  padding-bottom: 15px;
   background-color: #f6f8f8;
 }
 .case-content .case-card .card-list{
@@ -59,11 +46,6 @@
   word-wrap:break-word;
   word-break:break-all;
   text-indent: 2em;
-}
-.case-content .case-card .more-list {
-  margin: 10px 0 0;
-  padding-left: 15px;
-  list-style: none;
 }
 .case-content .recommends-wrap {
   position: relative;
@@ -102,7 +84,9 @@
 .case-content .recommends-wrap .recommends .list-group .list-group-item a {
   text-decoration: none;
 }
-
+#online {
+  background-color: transparent;
+}
 #displayModal {
   padding-right: 0 !important;
   cursor: default;
@@ -125,6 +109,14 @@
 #displayModal .modal-content .modal-body {
   padding: 10px;
   border-radius: 0;
+  position: relative;
+}
+#displayModal .modal-content .modal-body img+img {
+  padding: 10px;
+  border-radius: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 #displayModal .modal-content .modal-footer {
   text-align: center;
