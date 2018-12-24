@@ -79,7 +79,7 @@
   cursor: default;
 }
 .advantage {
-  box-shadow: 0 0 6px 0 #36383866;
+  box-shadow: 0 0 6px 0 rgba(54, 58, 58, 0.4);
 }
 .advantage, .advantage-img, .advantage-text {
   margin: 0;
@@ -179,7 +179,7 @@
   content: '';
   width: 100%;
   height: 100%;
-  background-color: #36383866;
+  background-color: rgba(54, 58, 58, 0.4);
   color: #f6f8f8;
   text-align: center;
   position: absolute;
@@ -302,7 +302,7 @@
   color: #363838;
   right: 15px;
   top: 15%;
-  box-shadow: 0 0 16px -2px #36383866;
+  box-shadow: 0 0 16px -2px rgba(54, 58, 58, 0.4);
   border-radius: 8px;
 }
 #news .news-class .news-industry span.glyphicon {
