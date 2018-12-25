@@ -2,7 +2,9 @@
   cursor: default;
 }
 #service>.service-title {
+  padding: 15px 0;
   text-align: center;
+  color: #666868;
 }
 #service>.service-title>h2 {
   margin: 0;
@@ -18,4 +20,57 @@
   font-size: 14px;
   font-weight: normal;
   display: block;
+}
+#service>.service-list {
+  margin: 0;
+  padding: 50px 0;
+}
+#service>.service-list>.service-list-item {
+  text-align: center;
+  color: #666868;
+  opacity: 0;
+}
+#service>.service-list>.service-list-item>span.icon {
+  padding: 10px;
+  font-size: 36px;
+  font-weight: 700;
+  border-radius: 50%;
+  border: 2px solid #666868;
+}
+#service>.service-list>.service-list-item>.item-name {
+  margin: 15px 0;
+}
+#service>.service-list>.service-list-item>.item-name>span {
+  padding: 5px 0 7px;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+}
+#service>.service-list>.service-list-item>.item-name>span::after {
+  transition: all 0.6s;
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0px;
+  left: -100%;
+  background-color: #666868;
+}
+#service>.service-list>.service-list-item:hover>.item-name>span::after {
+  left: 0;
+}
+.scale-in {
+  animation-name: scale-in;
+  animation-duration: 0.6s;
+  animation-fill-mode: forwards;
+}
+@keyframes scale-in {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
 }

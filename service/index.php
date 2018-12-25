@@ -83,6 +83,37 @@
             <span class="sep-vline">|</span>
           </h2>
         </section>
+        <section class="row service-list">
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 service-list-item scale-in" style="animation-delay: 0.1s;">
+            <span class="icon icon-serv icon-tools"></span>
+            <div class="item-name"><span>空间设计</span></div>
+            <span class="item-description">有关空间设计服务内容的文字介绍有关空间设计服务内容的文字介绍有关空间设计服务内容的文字介绍有关空间设计服务内容的文字介绍</span>
+          </div>
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 service-list-item scale-in" style="animation-delay: 0.2s;">
+            <span class="icon icon-serv icon-tools"></span>
+            <div class="item-name"><span>品牌策划</span></div>
+            <span class="item-description">有关品牌策划服务内容的文字介绍有关品牌策划服务内容的文字介绍有关品牌策划服务内容的文字介绍有关品牌策划服务内容的文字介绍</span>
+          </div>
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 service-list-item scale-in" style="animation-delay: 0.3s;">
+            <span class="icon icon-serv icon-tools"></span>
+            <div class="item-name"><span>装饰施工</span></div>
+            <span class="item-description">有关装饰施工服务内容的文字介绍有关装饰施工服务内容的文字介绍有关装饰施工服务内容的文字介绍有关装饰施工服务内容的文字介绍</span>
+          </div>
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 service-list-item scale-in" style="animation-delay: 0.4s;">
+            <span class="icon icon-serv icon-tools"></span>
+            <div class="item-name"><span>网络运维</span></div>
+            <span class="item-description">有关网络运维服务内容的文字介绍有关网络运维服务内容的文字介绍有关网络运维服务内容的文字介绍有关网络运维服务内容的文字介绍</span>
+          </div>
+        </section>
+
+        <section class="service-title">
+          <h2>
+            <span class="sep-vline">|</span>
+            <span>SERVICE</span>
+            <em>服务流程</em>
+            <span class="sep-vline">|</span>
+          </h2>
+        </section>
       </div> <!-- 服务项目区域结束 #service end -->
 
       <!-- <replace#test> -->
@@ -92,7 +123,7 @@
     <!-- 网页脚注区域开始 #pageFooter begin-->
     <div class="container-fluid wrapper" id="pageFooter">
       <div class="hidden-xs row inner footer">
-        <ul class="col-md-4 list-group footer-nav">
+        <ul class="col-xs-4 col-sm-4 col-md-4 col-lg-4 list-group footer-nav">
           <h2>网站地图</h2>
           <li class="list-group-item">
             <a href="/">
@@ -115,7 +146,7 @@
             </a>
           </li>
         </ul>
-        <ul class="col-md-4 list-group footer-info">
+        <ul class="col-xs-4 col-sm-4 col-md-4 col-lg-4 list-group footer-info">
           <h2>简要信息</h2>
           <li class="list-group-item">
             <span class="glyphicon glyphicon-envelope"></span>
@@ -134,7 +165,7 @@
             <span class="text">长沙市星沙开元路星大花园1408</span>
           </li>
         </ul>
-        <ul class="col-md-4 list-group footer-links">
+        <ul class="col-xs-4 col-sm-4 col-md-4 col-lg-4 list-group footer-links">
           <h2>友情链接</h2>
           <li class="list-group-item add-link"><a href="https://www.szwzny.com">洈洲农业发展有限公司</a></li>
           <li class="list-group-item add-link">互加友链,请加QQ476000121</li>

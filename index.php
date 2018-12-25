@@ -572,7 +572,7 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
     <!-- 网页脚注区域开始 #pageFooter begin-->
     <div class="container-fluid wrapper" id="pageFooter">
       <div class="hidden-xs row inner footer">
-        <ul class="col-sm-4 col-md-4 list-group footer-nav">
+        <ul class="col-xs-4 col-sm-4 col-md-4 col-lg-4 list-group footer-nav">
           <h2>网站地图</h2>
           <li class="list-group-item">
             <a href="/">
@@ -595,7 +595,7 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
             </a>
           </li>
         </ul>
-        <ul class="col-sm-4 col-md-4 list-group footer-info">
+        <ul class="col-xs-4 col-sm-4 col-md-4 col-lg-4 list-group footer-info">
           <h2>简要信息</h2>
           <li class="list-group-item">
             <span class="glyphicon glyphicon-envelope"></span>
@@ -614,7 +614,7 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
             <span class="text">长沙市星沙开元路星大花园1408</span>
           </li>
         </ul>
-        <ul class="col-sm-4 col-md-4 list-group footer-links">
+        <ul class="col-xs-4 col-sm-4 col-md-4 col-lg-4 list-group footer-links">
           <h2>友情链接</h2>
           <li class="list-group-item add-link"><a href="https://www.szwzny.com">洈洲农业发展有限公司</a></li>
           <li class="list-group-item add-link">互加友链,请加QQ476000121</li>
