@@ -6,6 +6,7 @@ html, body {
 }
 a {
   text-decoration: none;
+	-webkit-tap-highlight-color: transparent;
 }
 p {
   margin-bottom: 0;
@@ -86,45 +87,6 @@ input, textarea, button, select {
 .logo>a>img {
   display: block;
   width: 100%;
-}
-
-/* 开始页CSS */
-#full-screen {
-  height: 100%;
-  box-sizing: border-box;
-  position: relative;
-  background-color: rgba(0, 0, 0, 0.6);
-}
-#full-screen>.container {
-  height: 100%;
-  text-align: center;
-  position: relative;
-}
-#full-screen>.container>.description {
-  position: relative;
-  top: 45%;
-  transform: translateY(-50%);
-}
-#full-screen>.container>.description>p {
-  width: 100%;
-  margin: 0 auto;
-  font-size: 16px;
-  text-indent: 2em;
-  line-height: 2em;
-  text-align: left;
-  color: #e6e8e8;
-  padding: 5px;
-}
-#full-screen>.container>#btn_index {
-  position: absolute;
-  bottom: 3%;
-  left: 50%;
-  transform: translateX(-50%);
-}
-.btn-normal {
-  border: none;
-  background-color: rgba(30, 144, 255, 0.6);
-  padding: 5px 16px;
 }
 
 /* nav导航栏CSS */

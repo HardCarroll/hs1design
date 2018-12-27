@@ -62,7 +62,7 @@
               <ul class="dropdown-menu">
                 <li><a href="/news">综合资讯</a></li>
                 <li><a href="/about">关于我们</a></li>
-                <li><a href="/join">加入我们</a></li>
+                <li><a href="/join">联系我们</a></li>
               </ul>
             </li>
           </ul>
@@ -83,38 +83,55 @@
             <span class="sep-vline">|</span>
           </h2>
         </section>
-        <section class="row service-list">
-          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 service-list-item scale-in" style="animation-delay: 0.1s;">
+        <section class="inner row service-list">
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 service-list-item scale-in" href="#space" data-toggle="tab" style="animation-delay: 0.1s;">
             <span class="icon icon-serv icon-tools"></span>
             <div class="item-name"><span>空间设计</span></div>
-            <span class="item-description">有关空间设计服务内容的文字介绍有关空间设计服务内容的文字介绍有关空间设计服务内容的文字介绍有关空间设计服务内容的文字介绍</span>
+            <span class="hidden-xs item-description">空间设计的好坏，对空间利用至关重要，更关系到后期市场表现；我们拥有丰富的成功案例，专业且追求极致</span>
           </div>
-          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 service-list-item scale-in" style="animation-delay: 0.2s;">
-            <span class="icon icon-serv icon-tools"></span>
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 service-list-item scale-in" href="#visual" data-toggle="tab" style="animation-delay: 0.2s;">
+            <span class="icon icon-serv icon-presentation"></span>
             <div class="item-name"><span>品牌策划</span></div>
-            <span class="item-description">有关品牌策划服务内容的文字介绍有关品牌策划服务内容的文字介绍有关品牌策划服务内容的文字介绍有关品牌策划服务内容的文字介绍</span>
+            <span class="hidden-xs item-description">根据品牌文化、价值观和差异性设计LOGO/VI系统，制定品牌策略；我们以前瞻性的眼光创造独特的品牌认同</span>
           </div>
-          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 service-list-item scale-in" style="animation-delay: 0.3s;">
-            <span class="icon icon-serv icon-tools"></span>
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 service-list-item scale-in" href="#decoration" data-toggle="tab" style="animation-delay: 0.3s;">
+            <span class="icon icon-serv icon-paintbrush"></span>
             <div class="item-name"><span>装饰施工</span></div>
-            <span class="item-description">有关装饰施工服务内容的文字介绍有关装饰施工服务内容的文字介绍有关装饰施工服务内容的文字介绍有关装饰施工服务内容的文字介绍</span>
+            <span class="hidden-xs item-description">硬装施工、软装搭配直接关系到空间设计整体效果的还原程度；完美还原效果是我们对客户的郑重承诺和追求</span>
           </div>
-          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 service-list-item scale-in" style="animation-delay: 0.4s;">
-            <span class="icon icon-serv icon-tools"></span>
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 service-list-item scale-in" href="#promotion" data-toggle="tab" style="animation-delay: 0.4s;">
+            <span class="icon icon-serv icon-global"></span>
             <div class="item-name"><span>网络运维</span></div>
-            <span class="item-description">有关网络运维服务内容的文字介绍有关网络运维服务内容的文字介绍有关网络运维服务内容的文字介绍有关网络运维服务内容的文字介绍</span>
+            <span class="hidden-xs item-description">互联网是一个变化、持续创新的互动平台；我们应用最新的设计理念和技术方案，助您高效的连接每一位客户</span>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade" id="space">空间设计的好坏，对空间利用至关重要，更关系到后期市场表现；我们拥有丰富的成功案例，专业且追求极致</div>
+            <div role="tabpanel" class="tab-pane fade" id="visual">根据品牌文化、价值观和差异性设计LOGO/VI系统，制定品牌策略；我们以前瞻性的眼光创造独特的品牌认同</div>
+            <div role="tabpanel" class="tab-pane fade" id="decoration">硬装施工、软装搭配直接关系到空间设计整体效果的还原程度；完美还原效果是我们对客户的郑重承诺和追求</div>
+            <div role="tabpanel" class="tab-pane fade" id="promotion">互联网是一个变化、持续创新的互动平台；我们应用最新的设计理念和技术方案，助您高效的连接每一位客户</div>
           </div>
         </section>
+      </div> <!-- 服务项目区域结束 #service end -->
 
-        <section class="service-title">
+      <!-- 服务流程区域开始 #process begin -->
+      <div class="container-fluid wrapper" id="process">
+        <section class="process-title">
           <h2>
             <span class="sep-vline">|</span>
-            <span>SERVICE</span>
+            <span>PROCESS</span>
             <em>服务流程</em>
             <span class="sep-vline">|</span>
           </h2>
         </section>
-      </div> <!-- 服务项目区域结束 #service end -->
+        <section class="inner row process-list">
+          <div class="col-xs-12 col-sm-6 col-md-3 process-list-item">
+            <span class="glyphicon glyphicon-bookmark"></span>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-3 process-list-item">2</div>
+          <div class="col-xs-12 col-sm-6 col-md-3 process-list-item">3</div>
+          <div class="col-xs-12 col-sm-6 col-md-3 process-list-item">4</div>
+        </section>
+      </div> <!-- 服务流程区域开始 #process begin -->
 
       <!-- <replace#test> -->
 

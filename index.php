@@ -29,7 +29,7 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
           一家专注于酒店、餐饮、KTV等室内空间的专业设计机构，拥有专业优秀的空间设计、软装设计和施工工程监理的团队，服务客户遍布全国，近年来与国内众多知名商业连锁品牌保持着良好稳定持续的合作关系，在餐饮和娱乐设计领域积累了难得的宝贵经验，本着“风格至上，细节至美”的理念，设计作品得到越来越多的业内人士和客户的高度认可，湖南炉石空间设计为您的商业空间效果展现保驾护航。
         </p>
       </section>
-      <button class="btn btn-warning btn-lg btn-normal" data-loading-text="努力加载中..." autocomplete="off" id="btn_index">了解更多</button>
+      <button class="btn btn-lg btn-normal" data-loading-text="努力加载中..." autocomplete="off" id="btn_index">了解更多</button>
     </div>
   </div>
   <div id="indexPage">
@@ -80,7 +80,7 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
               <ul class="dropdown-menu">
                 <li><a href="/news">综合资讯</a></li>
                 <li><a href="/about">关于我们</a></li>
-                <li><a href="/join">加入我们</a></li>
+                <li><a href="/join">联系我们</a></li>
               </ul>
             </li>
           </ul>
@@ -144,29 +144,29 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
           <span class="sep-line"></span>
         </section>
         <ul class="row list-group cando-list">
-          <li class="col-xs-12 col-sm-6 col-md-3 cando-list-item">
-            <a href="#" class="item-des text-muted">
+          <li class="col-xs-12 col-sm-6 col-md-3 cando-list-item" id="space">
+            <a href="/service" class="item-des text-muted">
               <span class="item-title">空间设计</span>
               <span class="item-thumb icon icon-serv icon-tools"></span>
               <span class="item-extra">Space Design</span>
             </a>
           </li>
-          <li class="col-xs-12 col-sm-6 col-md-3 cando-list-item">
-            <a href="#" class="item-des text-muted">
+          <li class="col-xs-12 col-sm-6 col-md-3 cando-list-item" id="visual">
+            <a href="/service" class="item-des text-muted">
               <span class="item-title">品牌策划</span>
               <span class="item-thumb icon icon-serv icon-presentation"></span>
               <span class="item-extra">Visual Design</span>
             </a>
           </li>
-          <li class="col-xs-12 col-sm-6 col-md-3 cando-list-item">
-            <a href="#" class="item-des text-muted">
+          <li class="col-xs-12 col-sm-6 col-md-3 cando-list-item" id="decoration">
+            <a href="/service" class="item-des text-muted">
               <span class="item-title">装饰施工</span>
               <span class="item-thumb icon icon-serv icon-paintbrush"></span>
               <span class="item-extra">Decoration</span>
             </a>
           </li>
-          <li class="col-xs-12 col-sm-6 col-md-3 cando-list-item">
-            <a href="#" class="item-des text-muted">
+          <li class="col-xs-12 col-sm-6 col-md-3 cando-list-item" id="promotion">
+            <a href="/service" class="item-des text-muted">
               <span class="item-title">网络运维</span>
               <span class="item-thumb icon icon-serv icon-global"></span>
               <span class="item-extra">Promotion</span>

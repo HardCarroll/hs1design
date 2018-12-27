@@ -105,7 +105,7 @@ function transmitCasetype($key) {
               <ul class="dropdown-menu">
                 <li><a href="/news">综合资讯</a></li>
                 <li><a href="/about">关于我们</a></li>
-                <li><a href="/join">加入我们</a></li>
+                <li><a href="/join">联系我们</a></li>
               </ul>
             </li>
           </ul>
