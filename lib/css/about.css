@@ -1,0 +1,30 @@
+#about {
+  cursor: default;
+}
+#about>.about-title {
+  padding: 15px 0;
+  text-align: center;
+  color: #a6a8a8;
+}
+#about>.about-title>h2 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+}
+#about>.about-title>h2>span.sep-vline {
+  display: block;
+  font-weight: 100;
+}
+#about>.about-title>h2>em {
+  font-style: normal;
+  font-size: 14px;
+  font-weight: normal;
+  display: block;
+}
+#about>.about-title:hover>h2>em {
+  color: rgb(230, 6, 16);
+}
+#about>.about-text {
+  padding: 15px;
+  font-size: 16px;
+}

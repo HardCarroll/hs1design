@@ -125,6 +125,9 @@ input, textarea, button, select {
 .dropdown .dropdown-menu>li>a {
   padding: 3px 15px;
 }
+#navbar_hsd .dropdown .dropdown-menu>li.active>a {
+  background-color: #666868;
+}
 .navbar-hsd .container-fluid {
   padding-top: 5px;
   padding-bottom: 5px;

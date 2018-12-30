@@ -112,11 +112,7 @@
   transition: all 0.5s;
 }
 #cando .cando-list .cando-list-item:hover .item-des::before {
-  opacity: 0.3;
-}
-#cando .cando-list .cando-list-item:hover .item-des::after {
-  opacity: 0.3;
-  transform: scale(0.48, 0.36);
+  opacity: 0.2;
 }
 #cando .cando-list .cando-list-item .item-des .item-title {
   font-size: 20px;

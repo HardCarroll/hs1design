@@ -1,7 +1,8 @@
 <?php
-$url = "http://192.168.0.216:8888/lib/php/case_temp.php";
+$url = "http://192.168.0.216:8888/template/case_temp.php";
 $post = '{"token": "test", "key": "中文测试"}';
 $str = curl_request($url, $post);
+// $str = curl_request($url);
 $result = file_put_contents($_SERVER["DOCUMENT_ROOT"]."/case/upload/save.html", $str);
 var_dump($result);
 
