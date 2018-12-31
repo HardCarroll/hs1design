@@ -429,8 +429,9 @@ function transmitCasetype($key) {
         </ul>
       </div>
       <div class="row copyright">
-        <span class="col-xs-12 col-sm-9">Copyright&nbsp;©&nbsp;2018&nbsp;&nbsp;<a href="https://www.hs1design.com"><strong>炉石空间设计</strong></a>&nbsp;&nbsp;All Rights Reserved</span>
-        <span class="col-xs-12 col-sm-3"><a href="http://www.miitbeian.gov.cn/" class="text-muted"><img src="/src/ba.png" alt="湖南炉石空间设计ICP备案号图标">湘ICP备88888888-1号</a></span>
+        <span class="col-xs-12 col-sm-4">Copyright&nbsp;©&nbsp;2018&nbsp;&nbsp;<a href="https://www.hs1design.com"><strong>炉石空间设计</strong></a>&nbsp;&nbsp;All Rights Reserved</span>
+        <span class="col-xs-12 col-sm-4">Powered by&nbsp;&nbsp;<a href="https://www.hs1design.com"><strong>炉石空间设计网络服务部</strong></a></span>
+        <span class="col-xs-12 col-sm-4"><a href="http://www.miitbeian.gov.cn/" class="text-muted"><img src="/src/ba.png" alt="湖南炉石空间设计ICP备案号图标">湘ICP备88888888-1号</a></span>
       </div>
     </div><!-- 网页脚注区域结束 // #pageFooter end -->
   </div>

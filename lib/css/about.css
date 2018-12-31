@@ -1,25 +1,25 @@
-#about {
+#about, #team {
   cursor: default;
   margin-top: 50px;
 }
-#about>.about-title {
+#about>.about-title, #team>.team-title {
   padding: 15px 0;
   text-align: center;
   color: #a6a8a8;
 }
-#about>.about-title>h2 {
+#about>.about-title>h2, #team>.team-title>h2 {
   margin: 0;
   font-size: 26px;
   font-weight: 700;
 }
-#about>.about-title>h2>span {
+#about>.about-title>h2>span, #team>.team-title>h2>span {
   position: relative;
   transition: all 0.3s;
 }
-#about>.about-title:hover>h2>span {
+#about>.about-title:hover>h2>span, #team>.team-title:hover>h2>span {
   color: rgb(230, 6, 16);
 }
-#about>.about-title>h2>span::before {
+#about>.about-title>h2>span::before, #team>.team-title>h2>span::before {
   position: absolute;
   content: "";
   width: 0;
@@ -31,10 +31,10 @@
   transform-origin: center center;
   transition: all 0.3s;
 }
-#about>.about-title:hover>h2>span::before {
+#about>.about-title:hover>h2>span::before, #team>.team-title:hover>h2>span::before {
   width: 80%;
 }
-#about>.about-title>h2>em {
+#about>.about-title>h2>em, #team>.team-title>h2>em {
   font-style: normal;
   font-size: 14px;
   font-weight: normal;
@@ -42,7 +42,7 @@
   margin-top: 10px;
   transition: all 0.3s;
 }
-#about>.about-title:hover>h2>em {
+#about>.about-title:hover>h2>em, #team>.team-title:hover>h2>em {
   color: rgb(230, 6, 16);
 }
 #about>.about-inner {
@@ -54,4 +54,22 @@
 }
 #about>.about-inner>.about-text img {
   width: 100%;
+}
+#team>.team-list {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+}
+#team>.team-list>.team-list-item {
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  #team>.team-list>.team-list-item {
+    width: 0 !important;
+  }
+  #team>.team-list>.team-list-item.active {
+    flex: 1;
+  }
 }
