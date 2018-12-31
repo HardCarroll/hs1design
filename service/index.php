@@ -77,10 +77,8 @@
       <div class="container-fluid wrapper" id="service">
         <section class="service-title">
           <h2>
-            <span class="sep-vline">|</span>
             <span>SERVICE</span>
             <em>服务项目</em>
-            <span class="sep-vline">|</span>
           </h2>
         </section>
         <section class="inner row service-list">
@@ -117,10 +115,8 @@
       <div class="container-fluid wrapper" id="process">
         <section class="process-title">
           <h2>
-            <span class="sep-vline">|</span>
             <span>PROCESS</span>
             <em>服务流程</em>
-            <span class="sep-vline">|</span>
           </h2>
         </section>
         <section class="inner row process-list">

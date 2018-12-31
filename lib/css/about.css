@@ -1,5 +1,6 @@
 #about {
   cursor: default;
+  margin-top: 50px;
 }
 #about>.about-title {
   padding: 15px 0;
@@ -11,20 +12,46 @@
   font-size: 26px;
   font-weight: 700;
 }
-#about>.about-title>h2>span.sep-vline {
-  display: block;
-  font-weight: 100;
+#about>.about-title>h2>span {
+  position: relative;
+  transition: all 0.3s;
+}
+#about>.about-title:hover>h2>span {
+  color: rgb(230, 6, 16);
+}
+#about>.about-title>h2>span::before {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 2px;
+  left: 50%;
+  bottom: -2px;
+  background-color: rgb(230, 6, 16);
+  transform: translateX(-50%);
+  transform-origin: center center;
+  transition: all 0.3s;
+}
+#about>.about-title:hover>h2>span::before {
+  width: 80%;
 }
 #about>.about-title>h2>em {
   font-style: normal;
   font-size: 14px;
   font-weight: normal;
   display: block;
+  margin-top: 10px;
+  transition: all 0.3s;
 }
 #about>.about-title:hover>h2>em {
   color: rgb(230, 6, 16);
 }
-#about>.about-text {
-  padding: 15px;
-  font-size: 16px;
+#about>.about-inner {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+#about>.about-inner>.about-text>p {
+  margin-bottom: 15px;
+}
+#about>.about-inner>.about-text img {
+  width: 100%;
 }

@@ -192,17 +192,17 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
                 <h2 class="des-title">案例标题</h2>
                 <h3 class="des-text text-ellipsis">案例文字描述，湖南炉石空间设计</h3>
               </div>
-              <a href="#" class="glyphicon glyphicon-menu-right"></a>
+              <a href="/case/upload/save.html" class="glyphicon glyphicon-menu-right"></a>
             </li>
-            <li class="col-xs-12 col-sm-6 col-md-4 case-list-item" data-title='案例标题'>
+            <li class="col-xs-12 col-sm-6 col-md-4 case-list-item" data-title='案例模板'>
               <div class="case-img">
                 <img src="/src/d_02.jpg" alt="">
               </div>
               <div class="case-des">
-                <h2 class="des-title">案例标题</h2>
-                <h3 class="des-text text-ellipsis">案例文字描述，专注于餐饮、酒店、KTV设计</h3>
+                <h2 class="des-title">案例模板</h2>
+                <h3 class="des-text text-ellipsis">模板文字描述，专注于餐饮、酒店、KTV设计</h3>
               </div>
-              <a href="#" class="glyphicon glyphicon-menu-right"></a>
+              <a href="/template/case_temp.php" class="glyphicon glyphicon-menu-right"></a>
             </li>
             <li class="col-xs-12 col-sm-6 col-md-4 case-list-item" data-title='案例标题'>
               <div class="case-img">
