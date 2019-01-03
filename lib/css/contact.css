@@ -1,0 +1,104 @@
+body {
+  height: 100%;
+  background-image: url(/src/map_cloud.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+}
+#contact {
+  cursor: default;
+  padding-top: 50px;
+  position: relative;
+  min-height: 600px;
+}
+#contact::before {
+  width: 100%;
+  height: 100%;
+  min-height: 600px;
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: -1;
+}
+#contact>.contact-title {
+  padding: 15px 0;
+  text-align: center;
+  color: #f6f8f8;
+}
+#contact>.contact-title>h2 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+}
+#contact>.contact-title>h2>span {
+  position: relative;
+  transition: all 0.3s;
+}
+#contact>.contact-title:hover>h2>span {
+  color: rgb(230, 6, 16);
+}
+#contact>.contact-title>h2>span::before {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 2px;
+  left: 50%;
+  bottom: -2px;
+  background-color: rgb(230, 6, 16);
+  transform: translateX(-50%);
+  transform-origin: center center;
+  transition: all 0.3s;
+}
+#contact>.contact-title:hover>h2>span::before {
+  width: 80%;
+}
+#contact>.contact-title>h2>em {
+  font-style: normal;
+  font-size: 14px;
+  font-weight: normal;
+  display: block;
+  margin-top: 10px;
+  transition: all 0.3s;
+}
+#contact>.contact-title:hover>h2>em {
+  color: rgb(230, 6, 16);
+}
+#contact>.contact-list {
+  color: #f6f8f8;
+  font-size: 16px;
+  padding-top: 50px;
+}
+#contact>.contact-list>.slogan {
+  color: rgba(216, 216, 216, 0.6);
+  text-align: center;
+}
+#contact>.contact-list>.slogan>span {
+  display: inline-block;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 15px;
+  border: 1px solid rgba(216, 216, 216, 0.6);
+}
+#contact>.contact-list>.contact-list-item {
+  text-align: center;
+  margin: 50px 0;
+  padding: 15px;
+}
+#contact>.contact-list>.contact-list-item>span {
+  font-size: 26px;
+}
+#contact>.contact-list>.contact-list-item>p {
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  #contact {
+    padding-top: 0;
+  }
+  #contact>.contact-list>.contact-list-item {
+    margin: 15px 0;
+  }
+}
