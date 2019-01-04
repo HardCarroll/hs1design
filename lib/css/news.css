@@ -1,0 +1,127 @@
+#news {
+  cursor: default;
+  margin-top: 50px;
+}
+#news>.news-title {
+  padding: 15px 0;
+  text-align: center;
+  color: #a6a8a8;
+}
+#news>.news-title>h2 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+}
+#news>.news-title>h2>span {
+  position: relative;
+  transition: all 0.3s;
+}
+#news>.news-title:hover>h2>span {
+  color: rgb(230, 6, 16);
+}
+#news>.news-title>h2>span::before {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 2px;
+  left: 50%;
+  bottom: -2px;
+  background-color: rgb(230, 6, 16);
+  transform: translateX(-50%);
+  transform-origin: center center;
+  transition: all 0.3s;
+}
+#news>.news-title:hover>h2>span::before {
+  width: 60%;
+}
+#news>.news-title>h2>em {
+  font-style: normal;
+  font-size: 14px;
+  font-weight: normal;
+  display: block;
+  margin-top: 10px;
+  transition: all 0.3s;
+}
+#news>.news-title:hover>h2>em {
+  color: rgb(230, 6, 16);
+}
+#news>.news-list {
+  font-size: 16px;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 15px 0;
+}
+#news>.news-list>.news-list-item {
+  text-decoration: none;
+  color: #666868;
+  display: flex;
+  padding: 15px;
+  position: relative;
+}
+#news>.news-list>.news-list-item:hover {
+  color: rgb(230, 6, 16);
+}
+#news>.news-list>.news-list-item>.item-date {
+  padding: 5px 15px;
+  margin-right: 15px;
+  height: 30px;
+  line-height: 20px;
+  background-color: rgba(216, 216, 216, 0.3);
+}
+#news>.news-list>.news-list-item>.glyphicon {
+  line-height: 30px;
+  margin-right: 15px;
+}
+#news>.news-list>.news-list-item>.glyphicon::before {
+  background-color: #fff;
+}
+#news>.news-list>.news-list-item>.glyphicon::after {
+  content: "";
+  border-left: 2px dotted #686868;
+  position: absolute;
+  height: 200%;
+  width: 2px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+#news>.news-list>.news-list-item:hover>.glyphicon::after {
+  border-color: rgb(230, 6, 16);
+}
+#news>.news-list>.news-list-item>.item-title {
+  height: 30px;
+  line-height: 30px;
+  position: relative;
+}
+#news>.news-list>.news-list-item>.item-title::before {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgb(230, 6, 16);
+  transform-origin: center center;
+  transition: all 0.6s;
+}
+#news>.news-list>.news-list-item:hover>.item-title::before {
+  width: 100%;
+}
+#news>.pagination-wrapper {
+  text-align: center;
+  padding: 30px 0;
+  height: 94px;
+}
+#news>.pagination-wrapper>.pagination {
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  #news {
+    margin-top: 0;
+  }
+}

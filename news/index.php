@@ -72,35 +72,67 @@
 
     <!-- 网页内容区域开始 #pageContent begin-->
     <div id="pageContent" class="container-fluid">
-
-      <!-- 联系我们区域开始 #contact begin -->
-      <div class="container-fluid wrapper" id="contact">
-        <section class="contact-title">
+      <div class="container-fluid wrapper" id="news">
+        <section class="news-title">
           <h2>
-            <span>CONTACT US</span>
-            <em>联系我们</em>
+            <span>NEWS</span>
+            <em>炉石动态</em>
           </h2>
         </section>
-        <section class="row inner contact-list">
-          <div class="slogan">
-            <span>高端定位&nbsp;&nbsp;拒绝平庸&nbsp;&nbsp;&nbsp;&nbsp;持续为客户创造价值</span>
-          </div>
-          <div class="col-xs-12 col-sm-3 col-md-3 contact-list-item">
-            <span class="glyphicon glyphicon-earphone"></span>
-            <p>0731-86393210</p>
-            <p>15388933393</p>
-          </div>
-          <div class="col-xs-12 col-sm-3 col-md-3 contact-list-item">
-            <span class="glyphicon glyphicon-map-marker"></span>
-            <p>长沙市星沙开元路星大花园1408</p>
-          </div>
-          <div class="col-xs-12 col-sm-3 col-md-3 contact-list-item">
-            <span class="icon icon-cuz icon-qq"></span>
-            <p>476000121</p>
-          </div>
+        <section class="news-list">
+          <a href="#" class="news-list-item">
+            <span class="item-date">2019/01/04</span>
+            <span class="glyphicon glyphicon-record"></span>
+            <span class="text-ellipsis item-title">新闻标题文闻标题文字新闻标题文字新闻标题文字新闻标题文字新闻标题文字新闻标题文字新闻标题文</span>
+          </a>
+          <a href="#" class="news-list-item">
+            <span class="item-date">2019/01/04</span>
+            <span class="glyphicon glyphicon-record"></span>
+            <span class="text-ellipsis item-title">新闻标题文闻标题文字新闻标题文字新闻标题文字新闻标题文字新闻标题文字新闻标题文字新闻标题文</span>
+          </a>
+          <a href="#" class="news-list-item">
+            <span class="item-date">2019/01/04</span>
+            <span class="glyphicon glyphicon-record"></span>
+            <span class="text-ellipsis item-title">新闻标题文闻标题文字新闻标题文字新闻标题文字新闻标题文字新闻标题文字新闻标题文字新闻标题文</span>
+          </a>
+          <a href="#" class="news-list-item">
+            <span class="item-date">2019/01/04</span>
+            <span class="glyphicon glyphicon-record"></span>
+            <span class="text-ellipsis item-title">新闻标题文闻标题文字新闻标题文字新闻标题文字新闻标题文字新闻标题文字新闻标题文字新闻标题文</span>
+          </a>
+          <a href="#" class="news-list-item">
+            <span class="item-date">2019/01/04</span>
+            <span class="glyphicon glyphicon-record"></span>
+            <span class="text-ellipsis item-title">新闻标题文闻标题文字新闻标题文字新闻标题文字新闻标题文字新闻标题文字新闻标题文字新闻标题文</span>
+          </a>
+          <a href="#" class="news-list-item">
+            <span class="item-date">2019/01/04</span>
+            <span class="glyphicon glyphicon-record"></span>
+            <span class="text-ellipsis item-title">新闻标题文字新闻标题文字新闻标题文闻标题文字新闻标题文字新闻标题文字新闻标题文字新闻标题文</span>
+          </a>
+          <a href="#" class="news-list-item">
+            <span class="item-date">2019/01/04</span>
+            <span class="glyphicon glyphicon-record"></span>
+            <span class="text-ellipsis item-title">新闻标题文闻标题文字新闻标题文字新闻标题文字新闻标题文字新闻标题文字新闻标题文字新闻标题文</span>
+          </a>
+          <a href="#" class="news-list-item">
+            <span class="item-date">2019/01/04</span>
+            <span class="glyphicon glyphicon-record"></span>
+            <span class="text-ellipsis item-title">新闻标题文闻标题文字新闻标题文字新闻标题文字新闻标题文字新闻标题文字新闻标题文字新闻标题文</span>
+          </a>
         </section>
-      </div> <!-- 联系我们区域结束 #contact end -->
-
+        <section class="pagination-wrapper">
+          <ul class="pagination" id="news-pagination">
+            <li class="disabled"><span aria-label="Previous"><span aria-hidden="true">&laquo;</span></span></li>
+            <li class="active"><a href="javascript:;">1</a></li>
+            <li><a href="javascript:;">2</a></li>
+            <li><a href="javascript:;">3</a></li>
+            <li><a href="javascript:;">4</a></li>
+            <li><a href="javascript:;">5</a></li>
+            <li><a href="javascript:;" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+          </ul>
+        </section>
+      </div>
     </div><!-- 网页内容区域结束 // #pageContent end -->
 
     <!-- 网页脚注区域开始 #pageFooter begin-->
