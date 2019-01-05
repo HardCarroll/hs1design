@@ -9,36 +9,27 @@ if (isset($_GET["uid"]) && !empty($_GET["uid"])) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>后台内容管理系统丨Powered by 黄狮虎</title>
-<link rel="stylesheet" href="/cms/lib/login.css">
+<title>后台内容管理系统</title>
+<link rel="stylesheet" href="/cms/common/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="/cms/common/css/icons.css">
+<link rel="stylesheet" href="/cms/common/css/login.css">
 </head>
 
 <body>
-  <section class="mask mask-show">
-    <div class="content">
-      <div class="header"><span><a href="/">首页</a></span></div>
-      <form action="/cms/login_handle.php" method="post" enctype="application/x-www-form-urlencoded">
-        <div class="item">
-          <label>账号：</label>
-          <input type="text" name="uid" id="in_account" required value="<?php echo isset($uid) ? $uid : ''; ?>" autofocus>
-        </div>
-        <div class="item">
-          <label>密码：</label>
-          <input type="password" name="pwd" id="in_password" required>
-        </div>
-        <div class="item"></div>
-        <div class="tips">
-          <?php
-          if (isset($_SESSION["state"]) && !empty($_SESSION["state"])) {
-            echo '<label class="err_wrong">'.$_SESSION["state"].'</label>';
-          }
-          else {
-            echo '<label class="err_ok">欢迎使用本后台管理系统</label>';
-          }
-          ?>
-          <input type="submit" id="btn_submit" value="提交">
-        </div>
-      </form>
+  <section class="form-wrapper">
+    <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-addon" for="login-user"><span class="icon icon-cuz icon-user"></span></span>
+        <input type="text" class="form-control" id="login-user" required autofocus>
+      </div>
+      <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+    </div>
+    <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-addon"><span class="icon icon-cuz icon-key"></span></span>
+        <input type="password" class="form-control" id="login-password" required>
+      </div>
+      <span class="glyphicon glyphicon-ok form-control-feedback"></span>
     </div>
   </section>
 </body>

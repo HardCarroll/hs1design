@@ -60,9 +60,9 @@
             <li class="dropdown" id="nav_about">
               <a href="/about" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">更多 <span class="caret visible-xs-inline-block"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="/news">综合资讯</a></li>
+                <li class="active"><a href="/news">综合资讯</a></li>
                 <li><a href="/about">关于我们</a></li>
-                <li class="active"><a href="/contact">联系我们</a></li>
+                <li><a href="/contact">联系我们</a></li>
               </ul>
             </li>
           </ul>
