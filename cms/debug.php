@@ -1,10 +1,23 @@
 <?php
-$url = "http://192.168.0.216:8888/template/case_temp.php";
-$post = '{"token": "test", "key": "中文测试"}';
-$str = curl_request($url, $post);
-// $str = curl_request($url);
-$result = file_put_contents($_SERVER["DOCUMENT_ROOT"]."/case/upload/save.html", $str);
-var_dump($result);
+// $url = "http://192.168.0.216:8888/template/case_temp.php";
+// $post = '{"token": "test", "key": "中文测试"}';
+// $str = curl_request($url, $post);
+// // $str = curl_request($url);
+// $result = file_put_contents($_SERVER["DOCUMENT_ROOT"]."/case/upload/save.html", $str);
+// var_dump($result);
+if (isset($_POST["dataJson"]) && !empty($_POST["dataJson"])) {
+  $dataArray = json_decode($_POST["dataJson"], true);
+  switch ($dataArray["token"]) {
+    case "test":
+      echo $dataArray["value"];
+      break;
+    default:
+      echo "default branch";
+      break;
+  }
+}
+
+
 
 /**
 * curl请求
