@@ -18,6 +18,9 @@ if (isset($_GET["uid"]) && !empty($_GET["uid"])) {
 <body>
   <section class="form-wrapper">
     <div class="form-group">
+      <span class="form-title">欢迎使用</span>
+    </div>
+    <div class="form-group">
       <div class="input-group">
         <span class="input-group-addon" for="login-user"><span class="icon icon-cuz icon-user"></span></span>
         <input type="text" class="form-control" id="login-user" required autofocus>
@@ -29,7 +32,10 @@ if (isset($_GET["uid"]) && !empty($_GET["uid"])) {
         <span class="input-group-addon"><span class="icon icon-cuz icon-key"></span></span>
         <input type="password" class="form-control" id="login-password" required>
       </div>
-      <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+      <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+    </div>
+    <div class="form-group">
+      <label class="check-remember"><input type="checkbox"><span>记住十天</span></label>
     </div>
   </section>
 </body>

@@ -12,11 +12,17 @@ html, body {
   top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
+  cursor: default;
 }
 .form-wrapper>.form-group {
   position: relative;
   width: 100%;
   margin: 15px 0;
+  text-align: center;
+}
+.form-wrapper>.form-group>.form-title {
+  font-size: 16px;
+  font-weight: 700;
 }
 .form-wrapper>.form-group>.input-group {
   width: 100%;
@@ -27,4 +33,12 @@ html, body {
 .form-wrapper>.form-group>.input-group>span.input-group-addon {
   width: 41px;
   border-radius: 0;
+}
+.form-wrapper>.form-group>.check-remember {
+  font-weight: normal;
+  height: 30px;
+  line-height: 30px;
+}
+.form-wrapper>.form-group>.check-remember>input[type="checkbox"] {
+  margin: 0;
 }
