@@ -38,6 +38,18 @@ class DBOperator {
   }
 
   /**
+   * 数据库初始化，创建tab_admin及管理员账号
+   * @param $sqlArray: 创建表tab_admin以及添加数据的SQL语句数组
+   * 
+   * $sqlArray = array("create_table"=>"CREATE TABLE tab_admin(uid VARCHAR(16) NOT NULL, username VARCHAR(16) NOT NULL, password VARCHAR(16) NOT NULL,access VARCHAR(1) NOT NULL, PRIMARY KEY(uid), UNIQUE(username)) ENGINE=InnoDB", "insert_admin"=>"INSERT INTO tab_admin(uid, username, password, access) VALUES('000000', 'admin', 'admin', '0')");
+   */
+  public function init($sqlArray) {
+    mysqli_query($this->links, $sqlArray["create_table"]);
+    mysqli_query($this->links, $sqlArray["insert_admin"]);
+    $this->state = array("err_no"=>mysqli_errno($this->links), "err_code"=>mysqli_error($this->links));
+  }
+
+  /**
   * 执行MYSQL操作
   * $sql: 要执行的SQL语句;
   * $return: 将执行结果返回

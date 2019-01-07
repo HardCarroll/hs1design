@@ -1,22 +1,34 @@
 <?php
+session_start();
+require_once($_SERVER["DOCUMENT_ROOT"]."/cms/common/php/dboperator.php");
+$dbo = new DBOperator("localhost", "hsd_admin", "hs1design.com", "hs1design");
+
+// // php模板通过curl请求生成html文件
 // $url = "http://192.168.0.216:8888/template/case_temp.php";
-// $post = '{"token": "test", "key": "中文测试"}';
-// $str = curl_request($url, $post);
+// $data = '{"token": "test", "key": "中文测试"}';
+// $str = curl_request($url, $data);
 // // $str = curl_request($url);
 // $result = file_put_contents($_SERVER["DOCUMENT_ROOT"]."/case/upload/save.html", $str);
 // var_dump($result);
-if (isset($_POST["dataJson"]) && !empty($_POST["dataJson"])) {
-  $dataArray = json_decode($_POST["dataJson"], true);
-  switch ($dataArray["token"]) {
-    case "test":
-      echo $dataArray["value"];
+
+// // 数据库初始化
+// // 创建管理员表及管理员账号
+// require_once($_SERVER["DOCUMENT_ROOT"]."/cms/common/php/dboperator.php");
+// $dbo = new DBOperator("localhost", "hsd_admin", "hs1design.com", "hs1design");
+// $sqlArray = array("create_table"=>"CREATE TABLE tab_admin(uid VARCHAR(11) NOT NULL, username VARCHAR(16) NOT NULL, password VARCHAR(16) NOT NULL, access VARCHAR(1) NOT NULL, PRIMARY KEY(uid), UNIQUE(username)) ENGINE=InnoDB", "insert_admin"=>"INSERT INTO tab_admin(uid, username, password, access) VALUES('000000', 'admin', 'admin', '0')");
+// $dbo->init($sqlArray);
+// var_dump($dbo);
+
+// 登录按钮点击处理过程调试
+if (isset($_POST["token"]) && !empty($_POST["token"])) {
+  switch ($_POST["token"]) {
+    case "login":
+      echo $data = $_POST["data"];
       break;
     default:
-      echo "default branch";
       break;
   }
 }
-
 
 
 /**
