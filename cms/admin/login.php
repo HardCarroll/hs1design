@@ -16,8 +16,7 @@ if (isset($_GET["uid"]) && !empty($_GET["uid"])) {
 </head>
 
 <body>
-  <div class="form-wrapper">
-  <!-- <form class="form-wrapper" action="/cms/common/php/login_hd.php" method="post" enctype="application/x-www-form-urlencoded"> -->
+  <form class="form-wrapper">
     <div class="form-group">
       <span class="form-title">欢迎使用</span>
     </div>
@@ -36,21 +35,10 @@ if (isset($_GET["uid"]) && !empty($_GET["uid"])) {
       </div>
     </div>
     <div class="form-group">
-      <span class="text-danger" id="out_message">
-        <?php
-        if (isset($_SESSION["state"]) && !empty($_SESSION["state"])) {
-          echo $_SESSION["state"];
-        }
-        else {
-          echo '欢迎使用本后台管理系统';
-        }
-        ?>
-      </span>
-      <input type="button" class="btn btn-primary btn-login" value="登录">
-      <!-- <input type="submit" class="btn btn-primary btn-login" value="登录"> -->
+      <span id="out_message"></span>
+      <input type="submit" data-loading-text="登录中..." autocomplete="off" class="btn btn-primary btn-login" value="登录">
     </div>
-  <!-- </form> -->
-  </div>
+  </form>
 
   <script src="/cms/common/jquery/jquery.min.js"></script>
   <script src="/cms/common/bootstrap/js/bootstrap.min.js"></script>

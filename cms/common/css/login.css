@@ -69,6 +69,11 @@ html, body {
   margin: 0 5px 0 0;
   transform: translateY(2px);
 }
+.form-wrapper>.form-group>#out_message {
+  display: block;
+  height: 16px;
+  color: #F00;
+}
 .form-wrapper>.form-group>.btn-login {
   width: 100%;
   border-radius: 0;
