@@ -1,0 +1,56 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  background-color: #f6f8f8;
+}
+a {
+  text-decoration: none;
+	-webkit-tap-highlight-color: transparent;
+}
+p {
+  margin-bottom: 0;
+}
+img {
+  vertical-align: top;
+  margin: 0;
+  padding: 0;
+}
+strong {
+  font-style: normal;
+  font-weight: normal;
+}
+input, textarea, button, select {
+  border: none;
+  outline: none;
+  resize: none;
+  -webkit-appearance: none;
+}
+
+#aside-nav {
+  width: 200px;
+  height: 100%;
+  position: fixed;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  background-color: #666868;
+  transition: all 0.6s;
+}
+#aside-nav>.nav-list {
+  width: 217px;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+#aside-nav>.nav-list>.list-item {
+  width: 100%;
+  height: 50px;
+}
+#pageWrap {
+  padding-left: 200px;
+}
+
+@media (max-width: 768px) {
+}

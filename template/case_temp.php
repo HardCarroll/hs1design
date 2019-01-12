@@ -50,8 +50,8 @@ function transmitCasetype($key) {
   <meta name="Keywords" content="<?php echo $meta_keywords; ?>">
   <meta name="Description" content="<?php echo $meta_description; ?>">
   <title><?php echo $page_title; ?></title>
-  <link rel="stylesheet" href="/cms/common/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/cms/common/css/icons.css">
+  <link rel="stylesheet" href="/cms/include/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/cms/include/css/icons.css">
   <link rel="stylesheet" href="/lib/css/shared.css">
   <link rel="stylesheet" href="/lib/css/case_temp.css">
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
@@ -486,8 +486,8 @@ function transmitCasetype($key) {
     </div>
   </div><!-- // .bottom-nav-wrap end -->
 
-  <script src="/cms/common/jquery/jquery.min.js"></script>
-  <script src="/cms/common/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/cms/include/jquery/jquery.min.js"></script>
+  <script src="/cms/include/bootstrap/js/bootstrap.min.js"></script>
   <script src="/lib/js/shared.js"></script>
   <script src="/lib/js/case_temp.js"></script>
 </body>

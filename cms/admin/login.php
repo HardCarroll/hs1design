@@ -10,9 +10,9 @@ if (isset($_GET["uid"]) && !empty($_GET["uid"])) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>后台内容管理系统</title>
-<link rel="stylesheet" href="/cms/common/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="/cms/common/css/icons.css">
-<link rel="stylesheet" href="/cms/common/css/login.css">
+<link rel="stylesheet" href="/cms/include/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="/cms/include/css/icons.css">
+<link rel="stylesheet" href="/cms/include/css/login.css">
 </head>
 
 <body>
@@ -40,8 +40,8 @@ if (isset($_GET["uid"]) && !empty($_GET["uid"])) {
     </div>
   </form>
 
-  <script src="/cms/common/jquery/jquery.min.js"></script>
-  <script src="/cms/common/bootstrap/js/bootstrap.min.js"></script>
-  <script src="/cms/common/js/login.js"></script>
+  <script src="/cms/include/jquery/jquery.min.js"></script>
+  <script src="/cms/include/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/cms/include/js/login.js"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <?php
 session_start();
 $_SESSION["state"] = "欢迎使用本后台管理系统";
-require_once($_SERVER["DOCUMENT_ROOT"]."/cms/common/php/dboperator.php");
+require_once($_SERVER["DOCUMENT_ROOT"]."/cms/include/php/dboperator.php");
 $dbo = new DBOperator("localhost", "hsd_admin", "hs1design.com", "hs1design");
 
 // // php模板通过curl请求生成html文件
@@ -14,7 +14,7 @@ $dbo = new DBOperator("localhost", "hsd_admin", "hs1design.com", "hs1design");
 
 // // 数据库初始化
 // // 创建管理员表及管理员账号
-// require_once($_SERVER["DOCUMENT_ROOT"]."/cms/common/php/dboperator.php");
+// require_once($_SERVER["DOCUMENT_ROOT"]."/cms/include/php/dboperator.php");
 // $dbo = new DBOperator("localhost", "hsd_admin", "hs1design.com", "hs1design");
 // $sqlArray = array("create_table"=>"CREATE TABLE tab_admin(uid VARCHAR(11) NOT NULL, username VARCHAR(16) NOT NULL, password VARCHAR(16) NOT NULL, access VARCHAR(1) NOT NULL, PRIMARY KEY(uid), UNIQUE(username)) ENGINE=InnoDB", "insert_admin"=>"INSERT INTO tab_admin(uid, username, password, access) VALUES('000000', 'admin', 'admin', '0')");
 // $dbo->init($sqlArray);
