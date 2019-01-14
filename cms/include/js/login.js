@@ -16,14 +16,14 @@ $(function(){
     if($(this).val()) {
       setTimeout(function(){
         $(e.target).next().removeClass("hidden");
-      }, 100, e.target);
+      }, 200, e.target);
     }
   });
   // 失去焦点处理函数
   $("#in_account, #in_password").blur(function(e){
     setTimeout(function(){
       $(e.target).next().addClass("hidden");
-    }, 100, e.target);
+    }, 200, e.target);
   });
   // 清空按钮(.empty-value)点击处理函数
   $(".empty-value").on("click", function(){
@@ -33,6 +33,7 @@ $(function(){
   $(".btn-login").on("click", function(e){
     e.stopPropagation();
     e.preventDefault();
+    var $btn = $(this).button('loading');
     var fmd_login = new FormData();
     fmd_login.append('token', 'login');
     fmd_login.append('data', '{"uid":"'+$("#in_account").val()+'", "pwd": "'+$("#in_password").val()+'"}');
@@ -51,6 +52,7 @@ $(function(){
           $("#out_message").html(result.err_code);
           setTimeout(function() {$("#out_message").html("");}, 1200);
         }
+        $btn.button('reset');
         console.log("success: " + result.err_code);
       },
       error: function(msg) {

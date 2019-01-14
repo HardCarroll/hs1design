@@ -28,29 +28,88 @@ input, textarea, button, select {
   -webkit-appearance: none;
 }
 
-#aside-nav {
+.navbar {
+  border: none;
+}
+.navbar .navbar-toggle {
+  width: 50px;
+  height: 50px;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  color: #f6f8f8;
+  font-size: 20px;
+  text-align: center;
+  position: absolute;
+  top: 0;
+}
+.navbar .navbar-toggle:last-child {
+  right: 0;
+}
+.navbar .navbar-toggle span.glyphicon-cog {
+  top: 3px;
+}
+.navbar .navbar-brand {
+  display: block;
+  color: #f6f8f8;
+  text-align: center;
   width: 200px;
-  height: 100%;
+  margin: 0 auto;
+  float: none;
+}
+
+#navbar-menu {
+  width: 200px;
+  height: 100% !important;
+  padding: 50px 0 0;
+  border: none;
   position: fixed;
-  overflow: hidden;
+  overflow: hidden !important;
   top: 0;
   left: 0;
   background-color: #666868;
   transition: all 0.6s;
+  cursor: default;
 }
-#aside-nav>.nav-list {
-  width: 217px;
+#navbar-menu>.nav-list {
+  width: 218px;
   height: 100%;
+  padding-right: 9px;
   overflow-x: hidden;
   overflow-y: auto;
 }
-#aside-nav>.nav-list>.list-item {
+#navbar-menu>.nav-list>.list-item {
+  display: block;
   width: 100%;
-  height: 50px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  color: #f6f8f8;
+  overflow: hidden;
+}
+#navbar-menu>.nav-list>.list-item>.glyphicon {
+  font-size: 20px;
+  top: 4px;
 }
 #pageWrap {
   padding-left: 200px;
 }
 
 @media (max-width: 768px) {
+  #navbar-menu {
+    width: 0;
+    opacity: 0;
+  }
+  #navbar-menu.collapse.in {
+    width: 200px;
+    opacity: 1;
+  }
+  #navbar-menu>.nav-list {
+    padding-right: 18px;
+  }
+  #pageWrap {
+    padding-left: 0px;
+  }
 }
