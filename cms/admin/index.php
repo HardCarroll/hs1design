@@ -13,8 +13,9 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="/cms/include/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/cms/include/css/icons.css">
   <link rel="stylesheet" href="/cms/include/css/cms.css">
-  <title>内容管理系统</title>
+  <title>后台管理系统——Powered by 黄狮虎</title>
 </head>
 <body>
   <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -24,7 +25,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
         <button type="button" class="navbar-toggle collapsed pull-left" data-toggle="collapse" data-target="#navbar-menu" aria-expanded="false">
           <span class="glyphicon glyphicon-list"></span>
         </button>
-        <a class="navbar-brand" href="/cms/admin/index.php">内容管理系统</a>
+        <a class="navbar-brand" href="/cms/admin/index.php">后台管理系统</a>
         <button type="button" class="navbar-toggle collapsed pull-right" data-toggle="collapse" data-target="#navbar-config" aria-expanded="false">
           <span class="glyphicon glyphicon-cog"></span>
         </button>
@@ -62,23 +63,28 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
   
   <div class="collapse navbar-collapse" id="navbar-menu">
     <div class="nav-list">
-      <a class="list-item" href="/cms/admin/index.php">
-        <span class="glyphicon glyphicon-home"></span>
-        <span>内容管理系统</span>
-      </a>
-      <div class="list-item">
-        <div class="slide slide-down" role="button">dropdown<span class="glyphicon glyphicon-triangle-right"></span>
-          <ul class="slide-menu">
-            <li>01</li>
-            <li>02</li>
-            <li>03</li>
-            <li>04</li>
-            <li>05</li>
-            <li>06</li>
-          </ul>
+      <div class="list-item slide slide-left" role="button">
+        <div class="slide-head">
+          <span class="glyphicon glyphicon-user"></span>
+          <span class="title">用户管理</span>
+          <span class="pull-right glyphicon glyphicon-menu-right"></span>
+        </div>
+        <ul class="slide-menu">
+          <li>admin</li>
+          <li>test</li>
+          <li>03</li>
+          <li>04</li>
+          <li>05</li>
+          <li>06</li>
+        </ul>
+      </div>
+      <div class="list-item slide" role="button">
+        <div class="slide-head">
+          <span class="glyphicon glyphicon-file"></span>
+          <span class="title">开始文档</span>
+          <!-- <span class="pull-right glyphicon glyphicon-menu-right"></span> -->
         </div>
       </div>
-      <div class="list-item">3</div>
       <div class="list-item">4</div>
       <div class="list-item">5</div>
       <div class="list-item">6</div>
@@ -112,8 +118,40 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
     </div>
   </div>
 
-  <div id="pageWrap">
-    2
+  <div class="content-wrap">
+    <div class="content-inner">
+      <ul id="pageTabs" class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+          <span class="pull-left glyphicon glyphicon-file"></span>
+          <a href="#home" data-toggle="tab">开始文档</a>
+          <span class="pull-right glyphicon glyphicon-remove" role="button"></span>
+        </li>
+        <li role="presentation">
+          <span class="pull-left glyphicon glyphicon-file"></span>
+          <a href="#profile" data-toggle="tab">Profile</a>
+          <span class="pull-right glyphicon glyphicon-remove" role="button"></span>
+        </li>
+      </ul>
+      <div id="pageTabContent" class="tab-content">
+        <div role="tabpanel" class="tab-pane fade active in" id="home">
+          <p class="begin">
+            尊敬的<a href="#"><?php echo $_SESSION["user"]["username"];?></a>，您好！
+          </p>
+          <p class="content">
+            欢迎使用本后台管理使用，通过本系统您可以轻松地进行人员管理、权限设置、内容管理等操作，本系统功能正在进一步开发完善中，如果您有更好的想法或建议，如果您在使用过程中遇到任何问题，请联系我！
+          </p>
+          <p class="end">
+            再次感谢您使用本系统，祝您生活愉快！
+          </p>
+          <p class="sign">
+            ——黄狮虎
+          </p>
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="profile">
+          <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script type="text/javascript" src="/cms/include/jquery/jquery.min.js"></script>

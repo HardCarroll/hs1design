@@ -9,7 +9,7 @@ if (isset($_GET["uid"]) && !empty($_GET["uid"])) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>后台内容管理系统</title>
+<title>登录后台管理系统——Powered by 黄狮虎</title>
 <link rel="stylesheet" href="/cms/include/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="/cms/include/css/icons.css">
 <link rel="stylesheet" href="/cms/include/css/login.css">
