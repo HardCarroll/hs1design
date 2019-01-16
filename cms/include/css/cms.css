@@ -89,6 +89,9 @@ ul {
 #navbar-menu>.nav-list>.list-item:hover, #navbar-menu>.nav-list>.list-item.active {
   background-color: #363838;
 }
+#navbar-menu>.nav-list>.list-item:focus {
+  background-color: transparent;
+}
 
 .slide {
   display: block;
@@ -121,12 +124,13 @@ ul {
   font-size: 12px;
 }
 .slide>.slide-menu {
-  padding-left: 35px;
+  padding-left: 0px;
   height: 0;
   transition: all 0.3s;
   overflow: hidden;
 }
 .slide>.slide-menu>li {
+  padding-left: 35px;
   height: 30px;
   line-height: 30px;
 }

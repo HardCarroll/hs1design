@@ -1,29 +1,22 @@
 $(function(){
-  $(".slide-head").on("click", function() {
-    $(this).parent().toggleClass("active");
-    $(this).children().eq(2).toggleClass("glyphicon-menu-down");
-  });
-
+  // 右侧导航列表点击事件处理
   $(".list-item").on("click", function() {
-    // var ele = '<li role="presentation><span class="glyphicon glyphicon-">'
-    var ele = '<li role="presentation"><a href="#profile" data-toggle="tab">' + $(this).html() + '</a><span class="pull-right glyphicon glyphicon-remove"role="button"></span></li>';
+    if($(this).find("ul[class='slide-menu']").length) {
+      // 如果是下拉菜单，则点击会切换状态
+      $(this).toggleClass("active").siblings().removeClass("active");
+    }
+    else if(!$("#pageTabs").find("a[href='" + $(this).find("span.title").attr("data-target") + "']").length) {
+      // 如果标签页没有打开，则创建标签页
+      var eleItem = document.createElement("li");
+      eleItem.setAttribute("role", "presentation");
+      $(eleItem).append('<span class="pull-left glyphicon glyphicon-file"></span><a href="' + $(this).find("span.title").attr("data-target") + '" data-toggle="tab">' + $(this).find("span.title").html() + '</a><span class="pull-right glyphicon glyphicon-remove"role="button"></span>');
+      $("#pageTabs").append(eleItem);
+    }
 
-    // $("#pageTabs").append(ele).children().removeClass("active").last().addClass("active");
-    $("#pageTabs").append(ele);
+    var targetEle = $("#pageTabs").find("a[href='" + $(this).find("span.title").attr("data-target") + "']");
+    activeTab(targetEle);
 
-    $("#pageTabs>li>span.glyphicon-remove").on("click", function() {
-      if($(this).parent().hasClass("active") && $(this).parent().next().html()) {
-        $(this).parent().next().addClass("active");
-        $($(this).parent().next().children().eq(0).attr("href")).addClass("active in");
-      }
-      $($(this).prev().attr("href")).remove();
-      $(this).parent().remove();
-  
-      
-      // console.log($(this).parent().hasClass("active"));
-    });
-
-    console.log($(this).html());
+    // console.log($(this).find("ul[class='slide-menu']").length);
   });
 
   $(".slide-menu>li").on("click", function(e) {
@@ -38,17 +31,24 @@ $(function(){
     });
   });
 
-  $("#pageTabs>li>span.glyphicon-remove").on("click", function() {
-    if($(this).parent().hasClass("active") && $(this).parent().next().html()) {
-      $(this).parent().next().addClass("active");
-      $($(this).parent().next().children().eq(0).attr("href")).addClass("active in");
-    }
-    $($(this).prev().attr("href")).remove();
-    $(this).parent().remove();
-
-    
-    // console.log($(this).parent().hasClass("active"));
-  });
-
+  registeTabRemove();
 
 });
+
+function registeTabRemove() {
+  $("span.glyphicon-remove").on("click", function() {
+    if($(this).parent().hasClass("active")) {
+      $($(this).prev().attr("href")).removeClass("active in");
+    }
+    $(this).parent().remove();
+  });
+}
+
+function activeTab(target) {
+  registeTabRemove();
+  $(target).tab("show").parent().addClass("active").siblings().removeClass("active");
+
+  // $("#pageTabs a[href='#profile']").tab('show');
+
+  // console.log($(target).children().eq(1));
+}

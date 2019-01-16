@@ -66,7 +66,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
       <div class="list-item slide slide-left" role="button">
         <div class="slide-head">
           <span class="glyphicon glyphicon-user"></span>
-          <span class="title">用户管理</span>
+          <span class="title" data-target="#user">用户管理</span>
           <span class="pull-right glyphicon glyphicon-menu-right"></span>
         </div>
         <ul class="slide-menu">
@@ -81,7 +81,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
       <div class="list-item slide" role="button">
         <div class="slide-head">
           <span class="glyphicon glyphicon-file"></span>
-          <span class="title">开始文档</span>
+          <span class="title" data-target="#home">开始文档</span>
           <!-- <span class="pull-right glyphicon glyphicon-menu-right"></span> -->
         </div>
       </div>
@@ -120,7 +120,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
 
   <div class="content-wrap">
     <div class="content-inner">
-      <ul id="pageTabs" class="nav nav-tabs" role="tablist">
+      <ul id="pageTabs" class="hidden-xs nav nav-tabs" role="tablist">
         <li role="presentation" class="active">
           <span class="pull-left glyphicon glyphicon-file"></span>
           <a href="#home" data-toggle="tab">开始文档</a>
