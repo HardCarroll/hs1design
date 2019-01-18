@@ -2,11 +2,17 @@
 header("Content-type:text/html; charset:utf-8;");
 date_default_timezone_set("Asia/Shanghai");
 
+/**
+ * 用户管理类
+ * 
+ */
 class UserManager {
-  public $dbo;
+  private $dbo;
+  private $db_tab;
+
   // 构造函数
   function __construct($dbo) {
-    $this->$dbo = $dbo;
+    $this->dbo = $dbo;
   }
 
   // 析构函数
@@ -14,9 +20,34 @@ class UserManager {
     $this->dbo = null;
   }
   
+  /**
+   * 获取用户总数
+   * @return $counts: 返回用户总数;
+   */
+  public function getUserCounts() {
+    $sql = "SELECT * FROM tab_admin";
+    $counts = count($this->dbo->exec_query($sql));
+    return $counts;
+  }
 }
 
-//数据库操作类
+/**
+ * 案例管理类
+ */
+class CaseManager {
+
+}
+
+/**
+ * 文章管理类
+ */
+class ArticleManager {
+  
+}
+
+/**
+ * 数据库操作类
+ */
 class DBOperator {
 //    主机名
   public $hostname;

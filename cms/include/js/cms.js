@@ -1,22 +1,50 @@
 $(function(){
-  // 右侧导航列表点击事件处理
+  $(".layer").click(function(){
+    // 解决sarfri浏览器不触发点击事件
+  });
+
+  // 点击空白处隐藏菜单栏
+  $(document).on("click", function() {
+    $(".navbar-collapse").removeClass("in");
+  });
+  $(".navbar-toggle").on("click", function(e) {
+    e.stopPropagation();
+    $(".navbar-collapse").removeClass("in");
+    $($(this).attr("data-target")).toggleClass("in");
+  });
+
+  // 左侧导航列表点击事件处理
   $(".list-item").on("click", function() {
-    if($(this).find("ul[class='slide-menu']").length) {
+    var target = $(this).find("span.title").attr("data-target");
       // 如果是下拉菜单，则点击会切换状态
-      $(this).toggleClass("active").siblings().removeClass("active");
-    }
-    else if(!$("#pageTabs").find("a[href='" + $(this).find("span.title").attr("data-target") + "']").length) {
+    $(this).toggleClass("active").siblings().removeClass("active");
+    if(!$("#pageTabs").find("a[href='#" + target + "']").length) {
       // 如果标签页没有打开，则创建标签页
-      var eleItem = document.createElement("li");
-      eleItem.setAttribute("role", "presentation");
-      $(eleItem).append('<span class="pull-left glyphicon glyphicon-file"></span><a href="' + $(this).find("span.title").attr("data-target") + '" data-toggle="tab">' + $(this).find("span.title").html() + '</a><span class="pull-right glyphicon glyphicon-remove"role="button"></span>');
-      $("#pageTabs").append(eleItem);
+      // var eleItem = document.createElement("li");
+      // eleItem.setAttribute("role", "presentation");
+      // $(eleItem).append('<span class="pull-left glyphicon glyphicon-file"></span><a href="#' + target + '" data-toggle="tab">' + $(this).find("span.title").html() + '</a><span class="pull-right glyphicon glyphicon-remove tabRemove" role="button"></span>');
+      // $("#pageTabs").append(eleItem);
+
+      $("#pageTabs").append('<li role="presentation"><span class="pull-left glyphicon glyphicon-file"></span><a href="#' + target + '" data-toggle="tab">' + $(this).find("span.title").html() + '</a><span class="pull-right glyphicon glyphicon-remove tabRemove" role="button"></span></li>');
+      proc_tabRemove();
     }
 
-    var targetEle = $("#pageTabs").find("a[href='" + $(this).find("span.title").attr("data-target") + "']");
-    activeTab(targetEle);
+    // #pageTabContent下没有对应的标签页内容节点，则创建并添加此标签页内容节点
+    if(!$("#pageTabContent").find("div[id='" + target + "']").length) {
+      $("#pageTabContent").append('<div role="tabpanel" class="tab-pane" id="' + target + '"><a href="javascript:test();">click</a></div>');
+    }
+
+    var targetEle = $("#pageTabs").find("a[href='#" + target + "']");
+    activateTab(targetEle);
 
     // console.log($(this).find("ul[class='slide-menu']").length);
+  });
+
+  // 功能未完成！！！！！！
+  $("#pageTabs>li").on("click", function(e) {
+    e.stopPropagation();
+    $(".nav-list").find('[data-target="' + $("#pageTabContent").find(".active").attr("id") + '"]').parent().parent().addClass("active").siblings().removeClass("active");
+    console.log(16);
   });
 
   $(".slide-menu>li").on("click", function(e) {
@@ -31,24 +59,36 @@ $(function(){
     });
   });
 
-  registeTabRemove();
-
+  proc_tabRemove();
 });
 
-function registeTabRemove() {
-  $("span.glyphicon-remove").on("click", function() {
+function proc_tabRemove() {
+  $(".tabRemove").on("click", function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    // 已激活标签页对应的标签页内容节点隐藏，即去掉active类
     if($(this).parent().hasClass("active")) {
-      $($(this).prev().attr("href")).removeClass("active in");
+      $($(this).prev().attr("href")).removeClass("active");
+
+      if($(this).parent().next().find("a").length) {
+        $($(this).parent().next().addClass("active").find("a").attr("href")).addClass("active");
+      }
+      else if($(this).parent().prev().find("a").length) {
+        $($(this).parent().prev().addClass("active").find("a").attr("href")).addClass("active");
+      }
     }
+
     $(this).parent().remove();
+
+    // $(".nav-list").find('[data-target="' + $("#pageTabContent").find(".active").attr("id") + '"]').parent().parent().addClass("active").siblings().removeClass("active");
   });
+  
 }
 
-function activeTab(target) {
-  registeTabRemove();
+function activateTab(target) {
   $(target).tab("show").parent().addClass("active").siblings().removeClass("active");
+}
 
-  // $("#pageTabs a[href='#profile']").tab('show');
-
-  // console.log($(target).children().eq(1));
+function test() {
+  console.log("hello world, this is a test!");
 }
