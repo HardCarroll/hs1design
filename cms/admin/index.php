@@ -205,6 +205,14 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                   <label for="title" class="input-group-addon">网站标题</label>
                   <input type="text" class="form-control" name="title" id="title">
                 </div>
+                <div class="input-group">
+                  <label for="keywords" class="input-group-addon">网站关键词</label>
+                  <input type="text" class="form-control" name="keywords" id="keywords">
+                </div>
+                <div class="input-group">
+                  <label for="description" class="input-group-addon">网站内容简介</label>
+                  <input type="text" class="form-control" name="description" id="description">
+                </div>
               </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="adminTab">
