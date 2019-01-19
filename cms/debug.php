@@ -1,8 +1,5 @@
 <?php
-session_start();
-$_SESSION["state"] = "欢迎使用本后台管理系统";
-require_once($_SERVER["DOCUMENT_ROOT"]."/cms/include/php/dboperator.php");
-$dbo = new DBOperator("localhost", "hsd_admin", "hs1design.com", "hs1design");
+require_once($_SERVER["DOCUMENT_ROOT"]."/cms/include/php/include.php");
 
 // // php模板通过curl请求生成html文件
 // $url = "http://192.168.0.216:8888/template/case_temp.php";
@@ -27,6 +24,8 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
       // 登录按钮点击处理过程调试
       // echo $data = $_POST["data"];
       echo proc_login(json_decode($_POST["data"], true));
+      break;
+    case "save_site":
       break;
     default:
       break;

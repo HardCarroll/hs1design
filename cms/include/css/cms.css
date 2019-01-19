@@ -273,6 +273,20 @@ ul {
   text-align: right;
   padding-right: 50px;
 }
+#siteTab>.siteWrap>.input-group {
+  width: 100%;
+  margin-bottom: 15px;
+}
+#siteTab>.siteWrap>.input-group>label {
+  width: 100px;
+  padding: 6px;
+}
+#siteTab>.siteWrap>.input-group:last-child {
+  text-align: right;
+}
+#siteTab>.siteWrap>.input-group>span.btn {
+  margin-left: 15px;
+}
 
 @media (max-width: 768px) {
   #navbar-menu {

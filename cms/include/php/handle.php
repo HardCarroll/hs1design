@@ -7,11 +7,36 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
       // 登录按钮点击处理过程
       echo proc_login($dbo, json_decode($_POST["data"], true));
       break;
+    case "setSiteInfo":
+      echo proc_setSiteInfo($_SERVER["DOCUMENT_ROOT"]."/cms/include/json", $_POST["siteInfo"]);
+      break;
+    case "getSiteInfo":
+      break;
     default:
       break;
   }
 }
 
+/**
+ * 设置网站信息
+ */
+function proc_setSiteInfo($path, $data) {
+  // if(is_dir($path) or @mkdir($path) and @chmod($path, 0777)) {
+  if(is_dir($path) or @mkdir($path)) {
+    $result = file_put_contents($path."/siteinfo.json", $data);
+  }
+  else {
+    $result = "create filepath fail!";
+  }
+  return $result;
+}
+/**
+ * 获取网站信息
+ */
+function proc_getSiteInfo() {
+  $result = file_get_contents($_SERVER["DOCUMENT_ROOT"]."/cms/include/json/siteinfo.json");
+  return $result;
+}
 
 /**
  * 登录验证处理过程

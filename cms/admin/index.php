@@ -197,21 +197,28 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
             </div>
             <div role="tabpanel" class="tab-pane active" id="siteTab">
               <div class="siteWrap">
-                <div class="input-group">
+                <div class="input-group" title="domain">
                   <label for="domain" class="input-group-addon">网站域名</label>
                   <input type="text" class="form-control" name="domain" id="domain">
                 </div>
-                <div class="input-group">
+                <div class="input-group" title="title">
                   <label for="title" class="input-group-addon">网站标题</label>
                   <input type="text" class="form-control" name="title" id="title">
                 </div>
-                <div class="input-group">
+                <div class="input-group" title="keywords">
                   <label for="keywords" class="input-group-addon">网站关键词</label>
                   <input type="text" class="form-control" name="keywords" id="keywords">
                 </div>
-                <div class="input-group">
+                <div class="input-group" title="description">
                   <label for="description" class="input-group-addon">网站内容简介</label>
                   <input type="text" class="form-control" name="description" id="description">
+                </div>
+                <div class="input-group" id="ret_test">
+                  文字信息
+                </div>
+                <div class="input-group">
+                  <span class="btn btn-default btn-close" role="button">关闭</span>
+                  <span class="btn btn-primary btn-save" role="button">保存</span>
                 </div>
               </div>
             </div>

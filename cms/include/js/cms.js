@@ -38,12 +38,35 @@ $(function(){
     // console.log($(this).find("ul[class='slide-menu']").length);
   });
 
-  // 功能未完成！！！！！！
-  // $("#pageTabs>li").on("click", function(e) {
-  //   // e.stopPropagation();
-  //   $(".nav-list").find('[data-target = ' + $("#pageTabs").find(".active").attr("data-target") + ']').parent().parent().addClass("active").siblings().removeClass("active");
-  //   console.log(16);
-  // });
+  // 关闭按钮点击事件处理函数
+  $(".btn-close").off("click").on("click", function() {
+    $("#pageTabs").find(".active").children().last().click();
+  });
+  // 保存按钮点击事件处理函数
+  $(".btn-save").off("click").on("click", function() {
+    var fmd = new FormData();
+    var siteInfo = '{"domain":"'+$("#domain").val()+'", "title": "'+$("#title").val()+'", "keywords": "'+$("#keywords").val()+'", "description": "'+$("#description").val()+'"}';
+    fmd.append("token", "setSiteInfo");
+    fmd.append("siteInfo", siteInfo);
+    $.ajax({
+      url: "/cms/include/php/handle.php",
+      type: "POST",
+      data: fmd,
+      processData: false,
+      contentType: false,   //数据为formData时必须定义此项
+      // dataType: "json",     //返回json格式数据
+      context: $("#ret_test"),
+      success: function(result) {
+        $(this).html(result);
+        console.log(result);
+      },
+      error: function(err) {
+        console.log("fail: "+err);
+      }
+    }); // ajax_func
+
+    console.log(siteInfo);
+  });
 
   $(".slide-menu>li").on("click", function(e) {
     e.stopPropagation();
