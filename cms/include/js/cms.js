@@ -19,14 +19,12 @@ $(function(){
       // 如果是下拉菜单，则点击会切换状态
     $(this).toggleClass("active").siblings().removeClass("active");
     if(!$("#pageTabs").find("a[href='#" + target + "']").length) {
-      // 如果标签页没有打开，则创建标签页
-      // var eleItem = document.createElement("li");
-      // eleItem.setAttribute("role", "presentation");
-      // $(eleItem).append('<span class="pull-left glyphicon glyphicon-file"></span><a href="#' + target + '" data-toggle="tab">' + $(this).find("span.title").html() + '</a><span class="pull-right glyphicon glyphicon-remove tabRemove" role="button"></span>');
-      // $("#pageTabs").append(eleItem);
-
-      $("#pageTabs").append('<li role="presentation"><span class="pull-left glyphicon glyphicon-file"></span><a href="#' + target + '" data-toggle="tab">' + $(this).find("span.title").html() + '</a><span class="pull-right glyphicon glyphicon-remove tabRemove" role="button"></span></li>');
-      proc_tabRemove();
+      // 如果标签页没有打开，则创建并添加标签页
+      var tabEle = document.createElement("li");
+      tabEle.setAttribute("role", "presentation");
+      $(tabEle).append('<span class="pull-left"></span><a href="#' + target + '" data-toggle="tab">' + $(this).find("span.title").html() + '</a><span class="pull-right glyphicon glyphicon-remove tabRemove" role="button"></span>').find("span.pull-left").addClass($(this).find("span.title").prev().attr("class"));
+      $("#pageTabs").append(tabEle);
+      proc_regTabEvent();
     }
 
     // #pageTabContent下没有对应的标签页内容节点，则创建并添加此标签页内容节点
@@ -41,14 +39,15 @@ $(function(){
   });
 
   // 功能未完成！！！！！！
-  $("#pageTabs>li").on("click", function(e) {
-    e.stopPropagation();
-    $(".nav-list").find('[data-target="' + $("#pageTabContent").find(".active").attr("id") + '"]').parent().parent().addClass("active").siblings().removeClass("active");
-    console.log(16);
-  });
+  // $("#pageTabs>li").on("click", function(e) {
+  //   // e.stopPropagation();
+  //   $(".nav-list").find('[data-target = ' + $("#pageTabs").find(".active").attr("data-target") + ']').parent().parent().addClass("active").siblings().removeClass("active");
+  //   console.log(16);
+  // });
 
   $(".slide-menu>li").on("click", function(e) {
     e.stopPropagation();
+    e.preventDefault();
     $(this).addClass("active").siblings().removeClass("active");
     var str = '<div class="modal fade" id="modPwd" tabindex="-1" role="dialog" aria-labelledby="modPwdLabel"><div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="modPwdLabel">修改用户密码</h4></div><div class="modal-body"><form><div class="form-group"><label for="old-pwd" class="control-label">旧密码:</label><input type="password" class="form-control" id="old-pwd" name="old-pwd" required></div><div class="form-group"><label for="new-pwd1" class="control-label">新的密码:</label><input type="password" class="form-control" id="new-pwd1" name="new-pwd1" required></div><div class="form-group"><label for="new-pwd2" class="control-label">确认新密码:</label><input type="password" class="form-control" id="new-pwd2" name="new-pwd2" required></div></form></div><div class="modal-footer"><span class="tips"></span><button type="button" class="btn btn-default" data-dismiss="modal">取消</button><button type="button" class="btn btn-primary" id="btn_ok">确认</button></div></div></div></div>';
     $('body').append(str);
@@ -59,11 +58,12 @@ $(function(){
     });
   });
 
-  proc_tabRemove();
+  proc_regTabEvent();
 });
 
-function proc_tabRemove() {
-  $(".tabRemove").on("click", function(e) {
+function proc_regTabEvent() {
+  // 标签页关闭按钮点击事件处理函数
+  $(".tabRemove").off("click").on("click", function(e) {
     e.stopPropagation();
     e.preventDefault();
     // 已激活标签页对应的标签页内容节点隐藏，即去掉active类
@@ -80,7 +80,20 @@ function proc_tabRemove() {
 
     $(this).parent().remove();
 
-    // $(".nav-list").find('[data-target="' + $("#pageTabContent").find(".active").attr("id") + '"]').parent().parent().addClass("active").siblings().removeClass("active");
+    // 标签页全部关闭时去掉.list-item激活状态
+    if(!$("#pageTabs").children().length) {
+      $(".nav-list>.list-item").removeClass("active");
+    }
+
+    $(".nav-list").find('[data-target="' + $("#pageTabContent").find(".active").attr("id") + '"]').parent().parent().addClass("active").siblings().removeClass("active");
+  });
+
+  // 标签页点击事件处理函数
+  $("#pageTabs>li>a").off("click").on("click", function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    activateTab(this);
+    $(".nav-list").find('[data-target="' + $("#pageTabContent").find(".active").attr("id") + '"]').parent().parent().addClass("active").siblings().removeClass("active");
   });
   
 }

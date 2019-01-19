@@ -64,22 +64,22 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
     <section class="page-body">
       <div class="collapse navbar-collapse" id="navbar-menu">
         <div class="nav-list">
-          <div class="list-item slide active" role="button">
+          <div class="list-item slide" role="button">
             <div class="slide-head">
               <span class="glyphicon glyphicon-file"></span>
-              <span class="title" data-target="homeTab">开始文档</span>
+              <span class="title" data-target="profileTab">开始文档</span>
+            </div>
+          </div>
+          <div class="list-item slide active" role="button">
+            <div class="slide-head">
+              <span class="glyphicon glyphicon-globe"></span>
+              <span class="title" data-target="siteTab">网站设置</span>
             </div>
           </div>
           <div class="list-item slide" role="button">
             <div class="slide-head">
               <span class="glyphicon glyphicon-user"></span>
               <span class="title" data-target="adminTab">管理员设置</span>
-            </div>
-          </div>
-          <div class="list-item slide" role="button">
-            <div class="slide-head">
-              <span class="glyphicon glyphicon-cog"></span>
-              <span class="title" data-target="profileTab">profileTab</span>
             </div>
           </div>
           <div class="list-item slide slide-left" role="button">
@@ -169,19 +169,19 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
       <div class="content-wrap">
         <div class="content-inner">
           <ul id="pageTabs" class="hidden-xs nav nav-tabs" role="tablist">
-            <li role="presentation" class="active">
+            <li role="presentation">
               <span class="pull-left glyphicon glyphicon-file"></span>
-              <a href="#homeTab" data-toggle="tab" data-target="#homeTab">开始文档</a>
+              <a href="#profileTab" data-toggle="tab">开始文档</a>
               <span class="pull-right glyphicon glyphicon-remove tabRemove" role="button"></span>
             </li>
-            <!-- <li role="presentation">
-              <span class="pull-left glyphicon glyphicon-file"></span>
-              <a href="#profileTab" data-toggle="tab">profileTab</a>
-              <span class="pull-right glyphicon glyphicon-remove" role="button"></span>
-            </li> -->
+            <li role="presentation" class="active">
+              <span class="pull-left glyphicon glyphicon-globe"></span>
+              <a href="#siteTab" data-toggle="tab">网站设置</a>
+              <span class="pull-right glyphicon glyphicon-remove tabRemove" role="button"></span>
+            </li>
           </ul>
           <div id="pageTabContent" class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="homeTab">
+            <div role="tabpanel" class="tab-pane" id="profileTab">
               <p class="begin">
                 尊敬的<a href="#"><?php echo $_SESSION["user"]["username"];?></a>，您好！
               </p>
@@ -195,8 +195,17 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                 ——黄狮虎
               </p>
             </div>
-            <div role="tabpanel" class="tab-pane" id="profileTab">
-              <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+            <div role="tabpanel" class="tab-pane active" id="siteTab">
+              <div class="siteWrap">
+                <div class="input-group">
+                  <label for="domain" class="input-group-addon">网站域名</label>
+                  <input type="text" class="form-control" name="domain" id="domain">
+                </div>
+                <div class="input-group">
+                  <label for="title" class="input-group-addon">网站标题</label>
+                  <input type="text" class="form-control" name="title" id="title">
+                </div>
+              </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="adminTab">
               admin Tabpanel

@@ -39,16 +39,11 @@ ul {
   height: 100%;
   overflow: hidden;
 }
-.page-head {
-  
-}
 .page-body {
   height: 100%;
   padding-top: 50px;
   padding-left: 200px;
   overflow: hidden;
-}
-.page-foot {
 }
 .front-end {
   position: absolute;
@@ -106,7 +101,7 @@ ul {
 #navbar-menu {
   width: 200px;
   height: 100% !important;
-  padding: 50px 0;
+  padding: 50px 0 40px;
   border: none;
   position: fixed;
   overflow: hidden !important;
@@ -242,7 +237,7 @@ ul {
   color: #666868;
   top: 13px;
 }
-#pageTabs.nav-tabs>li>span.glyphicon-file {
+#pageTabs.nav-tabs>li>span:first-child {
   left: 7px;
 }
 #pageTabs.nav-tabs>li>span.glyphicon-remove {
@@ -256,24 +251,24 @@ ul {
   padding-top: 15px;
 }
 
-#homeTab {
+#profileTab {
   cursor: default;
 }
-#homeTab>p {
+#profileTab>p {
   margin-bottom: 15px;
 }
-#homeTab>.begin>a {
+#profileTab>.begin>a {
   font-size: 20px;
   color: #f60;
   margin: 0 5px;
 }
-#homeTab>.content {
+#profileTab>.content {
   text-indent: 2em;
 }
-#homeTab>.end {
+#profileTab>.end {
   text-indent: 2em;
 }
-#homeTab>.sign {
+#profileTab>.sign {
   font-size: 18px;
   text-align: right;
   padding-right: 50px;
