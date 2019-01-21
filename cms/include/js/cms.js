@@ -15,73 +15,65 @@ $(function(){
 
   // 左侧导航列表点击事件处理
   $(".list-item").on("click", function() {
-    var target = $(this).find("span.title").attr("data-target");
+    if($(this).find(".slide-menu").length) {
       // 如果是下拉菜单，则点击会切换状态
-    $(this).toggleClass("active").siblings().removeClass("active");
-    if(!$("#pageTabs").find("a[href='#" + target + "']").length) {
-      // 如果标签页没有打开，则创建并添加标签页
-      var tabEle = document.createElement("li");
-      tabEle.setAttribute("role", "presentation");
-      $(tabEle).append('<span class="pull-left"></span><a href="#' + target + '" data-toggle="tab">' + $(this).find("span.title").html() + '</a><span class="pull-right glyphicon glyphicon-remove tabRemove" role="button"></span>').find("span.pull-left").addClass($(this).find("span.title").prev().attr("class"));
-      $("#pageTabs").append(tabEle);
-      proc_regTabEvent();
+      $(this).toggleClass("active").find(".active").removeClass("active");
     }
-
-    // #pageTabContent下没有对应的标签页内容节点，则创建并添加此标签页内容节点
-    if(!$("#pageTabContent").find("div[id='" + target + "']").length) {
-      $("#pageTabContent").append('<div role="tabpanel" class="tab-pane" id="' + target + '"><a href="javascript:test();">click</a></div>');
+    else {
+      $(this).addClass("active");
     }
+    $(this).siblings().removeClass("active");
 
-    var targetEle = $("#pageTabs").find("a[href='#" + target + "']");
-    activateTab(targetEle);
+    activateTab($(this));
 
     // console.log($(this).find("ul[class='slide-menu']").length);
   });
+  $(".slide-menu>li").on("click", function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    $(this).addClass("active").siblings().removeClass("active");
+    activateTab($(this));
+  });
 
+  // tabpanel 标签页面按钮
   // 关闭按钮点击事件处理函数
   $(".btn-close").off("click").on("click", function() {
     $("#pageTabs").find(".active").children().last().click();
   });
   // 保存按钮点击事件处理函数
   $(".btn-save").off("click").on("click", function() {
-    var fmd = new FormData();
-    var siteInfo = '{"domain":"'+$("#domain").val()+'", "title": "'+$("#title").val()+'", "keywords": "'+$("#keywords").val()+'", "description": "'+$("#description").val()+'"}';
-    fmd.append("token", "setSiteInfo");
-    fmd.append("siteInfo", siteInfo);
-    $.ajax({
-      url: "/cms/include/php/handle.php",
-      type: "POST",
-      data: fmd,
-      processData: false,
-      contentType: false,   //数据为formData时必须定义此项
-      // dataType: "json",     //返回json格式数据
-      context: $("#ret_test"),
-      success: function(result) {
-        $(this).html(result);
-        console.log(result);
-      },
-      error: function(err) {
-        console.log("fail: "+err);
-      }
-    }); // ajax_func
-
-    console.log(siteInfo);
+    if(!$(this).hasClass("disabled") && $(this).parent().parent().parent().attr("id") === "siteTab") {
+      save_siteInfo();
+    }
   });
 
-  $(".slide-menu>li").on("click", function(e) {
-    e.stopPropagation();
-    e.preventDefault();
-    $(this).addClass("active").siblings().removeClass("active");
-    var str = '<div class="modal fade" id="modPwd" tabindex="-1" role="dialog" aria-labelledby="modPwdLabel"><div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title" id="modPwdLabel">修改用户密码</h4></div><div class="modal-body"><form><div class="form-group"><label for="old-pwd" class="control-label">旧密码:</label><input type="password" class="form-control" id="old-pwd" name="old-pwd" required></div><div class="form-group"><label for="new-pwd1" class="control-label">新的密码:</label><input type="password" class="form-control" id="new-pwd1" name="new-pwd1" required></div><div class="form-group"><label for="new-pwd2" class="control-label">确认新密码:</label><input type="password" class="form-control" id="new-pwd2" name="new-pwd2" required></div></form></div><div class="modal-footer"><span class="tips"></span><button type="button" class="btn btn-default" data-dismiss="modal">取消</button><button type="button" class="btn btn-primary" id="btn_ok">确认</button></div></div></div></div>';
-    $('body').append(str);
-    $("#modPwd").modal({"backdrop": "static"});
-    $("#modPwd").on("hidden.bs.modal", function (e) {
-      e.target.remove();
-      $(".slide-menu>li").removeClass("active");
+  // 网站信息标签页输入框输入内容
+  $(".siteWrap input").on("input", function() {
+    $(".btn-save").removeClass("disabled");
+  });
+
+  // 案例管理标签页上传按钮
+  $(".caseWrap>.case-head>.btn").on("click", function() {
+    activateTab($(this));
+  });
+
+  $(".caseWrap .panel-collapse .btn").each(function() {
+    $(this).off("click").on("click", function() {
+      if($(this).hasClass("glyphicon-star") || $(this).hasClass("glyphicon-star-empty")) {
+        $(this).toggleClass("glyphicon-star-empty").toggleClass("glyphicon-star");
+        if($(this).hasClass("glyphicon-star")) {
+          console.log("recommonds");
+        }
+        else {
+          console.log("normal");
+        }
+      }
     });
   });
 
   proc_regTabEvent();
+  refresh_siteInfo();
+  refresh_caseList();
 });
 
 function proc_regTabEvent() {
@@ -108,7 +100,7 @@ function proc_regTabEvent() {
       $(".nav-list>.list-item").removeClass("active");
     }
 
-    $(".nav-list").find('[data-target="' + $("#pageTabContent").find(".active").attr("id") + '"]').parent().parent().addClass("active").siblings().removeClass("active");
+    $(".nav-list").find('[data-target="' + $("#pageTabContent").find(".active").attr("id") + '"]').addClass("active").siblings().removeClass("active");
   });
 
   // 标签页点击事件处理函数
@@ -116,13 +108,94 @@ function proc_regTabEvent() {
     e.stopPropagation();
     e.preventDefault();
     activateTab(this);
-    $(".nav-list").find('[data-target="' + $("#pageTabContent").find(".active").attr("id") + '"]').parent().parent().addClass("active").siblings().removeClass("active");
+
+    $(".nav-list").find('[data-target="' + $("#pageTabContent").find(".active").attr("id") + '"]').addClass("active").siblings().removeClass("active");
   });
   
 }
 
 function activateTab(target) {
-  $(target).tab("show").parent().addClass("active").siblings().removeClass("active");
+  if(!$("#pageTabs").find("a[href='" + $(target).attr("href") + "']").length) {
+    // 如果标签页没有打开，则创建并添加标签页
+    var tabEle = document.createElement("li");
+    tabEle.setAttribute("role", "presentation");
+    $(tabEle).append('<span class="pull-left"></span><a href="' + $(target).attr("href") + '" data-toggle="tab">' + $(target).find("span.title").html() + '</a><span class="pull-right glyphicon glyphicon-remove tabRemove" role="button"></span>').find("span.pull-left").addClass($(target).find("span.title").prev().attr("class"));
+    $("#pageTabs").append(tabEle);
+    proc_regTabEvent();
+  }
+  // #pageTabContent下没有对应的标签页内容节点，则创建并添加此标签页内容节点
+  if(!$("#pageTabContent").find("div[id='" + $(target).attr("data-target") + "']").length) {
+    $("#pageTabContent").append('<div role="tabpanel" class="tab-pane" id="' + $(target).attr("data-target") + '"><a href="javascript:test();">click</a></div>');
+  }
+
+  $("#pageTabs").find("a[href='" + $(target).attr("href") + "']").tab("show").parent().addClass("active").siblings().removeClass("active");
+
+  if($(target).attr("href") === "#siteTab") {
+    refresh_siteInfo();
+  }
+}
+/**
+ * ajax更新网站信息
+ */
+function refresh_siteInfo() {
+  var fmd = new FormData();
+  fmd.append("token", "getSiteInfo");
+  $.ajax({
+    url: "/cms/include/php/handle.php",
+    type: "POST",
+    data: fmd,
+    processData: false,
+    contentType: false,   //数据为formData时必须定义此项
+    dataType: "json",     //返回json格式数据
+    context: $(".siteWrap"),
+    success: function(result) {
+      if(result) {
+        var data = JSON.parse(result);
+        $(this).find("input[id='domain']").val(data.domain);
+        $(this).find("input[id='title']").val(data.title);
+        $(this).find("input[id='keywords']").val(data.keywords);
+        $(this).find("input[id='description']").val(data.description);
+      }
+    },
+    error: function(err) {
+      console.log("fail: "+err);
+    }
+  }); // ajax_func
+}
+/**
+ * ajax设置网站基本信息，并反馈状态信息
+ */
+function save_siteInfo() {
+  var fmd = new FormData();
+  var siteInfo = '{"domain":"'+$("#domain").val()+'", "title": "'+$("#title").val()+'", "keywords": "'+$("#keywords").val()+'", "description": "'+$("#description").val()+'"}';
+  fmd.append("token", "setSiteInfo");
+  fmd.append("siteInfo", siteInfo);
+  $.ajax({
+    url: "/cms/include/php/handle.php",
+    type: "POST",
+    data: fmd,
+    processData: false,
+    contentType: false,   //数据为formData时必须定义此项
+    // dataType: "json",     //返回json格式数据
+    context: $(".text-state"),
+    success: function(result) {
+      $(this).addClass("text-success").html(result);
+      $(".btn-save").addClass("disabled");
+      setTimeout(function() {
+        $(".text-state").html("&nbsp;");
+      }, 2000);
+    },
+    error: function(err) {
+      console.log("fail: "+err);
+    }
+  }); // ajax_func
+}
+
+/**
+ * ajax刷新案例列表
+ */
+function refresh_caseList() {
+  console.log("refresh case list");
 }
 
 function test() {

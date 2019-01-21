@@ -64,28 +64,54 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
     <section class="page-body">
       <div class="collapse navbar-collapse" id="navbar-menu">
         <div class="nav-list">
-          <div class="list-item slide" role="button">
+          <div class="list-item slide active" role="button" data-target="profileTab" href="#profileTab">
             <div class="slide-head">
               <span class="glyphicon glyphicon-file"></span>
-              <span class="title" data-target="profileTab">开始文档</span>
+              <span class="title">开始文档</span>
             </div>
           </div>
-          <div class="list-item slide active" role="button">
+          <div class="list-item slide" role="button" data-target="siteTab" href="#siteTab">
             <div class="slide-head">
               <span class="glyphicon glyphicon-globe"></span>
-              <span class="title" data-target="siteTab">网站设置</span>
+              <span class="title">网站设置</span>
             </div>
           </div>
-          <div class="list-item slide" role="button">
+          <div class="list-item slide slide-left" role="button" data-target="caseTab" href="#caseTab">
+            <div class="slide-head">
+              <span class="glyphicon glyphicon-blackboard"></span>
+              <span class="title">案例管理</span>
+              <span class="pull-right glyphicon glyphicon-menu"></span>
+            </div>
+            <ul class="slide-menu">
+              <li>adminTab</li>
+              <li>test</li>
+              <li>03</li>
+              <li>04</li>
+              <li data-target="testMM" href="#testMM">
+                <div class="text-warning">
+                  <span class="glyphicon glyphicon-cloud-download"></span>
+                  <span class="title">测试</span>
+                </div>
+              </li>
+              <li>06</li>
+              <li data-target="caseUpload" href="#caseUpload">
+                <div class="text-primary">
+                  <span class="glyphicon glyphicon-cloud-upload"></span>
+                  <span class="title">上传案例</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="list-item slide" role="button" data-target="adminTab" href="#adminTab">
             <div class="slide-head">
               <span class="glyphicon glyphicon-user"></span>
-              <span class="title" data-target="adminTab">管理员设置</span>
+              <span class="title">管理员设置</span>
             </div>
           </div>
-          <div class="list-item slide slide-left" role="button">
+          <div class="list-item slide slide-left" role="button" data-target="classTab" href="#classTab">
             <div class="slide-head">
               <span class="glyphicon glyphicon-list"></span>
-              <span class="title" data-target="classTab">分类管理</span>
+              <span class="title">分类管理</span>
               <span class="pull-right glyphicon glyphicon-menu"></span>
             </div>
             <ul class="slide-menu">
@@ -94,14 +120,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
               <li>03</li>
               <li>04</li>
               <li>05</li>
-              <li>06</li>
             </ul>
-          </div>
-          <div class="list-item slide" role="button">
-            <div class="slide-head">
-              <span class="glyphicon glyphicon-blackboard"></span>
-              <span class="title" data-target="caseTab">案例管理</span>
-            </div>
           </div>
           <div class="list-item slide" role="button">
             <div class="slide-head">
@@ -169,19 +188,14 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
       <div class="content-wrap">
         <div class="content-inner">
           <ul id="pageTabs" class="hidden-xs nav nav-tabs" role="tablist">
-            <li role="presentation">
+            <li role="presentation" class="active">
               <span class="pull-left glyphicon glyphicon-file"></span>
               <a href="#profileTab" data-toggle="tab">开始文档</a>
               <span class="pull-right glyphicon glyphicon-remove tabRemove" role="button"></span>
             </li>
-            <li role="presentation" class="active">
-              <span class="pull-left glyphicon glyphicon-globe"></span>
-              <a href="#siteTab" data-toggle="tab">网站设置</a>
-              <span class="pull-right glyphicon glyphicon-remove tabRemove" role="button"></span>
-            </li>
           </ul>
           <div id="pageTabContent" class="tab-content">
-            <div role="tabpanel" class="tab-pane" id="profileTab">
+            <div role="tabpanel" class="tab-pane active" id="profileTab">
               <p class="begin">
                 尊敬的<a href="#"><?php echo $_SESSION["user"]["username"];?></a>，您好！
               </p>
@@ -195,7 +209,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                 ——黄狮虎
               </p>
             </div>
-            <div role="tabpanel" class="tab-pane active" id="siteTab">
+            <div role="tabpanel" class="tab-pane" id="siteTab">
               <div class="siteWrap">
                 <div class="input-group" title="domain">
                   <label for="domain" class="input-group-addon">网站域名</label>
@@ -213,22 +227,165 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                   <label for="description" class="input-group-addon">网站内容简介</label>
                   <input type="text" class="form-control" name="description" id="description">
                 </div>
-                <div class="input-group" id="ret_test">
-                  文字信息
+                <div class="input-group">
+                  <p class="text-state">&nbsp;</p>
                 </div>
                 <div class="input-group">
                   <span class="btn btn-default btn-close" role="button">关闭</span>
-                  <span class="btn btn-primary btn-save" role="button">保存</span>
+                  <span class="btn btn-primary btn-save disabled" role="button">保存</span>
                 </div>
               </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="caseTab">
+              <div class="caseWrap">
+                <?php
+                if(!$caseManage->getCounts()) {
+                  echo '<div class="case-head">';
+                  echo   '<span class="text">您还没有上传案例，我要</span>';
+                  echo   '<a class="btn btn-primary" data-toggle="tab" href="#caseUpload">';
+                  echo     '<span class="glyphicon glyphicon-cloud-upload"></span>';
+                  echo     '<span class="title">上传案例</span>';
+                  echo   '</a>';
+                  echo '</div>';
+                }
+                else {}
+                ?>
+                <div class="panel-group" role="tablist">
+                  <div class="panel panel-default">
+                    <div class="panel-heading" role="tab">
+                      <a class="collapsed" role="button" data-toggle="collapse" href="#case_1">
+                        案例01标题文字
+                      </a>
+                    </div>
+                    <div id="case_1" class="panel-collapse collapse" role="tabpanel">
+                      <ul class="btn-group">
+                        <li role="button" title="星标" class="btn btn-default glyphicon glyphicon-star-empty"></li>
+                        <li role="button" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>
+                        <li role="button" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>
+                        <li role="button" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <!-- <div class="panel panel-default">
+                    <div class="panel-heading" role="tab">
+                      <a class="collapsed" role="button" data-toggle="collapse" href="#case_2">
+                        案例02标题文字
+                      </a>
+                    </div>
+                    <div id="case_2" class="panel-collapse collapse" role="tabpanel">
+                      <ul class="btn-group">
+                        <li role="button" title="星标" class="btn btn-default glyphicon glyphicon-star-empty"></li>
+                        <li role="button" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>
+                        <li role="button" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>
+                        <li role="button" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading" role="tab">
+                      <a class="collapsed" role="button" data-toggle="collapse" href="#case_3">
+                        案例03标题文字
+                      </a>
+                    </div>
+                    <div id="case_3" class="panel-collapse collapse" role="tabpanel">
+                      <ul class="btn-group">
+                        <li role="button" title="星标" class="btn btn-default glyphicon glyphicon-star-empty"></li>
+                        <li role="button" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>
+                        <li role="button" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>
+                        <li role="button" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading" role="tab">
+                      <a class="collapsed" role="button" data-toggle="collapse" href="#case_4">
+                        案例04标题文字
+                      </a>
+                    </div>
+                    <div id="case_4" class="panel-collapse collapse" role="tabpanel">
+                      <ul class="btn-group">
+                        <li role="button" title="星标" class="btn btn-default glyphicon glyphicon-star-empty"></li>
+                        <li role="button" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>
+                        <li role="button" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>
+                        <li role="button" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading" role="tab">
+                      <a class="collapsed" role="button" data-toggle="collapse" href="#case_5">
+                        案例05标题文字
+                      </a>
+                    </div>
+                    <div id="case_5" class="panel-collapse collapse" role="tabpanel">
+                      <ul class="btn-group">
+                        <li role="button" title="星标" class="btn btn-default glyphicon glyphicon-star-empty"></li>
+                        <li role="button" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>
+                        <li role="button" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>
+                        <li role="button" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading" role="tab">
+                      <a class="collapsed" role="button" data-toggle="collapse" href="#case_6">
+                        案例06标题文字
+                      </a>
+                    </div>
+                    <div id="case_6" class="panel-collapse collapse" role="tabpanel">
+                      <ul class="btn-group">
+                        <li role="button" title="星标" class="btn btn-default glyphicon glyphicon-star-empty"></li>
+                        <li role="button" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>
+                        <li role="button" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>
+                        <li role="button" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading" role="tab">
+                      <a class="collapsed" role="button" data-toggle="collapse" href="#case_7">
+                        案例07标题文字
+                      </a>
+                    </div>
+                    <div id="case_7" class="panel-collapse collapse" role="tabpanel">
+                      <ul class="btn-group">
+                        <li role="button" title="星标" class="btn btn-default glyphicon glyphicon-star-empty"></li>
+                        <li role="button" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>
+                        <li role="button" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>
+                        <li role="button" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading" role="tab">
+                      <a class="collapsed" role="button" data-toggle="collapse" href="#case_8">
+                        案例08标题文字
+                      </a>
+                    </div>
+                    <div id="case_8" class="panel-collapse collapse" role="tabpanel">
+                      <ul class="btn-group">
+                        <li role="button" title="星标" class="btn btn-default glyphicon glyphicon-star-empty"></li>
+                        <li role="button" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>
+                        <li role="button" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>
+                        <li role="button" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>
+                      </ul>
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+            <!-- <div role="tabpanel" class="tab-pane" id="testMM">
+              testMM
+            </div> -->
+            <div role="tabpanel" class="tab-pane" id="caseUpload">
+              case upload Tabpanel
             </div>
             <div role="tabpanel" class="tab-pane" id="adminTab">
               admin Tabpanel
             </div>
-          </div>
-
-        </div>
-      </div>
+          </div> <!-- #pageTabContent-->
+        </div> <!-- .content-inner-->
+      </div> <!-- .content-wrap-->
 
     </section>
     <section class="page-foot"></section>

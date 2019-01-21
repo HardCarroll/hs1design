@@ -11,6 +11,7 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
       echo proc_setSiteInfo($_SERVER["DOCUMENT_ROOT"]."/cms/include/json", $_POST["siteInfo"]);
       break;
     case "getSiteInfo":
+      echo proc_getSiteInfo($_SERVER["DOCUMENT_ROOT"]."/cms/include/json");
       break;
     default:
       break;
@@ -21,25 +22,25 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
  * 设置网站信息
  */
 function proc_setSiteInfo($path, $data) {
-  // if(is_dir($path) or @mkdir($path) and @chmod($path, 0777)) {
   if(is_dir($path) or @mkdir($path)) {
-    $result = file_put_contents($path."/siteinfo.json", $data);
+    file_put_contents($path."/siteinfo.json", $data);
+    $result = "网站基本信息设置成功！";
   }
   else {
-    $result = "create filepath fail!";
+    $result = "创建指定文件[$path]失败！";
   }
   return $result;
 }
 /**
  * 获取网站信息
  */
-function proc_getSiteInfo() {
-  $result = file_get_contents($_SERVER["DOCUMENT_ROOT"]."/cms/include/json/siteinfo.json");
-  return $result;
+function proc_getSiteInfo($path) {
+  return json_encode(file_get_contents($path."/siteinfo.json"));
 }
 
 /**
  * 登录验证处理过程
+ * @param $dbo: 数据库连接句柄
  * @param $data: 来自客户端的数据数组
  * @return $ret: 处理结果，以json格式返回
  */

@@ -7,26 +7,41 @@ date_default_timezone_set("Asia/Shanghai");
  * 
  */
 class UserManager {
-  private $dbo;
-  private $db_tab;
+  public $dbo;
+  public $tab_name;
+  private $sql_query;
 
   // 构造函数
-  function __construct($dbo) {
+  function __construct($dbo, $tab_name) {
     $this->dbo = $dbo;
+    $this->tab_name = $tab_name;
+    $this->sql_query = "SELECT * FROM " . $tab_name;
   }
 
   // 析构函数
   function __destruct() {
     $this->dbo = null;
+    $this->tab_name = null;
+  }
+
+  public function queryTable($rule = null) {
+    $sql = $this->sql_query;
+    if($rule) {
+      $sql .= " WHERE $rule";
+    }
+    return $this->dbo->exec_query($sql);
   }
   
   /**
    * 获取用户总数
    * @return $counts: 返回用户总数;
    */
-  public function getUserCounts() {
-    $sql = "SELECT * FROM tab_admin";
-    $counts = count($this->dbo->exec_query($sql));
+  public function getCounts() {
+    $counts = 0;
+    $sql = $this->sql_query;
+    if($this->dbo->exec_query($sql)) {
+      $counts = count($this->dbo->exec_query($sql));
+    }
     return $counts;
   }
 }
@@ -35,7 +50,43 @@ class UserManager {
  * 案例管理类
  */
 class CaseManager {
+  public $dbo;
+  public $tab_name;
+  private $sql_query;
 
+  // 构造函数
+  function __construct($dbo, $tab_name) {
+    $this->dbo = $dbo;
+    $this->tab_name = $tab_name;
+    $this->sql_query = "SELECT * FROM " . $tab_name;
+  }
+
+  // 析构函数
+  function __destruct() {
+    $this->dbo = null;
+    $this->tab_name = null;
+  }
+
+  public function queryTable($rule = null) {
+    $sql = $this->sql_query;
+    if($rule) {
+      $sql .= " WHERE $rule";
+    }
+    return $this->dbo->exec_query($sql);
+  }
+
+  /**
+   * 获取案例总数
+   * @return $counts: 返回案例总数;
+   */
+  public function getCounts() {
+    $counts = 0;
+    $sql = $this->sql_query;
+    if($this->dbo->exec_query($sql)) {
+      $counts = count($this->dbo->exec_query($sql));
+    }
+    return $counts;
+  }
 }
 
 /**
