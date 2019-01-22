@@ -46,18 +46,51 @@ $(function(){
       save_siteInfo();
     }
   });
+  // 发布按钮点击事件处理函数
+  $(".btn-post").off("click").on("click", function() {
+    var imgArray = new Array();
+    $("#caseUpload .case-thumb").children().each(function() {
+      var str = '{"url": "'+$(this).find("img").attr("src")+'", "attr_alt": "'+$(this).find('[name="data-alt"]').val()+'", "attr_title": "'+$(this).find('[name="data-title"]').val()+'"}';
+      imgArray.push(str);
+    }
+    );
+    var caseData = '{"page_title": "'+$("#cp-title").val()+'", "meta_keywords": "'+$("#cp-keywords").val()+'", "meta_description": "'+$("#cp-description").val()+'", "case_url": "'+$("#cp-path").val()+'", "case_name": "'+$("#case-title").val()+'", "case_area": "'+$("#case-area").val()+'", "case_address": "'+$("#case-address").val()+'", "case_type": "'+$("#case-class").val()+'", "case_team": "'+$("#case-team").val()+'", "case_company": "'+$("#case-company").val()+'", "case_description": "'+$("#case-description").val()+'", "case_images": ['+imgArray+']}';
+    var fmd = new FormData();
+    fmd.append("token", "saveCase");
+    fmd.append("data", caseData);
+    $.ajax({
+      url: "/cms/debug.php",
+      type: "POST",
+      data: fmd,
+      processData: false,
+      contentType: false,   //数据为formData时必须定义此项
+      // dataType: "json",     //返回json格式数据
+      // context: $(".site-wrap"),
+      success: function(result) {
+        console.log(JSON.parse(result));
+        // console.log(result);
+      },
+      error: function(err) {
+        console.log("fail: "+err);
+      }
+    }); // ajax_func
+
+    // console.log($("#caseUpload .case-thumb").children());
+    // console.log("post click");
+    // console.log("str: " + caseData);
+  });
 
   // 网站信息标签页输入框输入内容
-  $(".siteWrap input").on("input", function() {
+  $(".site-wrap input, .site-wrap textarea").on("input", function() {
     $(".btn-save").removeClass("disabled");
   });
 
   // 案例管理标签页上传按钮
-  $(".caseWrap>.case-head>.btn").on("click", function() {
+  $(".case-wrap>.case-head>.btn").on("click", function() {
     activateTab($(this));
   });
 
-  $(".caseWrap .panel-collapse .btn").each(function() {
+  $(".case-wrap .panel-collapse .btn").each(function() {
     $(this).off("click").on("click", function() {
       if($(this).hasClass("glyphicon-star") || $(this).hasClass("glyphicon-star-empty")) {
         $(this).toggleClass("glyphicon-star-empty").toggleClass("glyphicon-star");
@@ -147,14 +180,16 @@ function refresh_siteInfo() {
     processData: false,
     contentType: false,   //数据为formData时必须定义此项
     dataType: "json",     //返回json格式数据
-    context: $(".siteWrap"),
+    context: $(".site-wrap"),
     success: function(result) {
       if(result) {
         var data = JSON.parse(result);
-        $(this).find("input[id='domain']").val(data.domain);
-        $(this).find("input[id='title']").val(data.title);
-        $(this).find("input[id='keywords']").val(data.keywords);
-        $(this).find("input[id='description']").val(data.description);
+        $(this).find("[id='domain']").val(data.domain);
+        $(this).find("[id='title']").val(data.title);
+        $(this).find("[id='keywords']").val(data.keywords);
+        $(this).find("[id='description']").val(data.description);
+        setCookie("siteInfo", result);
+        // console.log(getCookie("siteInfo"));
       }
     },
     error: function(err) {
@@ -179,6 +214,7 @@ function save_siteInfo() {
     // dataType: "json",     //返回json格式数据
     context: $(".text-state"),
     success: function(result) {
+      // console.log(fmd.siteInfo);
       $(this).addClass("text-success").html(result);
       $(".btn-save").addClass("disabled");
       setTimeout(function() {
@@ -200,4 +236,44 @@ function refresh_caseList() {
 
 function test() {
   console.log("hello world, this is a test!");
+}
+
+/**
+ * 获取指定cookie键的值
+ * @param key 指定要获取的cookie键
+*/
+function getCookie(key) {
+  var arr,reg=new RegExp("(^| )"+key+"=([^;]*)(;|$)");
+  if(arr=document.cookie.match(reg)) {
+    return unescape(arr[2]);
+  }
+  else {
+    return null;
+  }
+}
+
+/**
+ * 设置浏览器Cookie，默认不设置过期时间，浏览器关闭时清除
+ * @param key cookie键
+ * @param value cookie值
+ * @param expires cookie过期时间，以秒为单位，默认为0，即不设置过期时间，浏览器关闭时清除
+*/
+function setCookie(key, value, expires=0) {
+  var cookie = key + "=" + escape(value);
+  if (expires) {
+    var date = new Date();
+    date.setTime(date.getTime()+expires*1000);
+    cookie = cookie + ";expires=" + date.toGMTString();
+  }
+  document.cookie = cookie;
+}
+
+/**
+ * 清除指定cookie键的值
+ * @param key 指定要清除的cookie键
+**/
+function delCookie(key) {
+  var date = new Date();
+  date.setTime(date.getTime() - 1000);
+  document.cookie = key + "='';expires=" + date.toGMTString();
 }

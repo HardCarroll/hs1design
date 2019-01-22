@@ -1,15 +1,15 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"]."/cms/include/php/include.php");
 
-var_dump($userManage->queryTable());
-echo "<hr>";
-var_dump($userManage->getCounts());
-echo "<hr>";
-var_dump($caseManage->queryTable());
-echo "<hr>";
-var_dump($caseManage->dbo);
-echo "<hr>";
-var_dump($caseManage->getCounts());
+// var_dump($userManage->queryTable());
+// echo "<hr>";
+// var_dump($userManage->getCounts());
+// echo "<hr>";
+// var_dump($caseManage->queryTable());
+// echo "<hr>";
+// var_dump($caseManage->dbo);
+// echo "<hr>";
+// var_dump($caseManage->getCounts());
 
 // // php模板通过curl请求生成html文件
 // $url = "http://192.168.0.216:8888/template/case_temp.php";
@@ -35,12 +35,18 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
       // echo $data = $_POST["data"];
       echo proc_login(json_decode($_POST["data"], true));
       break;
-    case "save_site":
+    case "saveCase":
+      // $path = $_SERVER["DOCUMENT_ROOT"]."/cms/upload/imgdata.json";
+      // file_put_contents($path, $_POST["data"]);
+      // echo file_get_contents($path);
+      // echo($caseManage->addItem(file_get_contents($path)));
+      echo($caseManage->queryTable()[0]["c_image"]);
       break;
     default:
       break;
   }
 }
+
 
 /**
  * 登录验证处理过程

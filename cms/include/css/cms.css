@@ -279,58 +279,82 @@ ul {
   text-align: right;
   padding-right: 50px;
 }
-#siteTab>.siteWrap>.input-group {
+#siteTab>.site-wrap>.input-group {
   width: 100%;
   margin-bottom: 15px;
 }
-#siteTab>.siteWrap>.input-group>label {
+#siteTab>.site-wrap>.input-group>label {
   width: 100px;
   padding: 6px;
 }
-#siteTab>.siteWrap>.input-group:last-child {
+#siteTab>.site-wrap>.input-group:last-child {
   text-align: right;
 }
-#siteTab>.siteWrap>.input-group>span.btn {
+#siteTab>.site-wrap>.input-group>span.btn {
   margin-left: 15px;
 }
 .text-state {
   text-align: center;
   cursor: default;
 }
-#caseTab>.caseWrap>.case-head {
+#caseTab>.case-wrap>.case-head {
   padding: 10px 15px;
   margin-bottom: 5px;
   text-align: center;
   cursor: default;
 }
-#caseTab>.caseWrap>.case-head>.btn {
+#caseTab>.case-wrap>.case-head>.btn {
   margin-left: 5px;
 }
-#caseTab>.caseWrap>.panel-group>.panel>.panel-heading {
+#caseTab>.case-wrap>.panel-group>.panel>.panel-heading {
   padding: 0;
 }
-#caseTab>.caseWrap>.panel-group>.panel>.panel-heading>a {
+#caseTab>.case-wrap>.panel-group>.panel>.panel-heading>a {
   width: 100%;
   padding: 10px 15px;
   display: block;
   text-decoration: none;
   color: #565858;
 }
-#caseTab>.caseWrap>.panel-group>.panel>.panel-heading>a:hover, #caseTab>.caseWrap>.panel-group>.panel>.panel-heading>a:active {
+#caseTab>.case-wrap>.panel-group>.panel>.panel-heading>a:hover, #caseTab>.case-wrap>.panel-group>.panel>.panel-heading>a:active {
   color: #262828
 }
-#caseTab>.caseWrap>.panel-group>.panel>.panel-collapse {
+#caseTab>.case-wrap>.panel-group>.panel>.panel-collapse {
   border-top: 1px solid transparent;
 }
-#caseTab>.caseWrap>.panel-group>.panel>.panel-collapse.in {
+#caseTab>.case-wrap>.panel-group>.panel>.panel-collapse.in {
   border-top: 1px solid #ddd;
 }
-#caseTab>.caseWrap>.panel-group>.panel>.panel-collapse>.btn-group {
+#caseTab>.case-wrap>.panel-group>.panel>.panel-collapse>.btn-group {
   padding: 15px;
 }
-#caseTab>.caseWrap>.panel-group>.panel>.panel-collapse>.btn-group>.btn {
+#caseTab>.case-wrap>.panel-group>.panel>.panel-collapse>.btn-group>.btn {
   margin-bottom: 5px;
   border-radius: 0;
+}
+
+#caseUpload>.case-page>.input-group:last-child {
+  width: 100%;
+  text-align: right;
+}
+#caseUpload>.case-page>.input-group>.case-thumb {
+  float: none;
+  padding: 0;
+}
+#caseUpload>.case-page>.input-group>.case-thumb>div {
+  padding: 5px;
+}
+#caseUpload>.case-page>.input-group>.case-thumb>div>.thumbnail {
+  margin-bottom: 0;
+}
+#caseUpload>.case-page>.input-group>.case-thumb>div>.thumbnail>.caption {
+  background-color: #e6e8e8;
+}
+#caseUpload>.case-page>.input-group>.case-thumb>div>.thumbnail>.caption>input {
+  width: 100%;
+}
+#caseUpload>.case-page>.input-group>.case-thumb>div>.thumbnail>.caption>input+input {
+  margin-top: 5px;
 }
 
 @media (max-width: 768px) {

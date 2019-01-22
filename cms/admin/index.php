@@ -210,7 +210,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
               </p>
             </div>
             <div role="tabpanel" class="tab-pane" id="siteTab">
-              <div class="siteWrap">
+              <div class="site-wrap">
                 <div class="input-group" title="domain">
                   <label for="domain" class="input-group-addon">网站域名</label>
                   <input type="text" class="form-control" name="domain" id="domain">
@@ -225,7 +225,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                 </div>
                 <div class="input-group" title="description">
                   <label for="description" class="input-group-addon">网站内容简介</label>
-                  <input type="text" class="form-control" name="description" id="description">
+                  <textarea type="text" class="form-control" name="description" id="description"></textarea>
                 </div>
                 <div class="input-group">
                   <p class="text-state">&nbsp;</p>
@@ -237,7 +237,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
               </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="caseTab">
-              <div class="caseWrap">
+              <div class="case-wrap">
                 <?php
                 if(!$caseManage->getCounts()) {
                   echo '<div class="case-head">';
@@ -266,7 +266,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                       </ul>
                     </div>
                   </div>
-                  <!-- <div class="panel panel-default">
+                  <div class="panel panel-default">
                     <div class="panel-heading" role="tab">
                       <a class="collapsed" role="button" data-toggle="collapse" href="#case_2">
                         案例02标题文字
@@ -281,104 +281,113 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                       </ul>
                     </div>
                   </div>
-                  <div class="panel panel-default">
-                    <div class="panel-heading" role="tab">
-                      <a class="collapsed" role="button" data-toggle="collapse" href="#case_3">
-                        案例03标题文字
-                      </a>
-                    </div>
-                    <div id="case_3" class="panel-collapse collapse" role="tabpanel">
-                      <ul class="btn-group">
-                        <li role="button" title="星标" class="btn btn-default glyphicon glyphicon-star-empty"></li>
-                        <li role="button" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>
-                        <li role="button" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>
-                        <li role="button" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="panel panel-default">
-                    <div class="panel-heading" role="tab">
-                      <a class="collapsed" role="button" data-toggle="collapse" href="#case_4">
-                        案例04标题文字
-                      </a>
-                    </div>
-                    <div id="case_4" class="panel-collapse collapse" role="tabpanel">
-                      <ul class="btn-group">
-                        <li role="button" title="星标" class="btn btn-default glyphicon glyphicon-star-empty"></li>
-                        <li role="button" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>
-                        <li role="button" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>
-                        <li role="button" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="panel panel-default">
-                    <div class="panel-heading" role="tab">
-                      <a class="collapsed" role="button" data-toggle="collapse" href="#case_5">
-                        案例05标题文字
-                      </a>
-                    </div>
-                    <div id="case_5" class="panel-collapse collapse" role="tabpanel">
-                      <ul class="btn-group">
-                        <li role="button" title="星标" class="btn btn-default glyphicon glyphicon-star-empty"></li>
-                        <li role="button" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>
-                        <li role="button" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>
-                        <li role="button" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="panel panel-default">
-                    <div class="panel-heading" role="tab">
-                      <a class="collapsed" role="button" data-toggle="collapse" href="#case_6">
-                        案例06标题文字
-                      </a>
-                    </div>
-                    <div id="case_6" class="panel-collapse collapse" role="tabpanel">
-                      <ul class="btn-group">
-                        <li role="button" title="星标" class="btn btn-default glyphicon glyphicon-star-empty"></li>
-                        <li role="button" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>
-                        <li role="button" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>
-                        <li role="button" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="panel panel-default">
-                    <div class="panel-heading" role="tab">
-                      <a class="collapsed" role="button" data-toggle="collapse" href="#case_7">
-                        案例07标题文字
-                      </a>
-                    </div>
-                    <div id="case_7" class="panel-collapse collapse" role="tabpanel">
-                      <ul class="btn-group">
-                        <li role="button" title="星标" class="btn btn-default glyphicon glyphicon-star-empty"></li>
-                        <li role="button" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>
-                        <li role="button" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>
-                        <li role="button" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="panel panel-default">
-                    <div class="panel-heading" role="tab">
-                      <a class="collapsed" role="button" data-toggle="collapse" href="#case_8">
-                        案例08标题文字
-                      </a>
-                    </div>
-                    <div id="case_8" class="panel-collapse collapse" role="tabpanel">
-                      <ul class="btn-group">
-                        <li role="button" title="星标" class="btn btn-default glyphicon glyphicon-star-empty"></li>
-                        <li role="button" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>
-                        <li role="button" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>
-                        <li role="button" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>
-                      </ul>
-                    </div>
-                  </div> -->
-                </div>
-              </div>
+                </div> <!-- .panel-group -->
+              </div> <!-- .case-wrap -->
             </div>
             <!-- <div role="tabpanel" class="tab-pane" id="testMM">
               testMM
             </div> -->
             <div role="tabpanel" class="tab-pane" id="caseUpload">
-              case upload Tabpanel
+              <div class="case-page">
+                <div class="input-group">
+                  <label for="cp-title" class="input-group-addon">网页标题</label>
+                  <input type="text" class="form-control" name="cp-title" id="cp-title">
+                </div>
+                <div class="input-group">
+                  <label for="cp-keywords" class="input-group-addon">网页关键词</label>
+                  <input type="text" class="form-control" name="cp-keywords" id="cp-keywords">
+                </div>
+                <div class="input-group">
+                  <label for="cp-description" class="input-group-addon">网页内容简介</label>
+                  <textarea type="text" class="form-control" name="cp-description" id="cp-description"></textarea>
+                </div>
+                <div class="input-group">
+                  <label for="cp-path" class="input-group-addon">网页路径</label>
+                  <input type="text" class="form-control" name="cp-path" id="cp-path">
+                </div>
+                <div class="input-group">
+                  <label for="case-title" class="input-group-addon">项目名称</label>
+                  <input type="text" class="form-control" name="case-title" id="case-title">
+                </div>
+                <div class="input-group">
+                  <label for="case-area" class="input-group-addon">项目面积</label>
+                  <input type="text" class="form-control" name="case-area" id="case-area">
+                </div>
+                <div class="input-group">
+                  <label for="case-class" class="input-group-addon">项目类型</label>
+                  <select class="form-control" name="case-class" id="case-class">
+                    <option value="0">餐厅空间</option>
+                    <option value="1">酒店空间</option>
+                    <option value="2">娱乐空间</option>
+                    <option value="3">其他设计</option>
+                  </select>
+                </div>
+                <div class="input-group">
+                  <label for="case-address" class="input-group-addon">项目地址</label>
+                  <input type="text" class="form-control" name="case-address" id="case-address">
+                </div>
+                <div class="input-group">
+                  <label for="case-team" class="input-group-addon">主创团队</label>
+                  <input type="text" class="form-control" name="case-team" id="case-team">
+                </div>
+                <div class="input-group">
+                  <label for="case-company" class="input-group-addon">出品单位</label>
+                  <input type="text" class="form-control" name="case-company" id="case-company">
+                </div>
+                <div class="input-group">
+                  <label for="case-description" class="input-group-addon">项目简介</label>
+                  <textarea type="text" class="form-control" name="case-description" id="case-description"></textarea>
+                </div>
+                <div class="input-group">
+                  <label for="case-image" class="input-group-addon">项目图片</label>
+                  <div class="form-control case-thumb">
+                    <div class="col-sm-4 col-md-3">
+                      <div class="thumbnail">
+                        <img src="/src/case-thumb-hotel.jpg" alt="...">
+                        <div class="caption">
+                          <input type="text" placeholder="图片标题" name="data-title">
+                          <input type="text" placeholder="图片alt属性" name="data-alt">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-4 col-md-3">
+                      <div class="thumbnail">
+                        <img src="/src/case-thumb-hotel.jpg" alt="...">
+                        <div class="caption">
+                          <input type="text" placeholder="图片标题" name="data-title">
+                          <input type="text" placeholder="图片alt属性" name="data-alt">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-4 col-md-3">
+                      <div class="thumbnail">
+                        <img src="/src/case-thumb-hotel.jpg" alt="...">
+                        <div class="caption">
+                          <input type="text" placeholder="图片标题" name="data-title">
+                          <input type="text" placeholder="图片alt属性" name="data-alt">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-4 col-md-3">
+                      <div class="thumbnail">
+                        <img src="/src/case-thumb-hotel.jpg" alt="...">
+                        <div class="caption">
+                          <input type="text" placeholder="图片标题" name="data-title">
+                          <input type="text" placeholder="图片alt属性" name="data-alt">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <p class="text-state">&nbsp;</p>
+                </div>
+                <div class="input-group">
+                  <span class="btn btn-default btn-close" role="button">关闭</span>
+                  <span class="btn btn-warning btn-save" role="button">保存</span>
+                  <span class="btn btn-success btn-post" role="button">发布</span>
+                </div>
+              </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="adminTab">
               admin Tabpanel
