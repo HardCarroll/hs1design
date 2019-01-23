@@ -248,10 +248,12 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                   echo   '</a>';
                   echo '</div>';
                 }
-                else {}
+                else {
+
+                }
                 ?>
                 <div class="panel-group" role="tablist">
-                  <div class="panel panel-default">
+                  <!-- <div class="panel panel-default">
                     <div class="panel-heading" role="tab">
                       <a class="collapsed" role="button" data-toggle="collapse" href="#case_1">
                         案例01标题文字
@@ -280,7 +282,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                         <li role="button" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>
                       </ul>
                     </div>
-                  </div>
+                  </div> -->
                 </div> <!-- .panel-group -->
               </div> <!-- .case-wrap -->
             </div>

@@ -40,7 +40,7 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
       // file_put_contents($path, $_POST["data"]);
       // echo file_get_contents($path);
       // echo($caseManage->addItem(file_get_contents($path)));
-      echo($caseManage->queryTable()[0]["c_image"]);
+      echo($caseManage->getCounts());
       break;
     default:
       break;

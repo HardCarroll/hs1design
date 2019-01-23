@@ -333,9 +333,16 @@ ul {
   border-radius: 0;
 }
 
-#caseUpload>.case-page>.input-group:last-child {
+#caseUpload>.case-page>.input-group {
   width: 100%;
+  margin-bottom: 5px;
+}
+#caseUpload>.case-page>.input-group:last-child {
   text-align: right;
+}
+#caseUpload>.case-page>.input-group>label {
+  width: 100px;
+  padding: 6px;
 }
 #caseUpload>.case-page>.input-group>.case-thumb {
   float: none;

@@ -65,10 +65,13 @@ $(function(){
       processData: false,
       contentType: false,   //数据为formData时必须定义此项
       // dataType: "json",     //返回json格式数据
-      // context: $(".site-wrap"),
+      context: $(".case-page"),
       success: function(result) {
-        console.log(JSON.parse(result));
-        // console.log(result);
+        // for(var i=0; i<$(this).find(".thumbnail>img").length; i++) {
+        //   $(this).find(".thumbnail>img").eq(i).attr("src", JSON.parse(result)[i].url);
+        // }
+        // console.log(JSON.parse(result)[0].url);
+        console.log(result);
       },
       error: function(err) {
         console.log("fail: "+err);
@@ -231,7 +234,29 @@ function save_siteInfo() {
  * ajax刷新案例列表
  */
 function refresh_caseList() {
-  console.log("refresh case list");
+  var fmd = new FormData();
+  fmd.append("token", "refreshCaseList");
+  $.ajax({
+    url: "/cms/include/php/handle.php",
+    type: "POST",
+    data: fmd,
+    processData: false,
+    contentType: false,   //数据为formData时必须定义此项
+    // dataType: "json",     //返回json格式数据
+    // context: $(".case-page"),
+    success: function(result) {
+      // for(var i=0; i<$(this).find(".thumbnail>img").length; i++) {
+      //   $(this).find(".thumbnail>img").eq(i).attr("src", JSON.parse(result)[i].url);
+      // }
+      // console.log(JSON.parse(result)[0].url);
+      console.log(result);
+    },
+    error: function(err) {
+      console.log("fail: "+err);
+    }
+  }); // ajax_func
+
+  // console.log("refresh case list");
 }
 
 function test() {

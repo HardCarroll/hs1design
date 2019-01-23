@@ -36,11 +36,10 @@ class UserManager {
    * 获取用户总数
    * @return $counts: 返回用户总数;
    */
-  public function getCounts() {
+  public function getCounts($rule = null) {
     $counts = 0;
-    $sql = $this->sql_query;
-    if($this->dbo->exec_query($sql)) {
-      $counts = count($this->dbo->exec_query($sql));
+    if($this->queryTable($rule)) {
+      $counts = count($this->queryTable($rule));
     }
     return $counts;
   }
@@ -89,11 +88,10 @@ class CaseManager {
    * 获取案例总数
    * @return $counts: 返回案例总数;
    */
-  public function getCounts() {
+  public function getCounts($rule = null) {
     $counts = 0;
-    $sql = $this->sql_query;
-    if($this->dbo->exec_query($sql)) {
-      $counts = count($this->dbo->exec_query($sql));
+    if($this->queryTable($rule)) {
+      $counts = count($this->queryTable($rule));
     }
     return $counts;
   }

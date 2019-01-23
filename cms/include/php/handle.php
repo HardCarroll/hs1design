@@ -13,9 +13,19 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
     case "getSiteInfo":
       echo proc_getSiteInfo($_SERVER["DOCUMENT_ROOT"]."/cms/include/json");
       break;
+    case "refreshCaseList":
+      echo proc_refreshCaseList($caseManage);
+      break;
     default:
       break;
   }
+}
+
+/**
+ * 生成案例列表
+ */
+function proc_refreshCaseList($caseManage, $rule = null) {
+  return $caseManage->getCounts($rule);
 }
 
 /**
