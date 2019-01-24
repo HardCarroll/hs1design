@@ -13,6 +13,9 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
     case "getSiteInfo":
       echo proc_getSiteInfo($_SERVER["DOCUMENT_ROOT"]."/cms/include/json");
       break;
+    case "refreshUploadTab":
+      echo proc_refreshUploadTab();
+      break;
     case "refreshCaseList":
       echo proc_refreshCaseList($caseManage);
       break;
@@ -22,10 +25,49 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
 }
 
 /**
+ * 更新上传案例标签页内容
+ */
+function proc_refreshUploadTab() {
+  return proc_getSiteInfo($_SERVER["DOCUMENT"]."/cms/include/json");
+}
+
+/**
  * 生成案例列表
  */
 function proc_refreshCaseList($caseManage, $rule = null) {
-  return $caseManage->getCounts($rule);
+  // <div class="panel panel-default">
+  //   <div class="panel-heading" role="tab">
+  //     <a class="collapsed" role="button" data-toggle="collapse" href="#case_2">
+  //       案例02标题文字
+  //     </a>
+  //   </div>
+  //   <div id="case_2" class="panel-collapse collapse" role="tabpanel">
+  //     <ul class="btn-group">
+  //       <li role="button" title="星标" class="btn btn-default glyphicon glyphicon-star-empty"></li>
+  //       <li role="button" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>
+  //       <li role="button" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>
+  //       <li role="button" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>
+  //     </ul>
+  //   </div>
+  // </div>
+  $page = 1;
+  $result = $caseManage->queryTable($rule);
+  $counts = count($result);
+  $cmp = $counts / ($page*10) >= 1 ? 10 : ($counts%10);
+  $html = '';
+  for ($i = ($page-1)*10; $i < ($page-1)*10+$cmp; $i++) {
+    if($result[$i]["c_recommends"]) {
+      $html .= '<div class="panel panel-default">';
+    }
+    else {
+      $html .= '<div class="panel panel-success">';
+    }
+    $html .= '<div class="panel-heading" role="tab">';
+    $html .= '<a class="collapsed" role="button" data-toggle="collapse" href="#case_'.$result[$i]["id"].'">'.$result[$i]["c_title"].'</a></div>';
+    $html .= '<div id="case_'.$result[$i]["id"].'" class="panel-collapse collapse" role="tabpanel">';
+    $html .= '<ul class="btn-group" data-id="'.$result[$i]["id"].'"><li role="button" data-token="mark" title="星标" class="btn btn-default glyphicon glyphicon-star-empty"></li><li role="button" data-token="edit" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li><li role="button" data-token="post" title="发布" class="btn btn-default glyphicon glyphicon-send"></li><li role="button" data-token="remove" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li></ul></div></div>';
+  }
+  return $html;
 }
 
 /**
@@ -34,6 +76,7 @@ function proc_refreshCaseList($caseManage, $rule = null) {
 function proc_setSiteInfo($path, $data) {
   if(is_dir($path) or @mkdir($path)) {
     file_put_contents($path."/siteinfo.json", $data);
+    $_SESSION["siteInfo"] = json_encode($data);
     $result = "网站基本信息设置成功！";
   }
   else {
@@ -45,7 +88,14 @@ function proc_setSiteInfo($path, $data) {
  * 获取网站信息
  */
 function proc_getSiteInfo($path) {
-  return json_encode(file_get_contents($path."/siteinfo.json"));
+  $result = "";
+  if(isset($_SESSION["siteInfo"]) && !empty($_SESSION["siteInfo"])) {
+    $result = $_SESSION["siteInfo"];
+  }
+  else {
+    $result = $_SESSION["siteInfo"] = json_encode(file_get_contents($path."/siteinfo.json"));
+  }
+  return $result;
 }
 
 /**

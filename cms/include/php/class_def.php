@@ -64,6 +64,7 @@ class CaseManager {
   function __destruct() {
     $this->dbo = null;
     $this->tab_name = null;
+    $this->sql_query = null;
   }
 
   // 按条件查询表

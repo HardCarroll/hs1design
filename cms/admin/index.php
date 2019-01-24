@@ -94,7 +94,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                 </div>
               </li>
               <li>06</li>
-              <li data-target="caseUpload" href="#caseUpload">
+              <li data-target="uploadTab" href="#uploadTab">
                 <div class="text-primary">
                   <span class="glyphicon glyphicon-cloud-upload"></span>
                   <span class="title">上传案例</span>
@@ -208,7 +208,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
               <p class="sign">
                 ——黄狮虎
               </p>
-            </div>
+            </div> <!-- #profileTab -->
             <div role="tabpanel" class="tab-pane" id="siteTab">
               <div class="site-wrap">
                 <div class="input-group" title="domain">
@@ -235,14 +235,15 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                   <span class="btn btn-primary btn-save disabled" role="button">保存</span>
                 </div>
               </div>
-            </div>
+            </div> <!-- #siteTab -->
+
             <div role="tabpanel" class="tab-pane" id="caseTab">
               <div class="case-wrap">
                 <?php
                 if(!$caseManage->getCounts()) {
                   echo '<div class="case-head">';
                   echo   '<span class="text">您还没有上传案例，我要</span>';
-                  echo   '<a class="btn btn-primary" data-toggle="tab" href="#caseUpload">';
+                  echo   '<a class="btn btn-primary" data-toggle="tab" href="#uploadTab">';
                   echo     '<span class="glyphicon glyphicon-cloud-upload"></span>';
                   echo     '<span class="title">上传案例</span>';
                   echo   '</a>';
@@ -252,44 +253,13 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
 
                 }
                 ?>
-                <div class="panel-group" role="tablist">
-                  <!-- <div class="panel panel-default">
-                    <div class="panel-heading" role="tab">
-                      <a class="collapsed" role="button" data-toggle="collapse" href="#case_1">
-                        案例01标题文字
-                      </a>
-                    </div>
-                    <div id="case_1" class="panel-collapse collapse" role="tabpanel">
-                      <ul class="btn-group">
-                        <li role="button" title="星标" class="btn btn-default glyphicon glyphicon-star-empty"></li>
-                        <li role="button" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>
-                        <li role="button" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>
-                        <li role="button" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="panel panel-default">
-                    <div class="panel-heading" role="tab">
-                      <a class="collapsed" role="button" data-toggle="collapse" href="#case_2">
-                        案例02标题文字
-                      </a>
-                    </div>
-                    <div id="case_2" class="panel-collapse collapse" role="tabpanel">
-                      <ul class="btn-group">
-                        <li role="button" title="星标" class="btn btn-default glyphicon glyphicon-star-empty"></li>
-                        <li role="button" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>
-                        <li role="button" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>
-                        <li role="button" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>
-                      </ul>
-                    </div>
-                  </div> -->
+                <div class="panel-group" role="tablist" aria-multiselectable="true">
+                <!-- 动态生成案例列表 -->
                 </div> <!-- .panel-group -->
               </div> <!-- .case-wrap -->
-            </div>
-            <!-- <div role="tabpanel" class="tab-pane" id="testMM">
-              testMM
-            </div> -->
-            <div role="tabpanel" class="tab-pane" id="caseUpload">
+            </div> <!-- #caseTab -->
+
+            <div role="tabpanel" class="tab-pane" id="uploadTab">
               <div class="case-page">
                 <div class="input-group">
                   <label for="cp-title" class="input-group-addon">网页标题</label>
@@ -351,6 +321,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                           <input type="text" placeholder="图片alt属性" name="data-alt">
                         </div>
                       </div>
+                      <span class="btn btn-remove glyphicon glyphicon-trash"></span>
                     </div>
                     <div class="col-sm-4 col-md-3">
                       <div class="thumbnail">
@@ -360,6 +331,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                           <input type="text" placeholder="图片alt属性" name="data-alt">
                         </div>
                       </div>
+                      <span class="btn btn-remove glyphicon glyphicon-trash"></span>
                     </div>
                     <div class="col-sm-4 col-md-3">
                       <div class="thumbnail">
@@ -369,6 +341,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                           <input type="text" placeholder="图片alt属性" name="data-alt">
                         </div>
                       </div>
+                      <span class="btn btn-remove glyphicon glyphicon-trash"></span>
                     </div>
                     <div class="col-sm-4 col-md-3">
                       <div class="thumbnail">
@@ -378,7 +351,15 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                           <input type="text" placeholder="图片alt属性" name="data-alt">
                         </div>
                       </div>
+                      <span class="btn btn-remove glyphicon glyphicon-trash"></span>
                     </div>
+                    <div class="col-sm-4 col-md-3">
+                      <div class="btn btn-default add-thumb">
+                        <span class="glyphicon glyphicon-picture"></span>
+                        <span>添加图片</span>
+                      </div>
+                    </div>
+                    
                   </div>
                 </div>
                 <div class="input-group">

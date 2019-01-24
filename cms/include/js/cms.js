@@ -45,40 +45,16 @@ $(function(){
     if(!$(this).hasClass("disabled") && $(this).parent().parent().parent().attr("id") === "siteTab") {
       save_siteInfo();
     }
+    if($(this).parent().parent().parent().attr("id") === "uploadTab") {
+      // uploadCase();
+      refresh_uploadTab();
+    }
   });
   // 发布按钮点击事件处理函数
   $(".btn-post").off("click").on("click", function() {
-    var imgArray = new Array();
-    $("#caseUpload .case-thumb").children().each(function() {
-      var str = '{"url": "'+$(this).find("img").attr("src")+'", "attr_alt": "'+$(this).find('[name="data-alt"]').val()+'", "attr_title": "'+$(this).find('[name="data-title"]').val()+'"}';
-      imgArray.push(str);
-    }
-    );
-    var caseData = '{"page_title": "'+$("#cp-title").val()+'", "meta_keywords": "'+$("#cp-keywords").val()+'", "meta_description": "'+$("#cp-description").val()+'", "case_url": "'+$("#cp-path").val()+'", "case_name": "'+$("#case-title").val()+'", "case_area": "'+$("#case-area").val()+'", "case_address": "'+$("#case-address").val()+'", "case_type": "'+$("#case-class").val()+'", "case_team": "'+$("#case-team").val()+'", "case_company": "'+$("#case-company").val()+'", "case_description": "'+$("#case-description").val()+'", "case_images": ['+imgArray+']}';
-    var fmd = new FormData();
-    fmd.append("token", "saveCase");
-    fmd.append("data", caseData);
-    $.ajax({
-      url: "/cms/debug.php",
-      type: "POST",
-      data: fmd,
-      processData: false,
-      contentType: false,   //数据为formData时必须定义此项
-      // dataType: "json",     //返回json格式数据
-      context: $(".case-page"),
-      success: function(result) {
-        // for(var i=0; i<$(this).find(".thumbnail>img").length; i++) {
-        //   $(this).find(".thumbnail>img").eq(i).attr("src", JSON.parse(result)[i].url);
-        // }
-        // console.log(JSON.parse(result)[0].url);
-        console.log(result);
-      },
-      error: function(err) {
-        console.log("fail: "+err);
-      }
-    }); // ajax_func
+    
 
-    // console.log($("#caseUpload .case-thumb").children());
+    // console.log($("#uploadTab .case-thumb").children());
     // console.log("post click");
     // console.log("str: " + caseData);
   });
@@ -93,22 +69,30 @@ $(function(){
     activateTab($(this));
   });
 
-  $(".case-wrap .panel-collapse .btn").each(function() {
-    $(this).off("click").on("click", function() {
-      if($(this).hasClass("glyphicon-star") || $(this).hasClass("glyphicon-star-empty")) {
-        $(this).toggleClass("glyphicon-star-empty").toggleClass("glyphicon-star");
-        if($(this).hasClass("glyphicon-star")) {
-          console.log("recommonds");
-        }
-        else {
-          console.log("normal");
-        }
-      }
+  $("#uploadTab .thumbnail img").off("click").on("click", function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    console.log($(this).next().find("[name='data-alt']").val());
+  });
+  
+  $("#uploadTab .add-thumb").off("click").on("click", function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    $(this).parent().before('<div class="col-sm-4 col-md-3"><div class="thumbnail"><img src="/src/case-thumb-hotel.jpg" alt="..."><div class="caption"><input type="text" placeholder="XX效果图" name="data-title"><input type="text" placeholder="alt属性值" name="data-alt" value="'+JSON.parse(getCookie("siteInfo")).keywords+'"></div></div><span class="btn btn-remove glyphicon glyphicon-trash"></span></div>');
+    $("#uploadTab span.btn-remove").off("click").on("click", function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      $(this).parent().remove();
+    });
+    $("#uploadTab .thumbnail img").off("click").on("click", function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      console.log($(this).next().find("[name='data-alt']").val());
     });
   });
 
   proc_regTabEvent();
-  refresh_siteInfo();
+  refresh_siteTab();
   refresh_caseList();
 });
 
@@ -167,13 +151,44 @@ function activateTab(target) {
   $("#pageTabs").find("a[href='" + $(target).attr("href") + "']").tab("show").parent().addClass("active").siblings().removeClass("active");
 
   if($(target).attr("href") === "#siteTab") {
-    refresh_siteInfo();
+    refresh_siteTab();
+  }
+  if($(target).attr("href") === "#uploadTab") {
+    refresh_uploadTab();
   }
 }
+
+/**
+ * ajax更新上传案例标签页
+ */
+function refresh_uploadTab() {
+  var fmd = new FormData();
+  fmd.append("token", "refreshUploadTab");
+  $.ajax({
+    url: "/cms/include/php/handle.php",
+    type: "POST",
+    data: fmd,
+    processData: false,
+    contentType: false,   //数据为formData时必须定义此项
+    dataType: "json",     //返回json格式数据
+    context: $("#uploadTab"),
+    success: function(result) {
+      var data = JSON.parse(result);
+      $(this).find("#cp-title").val(data.title);
+      $(this).find("#cp-keywords").val(data.keywords);
+      $(this).find("#cp-description").val(data.description);
+      $(this).find("#cp-path").val("http://"+data.domain+"/case/");
+    },
+    error: function(err) {
+      console.log("fail: "+err);
+    }
+  });
+}
+
 /**
  * ajax更新网站信息
  */
-function refresh_siteInfo() {
+function refresh_siteTab() {
   var fmd = new FormData();
   fmd.append("token", "getSiteInfo");
   $.ajax({
@@ -192,14 +207,15 @@ function refresh_siteInfo() {
         $(this).find("[id='keywords']").val(data.keywords);
         $(this).find("[id='description']").val(data.description);
         setCookie("siteInfo", result);
-        // console.log(getCookie("siteInfo"));
       }
+      // console.log(getCookie("siteInfo"));
     },
     error: function(err) {
       console.log("fail: "+err);
     }
   }); // ajax_func
 }
+
 /**
  * ajax设置网站基本信息，并反馈状态信息
  */
@@ -231,11 +247,49 @@ function save_siteInfo() {
 }
 
 /**
+ * 保存案例处理函数
+ */
+function uploadCase() {
+  var imgArray = new Array();
+  $("#uploadTab .case-thumb").children().each(function() {
+    var str = '{"url": "'+$(this).find("img").attr("src")+'", "attr_alt": "'+$(this).find('[name="data-alt"]').val()+'", "attr_title": "'+$(this).find('[name="data-title"]').val()+'"}';
+    imgArray.push(str);
+  }
+  );
+  var caseData = '{"page_title": "'+$("#cp-title").val()+'", "meta_keywords": "'+$("#cp-keywords").val()+'", "meta_description": "'+$("#cp-description").val()+'", "case_url": "'+$("#cp-path").val()+'", "case_name": "'+$("#case-title").val()+'", "case_area": "'+$("#case-area").val()+'", "case_address": "'+$("#case-address").val()+'", "case_type": "'+$("#case-class").val()+'", "case_team": "'+$("#case-team").val()+'", "case_company": "'+$("#case-company").val()+'", "case_description": "'+$("#case-description").val()+'", "case_images": ['+imgArray+']}';
+  var fmd = new FormData();
+  fmd.append("token", "saveCase");
+  fmd.append("data", caseData);
+  $.ajax({
+    url: "/cms/debug.php",
+    type: "POST",
+    data: fmd,
+    processData: false,
+    contentType: false,   //数据为formData时必须定义此项
+    // dataType: "json",     //返回json格式数据
+    context: $(".case-page"),
+    success: function(result) {
+      // for(var i=0; i<$(this).find(".thumbnail>img").length; i++) {
+      //   $(this).find(".thumbnail>img").eq(i).attr("src", JSON.parse(result)[i].url);
+      // }
+      // console.log(JSON.parse(result)[0].url);
+      console.log(result);
+    },
+    error: function(err) {
+      console.log("fail: "+err);
+    }
+  }); // ajax_func
+
+  // console.log("upload case");
+}
+
+/**
  * ajax刷新案例列表
  */
 function refresh_caseList() {
   var fmd = new FormData();
   fmd.append("token", "refreshCaseList");
+  fmd.append("data", 1);
   $.ajax({
     url: "/cms/include/php/handle.php",
     type: "POST",
@@ -243,13 +297,34 @@ function refresh_caseList() {
     processData: false,
     contentType: false,   //数据为formData时必须定义此项
     // dataType: "json",     //返回json格式数据
-    // context: $(".case-page"),
+    context: $("#caseTab>.case-wrap"),
     success: function(result) {
-      // for(var i=0; i<$(this).find(".thumbnail>img").length; i++) {
-      //   $(this).find(".thumbnail>img").eq(i).attr("src", JSON.parse(result)[i].url);
-      // }
-      // console.log(JSON.parse(result)[0].url);
-      console.log(result);
+      $(this).find(".panel-group").html(result);
+      $(this).find(".panel-collapse .btn").each(function() {
+        $(this).off("click").on("click", function() {
+          switch($(this).attr("data-token")) {
+            case "mark":
+              $(this).toggleClass("glyphicon-star-empty").toggleClass("glyphicon-star");
+              if($(this).hasClass("glyphicon-star")) {
+                console.log("recommonds");
+              }
+              else {
+                console.log("normal");
+              }
+              break;
+            case "edit":
+              console.log("edit: " + $(this).parent().attr("data-id"));
+              break;
+            case "post":
+              console.log("post: " + $(this).parent().attr("data-id"));
+              break;
+            case "remove":
+              console.log("remove: " + $(this).parent().attr("data-id"));
+              break;
+          }
+        });
+      });
+      // console.log(result);
     },
     error: function(err) {
       console.log("fail: "+err);
