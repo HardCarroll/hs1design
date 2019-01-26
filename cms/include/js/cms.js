@@ -46,13 +46,13 @@ $(function(){
       save_siteInfo();
     }
     if($(this).parent().parent().parent().attr("id") === "uploadTab") {
-      // uploadCase();
-      refresh_uploadTab();
+      uploadCase("save");
+      // refresh_uploadTab({test: "test", key: "value"});
     }
   });
   // 发布按钮点击事件处理函数
   $(".btn-post").off("click").on("click", function() {
-    
+    uploadCase("post");
 
     // console.log($("#uploadTab .case-thumb").children());
     // console.log("post click");
@@ -91,9 +91,10 @@ $(function(){
     });
   });
 
+
   proc_regTabEvent();
   refresh_siteTab();
-  refresh_caseList();
+  refresh_caseList({page: "1"});
 });
 
 function proc_regTabEvent() {
@@ -141,6 +142,8 @@ function activateTab(target) {
     tabEle.setAttribute("role", "presentation");
     $(tabEle).append('<span class="pull-left"></span><a href="' + $(target).attr("href") + '" data-toggle="tab">' + $(target).find("span.title").html() + '</a><span class="pull-right glyphicon glyphicon-remove tabRemove" role="button"></span>').find("span.pull-left").addClass($(target).find("span.title").prev().attr("class"));
     $("#pageTabs").append(tabEle);
+    // $(tabEle).append($(target).children().first().html()).append('<span class="pull-right glyphicon glyphicon-remove tabRemove" role="button"></span>');
+    // $("#pageTabs").append(tabEle);
     proc_regTabEvent();
   }
   // #pageTabContent下没有对应的标签页内容节点，则创建并添加此标签页内容节点
@@ -161,7 +164,10 @@ function activateTab(target) {
 /**
  * ajax更新上传案例标签页
  */
-function refresh_uploadTab() {
+function refresh_uploadTab(rule) {
+  if(rule) {
+    console.log(rule);
+  }
   var fmd = new FormData();
   fmd.append("token", "refreshUploadTab");
   $.ajax({
@@ -247,32 +253,29 @@ function save_siteInfo() {
 }
 
 /**
- * 保存案例处理函数
+ * 上传案例处理函数
  */
-function uploadCase() {
+function uploadCase(flag) {
   var imgArray = new Array();
-  $("#uploadTab .case-thumb").children().each(function() {
+  $("#uploadTab .case-thumb").children().not(":last").each(function() {
     var str = '{"url": "'+$(this).find("img").attr("src")+'", "attr_alt": "'+$(this).find('[name="data-alt"]').val()+'", "attr_title": "'+$(this).find('[name="data-title"]').val()+'"}';
     imgArray.push(str);
   }
   );
-  var caseData = '{"page_title": "'+$("#cp-title").val()+'", "meta_keywords": "'+$("#cp-keywords").val()+'", "meta_description": "'+$("#cp-description").val()+'", "case_url": "'+$("#cp-path").val()+'", "case_name": "'+$("#case-title").val()+'", "case_area": "'+$("#case-area").val()+'", "case_address": "'+$("#case-address").val()+'", "case_type": "'+$("#case-class").val()+'", "case_team": "'+$("#case-team").val()+'", "case_company": "'+$("#case-company").val()+'", "case_description": "'+$("#case-description").val()+'", "case_images": ['+imgArray+']}';
+  var caseData = '{"page_title": "'+$("#cp-title").val()+'", "meta_keywords": "'+$("#cp-keywords").val()+'", "meta_description": "'+$("#cp-description").val()+'", "case_name": "'+$("#case-title").val()+'", "case_area": "'+$("#case-area").val()+'", "case_address": "'+$("#case-address").val()+'", "case_type": "'+$("#case-class").val()+'", "case_team": "'+$("#case-team").val()+'", "case_company": "'+$("#case-company").val()+'", "case_description": "'+$("#case-description").val()+'", "case_images": ['+imgArray+']}';
   var fmd = new FormData();
-  fmd.append("token", "saveCase");
+  fmd.append("token", "uploadCase");
+  fmd.append("flag", flag);
   fmd.append("data", caseData);
   $.ajax({
-    url: "/cms/debug.php",
+    url: "/cms/include/php/handle.php",
     type: "POST",
     data: fmd,
     processData: false,
     contentType: false,   //数据为formData时必须定义此项
-    // dataType: "json",     //返回json格式数据
-    context: $(".case-page"),
+    dataType: "json",     //返回json格式数据
+    // context: $(".case-page"),
     success: function(result) {
-      // for(var i=0; i<$(this).find(".thumbnail>img").length; i++) {
-      //   $(this).find(".thumbnail>img").eq(i).attr("src", JSON.parse(result)[i].url);
-      // }
-      // console.log(JSON.parse(result)[0].url);
       console.log(result);
     },
     error: function(err) {
@@ -286,10 +289,12 @@ function uploadCase() {
 /**
  * ajax刷新案例列表
  */
-function refresh_caseList() {
+function refresh_caseList(data) {
   var fmd = new FormData();
   fmd.append("token", "refreshCaseList");
-  fmd.append("data", 1);
+  if(data) {
+    fmd.append("data", JSON.stringify(data));
+  }
   $.ajax({
     url: "/cms/include/php/handle.php",
     type: "POST",
@@ -300,6 +305,7 @@ function refresh_caseList() {
     context: $("#caseTab>.case-wrap"),
     success: function(result) {
       $(this).find(".panel-group").html(result);
+      // 注册按钮点击事件
       $(this).find(".panel-collapse .btn").each(function() {
         $(this).off("click").on("click", function() {
           switch($(this).attr("data-token")) {

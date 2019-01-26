@@ -158,7 +158,12 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
               <span class="title" data-target="Tab12">12</span>
             </div>
           </div>
-          <div class="list-item">01</div>
+          <div class="list-item slide" role="button">
+            <div class="slide-head">
+              <span class="pull-left glyphicon glyphicon-file"></span>
+              <a href="#testNN" data-toggle="tab">测试页</a>
+            </div>
+          </div>
           <div class="list-item">02</div>
           <div class="list-item">03</div>
           <div class="list-item">04</div>
@@ -284,6 +289,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                 <div class="input-group">
                   <label for="case-area" class="input-group-addon">项目面积</label>
                   <input type="text" class="form-control" name="case-area" id="case-area">
+                  <span class="input-group-addon">㎡</span>
                 </div>
                 <div class="input-group">
                   <label for="case-class" class="input-group-addon">项目类型</label>
@@ -314,52 +320,11 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                   <label for="case-image" class="input-group-addon">项目图片</label>
                   <div class="form-control case-thumb">
                     <div class="col-sm-4 col-md-3">
-                      <div class="thumbnail">
-                        <img src="/src/case-thumb-hotel.jpg" alt="...">
-                        <div class="caption">
-                          <input type="text" placeholder="图片标题" name="data-title">
-                          <input type="text" placeholder="图片alt属性" name="data-alt">
-                        </div>
-                      </div>
-                      <span class="btn btn-remove glyphicon glyphicon-trash"></span>
-                    </div>
-                    <div class="col-sm-4 col-md-3">
-                      <div class="thumbnail">
-                        <img src="/src/case-thumb-hotel.jpg" alt="...">
-                        <div class="caption">
-                          <input type="text" placeholder="图片标题" name="data-title">
-                          <input type="text" placeholder="图片alt属性" name="data-alt">
-                        </div>
-                      </div>
-                      <span class="btn btn-remove glyphicon glyphicon-trash"></span>
-                    </div>
-                    <div class="col-sm-4 col-md-3">
-                      <div class="thumbnail">
-                        <img src="/src/case-thumb-hotel.jpg" alt="...">
-                        <div class="caption">
-                          <input type="text" placeholder="图片标题" name="data-title">
-                          <input type="text" placeholder="图片alt属性" name="data-alt">
-                        </div>
-                      </div>
-                      <span class="btn btn-remove glyphicon glyphicon-trash"></span>
-                    </div>
-                    <div class="col-sm-4 col-md-3">
-                      <div class="thumbnail">
-                        <img src="/src/case-thumb-hotel.jpg" alt="...">
-                        <div class="caption">
-                          <input type="text" placeholder="图片标题" name="data-title">
-                          <input type="text" placeholder="图片alt属性" name="data-alt">
-                        </div>
-                      </div>
-                      <span class="btn btn-remove glyphicon glyphicon-trash"></span>
-                    </div>
-                    <div class="col-sm-4 col-md-3">
                       <div class="btn btn-default add-thumb">
                         <span class="glyphicon glyphicon-picture"></span>
                         <span>添加图片</span>
                       </div>
                     </div>
-                    
                   </div>
                 </div>
                 <div class="input-group">

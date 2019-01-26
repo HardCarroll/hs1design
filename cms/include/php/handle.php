@@ -17,10 +17,25 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
       echo proc_refreshUploadTab();
       break;
     case "refreshCaseList":
-      echo proc_refreshCaseList($caseManage);
+      echo proc_refreshCaseList($caseManage, json_decode($_POST["data"], true));
+      break;
+    case "uploadCase":
+      echo proc_uploadCase($caseManage, $_POST["flag"], $_POST["data"]);
       break;
     default:
       break;
+  }
+}
+
+/**
+ * 上传案例操作处理函数
+ */
+function proc_uploadCase($caseManage, $flag, $data) {
+  if("save" === $flag) {
+    return $caseManage->addItem($data);
+  }
+  if("post" === $flag) {
+    return json_encode($caseManage->queryTable()[0]);
   }
 }
 
@@ -34,7 +49,7 @@ function proc_refreshUploadTab() {
 /**
  * 生成案例列表
  */
-function proc_refreshCaseList($caseManage, $rule = null) {
+function proc_refreshCaseList($caseManage, $data = null) {
   // <div class="panel panel-default">
   //   <div class="panel-heading" role="tab">
   //     <a class="collapsed" role="button" data-toggle="collapse" href="#case_2">
@@ -50,13 +65,13 @@ function proc_refreshCaseList($caseManage, $rule = null) {
   //     </ul>
   //   </div>
   // </div>
-  $page = 1;
-  $result = $caseManage->queryTable($rule);
+  empty($data["page"]) ? $page = 1 : $page = $data["page"];
+  $result = $caseManage->queryTable($data["rule"]);
   $counts = count($result);
   $cmp = $counts / ($page*10) >= 1 ? 10 : ($counts%10);
   $html = '';
   for ($i = ($page-1)*10; $i < ($page-1)*10+$cmp; $i++) {
-    if($result[$i]["c_recommends"]) {
+    if(!$result[$i]["c_recommends"]) {
       $html .= '<div class="panel panel-default">';
     }
     else {

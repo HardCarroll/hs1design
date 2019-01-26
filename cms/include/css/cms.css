@@ -29,6 +29,9 @@ input, textarea, button, select {
   resize: none;
   -webkit-appearance: none;
 }
+textarea {
+  height: 80px !important;
+}
 ul {
   margin-bottom: 0;
   list-style: none;
