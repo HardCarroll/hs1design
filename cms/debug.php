@@ -12,11 +12,12 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/cms/include/php/include.php");
 // var_dump($caseManage->getCounts());
 
 // // php模板通过curl请求生成html文件
-// $url = "http://192.168.0.216:8888/template/case_temp.php";
+// $url = "https://www.webserv.cn/template/case_temp.php";
 // $data = '{"token": "test", "key": "中文测试"}';
+// $data = file_get_contents($_SERVER["DOCUMENT_ROOT"]."/lib/json/case_temp.json");
 // $str = curl_request($url, $data);
 // // $str = curl_request($url);
-// $result = file_put_contents($_SERVER["DOCUMENT_ROOT"]."/case/upload/save.html", $str);
+// $result = file_put_contents($_SERVER["DOCUMENT_ROOT"]."/cms/upload/save.html", $str);
 // var_dump($result);
 
 // // 数据库初始化
@@ -35,12 +36,9 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
       // echo $data = $_POST["data"];
       echo proc_login(json_decode($_POST["data"], true));
       break;
-    case "saveCase":
-      // $path = $_SERVER["DOCUMENT_ROOT"]."/cms/upload/imgdata.json";
-      // file_put_contents($path, $_POST["data"]);
-      // echo file_get_contents($path);
-      // echo($caseManage->addItem(file_get_contents($path)));
-      echo($caseManage->getCounts());
+    case "uploadFile":
+      move_uploaded_file($_FILES["files"]["tmp_name"], $_SERVER["DOCUMENT_ROOT"]."/cms/upload/".$_FILES["files"]["name"]);
+      echo "/cms/upload/".$_FILES["files"]["name"];
       break;
     default:
       break;

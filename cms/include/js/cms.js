@@ -47,16 +47,11 @@ $(function(){
     }
     if($(this).parent().parent().parent().attr("id") === "uploadTab") {
       uploadCase("save");
-      // refresh_uploadTab({test: "test", key: "value"});
     }
   });
   // 发布按钮点击事件处理函数
   $(".btn-post").off("click").on("click", function() {
     uploadCase("post");
-
-    // console.log($("#uploadTab .case-thumb").children());
-    // console.log("post click");
-    // console.log("str: " + caseData);
   });
 
   // 网站信息标签页输入框输入内容
@@ -69,28 +64,62 @@ $(function(){
     activateTab($(this));
   });
 
-  $("#uploadTab .thumbnail img").off("click").on("click", function(e) {
+  // 点击图片事件
+  // $("#uploadTab .thumbnail img").off("click").on("click", function(e) {
+  //   e.stopPropagation();
+  //   e.preventDefault();
+  //   $(this).prev().click();
+  //   console.log($(this).prev());
+  //   // console.log($(this).next().find("[name='data-alt']").val());
+  // });
+  $("#uploadTab .case-thumb>div>.btn").off("click").on("click", function(e) {
     e.stopPropagation();
     e.preventDefault();
-    console.log($(this).next().find("[name='data-alt']").val());
-  });
-  
-  $("#uploadTab .add-thumb").off("click").on("click", function(e) {
-    e.stopPropagation();
-    e.preventDefault();
-    $(this).parent().before('<div class="col-sm-4 col-md-3"><div class="thumbnail"><img src="/src/case-thumb-hotel.jpg" alt="..."><div class="caption"><input type="text" placeholder="XX效果图" name="data-title"><input type="text" placeholder="alt属性值" name="data-alt" value="'+JSON.parse(getCookie("siteInfo")).keywords+'"></div></div><span class="btn btn-remove glyphicon glyphicon-trash"></span></div>');
+
+    // $(this).parent().before('<div class="col-sm-4 col-md-3"><div class="thumbnail"><input type="file" style="display:none;"><img><div class="caption"><input type="text" placeholder="XX效果图" name="data-title"><input type="text" placeholder="alt属性值" name="data-alt" value="'+JSON.parse(getCookie("siteInfo")).keywords+'"></div></div><span class="btn btn-remove glyphicon glyphicon-trash"></span></div>');
+
+    if($(this).hasClass("btn-local")) {
+      $(this).prev().off("change").on("change", function(e) {
+        var fmd = new FormData();
+        fmd.append("token", "uploadFile");
+        fmd.append("files", e.target.files[0]);
+        $.ajax({
+          url: "/cms/debug.php",
+          type: "POST",
+          data: fmd,
+          processData: false,
+          contentType: false,
+          context: $(this),
+          success: function(result) {
+            $(this).parent().before('<div class="col-sm-4 col-md-3"><div class="thumbnail"><input type="file" style="display:none;"><img><div class="caption"><input type="text" placeholder="XX效果图" name="data-title"><input type="text" placeholder="alt属性值" name="data-alt" value="'+JSON.parse(getCookie("siteInfo")).keywords+'"></div></div><span class="btn btn-remove glyphicon glyphicon-trash"></span></div>');
+
+            $(this).parent().prev().find("img").attr("src", result);
+            $(this).val("");
+          },
+          error: function(err) {
+            console.log(err);
+          }
+        });
+        // console.log(e.target.files=null);
+      }).click();
+      // console.log("local");
+    }
+    if($(this).hasClass("btn-remote")) {
+      $(this).parent().prev().find("img").attr("src", "/src/case-thumb-hotel.jpg");
+      // console.log("remote");
+    }
+    if($(this).hasClass("btn-online")) {
+      $(this).parent().prev().find("img").attr("src", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1548685758785&di=9457da526fb1b08a4eae2c8bbd66913f&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fb8389b504fc2d562e613fdc4ec1190ef76c66cfb.jpg");
+      // console.log("online");
+    }
+
     $("#uploadTab span.btn-remove").off("click").on("click", function(e) {
       e.stopPropagation();
       e.preventDefault();
       $(this).parent().remove();
     });
-    $("#uploadTab .thumbnail img").off("click").on("click", function(e) {
-      e.stopPropagation();
-      e.preventDefault();
-      console.log($(this).next().find("[name='data-alt']").val());
-    });
   });
-
+  
 
   proc_regTabEvent();
   refresh_siteTab();
@@ -183,12 +212,13 @@ function refresh_uploadTab(rule) {
       $(this).find("#cp-title").val(data.title);
       $(this).find("#cp-keywords").val(data.keywords);
       $(this).find("#cp-description").val(data.description);
-      $(this).find("#cp-path").val("http://"+data.domain+"/case/");
+      // $(this).find("#cp-path").val("http://"+data.domain+"/case/");
     },
     error: function(err) {
       console.log("fail: "+err);
     }
   });
+  $("#uploadTab").find("#cp-path").val("test");
 }
 
 /**
@@ -237,11 +267,11 @@ function save_siteInfo() {
     processData: false,
     contentType: false,   //数据为formData时必须定义此项
     // dataType: "json",     //返回json格式数据
-    context: $(".text-state"),
+    context: $("#siteTab"),
     success: function(result) {
       // console.log(fmd.siteInfo);
-      $(this).addClass("text-success").html(result);
-      $(".btn-save").addClass("disabled");
+      $(this).find(".text-state").addClass("text-success").html(result);
+      $(this).find(".btn-save").addClass("disabled");
       setTimeout(function() {
         $(".text-state").html("&nbsp;");
       }, 2000);
@@ -260,9 +290,8 @@ function uploadCase(flag) {
   $("#uploadTab .case-thumb").children().not(":last").each(function() {
     var str = '{"url": "'+$(this).find("img").attr("src")+'", "attr_alt": "'+$(this).find('[name="data-alt"]').val()+'", "attr_title": "'+$(this).find('[name="data-title"]').val()+'"}';
     imgArray.push(str);
-  }
-  );
-  var caseData = '{"page_title": "'+$("#cp-title").val()+'", "meta_keywords": "'+$("#cp-keywords").val()+'", "meta_description": "'+$("#cp-description").val()+'", "case_name": "'+$("#case-title").val()+'", "case_area": "'+$("#case-area").val()+'", "case_address": "'+$("#case-address").val()+'", "case_type": "'+$("#case-class").val()+'", "case_team": "'+$("#case-team").val()+'", "case_company": "'+$("#case-company").val()+'", "case_description": "'+$("#case-description").val()+'", "case_images": ['+imgArray+']}';
+  });
+  var caseData = '{"p_title": "'+$("#cp-title").val()+'", "p_keywords": "'+$("#cp-keywords").val()+'", "p_description": "'+$("#cp-description").val()+'", "c_path": "", "c_title": "'+$("#case-title").val()+'", "c_area": "'+$("#case-area").val()+'", "c_address": "'+$("#case-address").val()+'", "c_class": "'+$("#case-class").val()+'", "c_team": "'+$("#case-team").val()+'", "c_company": "'+$("#case-company").val()+'", "c_description": "'+$("#case-description").val()+'", "c_image": ['+imgArray+'], "c_recommends": 0}';
   var fmd = new FormData();
   fmd.append("token", "uploadCase");
   fmd.append("flag", flag);
@@ -277,6 +306,7 @@ function uploadCase(flag) {
     // context: $(".case-page"),
     success: function(result) {
       console.log(result);
+      // console.log(JSON.parse(result.c_image));
     },
     error: function(err) {
       console.log("fail: "+err);

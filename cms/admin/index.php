@@ -279,10 +279,6 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                   <textarea type="text" class="form-control" name="cp-description" id="cp-description"></textarea>
                 </div>
                 <div class="input-group">
-                  <label for="cp-path" class="input-group-addon">网页路径</label>
-                  <input type="text" class="form-control" name="cp-path" id="cp-path">
-                </div>
-                <div class="input-group">
                   <label for="case-title" class="input-group-addon">项目名称</label>
                   <input type="text" class="form-control" name="case-title" id="case-title">
                 </div>
@@ -320,9 +316,18 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                   <label for="case-image" class="input-group-addon">项目图片</label>
                   <div class="form-control case-thumb">
                     <div class="col-sm-4 col-md-3">
-                      <div class="btn btn-default add-thumb">
-                        <span class="glyphicon glyphicon-picture"></span>
-                        <span>添加图片</span>
+                      <input type="file" style="display: none;">
+                      <div class="btn btn-default btn-local">
+                        <span class="glyphicon glyphicon-open"></span>
+                        <span>本地上传</span>
+                      </div>
+                      <div class="btn btn-default btn-remote">
+                        <span class="glyphicon glyphicon-folder-open"></span>
+                        <span>远程文件</span>
+                      </div>
+                      <div class="btn btn-default btn-online">
+                        <span class="glyphicon glyphicon-globe"></span>
+                        <span>网络图片</span>
                       </div>
                     </div>
                   </div>

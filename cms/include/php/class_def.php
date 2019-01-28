@@ -83,35 +83,29 @@ class CaseManager {
 
   // 插入数据项
   public function addItem($data) {
-    file_put_contents($_SERVER["DOCUMENT_ROOT"]."/cms/upload/", $data);
     $dataArray = json_decode($data, true);
-    $str = '[';
-    foreach($dataArray["case_images"] as $item) {
-      $str .= '{"';
+    $imageStr = '[';
+    foreach($dataArray["c_image"] as $item) {
+      $imageStr .= '{"';
       foreach($item as $key=>$value) {
-        $str .= $key;
-        $str .= '":"';
-        $str .= $value;
+        $imageStr .= $key;
+        $imageStr .= '":"';
+        $imageStr .= $value;
         if($value !== end($item)) {
-          $str .= '","';
+          $imageStr .= '","';
         }
       }
-      $str .= '"}';
+      $imageStr .= '"}';
 
-      if($item !== end($dataArray["case_images"])) {
-        $str .= ',';
+      if($item !== end($dataArray["c_image"])) {
+        $imageStr .= ',';
       }
     }
-    $str .= ']';
+    $imageStr .= ']';
     
-    
-    $sql_insert = "INSERT INTO ".$this->tab_name."(p_title, p_keywords, p_description, c_path, c_title, c_area, c_address, c_class, c_team, c_company, c_description, c_image, c_recommends) VALUES('".$dataArray["page_title"]."','".$dataArray["meta_keywords"]."','".$dataArray["meta_description"]."','".$dataArray["case_url"]."','".$dataArray["case_name"]."', '".$dataArray["case_area"]."', '".$dataArray["case_address"]."', '".$dataArray["case_type"]."', '".$dataArray["case_team"]."', '".$dataArray["case_company"]."', '".$dataArray["case_description"]."', '".$str."', '0')";
-    if($this->dbo->exec_insert($sql_insert)) {
-      $ret = '{"err_no": 0, "err_code": "success"}';
-    }
-    else {
-      $ret = '{"err_no":'.$this->dbo->state["err_no"].', "err_code": "'.$this->dbo->state["err_code"].'"}';
-    }
+    $sql_insert = "INSERT INTO ".$this->tab_name."(p_title, p_keywords, p_description, c_path, c_title, c_area, c_address, c_class, c_team, c_company, c_description, c_image, c_recommends) VALUES('".$dataArray["p_title"]."','".$dataArray["p_keywords"]."','".$dataArray["p_description"]."','".$dataArray["c_path"]."','".$dataArray["c_title"]."', '".$dataArray["c_area"]."', '".$dataArray["c_address"]."', '".$dataArray["c_class"]."', '".$dataArray["c_team"]."', '".$dataArray["c_company"]."', '".$dataArray["c_description"]."', '".$imageStr."', ".$dataArray["c_recommends"].")";
+    $this->dbo->exec_query($sql_insert);
+    $ret = '{"err_no":'.$this->dbo->state["err_no"].', "err_code": "'.$this->dbo->state["err_code"].'"}';
     return $ret;
   }
 

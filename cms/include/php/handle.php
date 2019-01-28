@@ -35,6 +35,10 @@ function proc_uploadCase($caseManage, $flag, $data) {
     return $caseManage->addItem($data);
   }
   if("post" === $flag) {
+    $path = $_SERVER["DOCUMENT_ROOT"]."/cms/upload/";
+    if(is_dir($path) or @mkdir($path)) {
+      file_put_contents($path."/hello.json", $data);
+    }
     return json_encode($caseManage->queryTable()[0]);
   }
 }
@@ -43,7 +47,7 @@ function proc_uploadCase($caseManage, $flag, $data) {
  * 更新上传案例标签页内容
  */
 function proc_refreshUploadTab() {
-  return proc_getSiteInfo($_SERVER["DOCUMENT"]."/cms/include/json");
+  return proc_getSiteInfo($_SERVER["DOCUMENT_ROOT"]."/cms/include/json");
 }
 
 /**

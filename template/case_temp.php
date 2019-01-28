@@ -1,18 +1,19 @@
 <?php
-$dataJson = file_get_contents($_SERVER["DOCUMENT_ROOT"]."/lib/json/case_temp.json");
+// $dataJson = file_get_contents($_SERVER["DOCUMENT_ROOT"]."/lib/json/case_temp.json");
+$dataJson = file_get_contents("php://input");
 $dataArray = json_decode($dataJson, true);
-$page_title = $dataArray["page_title"];
-$meta_keywords = $dataArray["meta_keywords"];
-$meta_description = $dataArray["meta_description"];
-$case_name = $dataArray["case_name"];
-$case_area = $dataArray["case_area"];
-$case_address = $dataArray["case_address"];
-$case_type = $dataArray["case_type"];
-$case_team = $dataArray["case_team"];
-$case_company = $dataArray["case_company"];
-$case_description = $dataArray["case_description"];
-$more_prev = $dataArray["more_prev"];
-$more_next = $dataArray["more_next"];
+$p_title = $dataArray["p_title"];
+$p_keywords = $dataArray["p_keywords"];
+$p_description = $dataArray["p_description"];
+$c_title = $dataArray["c_title"];
+$c_area = $dataArray["c_area"];
+$c_address = $dataArray["c_address"];
+$c_class = $dataArray["c_class"];
+$c_team = $dataArray["c_team"];
+$c_company = $dataArray["c_company"];
+$c_description = $dataArray["c_description"];
+// $more_prev = $dataArray["more_prev"];
+// $more_next = $dataArray["more_next"];
 function transmitCasetype($key) {
   $type = '';
   switch($key) {
@@ -38,7 +39,7 @@ function transmitCasetype($key) {
 // $data = file_get_contents("php://input");
 // if($data  = file_get_contents("php://input")) {
 //   $dataArray = json_decode($data, true);
-//   $case_name = $dataArray["key"];
+//   $c_title = $dataArray["key"];
 // }
 ?>
 <!DOCTYPE html>
@@ -47,9 +48,9 @@ function transmitCasetype($key) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="Keywords" content="<?php echo $meta_keywords; ?>">
-  <meta name="Description" content="<?php echo $meta_description; ?>">
-  <title><?php echo $page_title; ?></title>
+  <meta name="Keywords" content="<?php echo $p_keywords; ?>">
+  <meta name="Description" content="<?php echo $p_description; ?>">
+  <title><?php echo $p_title; ?></title>
   <link rel="stylesheet" href="/cms/include/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="/cms/include/css/icons.css">
   <link rel="stylesheet" href="/lib/css/shared.css">
@@ -123,8 +124,8 @@ function transmitCasetype($key) {
             <span class="glyphicon glyphicon-map-marker"></span>
             <li><a href="/">首页</a></li>
             <li><a href="/case">案例</a></li>
-            <li><?php echo '<a href="/case/index.php?type='.$case_type.'">'.transmitCasetype($case_type).'</a>'; ?></li>
-            <li class="active"><?php echo $case_name; ?></li>
+            <li><?php echo '<a href="/case/index.php?type='.$c_class.'">'.transmitCasetype($c_class).'</a>'; ?></li>
+            <li class="active"><?php echo $c_title; ?></li>
           </ol>
         </div>
 
@@ -134,32 +135,32 @@ function transmitCasetype($key) {
               <span class="glyphicon glyphicon-bookmark"></span>
               <li>
                 <span>项目名称：</span>
-                <p><?php echo $case_name; ?></p>
+                <p><?php echo $c_title; ?></p>
               </li>
               <li>
                 <span>项目面积：</span>
-                <p><?php echo $case_area; ?></p>
+                <p><?php echo $c_area; ?></p>
               </li>
               <li>
                 <span>项目地址：</span>
-                <p><?php echo $case_address; ?></p>
+                <p><?php echo $c_address; ?></p>
               </li>
               <li>
                 <span>项目类型：</span>
-                <p><?php echo transmitCasetype($case_type); ?></p>
+                <p><?php echo transmitCasetype($c_class); ?></p>
               </li>
               <li>
                 <span>主创团队：</span>
-                <p><?php echo $case_team; ?></p>
+                <p><?php echo $c_team; ?></p>
               </li>
               <li>
                 <span>出品单位：</span>
-                <p><?php echo $case_company; ?></p>
+                <p><?php echo $c_company; ?></p>
               </li>
               <hr>
               <div class="case-description">
                 <span>案例简介：</span>
-                <p><?php echo $case_description; ?></p>
+                <p><?php echo $c_description; ?></p>
               </div>
               <hr>
               <div class="row case-thumb">
@@ -168,7 +169,7 @@ function transmitCasetype($key) {
                 </section> -->
                 <!-- 动态生成案例图片缩略图 -->
                 <?php
-                $imgs = $dataArray["case_images"];
+                $imgs = $dataArray["c_image"];
                 foreach($imgs as $imgs_item) {
                   echo '<section class="col-xs-6 col-sm-4 col-md-3 col-lg-2 case-thumb-item"><img src="'.$imgs_item["url"].'" title="'.$imgs_item["attr_title"].'" alt="'.$imgs_item["attr_alt"].'"></section>';
                 }

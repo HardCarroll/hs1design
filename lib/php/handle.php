@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once($_SERVER["DOCUMENT_ROOT"]."/cms/include/php/dboperator.php");
+require_once($_SERVER["DOCUMENT_ROOT"]."/cms/include/php/include.php");
 if (!isset($_SESSION["bFirst"]) || empty($_SESSION["bFirst"])) {
   $_SESSION["bFirst"] = false;
 }

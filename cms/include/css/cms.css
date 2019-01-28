@@ -364,6 +364,7 @@ ul {
   top: 10px;
   right: 10px;
   color: #f00;
+  background-color: rgba(0, 0, 0, 0.3);
   border-radius: 0;
   opacity: 0;
 }
@@ -386,8 +387,8 @@ ul {
 #uploadTab>.case-page>.input-group>.case-thumb>div:last-child {
   text-align: center;
 }
-#uploadTab>.case-page>.input-group>.case-thumb>div>.add-thumb {
-  margin: 60px 0;
+#uploadTab>.case-page>.input-group>.case-thumb>div>div.btn {
+  margin: 20px;
 }
 
 @media (max-width: 768px) {
