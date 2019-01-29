@@ -36,14 +36,25 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
       // echo $data = $_POST["data"];
       echo proc_login(json_decode($_POST["data"], true));
       break;
-    case "uploadFile":
-      move_uploaded_file($_FILES["files"]["tmp_name"], $_SERVER["DOCUMENT_ROOT"]."/cms/upload/".$_FILES["files"]["name"]);
-      echo "/cms/upload/".$_FILES["files"]["name"];
+    case "uploadFiles":
+      // move_uploaded_file($_FILES["files"]["tmp_name"], $_SERVER["DOCUMENT_ROOT"]."/cms/upload/".$_FILES["files"]["name"]);
+      // echo "/cms/upload/".$_FILES["files"]["name"];
+      $ret = [];
+      for($i = 0; $i < count($_FILES["files"]["size"]); $i++) {
+        if($_FILES["files"]["size"][$i] <= 2*1024*1024 && ($_FILES["files"]["type"][$i] == "image/jpeg" || $_FILES["files"]["type"][$i] == "image/png")) {
+          array_push($ret, "/cms/upload/".$_FILES["files"]["name"][$i]);
+        }
+      }
+      echo json_encode($ret);
       break;
     default:
       break;
   }
 }
+
+/**
+ * 文件上传处理函数
+ */
 
 
 /**

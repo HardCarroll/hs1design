@@ -22,9 +22,30 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
     case "uploadCase":
       echo proc_uploadCase($caseManage, $_POST["flag"], $_POST["data"]);
       break;
+    case "uploadFiles":
+      echo proc_uploadFiles($_FILES["files"]);
+      break;
     default:
       break;
   }
+}
+
+/**
+ * 文件上传处理函数
+ */
+function proc_uploadFiles($files) {
+  $ret = [];
+  $path = "/cms/upload/".date("Ymd/");
+  is_dir($_SERVER["DOCUMENT_ROOT"].$path) or @mkdir($_SERVER["DOCUMENT_ROOT"].$path, 0777, true);
+
+  for($i = 0; $i < count($files["size"]); $i++) {
+    if($files["size"][$i] <= 2*1024*1024 && ($files["type"][$i] == "image/png" || $files["type"][$i] == "image/jpeg")) {
+      $fn = date("His_").$files["name"][$i];
+      move_uploaded_file($files["tmp_name"][$i], $_SERVER["DOCUMENT_ROOT"].$path.$fn);
+      array_push($ret, $path.$fn);
+    }
+  }
+  return json_encode($ret);
 }
 
 /**
@@ -70,7 +91,12 @@ function proc_refreshCaseList($caseManage, $data = null) {
   //   </div>
   // </div>
   empty($data["page"]) ? $page = 1 : $page = $data["page"];
-  $result = $caseManage->queryTable($data["rule"]);
+  if(isset($data["rule"])) {
+    $result = $caseManage->queryTable($data["rule"]);
+  }
+  else {
+    $result = $caseManage->queryTable();
+  }
   $counts = count($result);
   $cmp = $counts / ($page*10) >= 1 ? 10 : ($counts%10);
   $html = '';

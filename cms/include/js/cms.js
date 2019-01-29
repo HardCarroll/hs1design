@@ -64,60 +64,46 @@ $(function(){
     activateTab($(this));
   });
 
-  // 点击图片事件
-  // $("#uploadTab .thumbnail img").off("click").on("click", function(e) {
-  //   e.stopPropagation();
-  //   e.preventDefault();
-  //   $(this).prev().click();
-  //   console.log($(this).prev());
-  //   // console.log($(this).next().find("[name='data-alt']").val());
-  // });
+  // 添加图片按钮点击事件
   $("#uploadTab .case-thumb>div>.btn").off("click").on("click", function(e) {
     e.stopPropagation();
     e.preventDefault();
 
-    // $(this).parent().before('<div class="col-sm-4 col-md-3"><div class="thumbnail"><input type="file" style="display:none;"><img><div class="caption"><input type="text" placeholder="XX效果图" name="data-title"><input type="text" placeholder="alt属性值" name="data-alt" value="'+JSON.parse(getCookie("siteInfo")).keywords+'"></div></div><span class="btn btn-remove glyphicon glyphicon-trash"></span></div>');
-
     if($(this).hasClass("btn-local")) {
       $(this).prev().off("change").on("change", function(e) {
         var fmd = new FormData();
-        fmd.append("token", "uploadFile");
-        fmd.append("files", e.target.files[0]);
+        fmd.append("token", "uploadFiles");
+        for(var i in e.target.files) {
+          fmd.append("files["+i+"]", e.target.files[i]);
+        }
         $.ajax({
-          url: "/cms/debug.php",
+          url: "/cms/include/php/handle.php",
+          // url: "/cms/debug.php",
           type: "POST",
           data: fmd,
           processData: false,
           contentType: false,
+          dataType: "json",
           context: $(this),
-          success: function(result) {
-            $(this).parent().before('<div class="col-sm-4 col-md-3"><div class="thumbnail"><input type="file" style="display:none;"><img><div class="caption"><input type="text" placeholder="XX效果图" name="data-title"><input type="text" placeholder="alt属性值" name="data-alt" value="'+JSON.parse(getCookie("siteInfo")).keywords+'"></div></div><span class="btn btn-remove glyphicon glyphicon-trash"></span></div>');
-
-            $(this).parent().prev().find("img").attr("src", result);
+          success: function(img_path) {
+            // console.log(img_path);
+            for(var i in img_path) {
+              proc_addPictures($(this), img_path[i]);
+            }
             $(this).val("");
           },
           error: function(err) {
             console.log(err);
           }
         });
-        // console.log(e.target.files=null);
       }).click();
-      // console.log("local");
     }
     if($(this).hasClass("btn-remote")) {
-      $(this).parent().prev().find("img").attr("src", "/src/case-thumb-hotel.jpg");
-      // console.log("remote");
+      proc_addPictures($(this), "/src/case-thumb-hotel.jpg");
     }
     if($(this).hasClass("btn-online")) {
-      $(this).parent().prev().find("img").attr("src", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1548685758785&di=9457da526fb1b08a4eae2c8bbd66913f&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fb8389b504fc2d562e613fdc4ec1190ef76c66cfb.jpg");
-      // console.log("online");
+      proc_addPictures($(this), "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1548685758785&di=9457da526fb1b08a4eae2c8bbd66913f&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fb8389b504fc2d562e613fdc4ec1190ef76c66cfb.jpg");
     }
-
-    $("#uploadTab span.btn-remove").off("click").on("click", function(e) {
-      e.stopPropagation();
-      e.preventDefault();
-      $(this).parent().remove();
-    });
   });
   
 
@@ -125,6 +111,24 @@ $(function(){
   refresh_siteTab();
   refresh_caseList({page: "1"});
 });
+
+/**
+ * 添加图片处理函数
+ * @param {object} target 
+ * @param {string} path 
+ */
+function proc_addPictures(target, path) {
+  // 添加图片节点
+  $(target).parent().before('<div class="col-sm-4 col-md-3"><div class="thumbnail"><input type="file" style="display:none;"><img><div class="caption"><input type="text" placeholder="XX效果图" name="data-title"><input type="text" placeholder="alt属性值" name="data-alt" value="'+JSON.parse(getCookie("siteInfo")).keywords+'"></div></div><span class="btn btn-remove glyphicon glyphicon-trash"></span></div>');
+  // 更改图片路径
+  $(target).parent().prev().find("img").attr("src", path);
+  // 注册图片删除按钮事件
+  $(target).parent().prev().find("span.btn-remove").off("click").on("click", function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    $(this).parent().remove();
+  });
+}
 
 function proc_regTabEvent() {
   // 标签页关闭按钮点击事件处理函数

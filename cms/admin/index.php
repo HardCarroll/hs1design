@@ -83,17 +83,12 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
               <span class="pull-right glyphicon glyphicon-menu"></span>
             </div>
             <ul class="slide-menu">
-              <li>adminTab</li>
-              <li>test</li>
-              <li>03</li>
-              <li>04</li>
               <li data-target="testMM" href="#testMM">
                 <div class="text-warning">
                   <span class="glyphicon glyphicon-cloud-download"></span>
                   <span class="title">测试</span>
                 </div>
               </li>
-              <li>06</li>
               <li data-target="uploadTab" href="#uploadTab">
                 <div class="text-primary">
                   <span class="glyphicon glyphicon-cloud-upload"></span>
@@ -316,7 +311,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                   <label for="case-image" class="input-group-addon">项目图片</label>
                   <div class="form-control case-thumb">
                     <div class="col-sm-4 col-md-3">
-                      <input type="file" style="display: none;">
+                      <input type="file" style="display: none;" multiple="true" accept=".png, .jpg, .jpeg">
                       <div class="btn btn-default btn-local">
                         <span class="glyphicon glyphicon-open"></span>
                         <span>本地上传</span>
