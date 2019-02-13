@@ -1,4 +1,5 @@
 <?php
+require_once($_SERVER["DOCUMENT_ROOT"]."/cms/include/php/include.php");
 // $dataJson = file_get_contents($_SERVER["DOCUMENT_ROOT"]."/lib/json/case_temp.json");
 $dataJson = file_get_contents("php://input");
 $dataArray = json_decode($dataJson, true);
@@ -176,20 +177,6 @@ function transmitCasetype($key) {
                 ?>
               </div>
             </ul>
-            <!-- <ul class="more-list">
-              <li class="more-list-prev">
-                <span>上一篇</span>
-                <?php
-                // echo $more_prev;
-                ?>
-              </li>
-              <li class="more-list-next">
-                <span>下一篇</span>
-                <?php
-                // echo $more_next;
-                ?>
-              </li>
-            </ul> -->
           </div>
           <div class="col-md-4 col-lg-3 visible-md-block visible-lg-block recommends-wrap">
             <div class="panel panel-default recommends">
@@ -200,9 +187,14 @@ function transmitCasetype($key) {
                 <!-- <div class="list-group-item text-info text-ellipsis"><a href="Article_url">Article_Title</a></div> -->
                 <!-- 动态生成推荐阅读列表 -->
                 <?php
-                $recommends = $dataArray["recommends"];
-                foreach($recommends as $recommends_item) {
-                  echo '<div class="list-group-item text-info text-ellipsis"><a href="'.$recommends_item["url"].'">'.$recommends_item["title"].'</a></div>';
+                $recommends = $caseManage->queryTable("c_recommends=1");
+                if($caseManage->getCounts("c_recommends=1")) {
+                  foreach($recommends as $recommends_item) {
+                    echo '<div class="list-group-item text-info text-ellipsis"><a href="'.$recommends_item["c_path"].'">'.$recommends_item["c_title"].'</a></div>';
+                  }
+                }
+                else {
+                  echo "暂无推荐案例！";
                 }
                 ?>
               </div>

@@ -25,7 +25,7 @@ class UserManager {
   }
 
   /**
-   * 按条件查询表记录
+   * 按条件查询表记录并按升序排序
    */
   public function queryTable($rule = null) {
     $sql = $this->sql_query;
@@ -71,7 +71,9 @@ class CaseManager {
     $this->sql_query = null;
   }
 
-  // 按条件查询表
+  /**
+   * 按条件查询表并按升序排序
+   */
   public function queryTable($rule = null) {
     $sql = $this->sql_query;
     if($rule) {
@@ -81,7 +83,10 @@ class CaseManager {
     return $this->dbo->exec_query($sql);
   }
 
-  // 插入数据项
+  /**
+   * 插入数据项
+   * @param {json} $data: json格式数据
+  */
   public function addItem($data) {
     $dataArray = json_decode($data, true);
     $imageStr = '[';
@@ -103,15 +108,36 @@ class CaseManager {
     }
     $imageStr .= ']';
     
-    $sql_insert = "INSERT INTO ".$this->tab_name."(p_title, p_keywords, p_description, c_path, c_title, c_area, c_address, c_class, c_team, c_company, c_description, c_image, c_recommends) VALUES('".$dataArray["p_title"]."','".$dataArray["p_keywords"]."','".$dataArray["p_description"]."','".$dataArray["c_path"]."','".$dataArray["c_title"]."', '".$dataArray["c_area"]."', '".$dataArray["c_address"]."', '".$dataArray["c_class"]."', '".$dataArray["c_team"]."', '".$dataArray["c_company"]."', '".$dataArray["c_description"]."', '".$imageStr."', ".$dataArray["c_recommends"].")";
-    $this->dbo->exec_query($sql_insert);
+    $sql_insert = "INSERT INTO ".$this->tab_name."(p_title, p_keywords, p_description, c_path, c_title, c_area, c_address, c_class, c_team, c_company, c_description, c_image, c_recommends, c_posted) VALUES('".$dataArray["p_title"]."','".$dataArray["p_keywords"]."','".$dataArray["p_description"]."','".$dataArray["c_path"]."','".$dataArray["c_title"]."', '".$dataArray["c_area"]."', '".$dataArray["c_address"]."', '".$dataArray["c_class"]."', '".$dataArray["c_team"]."', '".$dataArray["c_company"]."', '".$dataArray["c_description"]."', '".$imageStr."', ".$dataArray["c_recommends"].",".$dataArray["c_posted"].")";
+    $this->dbo->exec_insert($sql_insert);
     $ret = '{"err_no":'.$this->dbo->state["err_no"].', "err_code": "'.$this->dbo->state["err_code"].'"}';
     return $ret;
   }
 
   /**
+   * 更新数据项
+   */
+  public function updateItem($id, $rule) {
+    // UPDATE table SET key1=value1, key2=value2, ..., keyN=valueN
+    $ruleArray = json_decode($rule, true);
+    $sql_update = "UPDATE $this->tab_name SET ";
+    foreach($ruleArray as $key=>$value) {
+      $sql_update .= $key."='".$value."'";
+      if(end($ruleArray) !== $value) {
+        $sql_update .= ",";
+      }
+      $sql_update .= " ";
+    }
+    $sql_update .= "WHERE id=$id";
+    $this->dbo->exec_update($sql_update);
+    $ret = '{"err_no":'.$this->dbo->state["err_no"].', "err_code": "'.$this->dbo->state["err_code"].'"}';
+    return $ret;
+  }
+
+
+  /**
    * 获取案例总数
-   * @return $counts: 返回案例总数;
+   * @return {number} $counts: 返回案例总数;
    */
   public function getCounts($rule = null) {
     $counts = 0;

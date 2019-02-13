@@ -239,23 +239,16 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
 
             <div role="tabpanel" class="tab-pane" id="caseTab">
               <div class="case-wrap">
-                <?php
-                if(!$caseManage->getCounts()) {
-                  echo '<div class="case-head">';
-                  echo   '<span class="text">您还没有上传案例，我要</span>';
-                  echo   '<a class="btn btn-primary" data-toggle="tab" href="#uploadTab">';
-                  echo     '<span class="glyphicon glyphicon-cloud-upload"></span>';
-                  echo     '<span class="title">上传案例</span>';
-                  echo   '</a>';
-                  echo '</div>';
-                }
-                else {
-
-                }
-                ?>
-                <div class="panel-group" role="tablist" aria-multiselectable="true">
+                <div class="case-head">
+                  当前总共有<span class="text-primary"><?php echo $caseManage->getCounts(); ?></span>条案例，其中有<span class="text-danger"><?php echo $caseManage->getCounts("c_posted=0")?></span>条还未发布，您还可以继续
+                  <a class="btn btn-primary" data-toggle="tab" href="#uploadTab">
+                    <span class="glyphicon glyphicon-cloud-upload"></span>
+                    <span class="title">上传案例</span>
+                  </a>
+                </div>
+                <!-- <div class="panel-group" role="tablist" aria-multiselectable="true"> -->
                 <!-- 动态生成案例列表 -->
-                </div> <!-- .panel-group -->
+                <!-- </div> .panel-group -->
               </div> <!-- .case-wrap -->
             </div> <!-- #caseTab -->
 

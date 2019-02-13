@@ -46,12 +46,12 @@ $(function(){
       save_siteInfo();
     }
     if($(this).parent().parent().parent().attr("id") === "uploadTab") {
-      uploadCase("save");
+      uploadCase();
     }
   });
   // 发布按钮点击事件处理函数
   $(".btn-post").off("click").on("click", function() {
-    uploadCase("post");
+    uploadCase(1);
   });
 
   // 网站信息标签页输入框输入内容
@@ -78,7 +78,6 @@ $(function(){
         }
         $.ajax({
           url: "/cms/include/php/handle.php",
-          // url: "/cms/debug.php",
           type: "POST",
           data: fmd,
           processData: false,
@@ -110,6 +109,7 @@ $(function(){
   proc_regTabEvent();
   refresh_siteTab();
   refresh_caseList({page: "1"});
+  // refresh_caseList({page: "1", rule: "c_recommends=1"});
 });
 
 /**
@@ -289,16 +289,17 @@ function save_siteInfo() {
 /**
  * 上传案例处理函数
  */
-function uploadCase(flag) {
+function uploadCase(bState = 0) {
   var imgArray = new Array();
   $("#uploadTab .case-thumb").children().not(":last").each(function() {
     var str = '{"url": "'+$(this).find("img").attr("src")+'", "attr_alt": "'+$(this).find('[name="data-alt"]').val()+'", "attr_title": "'+$(this).find('[name="data-title"]').val()+'"}';
     imgArray.push(str);
   });
-  var caseData = '{"p_title": "'+$("#cp-title").val()+'", "p_keywords": "'+$("#cp-keywords").val()+'", "p_description": "'+$("#cp-description").val()+'", "c_path": "", "c_title": "'+$("#case-title").val()+'", "c_area": "'+$("#case-area").val()+'", "c_address": "'+$("#case-address").val()+'", "c_class": "'+$("#case-class").val()+'", "c_team": "'+$("#case-team").val()+'", "c_company": "'+$("#case-company").val()+'", "c_description": "'+$("#case-description").val()+'", "c_image": ['+imgArray+'], "c_recommends": 0}';
+  
+  var caseData = '{"p_title": "'+$("#cp-title").val()+'", "p_keywords": "'+$("#cp-keywords").val()+'", "p_description": "'+$("#cp-description").val()+'", "c_path": "", "c_title": "'+$("#case-title").val()+'", "c_area": "'+$("#case-area").val()+'", "c_address": "'+$("#case-address").val()+'", "c_class": "'+$("#case-class").val()+'", "c_team": "'+$("#case-team").val()+'", "c_company": "'+$("#case-company").val()+'", "c_description": "'+$("#case-description").val()+'", "c_image": ['+imgArray+'], "c_recommends": 0, "c_posted": '+bState+'}';
   var fmd = new FormData();
   fmd.append("token", "uploadCase");
-  fmd.append("flag", flag);
+  // fmd.append("bState", bState);
   fmd.append("data", caseData);
   $.ajax({
     url: "/cms/include/php/handle.php",
@@ -338,7 +339,8 @@ function refresh_caseList(data) {
     // dataType: "json",     //返回json格式数据
     context: $("#caseTab>.case-wrap"),
     success: function(result) {
-      $(this).find(".panel-group").html(result);
+      // $(this).find(".panel-group").html(result);
+      $(this).append(result);
       // 注册按钮点击事件
       $(this).find(".panel-collapse .btn").each(function() {
         $(this).off("click").on("click", function() {

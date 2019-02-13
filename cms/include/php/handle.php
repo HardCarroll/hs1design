@@ -20,7 +20,8 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
       echo proc_refreshCaseList($caseManage, json_decode($_POST["data"], true));
       break;
     case "uploadCase":
-      echo proc_uploadCase($caseManage, $_POST["flag"], $_POST["data"]);
+      echo $caseManage->addItem($_POST["data"]);
+      // echo proc_uploadCase($caseManage, $_POST["flag"], $_POST["data"]);
       break;
     case "uploadFiles":
       echo proc_uploadFiles($_FILES["files"]);
@@ -49,19 +50,62 @@ function proc_uploadFiles($files) {
 }
 
 /**
- * 上传案例操作处理函数
+ * 上传案例处理函数
  */
 function proc_uploadCase($caseManage, $flag, $data) {
-  if("save" === $flag) {
-    return $caseManage->addItem($data);
-  }
+  $ret = $caseManage->addItem($data);
   if("post" === $flag) {
+    $cid = $caseManage->queryTable()[0]["id"];
     $path = $_SERVER["DOCUMENT_ROOT"]."/cms/upload/";
-    if(is_dir($path) or @mkdir($path)) {
-      file_put_contents($path."/hello.json", $data);
+    if(is_dir($path) or @mkdir($path, 0777, true)) {
+      file_put_contents($path."/$cid.json", $data);
     }
-    return json_encode($caseManage->queryTable()[0]);
+    $siteinfo = json_decode(file_get_contents($_SERVER["DOCUMENT_ROOT"]."/cms/include/json/siteinfo.json"), true);
+    $url = "http://".$siteinfo["domain"]."/template/case_temp.php";
+    $data = file_get_contents($path."/$cid.json");
+    $str = curl_request($url, $data);
+    $result = file_put_contents($_SERVER["DOCUMENT_ROOT"]."/case/$cid.html", $str);
+    $ret = $caseManage->updateItem($cid, '{"c_path": "/case/'.$cid.'.html"}');
   }
+
+  return $ret;
+  // return json_encode($caseManage->queryTable()[0]);
+}
+
+/**
+ * 发布案例处理过程
+ * @param $caseManage: 数据库连接句柄
+ * @param $data: 存储至数据库的JSON格式数据
+ */
+function proc_postCase($caseManage, $data, $state = false) {
+  if(!$state) {
+    $ret = $caseManage->addItem($data);
+  }
+  $cid = $caseManage->queryTable()[0]["id"];
+  $ret = proc_updateCase($caseManage, $cid, $data);
+  return $ret;
+}
+
+/**
+ * 更新案例处理过程
+ */
+function proc_updateCase($caseManage, $id, $data = null) {
+  if(!$data) {
+    // 从数据库中提取data
+  }
+  // 生成JSON文件
+  $path = $_SERVER["DOCUMENT_ROOT"]."/cms/upload/";
+  if(is_dir($path) or @mkdir($path, 0777, true)) {
+    file_put_contents($path."/$id.json", $data);
+  }
+  // 生成html文件
+  $siteinfo = json_decode(file_get_contents($_SERVER["DOCUMENT_ROOT"]."/cms/include/json/siteinfo.json"), true);
+  $url = "http://".$siteinfo["domain"]."/template/case_temp.php";
+  $data = file_get_contents($path."/$id.json");
+  $str = curl_request($url, $data);
+  $result = file_put_contents($_SERVER["DOCUMENT_ROOT"]."/case/$id.html", $str);
+  // 更新文件路径
+  return $caseManage->updateItem($id, '{"c_path": "/case/'.$id.'.html"}');
 }
 
 /**
@@ -99,19 +143,30 @@ function proc_refreshCaseList($caseManage, $data = null) {
   }
   $counts = count($result);
   $cmp = $counts / ($page*10) >= 1 ? 10 : ($counts%10);
+
   $html = '';
-  for ($i = ($page-1)*10; $i < ($page-1)*10+$cmp; $i++) {
-    if(!$result[$i]["c_recommends"]) {
-      $html .= '<div class="panel panel-default">';
+  if($caseManage->getCounts()) {
+    $html = '<div class="panel-group" role="tablist" aria-multiselectable="true">';
+    for ($i = ($page-1)*10; $i < ($page-1)*10+$cmp; $i++) {
+      if($result[$i]["c_posted"]) {
+        $html .= '<div class="panel panel-default">';
+      }
+      else {
+        $html .= '<div class="panel panel-danger">';
+      }
+      $html .= '<div class="panel-heading" role="tab">';
+      $html .= '<a class="collapsed" role="button" data-toggle="collapse" href="#case_'.$result[$i]["id"].'">'.$result[$i]["c_title"].'</a></div>';
+      $html .= '<div id="case_'.$result[$i]["id"].'" class="panel-collapse collapse" role="tabpanel">';
+      $html .= '<ul class="btn-group" data-id="'.$result[$i]["id"].'">';
+      $html .= '<li role="button" data-token="mark" title="星标" class="btn btn-default glyphicon '.($result[$i]["c_recommends"] ? "glyphicon-star" : "glyphicon-star-empty").'"></li>';
+      $html .= '<li role="button" data-token="edit" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>';
+      $html .= '<li role="button" data-token="post" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>';
+      $html .= '<li role="button" data-token="remove" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>';
+      $html .= '</ul></div></div>';
     }
-    else {
-      $html .= '<div class="panel panel-success">';
-    }
-    $html .= '<div class="panel-heading" role="tab">';
-    $html .= '<a class="collapsed" role="button" data-toggle="collapse" href="#case_'.$result[$i]["id"].'">'.$result[$i]["c_title"].'</a></div>';
-    $html .= '<div id="case_'.$result[$i]["id"].'" class="panel-collapse collapse" role="tabpanel">';
-    $html .= '<ul class="btn-group" data-id="'.$result[$i]["id"].'"><li role="button" data-token="mark" title="星标" class="btn btn-default glyphicon glyphicon-star-empty"></li><li role="button" data-token="edit" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li><li role="button" data-token="post" title="发布" class="btn btn-default glyphicon glyphicon-send"></li><li role="button" data-token="remove" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li></ul></div></div>';
+    $html .= '</div>';
   }
+  
   return $html;
 }
 
@@ -119,7 +174,7 @@ function proc_refreshCaseList($caseManage, $data = null) {
  * 设置网站信息
  */
 function proc_setSiteInfo($path, $data) {
-  if(is_dir($path) or @mkdir($path)) {
+  if(is_dir($path) or @mkdir($path, 0777, true)) {
     file_put_contents($path."/siteinfo.json", $data);
     $_SESSION["siteInfo"] = json_encode($data);
     $result = "网站基本信息设置成功！";
@@ -200,4 +255,25 @@ function proc_login($dbo, $data) {
   }
 
   return json_encode($ret);
+}
+
+/**
+* curl请求
+* @param $url：发送请求的地址
+* @param $post：请求post的数据
+* @return $output：请求返回的结果
+*/
+function curl_request($url, $post = null) {
+  $curl = curl_init();
+  curl_setopt($curl, CURLOPT_URL, $url);
+  curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+  curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
+  if (!empty($post)){
+    curl_setopt($curl, CURLOPT_POST, 1);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $post);
+  }
+  curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+  $data = curl_exec($curl);
+  curl_close($curl);
+  return $data;
 }

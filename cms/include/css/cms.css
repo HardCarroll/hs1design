@@ -306,6 +306,10 @@ ul {
   text-align: center;
   cursor: default;
 }
+#caseTab>.case-wrap>.case-head>span {
+  font-size: 18px;
+  margin: 0 5px;
+}
 #caseTab>.case-wrap>.case-head>.btn {
   margin-left: 5px;
 }

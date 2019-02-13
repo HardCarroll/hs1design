@@ -1,5 +1,6 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"]."/cms/include/php/include.php");
+// echo phpinfo();
 
 // var_dump($userManage->queryTable());
 // echo "<hr>";
