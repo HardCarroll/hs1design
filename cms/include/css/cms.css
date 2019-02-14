@@ -300,17 +300,17 @@ ul {
   text-align: center;
   cursor: default;
 }
-#caseTab>.case-wrap>.case-head {
+#caseTab>.case-head {
   padding: 10px 15px;
   margin-bottom: 5px;
   text-align: center;
   cursor: default;
 }
-#caseTab>.case-wrap>.case-head>span {
+#caseTab>.case-head>span {
   font-size: 18px;
   margin: 0 5px;
 }
-#caseTab>.case-wrap>.case-head>.btn {
+#caseTab>.case-head>.btn {
   margin-left: 5px;
 }
 #caseTab>.case-wrap>.panel-group>.panel>.panel-heading {

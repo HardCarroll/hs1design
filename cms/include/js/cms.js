@@ -46,12 +46,17 @@ $(function(){
       save_siteInfo();
     }
     if($(this).parent().parent().parent().attr("id") === "uploadTab") {
-      uploadCase();
+      uploadCase("os");
     }
   });
   // 发布按钮点击事件处理函数
   $(".btn-post").off("click").on("click", function() {
-    uploadCase(1);
+    if($(this).prev().hasClass("disabled")) {
+      uploadCase("op");
+    }
+    else {
+      uploadCase("sp");
+    }
   });
 
   // 网站信息标签页输入框输入内容
@@ -60,7 +65,7 @@ $(function(){
   });
 
   // 案例管理标签页上传按钮
-  $(".case-wrap>.case-head>.btn").on("click", function() {
+  $("#caseTab>.case-head>.btn").on("click", function() {
     activateTab($(this));
   });
 
@@ -85,9 +90,8 @@ $(function(){
           dataType: "json",
           context: $(this),
           success: function(img_path) {
-            // console.log(img_path);
             for(var i in img_path) {
-              proc_addPictures($(this), img_path[i]);
+              proc_addPictures($(this), JSON.parse(img_path[i]));
             }
             $(this).val("");
           },
@@ -114,14 +118,16 @@ $(function(){
 
 /**
  * 添加图片处理函数
- * @param {object} target 
- * @param {string} path 
+ * @param {Object} target
+ * @param {JSON} img
  */
-function proc_addPictures(target, path) {
+function proc_addPictures(target, img) {
   // 添加图片节点
   $(target).parent().before('<div class="col-sm-4 col-md-3"><div class="thumbnail"><input type="file" style="display:none;"><img><div class="caption"><input type="text" placeholder="XX效果图" name="data-title"><input type="text" placeholder="alt属性值" name="data-alt" value="'+JSON.parse(getCookie("siteInfo")).keywords+'"></div></div><span class="btn btn-remove glyphicon glyphicon-trash"></span></div>');
   // 更改图片路径
-  $(target).parent().prev().find("img").attr("src", path);
+  $(target).parent().prev().find("img").attr("src", img.url);
+  $(target).parent().prev().find("[name='data-title']").val(img.attr_title);
+  $(target).parent().prev().find("[name='data-alt']").val(img.attr_alt);
   // 注册图片删除按钮事件
   $(target).parent().prev().find("span.btn-remove").off("click").on("click", function(e) {
     e.stopPropagation();
@@ -190,19 +196,17 @@ function activateTab(target) {
     refresh_siteTab();
   }
   if($(target).attr("href") === "#uploadTab") {
-    refresh_uploadTab();
+    refresh_uploadTab($("#uploadTab").attr("data-cid"));
   }
 }
 
 /**
  * ajax更新上传案例标签页
  */
-function refresh_uploadTab(rule) {
-  if(rule) {
-    console.log(rule);
-  }
+function refresh_uploadTab(cid) {
   var fmd = new FormData();
   fmd.append("token", "refreshUploadTab");
+  fmd.append("cid", cid);
   $.ajax({
     url: "/cms/include/php/handle.php",
     type: "POST",
@@ -213,16 +217,31 @@ function refresh_uploadTab(rule) {
     context: $("#uploadTab"),
     success: function(result) {
       var data = JSON.parse(result);
-      $(this).find("#cp-title").val(data.title);
-      $(this).find("#cp-keywords").val(data.keywords);
-      $(this).find("#cp-description").val(data.description);
-      // $(this).find("#cp-path").val("http://"+data.domain+"/case/");
+      if($(this).attr("data-cid")) {
+        $(this).find("#cp-title").val(data.p_title);
+        $(this).find("#cp-keywords").val(data.p_keywords);
+        $(this).find("#cp-description").val(data.p_description);
+        $(this).find("#case-title").val(data.c_title);
+        $(this).find("#case-area").val(data.c_area);
+        $(this).find("#case-class").val(data.c_class);
+        $(this).find("#case-address").val(data.c_address);
+        $(this).find("#case-team").val(data.c_team);
+        $(this).find("#case-company").val(data.c_company);
+        $(this).find("#case-description").val(data.c_description);
+        for(var i in data.c_image) {
+          proc_addPictures($(this).find(".case-thumb>div>div.btn"), data.c_image[i]);
+        }
+      }
+      else {
+        $(this).find("#cp-title").val(data.title);
+        $(this).find("#cp-keywords").val(data.keywords);
+        $(this).find("#cp-description").val(data.description);
+      }
     },
     error: function(err) {
       console.log("fail: "+err);
     }
   });
-  $("#uploadTab").find("#cp-path").val("test");
 }
 
 /**
@@ -288,18 +307,19 @@ function save_siteInfo() {
 
 /**
  * 上传案例处理函数
+ * @param {string} flag: 上传案例分类请求标签
  */
-function uploadCase(bState = 0) {
+function uploadCase(flag) {
   var imgArray = new Array();
   $("#uploadTab .case-thumb").children().not(":last").each(function() {
     var str = '{"url": "'+$(this).find("img").attr("src")+'", "attr_alt": "'+$(this).find('[name="data-alt"]').val()+'", "attr_title": "'+$(this).find('[name="data-title"]').val()+'"}';
     imgArray.push(str);
   });
   
-  var caseData = '{"p_title": "'+$("#cp-title").val()+'", "p_keywords": "'+$("#cp-keywords").val()+'", "p_description": "'+$("#cp-description").val()+'", "c_path": "", "c_title": "'+$("#case-title").val()+'", "c_area": "'+$("#case-area").val()+'", "c_address": "'+$("#case-address").val()+'", "c_class": "'+$("#case-class").val()+'", "c_team": "'+$("#case-team").val()+'", "c_company": "'+$("#case-company").val()+'", "c_description": "'+$("#case-description").val()+'", "c_image": ['+imgArray+'], "c_recommends": 0, "c_posted": '+bState+'}';
+  var caseData = '{"p_title": "'+$("#cp-title").val()+'", "p_keywords": "'+$("#cp-keywords").val()+'", "p_description": "'+$("#cp-description").val()+'", "c_path": "", "c_title": "'+$("#case-title").val()+'", "c_area": "'+$("#case-area").val()+'", "c_address": "'+$("#case-address").val()+'", "c_class": "'+$("#case-class").val()+'", "c_team": "'+$("#case-team").val()+'", "c_company": "'+$("#case-company").val()+'", "c_description": "'+$("#case-description").val()+'", "c_image": ['+imgArray+'], "c_recommends": 0, "c_posted": '+((flag==="sp" || flag==="op" || flag==="up")?1:0)+'}';
   var fmd = new FormData();
   fmd.append("token", "uploadCase");
-  // fmd.append("bState", bState);
+  fmd.append("flag", flag);
   fmd.append("data", caseData);
   $.ajax({
     url: "/cms/include/php/handle.php",
@@ -311,7 +331,6 @@ function uploadCase(bState = 0) {
     // context: $(".case-page"),
     success: function(result) {
       console.log(result);
-      // console.log(JSON.parse(result.c_image));
     },
     error: function(err) {
       console.log("fail: "+err);
@@ -355,6 +374,7 @@ function refresh_caseList(data) {
               }
               break;
             case "edit":
+              activateTab($(this));
               console.log("edit: " + $(this).parent().attr("data-id"));
               break;
             case "post":

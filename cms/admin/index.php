@@ -89,12 +89,12 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                   <span class="title">测试</span>
                 </div>
               </li>
-              <li data-target="uploadTab" href="#uploadTab">
+              <!-- <li data-target="uploadTab" href="#uploadTab">
                 <div class="text-primary">
                   <span class="glyphicon glyphicon-cloud-upload"></span>
                   <span class="title">上传案例</span>
                 </div>
-              </li>
+              </li> -->
             </ul>
           </div>
           <div class="list-item slide" role="button" data-target="adminTab" href="#adminTab">
@@ -238,21 +238,23 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
             </div> <!-- #siteTab -->
 
             <div role="tabpanel" class="tab-pane" id="caseTab">
-              <div class="case-wrap">
-                <div class="case-head">
-                  当前总共有<span class="text-primary"><?php echo $caseManage->getCounts(); ?></span>条案例，其中有<span class="text-danger"><?php echo $caseManage->getCounts("c_posted=0")?></span>条还未发布，您还可以继续
-                  <a class="btn btn-primary" data-toggle="tab" href="#uploadTab">
+              <div class="case-head">
+                当前总共有<span class="text-primary"><?php echo $caseManage->getCounts(); ?></span>条案例，其中有<span class="text-danger"><?php echo $caseManage->getCounts("c_posted=0")?></span>条还未发布，您还可以继续
+                <a class="btn btn-primary" data-toggle="tab" href="#uploadTab" data-target="uploadTab">
+                  <div>
                     <span class="glyphicon glyphicon-cloud-upload"></span>
                     <span class="title">上传案例</span>
-                  </a>
-                </div>
+                  </div>
+                </a>
+              </div>
+              <div class="case-wrap">
                 <!-- <div class="panel-group" role="tablist" aria-multiselectable="true"> -->
                 <!-- 动态生成案例列表 -->
                 <!-- </div> .panel-group -->
               </div> <!-- .case-wrap -->
             </div> <!-- #caseTab -->
 
-            <div role="tabpanel" class="tab-pane" id="uploadTab">
+            <div role="tabpanel" class="tab-pane" id="uploadTab" data-cid="99">
               <div class="case-page">
                 <div class="input-group">
                   <label for="cp-title" class="input-group-addon">网页标题</label>

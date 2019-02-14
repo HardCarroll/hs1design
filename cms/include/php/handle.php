@@ -8,20 +8,19 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
       echo proc_login($dbo, json_decode($_POST["data"], true));
       break;
     case "setSiteInfo":
-      echo proc_setSiteInfo($_SERVER["DOCUMENT_ROOT"]."/cms/include/json", $_POST["siteInfo"]);
+      echo proc_setSiteInfo(ROOT_PATH.PATH_JSON, $_POST["siteInfo"]);
       break;
     case "getSiteInfo":
-      echo proc_getSiteInfo($_SERVER["DOCUMENT_ROOT"]."/cms/include/json");
+      echo proc_getSiteInfo(ROOT_PATH.PATH_JSON);
       break;
     case "refreshUploadTab":
-      echo proc_refreshUploadTab();
+      echo proc_refreshUploadTab($_POST["cid"] ? $_POST["cid"]: 0);
       break;
     case "refreshCaseList":
       echo proc_refreshCaseList($caseManage, json_decode($_POST["data"], true));
       break;
     case "uploadCase":
-      echo $caseManage->addItem($_POST["data"]);
-      // echo proc_uploadCase($caseManage, $_POST["flag"], $_POST["data"]);
+      echo proc_uploadCase($caseManage, $_POST["flag"], $_POST["data"]);
       break;
     case "uploadFiles":
       echo proc_uploadFiles($_FILES["files"]);
@@ -32,87 +31,50 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
 }
 
 /**
+ * 案例上传处理函数
+ */
+function proc_uploadCase($caseManage, $flag, $data = null) {
+  if($flag === "os" || $flag === "sp") {
+    $caseManage->addItem($data);
+    if($flag === "sp") {
+      $caseManage->postItem($caseManage->queryTable()[0]["id"]);
+    }
+  }
+  if($flag === "op" || $flag === "sp") {
+  }
+}
+
+/**
  * 文件上传处理函数
  */
 function proc_uploadFiles($files) {
   $ret = [];
-  $path = "/cms/upload/".date("Ymd/");
-  is_dir($_SERVER["DOCUMENT_ROOT"].$path) or @mkdir($_SERVER["DOCUMENT_ROOT"].$path, 0777, true);
+  $path = PATH_UPLOAD."/images/".date("Ymd/");
+  is_dir(ROOT_PATH.$path) or @mkdir(ROOT_PATH.$path, 0777, true);
 
   for($i = 0; $i < count($files["size"]); $i++) {
-    if($files["size"][$i] <= 2*1024*1024 && ($files["type"][$i] == "image/png" || $files["type"][$i] == "image/jpeg")) {
+    if($files["size"][$i] <= 2*1024*1024 && ($files["type"][$i] == "image/png" || $files["type"][$i] == "image/jpeg" || $files["type"][$i] == "image/gif")) {
       $fn = date("His_").$files["name"][$i];
-      move_uploaded_file($files["tmp_name"][$i], $_SERVER["DOCUMENT_ROOT"].$path.$fn);
-      array_push($ret, $path.$fn);
+      move_uploaded_file($files["tmp_name"][$i], ROOT_PATH.$path.$fn);
+      array_push($ret, '{"url": "'.($path.$fn).'", "attr_alt": "", "attr_title": ""}');
+    }
+    else {
+      return json_encode('{"err_no": -1, "err_code": "请检查文件大小或类型！"}');
     }
   }
   return json_encode($ret);
 }
 
 /**
- * 上传案例处理函数
- */
-function proc_uploadCase($caseManage, $flag, $data) {
-  $ret = $caseManage->addItem($data);
-  if("post" === $flag) {
-    $cid = $caseManage->queryTable()[0]["id"];
-    $path = $_SERVER["DOCUMENT_ROOT"]."/cms/upload/";
-    if(is_dir($path) or @mkdir($path, 0777, true)) {
-      file_put_contents($path."/$cid.json", $data);
-    }
-    $siteinfo = json_decode(file_get_contents($_SERVER["DOCUMENT_ROOT"]."/cms/include/json/siteinfo.json"), true);
-    $url = "http://".$siteinfo["domain"]."/template/case_temp.php";
-    $data = file_get_contents($path."/$cid.json");
-    $str = curl_request($url, $data);
-    $result = file_put_contents($_SERVER["DOCUMENT_ROOT"]."/case/$cid.html", $str);
-    $ret = $caseManage->updateItem($cid, '{"c_path": "/case/'.$cid.'.html"}');
-  }
-
-  return $ret;
-  // return json_encode($caseManage->queryTable()[0]);
-}
-
-/**
- * 发布案例处理过程
- * @param $caseManage: 数据库连接句柄
- * @param $data: 存储至数据库的JSON格式数据
- */
-function proc_postCase($caseManage, $data, $state = false) {
-  if(!$state) {
-    $ret = $caseManage->addItem($data);
-  }
-  $cid = $caseManage->queryTable()[0]["id"];
-  $ret = proc_updateCase($caseManage, $cid, $data);
-  return $ret;
-}
-
-/**
- * 更新案例处理过程
- */
-function proc_updateCase($caseManage, $id, $data = null) {
-  if(!$data) {
-    // 从数据库中提取data
-  }
-  // 生成JSON文件
-  $path = $_SERVER["DOCUMENT_ROOT"]."/cms/upload/";
-  if(is_dir($path) or @mkdir($path, 0777, true)) {
-    file_put_contents($path."/$id.json", $data);
-  }
-  // 生成html文件
-  $siteinfo = json_decode(file_get_contents($_SERVER["DOCUMENT_ROOT"]."/cms/include/json/siteinfo.json"), true);
-  $url = "http://".$siteinfo["domain"]."/template/case_temp.php";
-  $data = file_get_contents($path."/$id.json");
-  $str = curl_request($url, $data);
-  $result = file_put_contents($_SERVER["DOCUMENT_ROOT"]."/case/$id.html", $str);
-  // 更新文件路径
-  return $caseManage->updateItem($id, '{"c_path": "/case/'.$id.'.html"}');
-}
-
-/**
  * 更新上传案例标签页内容
  */
-function proc_refreshUploadTab() {
-  return proc_getSiteInfo($_SERVER["DOCUMENT_ROOT"]."/cms/include/json");
+function proc_refreshUploadTab($id = null) {
+  if($id) {
+    return json_encode(file_get_contents(ROOT_PATH.PATH_UPLOAD."/case/$id.json"));
+  }
+  else {
+    return proc_getSiteInfo(ROOT_PATH.PATH_JSON);
+  }
 }
 
 /**
@@ -159,7 +121,7 @@ function proc_refreshCaseList($caseManage, $data = null) {
       $html .= '<div id="case_'.$result[$i]["id"].'" class="panel-collapse collapse" role="tabpanel">';
       $html .= '<ul class="btn-group" data-id="'.$result[$i]["id"].'">';
       $html .= '<li role="button" data-token="mark" title="星标" class="btn btn-default glyphicon '.($result[$i]["c_recommends"] ? "glyphicon-star" : "glyphicon-star-empty").'"></li>';
-      $html .= '<li role="button" data-token="edit" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>';
+      $html .= '<li role="button" data-token="edit" title="编辑" class="btn btn-default glyphicon glyphicon-edit" data-toggle="tab" href="#editTab" data-target="editTab"><div style="display:none;"><span class="glyphicon glyphicon-edit"></span><span class="title">编辑案例</span></div></li>';
       $html .= '<li role="button" data-token="post" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>';
       $html .= '<li role="button" data-token="remove" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>';
       $html .= '</ul></div></div>';
