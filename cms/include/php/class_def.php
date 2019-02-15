@@ -225,7 +225,7 @@ class DBOperator {
   }
 
   /**
-   * 数据库初始化，创建tab_admin及管理员账号
+   * 数据库初始化，创建表tab_admin及添加管理员账号
    * @param $sqlArray: 创建表tab_admin以及添加数据的SQL语句数组
    * 
    * $sqlArray = array("create_table"=>"CREATE TABLE tab_admin(uid VARCHAR(16) NOT NULL, username VARCHAR(16) NOT NULL, password VARCHAR(16) NOT NULL,access VARCHAR(1) NOT NULL, PRIMARY KEY(uid), UNIQUE(username)) ENGINE=InnoDB", "insert_admin"=>"INSERT INTO tab_admin(uid, username, password, access) VALUES('000000', 'admin', 'admin', '0')");

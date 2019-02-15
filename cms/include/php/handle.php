@@ -121,7 +121,7 @@ function proc_refreshCaseList($caseManage, $data = null) {
       $html .= '<div id="case_'.$result[$i]["id"].'" class="panel-collapse collapse" role="tabpanel">';
       $html .= '<ul class="btn-group" data-id="'.$result[$i]["id"].'">';
       $html .= '<li role="button" data-token="mark" title="星标" class="btn btn-default glyphicon '.($result[$i]["c_recommends"] ? "glyphicon-star" : "glyphicon-star-empty").'"></li>';
-      $html .= '<li role="button" data-token="edit" title="编辑" class="btn btn-default glyphicon glyphicon-edit" data-toggle="tab" href="#editTab" data-target="editTab"><div style="display:none;"><span class="glyphicon glyphicon-edit"></span><span class="title">编辑案例</span></div></li>';
+      $html .= '<li role="button" data-token="edit" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>';
       $html .= '<li role="button" data-token="post" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>';
       $html .= '<li role="button" data-token="remove" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>';
       $html .= '</ul></div></div>';
@@ -138,13 +138,13 @@ function proc_refreshCaseList($caseManage, $data = null) {
 function proc_setSiteInfo($path, $data) {
   if(is_dir($path) or @mkdir($path, 0777, true)) {
     file_put_contents($path."/siteinfo.json", $data);
-    $_SESSION["siteInfo"] = json_encode($data);
-    $result = "网站基本信息设置成功！";
+    $_SESSION["siteInfo"] = ($data);
+    $result = '{"err_no": 0, "err_code": "网站基本信息设置成功！"}';
   }
   else {
-    $result = "创建指定文件[$path]失败！";
+    $result = '{"err_no": -1, "err_code": "创建指定文件[ '.$path.' ]失败！"}';
   }
-  return $result;
+  return json_encode($result);
 }
 /**
  * 获取网站信息
@@ -155,9 +155,9 @@ function proc_getSiteInfo($path) {
     $result = $_SESSION["siteInfo"];
   }
   else {
-    $result = $_SESSION["siteInfo"] = json_encode(file_get_contents($path."/siteinfo.json"));
+    $result = $_SESSION["siteInfo"] = file_get_contents($path."/siteinfo.json");
   }
-  return $result;
+  return json_encode($result);
 }
 
 /**

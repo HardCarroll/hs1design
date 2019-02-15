@@ -14,20 +14,14 @@ $(function(){
   });
 
   // 左侧导航列表点击事件处理
-  $(".list-item").on("click", function() {
-    if($(this).find(".slide-menu").length) {
-      // 如果是下拉菜单，则点击会切换状态
-      $(this).toggleClass("active").find(".active").removeClass("active");
+  $(".nav-list>.list-item").off("click").on("click", function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    if(!$(this).hasClass("active")) {
+      window.location.href = $(this).attr("href");
     }
-    else {
-      $(this).addClass("active");
-    }
-    $(this).siblings().removeClass("active");
-
-    activateTab($(this));
-
-    // console.log($(this).find("ul[class='slide-menu']").length);
   });
+
   $(".slide-menu>li").on("click", function(e) {
     e.stopPropagation();
     e.preventDefault();
@@ -40,79 +34,8 @@ $(function(){
   $(".btn-close").off("click").on("click", function() {
     $("#pageTabs").find(".active").children().last().click();
   });
-  // 保存按钮点击事件处理函数
-  $(".btn-save").off("click").on("click", function() {
-    if(!$(this).hasClass("disabled") && $(this).parent().parent().parent().attr("id") === "siteTab") {
-      save_siteInfo();
-    }
-    if($(this).parent().parent().parent().attr("id") === "uploadTab") {
-      uploadCase("os");
-    }
-  });
-  // 发布按钮点击事件处理函数
-  $(".btn-post").off("click").on("click", function() {
-    if($(this).prev().hasClass("disabled")) {
-      uploadCase("op");
-    }
-    else {
-      uploadCase("sp");
-    }
-  });
 
-  // 网站信息标签页输入框输入内容
-  $(".site-wrap input, .site-wrap textarea").on("input", function() {
-    $(".btn-save").removeClass("disabled");
-  });
-
-  // 案例管理标签页上传按钮
-  $("#caseTab>.case-head>.btn").on("click", function() {
-    activateTab($(this));
-  });
-
-  // 添加图片按钮点击事件
-  $("#uploadTab .case-thumb>div>.btn").off("click").on("click", function(e) {
-    e.stopPropagation();
-    e.preventDefault();
-
-    if($(this).hasClass("btn-local")) {
-      $(this).prev().off("change").on("change", function(e) {
-        var fmd = new FormData();
-        fmd.append("token", "uploadFiles");
-        for(var i in e.target.files) {
-          fmd.append("files["+i+"]", e.target.files[i]);
-        }
-        $.ajax({
-          url: "/cms/include/php/handle.php",
-          type: "POST",
-          data: fmd,
-          processData: false,
-          contentType: false,
-          dataType: "json",
-          context: $(this),
-          success: function(img_path) {
-            for(var i in img_path) {
-              proc_addPictures($(this), JSON.parse(img_path[i]));
-            }
-            $(this).val("");
-          },
-          error: function(err) {
-            console.log(err);
-          }
-        });
-      }).click();
-    }
-    if($(this).hasClass("btn-remote")) {
-      proc_addPictures($(this), "/src/case-thumb-hotel.jpg");
-    }
-    if($(this).hasClass("btn-online")) {
-      proc_addPictures($(this), "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1548685758785&di=9457da526fb1b08a4eae2c8bbd66913f&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fb8389b504fc2d562e613fdc4ec1190ef76c66cfb.jpg");
-    }
-  });
-  
-
-  proc_regTabEvent();
-  refresh_siteTab();
-  refresh_caseList({page: "1"});
+  regTabEvent();
   // refresh_caseList({page: "1", rule: "c_recommends=1"});
 });
 
@@ -123,11 +46,15 @@ $(function(){
  */
 function proc_addPictures(target, img) {
   // 添加图片节点
-  $(target).parent().before('<div class="col-sm-4 col-md-3"><div class="thumbnail"><input type="file" style="display:none;"><img><div class="caption"><input type="text" placeholder="XX效果图" name="data-title"><input type="text" placeholder="alt属性值" name="data-alt" value="'+JSON.parse(getCookie("siteInfo")).keywords+'"></div></div><span class="btn btn-remove glyphicon glyphicon-trash"></span></div>');
+  $(target).parent().before('<div class="col-sm-4 col-md-3"><div class="thumbnail"><input type="file" style="display:none;"><img><div class="caption"><input type="text" placeholder="图片名称(如：效果图)" name="data-title"><input type="text" placeholder="图片alt属性(SEO关键词)" name="data-alt" value="'+JSON.parse(getCookie("siteInfo")).keywords+'"></div></div><span class="btn btn-remove glyphicon glyphicon-trash"></span></div>');
   // 更改图片路径
   $(target).parent().prev().find("img").attr("src", img.url);
-  $(target).parent().prev().find("[name='data-title']").val(img.attr_title);
-  $(target).parent().prev().find("[name='data-alt']").val(img.attr_alt);
+  if(img.attr_title) {
+    $(target).parent().prev().find("[name='data-title']").val(img.attr_title);
+  }
+  if(img.attr_alt) {
+    $(target).parent().prev().find("[name='data-alt']").val(img.attr_alt);
+  }
   // 注册图片删除按钮事件
   $(target).parent().prev().find("span.btn-remove").off("click").on("click", function(e) {
     e.stopPropagation();
@@ -136,265 +63,101 @@ function proc_addPictures(target, img) {
   });
 }
 
-function proc_regTabEvent() {
+function activateTab(target) {
+  // 如果此标签页没有打开，则创建并打开标签页
+  if(!$("#pageTabs").find("li[href='" + $(target).attr("href") + "']").length) {
+    var tabEle = '<li role="presentation" href="'+$(target).attr("href")+'">';
+    tabEle += '<span class="pull-left '+$(target).find("span.title").prev().attr("class")+'"></span>';
+    tabEle += '<span class="title">'+$(target).find("span.title").html()+'</span>';
+    tabEle += '<span class="pull-right glyphicon glyphicon-remove tabRemove" role="button"></span>';
+    tabEle += '</li>';
+    $("#pageTabs").append(tabEle);
+    regTabEvent();
+  }
+  // 激活当前标签页
+  $("#pageTabs").find("li[href='" + $(target).attr("href") + "']").addClass("active").siblings().removeClass("active");
+  $($(target).attr("href")).addClass("active").siblings().removeClass("active");
+
+  // 更新左侧导航栏激活状态
+  $(".nav-list").find('[href="#' + $("#pageTabContent").find(".active").attr("id") + '"]').addClass("active").siblings().removeClass("active");
+}
+
+function regTabEvent() {
   // 标签页关闭按钮点击事件处理函数
   $(".tabRemove").off("click").on("click", function(e) {
     e.stopPropagation();
     e.preventDefault();
     // 已激活标签页对应的标签页内容节点隐藏，即去掉active类
     if($(this).parent().hasClass("active")) {
-      $($(this).prev().attr("href")).removeClass("active");
+      $($(this).parent().attr("href")).removeClass("active");
 
-      if($(this).parent().next().find("a").length) {
-        $($(this).parent().next().addClass("active").find("a").attr("href")).addClass("active");
+      if($(this).parent().next().length) {
+        $($(this).parent().next().addClass("active").attr("href")).addClass("active");
       }
-      else if($(this).parent().prev().find("a").length) {
-        $($(this).parent().prev().addClass("active").find("a").attr("href")).addClass("active");
+      else if($(this).parent().prev().length) {
+        $($(this).parent().prev().addClass("active").attr("href")).addClass("active");
       }
     }
 
+    // 删除当前标签页节点
     $(this).parent().remove();
 
-    // 标签页全部关闭时去掉.list-item激活状态
-    if(!$("#pageTabs").children().length) {
-      $(".nav-list>.list-item").removeClass("active");
-    }
-
-    $(".nav-list").find('[data-target="' + $("#pageTabContent").find(".active").attr("id") + '"]').addClass("active").siblings().removeClass("active");
-  });
-
-  // 标签页点击事件处理函数
-  $("#pageTabs>li>a").off("click").on("click", function(e) {
-    e.stopPropagation();
-    e.preventDefault();
-    activateTab(this);
-
-    $(".nav-list").find('[data-target="' + $("#pageTabContent").find(".active").attr("id") + '"]').addClass("active").siblings().removeClass("active");
-  });
-  
-}
-
-function activateTab(target) {
-  if(!$("#pageTabs").find("a[href='" + $(target).attr("href") + "']").length) {
-    // 如果标签页没有打开，则创建并添加标签页
-    var tabEle = document.createElement("li");
-    tabEle.setAttribute("role", "presentation");
-    $(tabEle).append('<span class="pull-left"></span><a href="' + $(target).attr("href") + '" data-toggle="tab">' + $(target).find("span.title").html() + '</a><span class="pull-right glyphicon glyphicon-remove tabRemove" role="button"></span>').find("span.pull-left").addClass($(target).find("span.title").prev().attr("class"));
-    $("#pageTabs").append(tabEle);
-    // $(tabEle).append($(target).children().first().html()).append('<span class="pull-right glyphicon glyphicon-remove tabRemove" role="button"></span>');
-    // $("#pageTabs").append(tabEle);
-    proc_regTabEvent();
-  }
-  // #pageTabContent下没有对应的标签页内容节点，则创建并添加此标签页内容节点
-  if(!$("#pageTabContent").find("div[id='" + $(target).attr("data-target") + "']").length) {
-    $("#pageTabContent").append('<div role="tabpanel" class="tab-pane" id="' + $(target).attr("data-target") + '"><a href="javascript:test();">click</a></div>');
-  }
-
-  $("#pageTabs").find("a[href='" + $(target).attr("href") + "']").tab("show").parent().addClass("active").siblings().removeClass("active");
-
-  if($(target).attr("href") === "#siteTab") {
-    refresh_siteTab();
-  }
-  if($(target).attr("href") === "#uploadTab") {
-    refresh_uploadTab($("#uploadTab").attr("data-cid"));
-  }
-}
-
-/**
- * ajax更新上传案例标签页
- */
-function refresh_uploadTab(cid) {
-  var fmd = new FormData();
-  fmd.append("token", "refreshUploadTab");
-  fmd.append("cid", cid);
-  $.ajax({
-    url: "/cms/include/php/handle.php",
-    type: "POST",
-    data: fmd,
-    processData: false,
-    contentType: false,   //数据为formData时必须定义此项
-    dataType: "json",     //返回json格式数据
-    context: $("#uploadTab"),
-    success: function(result) {
-      var data = JSON.parse(result);
-      if($(this).attr("data-cid")) {
-        $(this).find("#cp-title").val(data.p_title);
-        $(this).find("#cp-keywords").val(data.p_keywords);
-        $(this).find("#cp-description").val(data.p_description);
-        $(this).find("#case-title").val(data.c_title);
-        $(this).find("#case-area").val(data.c_area);
-        $(this).find("#case-class").val(data.c_class);
-        $(this).find("#case-address").val(data.c_address);
-        $(this).find("#case-team").val(data.c_team);
-        $(this).find("#case-company").val(data.c_company);
-        $(this).find("#case-description").val(data.c_description);
-        for(var i in data.c_image) {
-          proc_addPictures($(this).find(".case-thumb>div>div.btn"), data.c_image[i]);
-        }
-      }
-      else {
-        $(this).find("#cp-title").val(data.title);
-        $(this).find("#cp-keywords").val(data.keywords);
-        $(this).find("#cp-description").val(data.description);
-      }
-    },
-    error: function(err) {
-      console.log("fail: "+err);
-    }
+    // 更新左侧导航栏激活状态
+    $(".nav-list").find('[href="#' + $("#pageTabContent").find(".active").attr("id") + '"]').addClass("active").siblings().removeClass("active");
   });
 }
 
-/**
- * ajax更新网站信息
- */
-function refresh_siteTab() {
-  var fmd = new FormData();
-  fmd.append("token", "getSiteInfo");
-  $.ajax({
-    url: "/cms/include/php/handle.php",
-    type: "POST",
-    data: fmd,
-    processData: false,
-    contentType: false,   //数据为formData时必须定义此项
-    dataType: "json",     //返回json格式数据
-    context: $(".site-wrap"),
-    success: function(result) {
-      if(result) {
-        var data = JSON.parse(result);
-        $(this).find("[id='domain']").val(data.domain);
-        $(this).find("[id='title']").val(data.title);
-        $(this).find("[id='keywords']").val(data.keywords);
-        $(this).find("[id='description']").val(data.description);
-        setCookie("siteInfo", result);
-      }
-      // console.log(getCookie("siteInfo"));
-    },
-    error: function(err) {
-      console.log("fail: "+err);
-    }
-  }); // ajax_func
-}
+// function regTabEvent() {
+//   // 标签页关闭按钮点击事件处理函数
+//   $(".tabRemove").off("click").on("click", function(e) {
+//     e.stopPropagation();
+//     e.preventDefault();
+//     // 已激活标签页对应的标签页内容节点隐藏，即去掉active类
+//     if($(this).parent().hasClass("active")) {
+//       $($(this).prev().attr("href")).removeClass("active");
 
-/**
- * ajax设置网站基本信息，并反馈状态信息
- */
-function save_siteInfo() {
-  var fmd = new FormData();
-  var siteInfo = '{"domain":"'+$("#domain").val()+'", "title": "'+$("#title").val()+'", "keywords": "'+$("#keywords").val()+'", "description": "'+$("#description").val()+'"}';
-  fmd.append("token", "setSiteInfo");
-  fmd.append("siteInfo", siteInfo);
-  $.ajax({
-    url: "/cms/include/php/handle.php",
-    type: "POST",
-    data: fmd,
-    processData: false,
-    contentType: false,   //数据为formData时必须定义此项
-    // dataType: "json",     //返回json格式数据
-    context: $("#siteTab"),
-    success: function(result) {
-      // console.log(fmd.siteInfo);
-      $(this).find(".text-state").addClass("text-success").html(result);
-      $(this).find(".btn-save").addClass("disabled");
-      setTimeout(function() {
-        $(".text-state").html("&nbsp;");
-      }, 2000);
-    },
-    error: function(err) {
-      console.log("fail: "+err);
-    }
-  }); // ajax_func
-}
+//       if($(this).parent().next().find("a").length) {
+//         $($(this).parent().next().addClass("active").find("a").attr("href")).addClass("active");
+//       }
+//       else if($(this).parent().prev().find("a").length) {
+//         $($(this).parent().prev().addClass("active").find("a").attr("href")).addClass("active");
+//       }
+//     }
 
-/**
- * 上传案例处理函数
- * @param {string} flag: 上传案例分类请求标签
- */
-function uploadCase(flag) {
-  var imgArray = new Array();
-  $("#uploadTab .case-thumb").children().not(":last").each(function() {
-    var str = '{"url": "'+$(this).find("img").attr("src")+'", "attr_alt": "'+$(this).find('[name="data-alt"]').val()+'", "attr_title": "'+$(this).find('[name="data-title"]').val()+'"}';
-    imgArray.push(str);
-  });
-  
-  var caseData = '{"p_title": "'+$("#cp-title").val()+'", "p_keywords": "'+$("#cp-keywords").val()+'", "p_description": "'+$("#cp-description").val()+'", "c_path": "", "c_title": "'+$("#case-title").val()+'", "c_area": "'+$("#case-area").val()+'", "c_address": "'+$("#case-address").val()+'", "c_class": "'+$("#case-class").val()+'", "c_team": "'+$("#case-team").val()+'", "c_company": "'+$("#case-company").val()+'", "c_description": "'+$("#case-description").val()+'", "c_image": ['+imgArray+'], "c_recommends": 0, "c_posted": '+((flag==="sp" || flag==="op" || flag==="up")?1:0)+'}';
-  var fmd = new FormData();
-  fmd.append("token", "uploadCase");
-  fmd.append("flag", flag);
-  fmd.append("data", caseData);
-  $.ajax({
-    url: "/cms/include/php/handle.php",
-    type: "POST",
-    data: fmd,
-    processData: false,
-    contentType: false,   //数据为formData时必须定义此项
-    dataType: "json",     //返回json格式数据
-    // context: $(".case-page"),
-    success: function(result) {
-      console.log(result);
-    },
-    error: function(err) {
-      console.log("fail: "+err);
-    }
-  }); // ajax_func
+//     $(this).parent().remove();
 
-  // console.log("upload case");
-}
+//     // 标签页全部关闭时去掉.list-item激活状态
+//     if(!$("#pageTabs").children().length) {
+//       $(".nav-list>.list-item").removeClass("active");
+//     }
+//     // 更新左侧导航栏激活状态
+//     $(".nav-list").find('[data-target="' + $("#pageTabContent").find(".active").attr("id") + '"]').addClass("active").siblings().removeClass("active");
+//   });  
+// }
 
-/**
- * ajax刷新案例列表
- */
-function refresh_caseList(data) {
-  var fmd = new FormData();
-  fmd.append("token", "refreshCaseList");
-  if(data) {
-    fmd.append("data", JSON.stringify(data));
-  }
-  $.ajax({
-    url: "/cms/include/php/handle.php",
-    type: "POST",
-    data: fmd,
-    processData: false,
-    contentType: false,   //数据为formData时必须定义此项
-    // dataType: "json",     //返回json格式数据
-    context: $("#caseTab>.case-wrap"),
-    success: function(result) {
-      // $(this).find(".panel-group").html(result);
-      $(this).append(result);
-      // 注册按钮点击事件
-      $(this).find(".panel-collapse .btn").each(function() {
-        $(this).off("click").on("click", function() {
-          switch($(this).attr("data-token")) {
-            case "mark":
-              $(this).toggleClass("glyphicon-star-empty").toggleClass("glyphicon-star");
-              if($(this).hasClass("glyphicon-star")) {
-                console.log("recommonds");
-              }
-              else {
-                console.log("normal");
-              }
-              break;
-            case "edit":
-              activateTab($(this));
-              console.log("edit: " + $(this).parent().attr("data-id"));
-              break;
-            case "post":
-              console.log("post: " + $(this).parent().attr("data-id"));
-              break;
-            case "remove":
-              console.log("remove: " + $(this).parent().attr("data-id"));
-              break;
-          }
-        });
-      });
-      // console.log(result);
-    },
-    error: function(err) {
-      console.log("fail: "+err);
-    }
-  }); // ajax_func
+// function activateTab(target) {
+//   // 如果标签页没有打开，则创建并添加标签页
+//   if(!$("#pageTabs").find("a[href='" + $(target).attr("href") + "']").length) {
+//     var tabEle = document.createElement("li");
+//     tabEle.setAttribute("role", "presentation");
+//     $(tabEle).append('<span class="pull-left"></span><a href="' + $(target).attr("href") + '" data-toggle="tab">' + $(target).find("span.title").html() + '</a><span class="pull-right glyphicon glyphicon-remove tabRemove" role="button"></span>').find("span.pull-left").addClass($(target).find("span.title").prev().attr("class"));
+//     $("#pageTabs").append(tabEle);
+//     regTabEvent();
+//   }
+//   // #pageTabContent下没有对应的标签页内容节点，则创建并添加此标签页内容节点
+//   if(!$("#pageTabContent").find("div[id='" + $(target).attr("data-target") + "']").length) {
+//     $("#pageTabContent").append('<div role="tabpanel" class="tab-pane" id="' + $(target).attr("data-target") + '"><a href="javascript:test();">click</a></div>');
+//   }
 
-  // console.log("refresh case list");
-}
+//   $("#pageTabs").find("a[href='" + $(target).attr("href") + "']").tab("show").parent().addClass("active").siblings().removeClass("active");
+
+//   if($(target).attr("href") === "#siteTab") {
+//     refresh_siteTab();
+//   }
+//   if($(target).attr("href") === "#uploadTab") {
+//     refresh_uploadTab($("#uploadTab").attr("data-cid"));
+//   }
+// }
 
 function test() {
   console.log("hello world, this is a test!");

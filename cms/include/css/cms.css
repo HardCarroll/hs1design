@@ -119,7 +119,7 @@ ul {
   width: 217px;
   height: 100%;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 #navbar-menu>.nav-list>.list-item {
   padding: 5px;
@@ -178,6 +178,7 @@ ul {
 .slide>.slide-menu>li {
   height: 30px;
   line-height: 30px;
+  text-align: center;
 }
 .slide>.slide-menu>li>div {
   display: block;
@@ -229,10 +230,11 @@ ul {
 #pageTabs.nav-tabs>li.active {
   background-color: #666868;
 }
-#pageTabs.nav-tabs>li.active>.glyphicon, #pageTabs.nav-tabs>li.active>a {
+#pageTabs.nav-tabs>li.active>.glyphicon, #pageTabs.nav-tabs>li.active>span.title {
   color: #f6f8f8;
 }
-#pageTabs.nav-tabs>li>a {
+#pageTabs.nav-tabs>li>span.title {
+  padding: 10px 15px;
   max-width: 106px;
   border: none;
   display: inline-block;
@@ -241,6 +243,7 @@ ul {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  cursor: pointer;
 }
 #pageTabs.nav-tabs>li>span.glyphicon {
   color: #666868;
@@ -252,14 +255,13 @@ ul {
 #pageTabs.nav-tabs>li>span.glyphicon-remove {
   right: 7px;
 }
-#pageTabs.nav-tabs>li>a {
+#pageTabs.nav-tabs>li>span.title {
   color: #666868;
 }
 #pageTabContent>.tab-pane {
   border-top: 1px solid #666868;
   padding-top: 15px;
 }
-
 #profileTab {
   cursor: default;
 }
@@ -281,118 +283,6 @@ ul {
   font-size: 18px;
   text-align: right;
   padding-right: 50px;
-}
-#siteTab>.site-wrap>.input-group {
-  width: 100%;
-  margin-bottom: 15px;
-}
-#siteTab>.site-wrap>.input-group>label {
-  width: 100px;
-  padding: 6px;
-}
-#siteTab>.site-wrap>.input-group:last-child {
-  text-align: right;
-}
-#siteTab>.site-wrap>.input-group>span.btn {
-  margin-left: 15px;
-}
-.text-state {
-  text-align: center;
-  cursor: default;
-}
-#caseTab>.case-head {
-  padding: 10px 15px;
-  margin-bottom: 5px;
-  text-align: center;
-  cursor: default;
-}
-#caseTab>.case-head>span {
-  font-size: 18px;
-  margin: 0 5px;
-}
-#caseTab>.case-head>.btn {
-  margin-left: 5px;
-}
-#caseTab>.case-wrap>.panel-group>.panel>.panel-heading {
-  padding: 0;
-}
-#caseTab>.case-wrap>.panel-group>.panel>.panel-heading>a {
-  width: 100%;
-  padding: 10px 15px;
-  display: block;
-  text-decoration: none;
-  color: #565858;
-}
-#caseTab>.case-wrap>.panel-group>.panel>.panel-heading>a:hover, #caseTab>.case-wrap>.panel-group>.panel>.panel-heading>a:active {
-  color: #262828
-}
-#caseTab>.case-wrap>.panel-group>.panel>.panel-collapse {
-  border-top: 1px solid transparent;
-}
-#caseTab>.case-wrap>.panel-group>.panel>.panel-collapse.in {
-  border-top: 1px solid #ddd;
-}
-#caseTab>.case-wrap>.panel-group>.panel>.panel-collapse>.btn-group {
-  padding: 15px;
-}
-#caseTab>.case-wrap>.panel-group>.panel>.panel-collapse>.btn-group>.btn {
-  margin-bottom: 5px;
-  border-radius: 0;
-}
-
-#uploadTab>.case-page>.input-group {
-  width: 100%;
-  margin-bottom: 5px;
-}
-#uploadTab>.case-page>.input-group:last-child {
-  text-align: right;
-}
-#uploadTab>.case-page>.input-group:last-child>span {
-  margin-left: 15px;
-}
-#uploadTab>.case-page>.input-group>label {
-  width: 100px;
-  padding: 6px;
-}
-#uploadTab>.case-page>.input-group>.case-thumb {
-  float: none;
-  padding: 0;
-  position: relative;
-}
-#uploadTab>.case-page>.input-group>.case-thumb>div {
-  padding: 5px;
-  position: relative;
-}
-#uploadTab>.case-page>.input-group>.case-thumb>div>.btn-remove {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  color: #f00;
-  background-color: rgba(0, 0, 0, 0.3);
-  border-radius: 0;
-  opacity: 0;
-}
-#uploadTab>.case-page>.input-group>.case-thumb>div:hover>.btn-remove {
-  opacity: 1;
-}
-#uploadTab>.case-page>.input-group>.case-thumb>div>.thumbnail {
-  margin-bottom: 0;
-}
-#uploadTab>.case-page>.input-group>.case-thumb>div>.thumbnail>.caption {
-  background-color: #e6e8e8;
-}
-#uploadTab>.case-page>.input-group>.case-thumb>div>.thumbnail>.caption>input {
-  width: 100%;
-  padding: 0 5px;
-}
-#uploadTab>.case-page>.input-group>.case-thumb>div>.thumbnail>.caption>input+input {
-  margin-top: 5px;
-}
-#uploadTab>.case-page>.input-group>.case-thumb>div:last-child {
-  text-align: center;
-}
-#uploadTab>.case-page>.input-group>.case-thumb>div>div.btn {
-  margin: 20px;
 }
 
 @media (max-width: 768px) {
