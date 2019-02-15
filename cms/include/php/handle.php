@@ -35,13 +35,14 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
  */
 function proc_uploadCase($caseManage, $flag, $data = null) {
   if($flag === "os" || $flag === "sp") {
-    $caseManage->addItem($data);
+    $ret = $caseManage->addItem($data);
     if($flag === "sp") {
       $caseManage->postItem($caseManage->queryTable()[0]["id"]);
     }
   }
   if($flag === "op" || $flag === "sp") {
   }
+  return json_encode($ret);
 }
 
 /**

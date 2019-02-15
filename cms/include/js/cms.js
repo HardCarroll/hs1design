@@ -80,6 +80,16 @@ function activateTab(target) {
 
   // 更新左侧导航栏激活状态
   $(".nav-list").find('[href="#' + $("#pageTabContent").find(".active").attr("id") + '"]').addClass("active").siblings().removeClass("active");
+
+  if($(target).attr("href") === "#siteTab") {
+    refresh_siteTab();
+  }
+  if($(target).attr("href") === "#caseTab") {
+    refresh_caseList({page: 1});
+  }
+  if($(target).attr("href") === "#uploadTab") {
+    refresh_uploadTab($("#uploadTab").attr("data-cid"));
+  }
 }
 
 function regTabEvent() {
@@ -105,59 +115,14 @@ function regTabEvent() {
     // 更新左侧导航栏激活状态
     $(".nav-list").find('[href="#' + $("#pageTabContent").find(".active").attr("id") + '"]').addClass("active").siblings().removeClass("active");
   });
+
+  // 标签页点击事件处理函数
+  $("#pageTabs>li").off("click").on("click", function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    activateTab($(this));
+  });
 }
-
-// function regTabEvent() {
-//   // 标签页关闭按钮点击事件处理函数
-//   $(".tabRemove").off("click").on("click", function(e) {
-//     e.stopPropagation();
-//     e.preventDefault();
-//     // 已激活标签页对应的标签页内容节点隐藏，即去掉active类
-//     if($(this).parent().hasClass("active")) {
-//       $($(this).prev().attr("href")).removeClass("active");
-
-//       if($(this).parent().next().find("a").length) {
-//         $($(this).parent().next().addClass("active").find("a").attr("href")).addClass("active");
-//       }
-//       else if($(this).parent().prev().find("a").length) {
-//         $($(this).parent().prev().addClass("active").find("a").attr("href")).addClass("active");
-//       }
-//     }
-
-//     $(this).parent().remove();
-
-//     // 标签页全部关闭时去掉.list-item激活状态
-//     if(!$("#pageTabs").children().length) {
-//       $(".nav-list>.list-item").removeClass("active");
-//     }
-//     // 更新左侧导航栏激活状态
-//     $(".nav-list").find('[data-target="' + $("#pageTabContent").find(".active").attr("id") + '"]').addClass("active").siblings().removeClass("active");
-//   });  
-// }
-
-// function activateTab(target) {
-//   // 如果标签页没有打开，则创建并添加标签页
-//   if(!$("#pageTabs").find("a[href='" + $(target).attr("href") + "']").length) {
-//     var tabEle = document.createElement("li");
-//     tabEle.setAttribute("role", "presentation");
-//     $(tabEle).append('<span class="pull-left"></span><a href="' + $(target).attr("href") + '" data-toggle="tab">' + $(target).find("span.title").html() + '</a><span class="pull-right glyphicon glyphicon-remove tabRemove" role="button"></span>').find("span.pull-left").addClass($(target).find("span.title").prev().attr("class"));
-//     $("#pageTabs").append(tabEle);
-//     regTabEvent();
-//   }
-//   // #pageTabContent下没有对应的标签页内容节点，则创建并添加此标签页内容节点
-//   if(!$("#pageTabContent").find("div[id='" + $(target).attr("data-target") + "']").length) {
-//     $("#pageTabContent").append('<div role="tabpanel" class="tab-pane" id="' + $(target).attr("data-target") + '"><a href="javascript:test();">click</a></div>');
-//   }
-
-//   $("#pageTabs").find("a[href='" + $(target).attr("href") + "']").tab("show").parent().addClass("active").siblings().removeClass("active");
-
-//   if($(target).attr("href") === "#siteTab") {
-//     refresh_siteTab();
-//   }
-//   if($(target).attr("href") === "#uploadTab") {
-//     refresh_uploadTab($("#uploadTab").attr("data-cid"));
-//   }
-// }
 
 function test() {
   console.log("hello world, this is a test!");

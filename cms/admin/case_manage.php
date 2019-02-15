@@ -110,10 +110,6 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
       <div class="content-wrap">
         <div class="content-inner">
           <ul id="pageTabs" class="hidden-xs nav nav-tabs" role="tablist">
-            <!-- <li role="presentation" class="active">
-              <span class="pull-left glyphicon glyphicon-blackboard"></span>
-              <a href="#caseTab" data-toggle="tab">案例总览</a>
-            </li> -->
             <li role="presentation" class="active" href="#caseTab">
               <span class="pull-left glyphicon glyphicon-list"></span>
               <span class="title">案例总览</span>
@@ -135,7 +131,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
               </div> <!-- .case-wrap -->
             </div> <!-- #caseTab -->
 
-            <div role="tabpanel" class="tab-pane" id="uploadTab" data-cid="">
+            <div role="tabpanel" class="tab-pane" id="uploadTab" data-cid="101">
               <div class="case-page">
                 <div class="input-group">
                   <label for="cp-title" class="input-group-addon">网页标题</label>

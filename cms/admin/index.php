@@ -188,10 +188,10 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
       <div class="content-wrap">
         <div class="content-inner">
           <ul id="pageTabs" class="hidden-xs nav nav-tabs" role="tablist">
-            <li role="presentation" class="active">
-              <span class="pull-left glyphicon glyphicon-file"></span>
-              <a href="#profileTab" data-toggle="tab">开始文档</a>
-              <span class="pull-right glyphicon glyphicon-remove tabRemove" role="button"></span>
+            <li href="#profileTab" role="presentation" class="active">
+              <span class="pull-left glyphicon glyphicon-globe"></span>
+              <span class="title">开始文档</span>
+              <!-- <span class="pull-right glyphicon glyphicon-remove tabRemove" role="button"></span> -->
             </li>
           </ul>
           <div id="pageTabContent" class="tab-content">

@@ -1,6 +1,8 @@
 $(function() {
   // 案例管理标签页上传按钮
-  $("#caseTab>.case-head>.btn").on("click", function() {
+  $("#caseTab>.case-head>.btn").on("click", function(e) {
+    e.stopPropagation();
+    e.preventDefault();
     activateTab($(this));
   });
 
@@ -49,6 +51,11 @@ $(function() {
   // 保存按钮点击事件处理函数
   $(".btn-save").off("click").on("click", function() {
     uploadCase("os");
+  });
+
+  // 发布按钮点击事件处理函数
+  $(".btn-post").off("click").on("click", function() {
+    // 
   });
 
   refresh_caseList({page: "1"});
@@ -126,8 +133,9 @@ function refresh_caseList(data) {
     // dataType: "json",     //返回json格式数据
     context: $("#caseTab>.case-wrap"),
     success: function(result) {
-      // $(this).find(".panel-group").html(result);
-      $(this).append(result);
+      // 先清空内容后再追加
+      $(this).html("").append(result);
+
       // 注册按钮点击事件
       $(this).find(".panel-collapse .btn").each(function() {
         $(this).off("click").on("click", function() {

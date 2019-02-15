@@ -145,6 +145,9 @@ class CaseManager {
 
   /**
    * 更新数据项
+   * @param   int $id 数据库对应的id
+   * @param   string $data JSON格式的数据字符串
+   * @return  string $ret JSON格式的结果字符串
    */
   public function updateItem($id, $data) {
     if(!$data) {

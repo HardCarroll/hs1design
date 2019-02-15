@@ -84,11 +84,11 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
               <span class="pull-right glyphicon glyphicon-menu"></span>
             </div>
             <ul class="slide-menu">
-              <li class="" data-target="caseTab" href="#caseTab">
-                <span class="glyphicon glyphicon-eye-open"></span>
+              <li class="text-primary" href="#caseTab">
+                <span class="glyphicon glyphicon-list"></span>
                 <span class="title">案例总览</span>
               </li>
-              <li data-target="uploadTab" href="#uploadTab">
+              <li class="text-primary" href="#uploadTab">
                 <span class="glyphicon glyphicon-cloud-upload"></span>
                 <span class="title">上传案例</span>
               </li>
@@ -110,10 +110,9 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
       <div class="content-wrap">
         <div class="content-inner">
           <ul id="pageTabs" class="hidden-xs nav nav-tabs" role="tablist">
-            <li role="presentation" class="active">
+            <li href="#siteTab" role="presentation" class="active">
               <span class="pull-left glyphicon glyphicon-globe"></span>
-              <a href="#caseTab" data-toggle="tab">网站设置</a>
-              <!-- <span class="pull-right glyphicon glyphicon-remove tabRemove" role="button"></span> -->
+              <span class="title">网站设置</span>
             </li>
           </ul>
           <div id="pageTabContent" class="tab-content">
