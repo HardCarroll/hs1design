@@ -114,6 +114,10 @@ function regTabEvent() {
 
     // 更新左侧导航栏激活状态
     $(".nav-list").find('[href="#' + $("#pageTabContent").find(".active").attr("id") + '"]').addClass("active").siblings().removeClass("active");
+    
+    if($("#pageTabs").find(".active").attr("href") === "#caseTab") {
+      refresh_caseList({page: 1});
+    }
   });
 
   // 标签页点击事件处理函数

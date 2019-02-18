@@ -169,6 +169,16 @@ class CaseManager {
     return $ret;
   }
 
+  /**
+   * 删除数据项
+   */
+  public function removeItem($id) {
+    $sql_remove = 'DELETE FROM '.$this->tab_name.' WHERE id='.$id;
+    $this->dbo->exec_delete($sql_remove);
+    $ret = '{"err_no": '.$this->dbo->state["err_no"].', "err_code": "'.$this->dbo->state["err_code"].'"}';
+    return $ret;
+  }
+
 
   /**
    * 获取案例总数

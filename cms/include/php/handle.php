@@ -22,6 +22,10 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
     case "uploadCase":
       echo proc_uploadCase($caseManage, $_POST["flag"], $_POST["data"]);
       break;
+    case "removeCase":
+      echo $caseManage->removeItem($_POST["data"]);
+      // echo proc_uploadCase($caseManage, $_POST["flag"], $_POST["data"]);
+      break;
     case "uploadFiles":
       echo proc_uploadFiles($_FILES["files"]);
       break;

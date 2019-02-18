@@ -143,11 +143,22 @@ function refresh_caseList(data) {
             case "mark":
               $(this).toggleClass("glyphicon-star-empty").toggleClass("glyphicon-star");
               if($(this).hasClass("glyphicon-star")) {
-                console.log("recommonds");
+                console.log("recommonds: " + $(this).parent().attr("data-id"));
               }
               else {
-                console.log("normal");
+                console.log("normal " + $(this).parent().attr("data-id"));
               }
+              $.ajax({
+                url: "/cms/include/php/handle.php",
+                type: "POST",
+                data: fmd,
+                processData: false,
+                contentType: false, //数据为formData时必须定义此项
+                success: function(result) {},
+                error: function(err) {
+                  console.log("fail: "+err);
+                }
+              });
               break;
             case "edit":
               activateTab($(this));
@@ -157,7 +168,23 @@ function refresh_caseList(data) {
               console.log("post: " + $(this).parent().attr("data-id"));
               break;
             case "remove":
-              console.log("remove: " + $(this).parent().attr("data-id"));
+              var fmd = new FormData();
+              fmd.append("token", "removeCase");
+              fmd.append("data", $(this).parent().attr("data-id"));
+              $.ajax({
+                url: "/cms/include/php/handle.php",
+                post: "POST",
+                data: fmd,
+                processData: false,
+                contentType: false, //数据为formData时必须定义此项
+                success: function(result) {
+                  console.log(result);
+                },
+                error: function(err) {
+                  console.log("fail: "+err);
+                }
+              });
+              // console.log("remove: " + $(this).parent().attr("data-id"));
               break;
           }
         });
