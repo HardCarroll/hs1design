@@ -123,7 +123,12 @@ class CaseManager {
       file_put_contents($path."/$id.json", $data);
     }
     
-    $ret = '{"err_no":'.$this->dbo->state["err_no"].', "err_code": "'.$this->dbo->state["err_code"].'"}';
+    if($this->dbo->state["err_no"]) {
+      $ret = '{"err_no":'.$this->dbo->state["err_no"].', "err_code": "'.$this->dbo->state["err_code"].'"}';
+    }
+    else {
+      $ret = '{"err_no":'.$this->dbo->state["err_no"].', "err_code": "'.$id.'"}';
+    }
     return $ret;
   }
 

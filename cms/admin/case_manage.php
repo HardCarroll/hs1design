@@ -131,7 +131,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
               </div> <!-- .case-wrap -->
             </div> <!-- #caseTab -->
 
-            <div role="tabpanel" class="tab-pane" id="uploadTab" data-cid="101">
+            <div role="tabpanel" class="tab-pane" id="uploadTab" data-cid="">
               <div class="case-page">
                 <div class="input-group">
                   <label for="cp-title" class="input-group-addon">网页标题</label>

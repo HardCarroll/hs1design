@@ -19,12 +19,20 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
     case "refreshCaseList":
       echo proc_refreshCaseList($caseManage, json_decode($_POST["data"], true));
       break;
+    case "refreshRecommends":
+      echo proc_refreshRecommends($caseManage);
+      break;
     case "uploadCase":
       echo proc_uploadCase($caseManage, $_POST["flag"], $_POST["data"]);
       break;
     case "removeCase":
-      echo $caseManage->removeItem($_POST["data"]);
-      // echo proc_uploadCase($caseManage, $_POST["flag"], $_POST["data"]);
+      echo proc_removeCase($caseManage, $_POST["id"], $_POST["confirm"]);
+      break;
+    case "postCase":
+      echo json_encode($caseManage->postItem($_POST["data"]));
+      break;
+    case "markCase":
+      echo proc_markCase($caseManage, $_POST["id"], $_POST["data"]);
       break;
     case "uploadFiles":
       echo proc_uploadFiles($_FILES["files"]);
@@ -40,13 +48,35 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
 function proc_uploadCase($caseManage, $flag, $data = null) {
   if($flag === "os" || $flag === "sp") {
     $ret = $caseManage->addItem($data);
-    if($flag === "sp") {
-      $caseManage->postItem($caseManage->queryTable()[0]["id"]);
-    }
   }
   if($flag === "op" || $flag === "sp") {
+      $ret = $caseManage->postItem($caseManage->queryTable()[0]["id"]);
   }
   return json_encode($ret);
+}
+
+/**
+ * 星标案例处理函数
+ * 先判断是否已发布，未发布则先发布此案例。
+ */
+function proc_markCase($caseManage, $id, $data) {
+  if(!$caseManage->queryTable("id=".$id)[0]["c_posted"]) {
+    return json_encode('{"err_no": -1, "err_code": "当前案例暂未发布，请先发布此案例！"}');
+  }
+  $ret = $caseManage->updateItem($id, $data);
+  return json_encode($ret);
+}
+/**
+ * 删除案例处理函数
+ * 删除数据库记录，并同时要删除json和html文件
+ */
+function proc_removeCase($caseManage, $id, $confirm = false) {
+  if($confirm) {
+    return json_encode($caseManage->removeItem($id));
+  }
+  if($caseManage->queryTable("id=".$id)[0]["c_posted"]) {
+    return json_encode('{"err_no": -1, "err_code": "当前案例已发布，确定要删除吗？"}');
+  }
 }
 
 /**
@@ -83,7 +113,7 @@ function proc_refreshUploadTab($id = null) {
 }
 
 /**
- * 生成案例列表
+ * 动态生成案例列表
  */
 function proc_refreshCaseList($caseManage, $data = null) {
   // <div class="panel panel-default">
@@ -135,6 +165,20 @@ function proc_refreshCaseList($caseManage, $data = null) {
   }
   
   return $html;
+}
+
+/**
+ * 动态更新推荐列表数据条目
+ */
+function proc_refreshRecommends($caseManage) {
+  $recommends = $caseManage->queryTable("c_recommends=1");
+  if($caseManage->getCounts("c_recommends=1")) {
+    $ret = '';
+    foreach($recommends as $recommends_item) {
+      $ret .= '<div class="list-group-item text-info text-ellipsis"><a href="'.$recommends_item["c_path"].'">'.$recommends_item["c_title"].'</a></div>';
+    }
+  }
+  return $ret;
 }
 
 /**

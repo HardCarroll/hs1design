@@ -56,6 +56,12 @@ $(function() {
   // 发布按钮点击事件处理函数
   $(".btn-post").off("click").on("click", function() {
     // 
+    if($(this).prev().hasClass("disabled")) {
+      uploadCase("op");
+    }
+    else {
+      uploadCase("sp");
+    }
   });
 
   refresh_caseList({page: "1"});
@@ -90,9 +96,6 @@ function refresh_uploadTab(cid) {
         $(this).find("#case-team").val(data.c_team);
         $(this).find("#case-company").val(data.c_company);
         $(this).find("#case-description").val(data.c_description);
-        // for(var i=0; i<$(this).find(".case-thumb").children().length-1; i++) {
-        //   $(this).find(".case-thumb").children(i).remove();
-        // }
         for(var i in data.c_image) {
           if(data.c_image.length < $(this).find(".case-thumb").children().length) {
             $(this).find(".case-thumb").children().eq(0).remove();
@@ -140,63 +143,99 @@ function refresh_caseList(data) {
       $(this).find(".panel-collapse .btn").each(function() {
         $(this).off("click").on("click", function() {
           switch($(this).attr("data-token")) {
+            // 推荐阅读
             case "mark":
+              var fmd = new FormData();
+              fmd.append("token", "markCase");
+              fmd.append("id", $(this).parent().attr("data-id"));
               $(this).toggleClass("glyphicon-star-empty").toggleClass("glyphicon-star");
               if($(this).hasClass("glyphicon-star")) {
-                console.log("recommonds: " + $(this).parent().attr("data-id"));
+                fmd.append("data", '{"c_recommends": 1}');
               }
               else {
-                console.log("normal " + $(this).parent().attr("data-id"));
+                fmd.append("data", '{"c_recommends": 0}');
               }
               $.ajax({
                 url: "/cms/include/php/handle.php",
                 type: "POST",
                 data: fmd,
                 processData: false,
-                contentType: false, //数据为formData时必须定义此项
-                success: function(result) {},
-                error: function(err) {
-                  console.log("fail: "+err);
-                }
-              });
-              break;
-            case "edit":
-              activateTab($(this));
-              console.log("edit: " + $(this).parent().attr("data-id"));
-              break;
-            case "post":
-              console.log("post: " + $(this).parent().attr("data-id"));
-              break;
-            case "remove":
-              var fmd = new FormData();
-              fmd.append("token", "removeCase");
-              fmd.append("data", $(this).parent().attr("data-id"));
-              $.ajax({
-                url: "/cms/include/php/handle.php",
-                post: "POST",
-                data: fmd,
-                processData: false,
-                contentType: false, //数据为formData时必须定义此项
+                contentType: false,   //数据为formData时必须定义此项
+                dataType: "json",     //返回json格式数据
+                context: $(this),
                 success: function(result) {
+                  if(JSON.parse(result).err_no) {
+                    alert(JSON.parse(result).err_code);
+                    $(this).toggleClass("glyphicon-star-empty").toggleClass("glyphicon-star");
+                  }
                   console.log(result);
                 },
                 error: function(err) {
                   console.log("fail: "+err);
                 }
               });
-              // console.log("remove: " + $(this).parent().attr("data-id"));
+              break;
+            // 编辑案例
+            case "edit":
+              activateTab($(this));
+              console.log("edit: " + $(this).parent().attr("data-id"));
+              break;
+            // 发布案例
+            case "post":
+              var fmd = new FormData();
+              fmd.append("token", "postCase");
+              fmd.append("data", $(this).parent().attr("data-id"));
+              $.ajax({
+                url: "/cms/include/php/handle.php",
+                type: "POST",
+                data: fmd,
+                processData: false,
+                contentType: false,   //数据为formData时必须定义此项
+                dataType: "json",     //返回json格式数据
+                success: function(result) {
+                  if(!JSON.parse(result).err_no) {
+                    refresh_caseList({page: 1});
+                    alert("案例已成功发布！");
+                  }
+                },
+                error: function(err) {
+                  console.log("fail: "+err);
+                }
+              });
+              break;
+            // 删除案例
+            case "remove":
+              var fmd = new FormData();
+              fmd.append("token", "removeCase");
+              fmd.append("id", $(this).parent().attr("data-id"));
+              fmd.append("confirm", 0);
+              $.ajax({
+                url: "/cms/include/php/handle.php",
+                type: "POST",
+                data: fmd,
+                processData: false,
+                contentType: false,   //数据为formData时必须定义此项
+                dataType: "json",     //返回json格式数据
+                success: function(result) {
+                  if(!JSON.parse(result).err_no) {
+                    refresh_caseList({page: 1});
+                    alert("案例已成功删除！");
+                  }
+                },
+                error: function(err) {
+                  console.log("fail: "+err);
+                }
+              });
               break;
           }
         });
       });
-      // console.log(result);
     },
     error: function(err) {
       console.log("fail: "+err);
     }
   }); // ajax_func
 
-  // console.log("refresh case list");
 }
 
 /**
@@ -222,8 +261,11 @@ function uploadCase(flag) {
     processData: false,
     contentType: false,   //数据为formData时必须定义此项
     dataType: "json",     //返回json格式数据
-    // context: $(".case-page"),
+    context: $("#uploadTab span.btn-save"),
     success: function(result) {
+      if(!JSON.parse(result).err_no) {
+        $(this).addClass("disabled");
+      }
       console.log(result);
     },
     error: function(err) {
