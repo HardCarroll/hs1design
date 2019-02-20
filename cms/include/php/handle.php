@@ -68,14 +68,17 @@ function proc_markCase($caseManage, $id, $data) {
 }
 /**
  * 删除案例处理函数
- * 删除数据库记录，并同时要删除json和html文件
+ * 删除数据库记录，并同时删除json和html文件
  */
-function proc_removeCase($caseManage, $id, $confirm = false) {
+function proc_removeCase($caseManage, $id, $confirm = 0) {
   if($confirm) {
     return json_encode($caseManage->removeItem($id));
   }
   if($caseManage->queryTable("id=".$id)[0]["c_posted"]) {
     return json_encode('{"err_no": -1, "err_code": "当前案例已发布，确定要删除吗？"}');
+  }
+  else {
+    return json_encode($caseManage->removeItem($id));
   }
 }
 

@@ -216,7 +216,29 @@ function refresh_caseList(data) {
                 processData: false,
                 contentType: false,   //数据为formData时必须定义此项
                 dataType: "json",     //返回json格式数据
+                context: $(this),
                 success: function(result) {
+                  if(JSON.parse(result).err_no === -1) {
+                    alert(JSON.parse(result).err_code);
+                    var fmd = new FormData();
+                    fmd.append("token", "removeCase");
+                    fmd.append("id", $(this).parent().attr("data-id"));
+                    fmd.append("confirm", 1);
+                    $.ajax({
+                      url: "/cms/include/php/handle.php",
+                      type: "POST",
+                      data: fmd,
+                      processData: false,
+                      contentType: false,   //数据为formData时必须定义此项
+                      dataType: "json",     //返回json格式数据
+                      success: function(result) {
+                        console.log(result);
+                      },
+                      error: function(err) {
+                        console.log("fail: " + err);
+                      }
+                    });
+                  }
                   if(!JSON.parse(result).err_no) {
                     refresh_caseList({page: 1});
                     alert("案例已成功删除！");
