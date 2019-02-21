@@ -145,7 +145,13 @@ class CaseManager {
     $str = curl_request($url, $data);
     $result = file_put_contents(ROOT_PATH."/case/$id.html", $str);
     // 更新数据库文件路径
-    return $this->updateItem($id, '{"c_path": "/case/'.$id.'.html", "c_posted": 1}');
+    $ret = $this->updateItem($id, '{"c_path": "/case/'.$id.'.html", "c_posted": 1}');
+    $retArray = json_decode($ret, true);
+    if(!$retArray["err_no"]) {
+      $retArray["err_code"] = "案例已成功发布！";
+      $ret = json_encode($retArray);
+    }
+    return $ret;
   }
 
   /**

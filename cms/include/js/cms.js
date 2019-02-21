@@ -1,4 +1,6 @@
 $(function(){
+  setSiteCookie();
+  
   $(".layer").click(function(){
     // 解决sarfri浏览器不触发点击事件
   });
@@ -36,8 +38,31 @@ $(function(){
   });
 
   regTabEvent();
-  // refresh_caseList({page: "1", rule: "c_recommends=1"});
 });
+
+/**
+ * 设置网站信息的cookie
+ */
+function setSiteCookie() {
+  var fmd = new FormData();
+  fmd.append("token", "getSiteInfo");
+  $.ajax({
+    url: "/cms/include/php/handle.php",
+    type: "POST",
+    data: fmd,
+    processData: false,
+    contentType: false,   //数据为formData时必须定义此项
+    dataType: "json",     //返回json格式数据
+    success: function(result) {
+      if(result) {
+        setCookie("siteInfo", result);
+      }
+    },
+    error: function(err) {
+      console.log("fail: "+err);
+    }
+  }); // ajax_func
+}
 
 /**
  * 添加图片处理函数
@@ -79,7 +104,8 @@ function activateTab(target) {
   $($(target).attr("href")).addClass("active").siblings().removeClass("active");
 
   // 更新左侧导航栏激活状态
-  $(".nav-list").find('[href="#' + $("#pageTabContent").find(".active").attr("id") + '"]').addClass("active").siblings().removeClass("active");
+  // $(".nav-list").find('[href="#' + $("#pageTabContent").find(".active").attr("id") + '"]').addClass("active").siblings().removeClass("active");
+  $(".nav-list").find('[href="' + $("#pageTabs").find(".active").attr("href") + '"]').addClass("active").siblings().removeClass("active");
 
   if($(target).attr("href") === "#siteTab") {
     refresh_siteTab();
@@ -113,7 +139,8 @@ function regTabEvent() {
     $(this).parent().remove();
 
     // 更新左侧导航栏激活状态
-    $(".nav-list").find('[href="#' + $("#pageTabContent").find(".active").attr("id") + '"]').addClass("active").siblings().removeClass("active");
+    // $(".nav-list").find('[href="#' + $("#pageTabContent").find(".active").attr("id") + '"]').addClass("active").siblings().removeClass("active");
+    $(".nav-list").find('[href="' + $("#pageTabs").find(".active").attr("href") + '"]').addClass("active").siblings().removeClass("active");
     
     if($("#pageTabs").find(".active").attr("href") === "#caseTab") {
       refresh_caseList({page: 1});
@@ -130,6 +157,81 @@ function regTabEvent() {
 
 function test() {
   console.log("hello world, this is a test!");
+}
+
+/**
+ * 分页按钮点击处理函数
+ * @param paramJson
+ * {
+ *  object: "target_object",
+ *  url: "ajax_url",
+ * }  
+ * 
+ */
+function paginationClick(paramJson) {
+  paramJson.object.each(function() {
+    $(this).click(function() {
+      var curIndex = 0;
+      if ($(this).index() === 0) {
+        // previous process 上一页处理
+        if(!$(this).hasClass("disabled")) {
+          $(this).parent().children().last().removeClass("disabled");
+          $(this).parent().find(".active").removeClass("active").prev().addClass("active");
+          if($(this).parent().find(".active").index() === $(this).parent().children().first().index()+1) {
+            $(this).addClass("disabled");
+          }
+        }
+        curIndex = $(this).parent().find(".active").index();
+      }
+      else if($(this).index() === $(this).parent().children().length-1){
+        // next process 下一页处理
+        if(!$(this).hasClass("disabled")) {
+          $(this).parent().children().first().removeClass("disabled");
+          $(this).parent().find(".active").removeClass("active").next().addClass("active");
+          if($(this).parent().find(".active").index() === $(this).parent().children().last().index()-1) {
+            $(this).addClass("disabled");
+          }
+        }
+        curIndex = $(this).parent().find(".active").index();
+      }
+      else {
+        // index process 索引标签处理
+        $(this).addClass("active").siblings().removeClass("active");
+        $(this).parent().children().first().removeClass("disabled");
+        $(this).parent().children().last().removeClass("disabled");
+        if($(this).index() === 1) {
+          $(this).parent().children().first().addClass("disabled");
+        }
+        else if($(this).index() === $(this).parent().children().length-2) {
+          $(this).parent().children().last().addClass("disabled");
+        }
+        curIndex = $(this).index();
+      }
+
+      if (paramJson.url) {
+        var fmd = new FormData();
+        fmd.append("dataJson", paramJson.data);
+        $.ajax({
+          url: paramJson.url,
+          type: "POST",
+          data: fmd,
+          processData: false,
+          contentType: false,   //数据为formData时必须定义此项
+          context: paramJson.target,
+          success: function(result) {
+            $(this).html(result);
+            console.log(result);
+          },
+          error: function(err) {
+            console.log("fail: "+err);
+          }
+        }); // ajax_func
+      }
+
+      refresh_caseList({page: curIndex});
+      
+    }); // click_func
+  }); // each_func
 }
 
 /**

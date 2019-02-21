@@ -35,7 +35,6 @@ function refresh_siteTab() {
         $(this).find("[id='description']").val(data.description);
         setCookie("siteInfo", result);
       }
-      // console.log(getCookie("siteInfo"));
     },
     error: function(err) {
       console.log("fail: "+err);
@@ -60,7 +59,6 @@ function save_siteInfo() {
     dataType: "json",     //返回json格式数据
     context: $("#siteTab"),
     success: function(result) {
-      // console.log(fmd.siteInfo);
       $(this).find(".text-state").addClass("text-success").html(JSON.parse(result).err_code);
       $(this).find(".btn-save").addClass("disabled");
       setTimeout(function() {

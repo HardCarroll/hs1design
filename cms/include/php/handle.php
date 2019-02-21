@@ -3,38 +3,37 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/cms/include/php/include.php");
 
 if (isset($_POST["token"]) && !empty($_POST["token"])) {
   switch ($_POST["token"]) {
-    case "login":
-      // 登录按钮点击处理过程
+    case "login": // 登录按钮点击处理过程
       echo proc_login($dbo, json_decode($_POST["data"], true));
       break;
-    case "setSiteInfo":
+    case "setSiteInfo": // 设置网站信息
       echo proc_setSiteInfo(ROOT_PATH.PATH_JSON, $_POST["siteInfo"]);
       break;
-    case "getSiteInfo":
+    case "getSiteInfo": // 获取网站信息
       echo proc_getSiteInfo(ROOT_PATH.PATH_JSON);
       break;
-    case "refreshUploadTab":
+    case "refreshUploadTab":  // 刷新案例上传标签页
       echo proc_refreshUploadTab($_POST["cid"] ? $_POST["cid"]: 0);
       break;
-    case "refreshCaseList":
+    case "refreshCaseList": // 刷新案例列表
       echo proc_refreshCaseList($caseManage, json_decode($_POST["data"], true));
       break;
-    case "refreshRecommends":
+    case "refreshRecommends": // 刷新推荐列表
       echo proc_refreshRecommends($caseManage);
       break;
-    case "uploadCase":
+    case "uploadCase":  // 上传案例
       echo proc_uploadCase($caseManage, $_POST["flag"], $_POST["data"]);
       break;
-    case "removeCase":
-      echo proc_removeCase($caseManage, $_POST["id"], $_POST["confirm"]);
+    case "removeCase":  // 删除案例
+      echo proc_removeCase($caseManage, $_POST["id"]);
       break;
-    case "postCase":
+    case "postCase":  // 发布案例
       echo json_encode($caseManage->postItem($_POST["data"]));
       break;
-    case "markCase":
+    case "markCase":  //推荐案例
       echo proc_markCase($caseManage, $_POST["id"], $_POST["data"]);
       break;
-    case "uploadFiles":
+    case "uploadFiles": // 上传文件
       echo proc_uploadFiles($_FILES["files"]);
       break;
     default:
@@ -70,16 +69,12 @@ function proc_markCase($caseManage, $id, $data) {
  * 删除案例处理函数
  * 删除数据库记录，并同时删除json和html文件
  */
-function proc_removeCase($caseManage, $id, $confirm = 0) {
-  if($confirm) {
-    return json_encode($caseManage->removeItem($id));
-  }
-  if($caseManage->queryTable("id=".$id)[0]["c_posted"]) {
-    return json_encode('{"err_no": -1, "err_code": "当前案例已发布，确定要删除吗？"}');
-  }
-  else {
-    return json_encode($caseManage->removeItem($id));
-  }
+function proc_removeCase($caseManage, $id) {
+  $htmlPath = ROOT_PATH."/case/$id.html";
+  $jsonPath = ROOT_PATH.PATH_UPLOAD."/case/$id.json";
+  @unlink($htmlPath);
+  @unlink($jsonPath);
+  return json_encode($caseManage->removeItem($id));
 }
 
 /**

@@ -1,4 +1,5 @@
 $(function() {
+  paginationClick({object: $("#case-list>li")});
   // 案例管理标签页上传按钮
   $("#caseTab>.case-head>.btn").on("click", function(e) {
     e.stopPropagation();
@@ -40,11 +41,13 @@ $(function() {
     }
     // 远程图片按钮
     if($(this).hasClass("btn-remote")) {
-      proc_addPictures($(this), {url: "/src/case-thumb-hotel.jpg"});
+      // proc_addPictures($(this), {url: "/src/case-thumb-hotel.jpg"});
+      alert("此功能正在开发中，敬请期待！");
     }
     // 网络图片按钮
     if($(this).hasClass("btn-online")) {
-      proc_addPictures($(this), {url: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1548685758785&di=9457da526fb1b08a4eae2c8bbd66913f&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fb8389b504fc2d562e613fdc4ec1190ef76c66cfb.jpg"});
+      // proc_addPictures($(this), {url: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1548685758785&di=9457da526fb1b08a4eae2c8bbd66913f&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fb8389b504fc2d562e613fdc4ec1190ef76c66cfb.jpg"});
+      alert("此功能正在开发中，敬请期待！");
     }
   });
 
@@ -62,6 +65,31 @@ $(function() {
     else {
       uploadCase("sp");
     }
+  });
+
+  $("#modalConfirm .btn-danger").off("click").on("click", function() {
+    var fmd = new FormData();
+    fmd.append("token", "removeCase");
+    fmd.append("id", $(this).attr("data-id"));
+    $.ajax({
+      url: "/cms/include/php/handle.php",
+      type: "POST",
+      data: fmd,
+      processData: false,
+      contentType: false,   //数据为formData时必须定义此项
+      dataType: "json",     //返回json格式数据
+      context: $(this),
+      success: function(result) {
+        if(!JSON.parse(result).err_no) {
+          location.reload(true);
+          // refresh_caseList({page: 1});
+          // alert("案例已成功删除！");
+        }
+      },
+      error: function(err) {
+        console.log("fail: "+err);
+      }
+    });
   });
 
   refresh_caseList({page: "1"});
@@ -86,16 +114,16 @@ function refresh_uploadTab(cid) {
     success: function(result) {
       var data = JSON.parse(result);
       if($(this).attr("data-cid")) {
-        $(this).find("#cp-title").val(data.p_title);
-        $(this).find("#cp-keywords").val(data.p_keywords);
-        $(this).find("#cp-description").val(data.p_description);
-        $(this).find("#case-title").val(data.c_title);
-        $(this).find("#case-area").val(data.c_area);
-        $(this).find("#case-class").val(data.c_class);
-        $(this).find("#case-address").val(data.c_address);
-        $(this).find("#case-team").val(data.c_team);
-        $(this).find("#case-company").val(data.c_company);
-        $(this).find("#case-description").val(data.c_description);
+        $(this).find("#ucp-title").val(data.p_title);
+        $(this).find("#ucp-keywords").val(data.p_keywords);
+        $(this).find("#ucp-description").val(data.p_description);
+        $(this).find("#ucase-title").val(data.c_title);
+        $(this).find("#ucase-area").val(data.c_area);
+        $(this).find("#ucase-class").val(data.c_class);
+        $(this).find("#ucase-address").val(data.c_address);
+        $(this).find("#ucase-team").val(data.c_team);
+        $(this).find("#ucase-company").val(data.c_company);
+        $(this).find("#ucase-description").val(data.c_description);
         for(var i in data.c_image) {
           if(data.c_image.length < $(this).find(".case-thumb").children().length) {
             $(this).find(".case-thumb").children().eq(0).remove();
@@ -104,9 +132,9 @@ function refresh_uploadTab(cid) {
         }
       }
       else {
-        $(this).find("#cp-title").val(data.title);
-        $(this).find("#cp-keywords").val(data.keywords);
-        $(this).find("#cp-description").val(data.description);
+        $(this).find("#ucp-title").val(data.title);
+        $(this).find("#ucp-keywords").val(data.keywords);
+        $(this).find("#ucp-description").val(data.description);
       }
     },
     error: function(err) {
@@ -205,49 +233,7 @@ function refresh_caseList(data) {
               break;
             // 删除案例
             case "remove":
-              var fmd = new FormData();
-              fmd.append("token", "removeCase");
-              fmd.append("id", $(this).parent().attr("data-id"));
-              fmd.append("confirm", 0);
-              $.ajax({
-                url: "/cms/include/php/handle.php",
-                type: "POST",
-                data: fmd,
-                processData: false,
-                contentType: false,   //数据为formData时必须定义此项
-                dataType: "json",     //返回json格式数据
-                context: $(this),
-                success: function(result) {
-                  if(JSON.parse(result).err_no === -1) {
-                    alert(JSON.parse(result).err_code);
-                    var fmd = new FormData();
-                    fmd.append("token", "removeCase");
-                    fmd.append("id", $(this).parent().attr("data-id"));
-                    fmd.append("confirm", 1);
-                    $.ajax({
-                      url: "/cms/include/php/handle.php",
-                      type: "POST",
-                      data: fmd,
-                      processData: false,
-                      contentType: false,   //数据为formData时必须定义此项
-                      dataType: "json",     //返回json格式数据
-                      success: function(result) {
-                        console.log(result);
-                      },
-                      error: function(err) {
-                        console.log("fail: " + err);
-                      }
-                    });
-                  }
-                  if(!JSON.parse(result).err_no) {
-                    refresh_caseList({page: 1});
-                    alert("案例已成功删除！");
-                  }
-                },
-                error: function(err) {
-                  console.log("fail: "+err);
-                }
-              });
+              $("#modalConfirm").modal("show").find(".btn-danger").attr("data-id", $(this).parent().attr("data-id"));
               break;
           }
         });
@@ -271,7 +257,7 @@ function uploadCase(flag) {
     imgArray.push(str);
   });
   
-  var caseData = '{"p_title": "'+$("#cp-title").val()+'", "p_keywords": "'+$("#cp-keywords").val()+'", "p_description": "'+$("#cp-description").val()+'", "c_path": "", "c_title": "'+$("#case-title").val()+'", "c_area": "'+$("#case-area").val()+'", "c_address": "'+$("#case-address").val()+'", "c_class": "'+$("#case-class").val()+'", "c_team": "'+$("#case-team").val()+'", "c_company": "'+$("#case-company").val()+'", "c_description": "'+$("#case-description").val()+'", "c_image": ['+imgArray+'], "c_recommends": 0, "c_posted": '+((flag==="sp" || flag==="op" || flag==="up")?1:0)+'}';
+  var caseData = '{"p_title": "'+$("#ucp-title").val()+'", "p_keywords": "'+$("#ucp-keywords").val()+'", "p_description": "'+$("#ucp-description").val()+'", "c_path": "", "c_title": "'+$("#ucase-title").val()+'", "c_area": "'+$("#ucase-area").val()+'", "c_address": "'+$("#ucase-address").val()+'", "c_class": "'+$("#ucase-class").val()+'", "c_team": "'+$("#ucase-team").val()+'", "c_company": "'+$("#ucase-company").val()+'", "c_description": "'+$("#ucase-description").val()+'", "c_image": ['+imgArray+'], "c_recommends": 0, "c_posted": '+((flag==="sp" || flag==="op" || flag==="up")?1:0)+'}';
   var fmd = new FormData();
   fmd.append("token", "uploadCase");
   fmd.append("flag", flag);
@@ -287,13 +273,14 @@ function uploadCase(flag) {
     success: function(result) {
       if(!JSON.parse(result).err_no) {
         $(this).addClass("disabled");
+        if(JSON.parse(result).err_code === "案例已成功发布！") {
+          location.reload(true);
+        }
       }
-      console.log(result);
+      // console.log(JSON.parse(result));
     },
     error: function(err) {
       console.log("fail: "+err);
     }
   }); // ajax_func
-
-  // console.log("upload case");
 }

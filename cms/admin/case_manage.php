@@ -117,6 +117,35 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
           </ul>
           <div id="pageTabContent" class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="caseTab">
+              <div class="clearfix overview">
+                <div class="col-xs-6 col-sm-4 col-md-3 total">
+                  <div class="wrap">
+                    <p>全部案例</p>
+                    <span class="text-primary digital"><?php echo $caseManage->getCounts(); ?></span>
+                    <span>条</span>
+                  </div>
+                </div>
+                <div class="col-xs-6 col-sm-4 col-md-3 notpost">
+                  <div class="wrap">
+                    <p>暂未发布</p>
+                    <span class="text-danger digital"><?php echo $caseManage->getCounts("c_posted=0"); ?></span>
+                    <span>条</span>
+                  </div>
+                </div>
+                <div class="col-xs-6 col-sm-4 col-md-3 marked">
+                  <div class="wrap">
+                    <p>推荐阅读</p>
+                    <span class="text-success digital"><?php echo $caseManage->getCounts("c_recommends=1"); ?></span>
+                    <span>条</span>
+                  </div>
+                </div>
+                <div class="col-xs-6 col-sm-4 col-md-3 marked">
+                  <div class="wrap btn-upload" href="#uploadTab">
+                    <span class="glyphicon glyphicon-cloud-upload"></span>
+                    <span class="title">上传案例</span>
+                  </div>
+                </div>
+              </div>
               <div class="case-head">
                 当前总共有<span class="text-primary"><?php echo $caseManage->getCounts(); ?></span>条案例，其中有<span class="text-danger"><?php echo $caseManage->getCounts("c_posted=0")?></span>条还未发布，您还可以继续
                 <a class="btn btn-primary" href="#uploadTab">
@@ -125,38 +154,80 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                 </a>
               </div>
               <div class="case-wrap">
+                <?php
+                $result = $caseManage->queryTable();
+                $counts = $caseManage->getCounts();
+                if($counts) {
+                  echo '<div class="panel-group" role="tablist" aria-multiselectable="true">';
+                  for ($i = 0; $i < ($counts>10?10:$counts); $i++) {
+                    if($result[$i]["c_posted"]) {
+                      echo '<div class="panel panel-default">';
+                    }
+                    else {
+                      echo '<div class="panel panel-danger">';
+                    }
+                    echo '<div class="panel-heading" role="tab">';
+                    echo '<a class="collapsed" role="button" data-toggle="collapse" href="#case_'.$result[$i]["id"].'">'.$result[$i]["c_title"].'</a></div>';
+                    echo '<div id="case_'.$result[$i]["id"].'" class="panel-collapse collapse" role="tabpanel">';
+                    echo '<ul class="btn-group" data-id="'.$result[$i]["id"].'">';
+                    echo '<li role="button" data-token="mark" title="星标" class="btn btn-default glyphicon '.($result[$i]["c_recommends"] ? "glyphicon-star" : "glyphicon-star-empty").'"></li>';
+                    echo '<li role="button" data-token="edit" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>';
+                    echo '<li role="button" data-token="post" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>';
+                    echo '<li role="button" data-token="remove" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>';
+                    echo '</ul></div></div>';
+                  }
+                  echo '</div>';
+                }
+                ?>
                 <!-- <div class="panel-group" role="tablist" aria-multiselectable="true"> -->
                 <!-- 动态生成案例列表 -->
                 <!-- </div> .panel-group -->
               </div> <!-- .case-wrap -->
+              <div class="list-wrap">
+                <!-- 分页按钮动态输出 -->
+                <?php
+                $cnt = $caseManage->getCounts();
+                if ($cnt/10>1) {
+                  echo '<ul class="pagination" id="case-list"><li class="disabled"><span aria-label="Previous"><span aria-hidden="true">&laquo;</span></span></li>';
+                  echo '<li class="active"><span>1</span></li>';
+                  
+                  for($i=1; $i<$cnt/10; $i++) {
+                    echo '<li><span>';
+                    echo $i+1;
+                    echo '</span></li>';
+                  }
+                  echo '<li><span aria-label="Next"><span aria-hidden="true">&raquo;</span></span></li></ul>';
+                }
+                ?>
+              </div>
             </div> <!-- #caseTab -->
 
             <div role="tabpanel" class="tab-pane" id="uploadTab" data-cid="">
               <div class="case-page">
                 <div class="input-group">
-                  <label for="cp-title" class="input-group-addon">网页标题</label>
-                  <input type="text" class="form-control" name="cp-title" id="cp-title">
+                  <label for="ucp-title" class="input-group-addon">网页标题</label>
+                  <input type="text" class="form-control" name="ucp-title" id="ucp-title">
                 </div>
                 <div class="input-group">
-                  <label for="cp-keywords" class="input-group-addon">网页关键词</label>
-                  <input type="text" class="form-control" name="cp-keywords" id="cp-keywords">
+                  <label for="ucp-keywords" class="input-group-addon">网页关键词</label>
+                  <input type="text" class="form-control" name="ucp-keywords" id="ucp-keywords">
                 </div>
                 <div class="input-group">
-                  <label for="cp-description" class="input-group-addon">网页内容简介</label>
-                  <textarea type="text" class="form-control" name="cp-description" id="cp-description"></textarea>
+                  <label for="ucp-description" class="input-group-addon">网页内容简介</label>
+                  <textarea type="text" class="form-control" name="ucp-description" id="ucp-description"></textarea>
                 </div>
                 <div class="input-group">
-                  <label for="case-title" class="input-group-addon">项目名称</label>
-                  <input type="text" class="form-control" name="case-title" id="case-title">
+                  <label for="ucase-title" class="input-group-addon">项目名称</label>
+                  <input type="text" class="form-control" name="ucase-title" id="ucase-title">
                 </div>
                 <div class="input-group">
-                  <label for="case-area" class="input-group-addon">项目面积</label>
-                  <input type="text" class="form-control" name="case-area" id="case-area">
+                  <label for="ucase-area" class="input-group-addon">项目面积</label>
+                  <input type="text" class="form-control" name="ucase-area" id="ucase-area">
                   <span class="input-group-addon">㎡</span>
                 </div>
                 <div class="input-group">
-                  <label for="case-class" class="input-group-addon">项目类型</label>
-                  <select class="form-control" name="case-class" id="case-class">
+                  <label for="ucase-class" class="input-group-addon">项目类型</label>
+                  <select class="form-control" name="ucase-class" id="ucase-class">
                     <option value="0">餐厅空间</option>
                     <option value="1">酒店空间</option>
                     <option value="2">娱乐空间</option>
@@ -164,23 +235,23 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                   </select>
                 </div>
                 <div class="input-group">
-                  <label for="case-address" class="input-group-addon">项目地址</label>
-                  <input type="text" class="form-control" name="case-address" id="case-address">
+                  <label for="ucase-address" class="input-group-addon">项目地址</label>
+                  <input type="text" class="form-control" name="ucase-address" id="ucase-address">
                 </div>
                 <div class="input-group">
-                  <label for="case-team" class="input-group-addon">主创团队</label>
-                  <input type="text" class="form-control" name="case-team" id="case-team">
+                  <label for="ucase-team" class="input-group-addon">主创团队</label>
+                  <input type="text" class="form-control" name="ucase-team" id="ucase-team">
                 </div>
                 <div class="input-group">
-                  <label for="case-company" class="input-group-addon">出品单位</label>
-                  <input type="text" class="form-control" name="case-company" id="case-company">
+                  <label for="ucase-company" class="input-group-addon">出品单位</label>
+                  <input type="text" class="form-control" name="ucase-company" id="ucase-company">
                 </div>
                 <div class="input-group">
-                  <label for="case-description" class="input-group-addon">项目简介</label>
-                  <textarea type="text" class="form-control" name="case-description" id="case-description"></textarea>
+                  <label for="ucase-description" class="input-group-addon">项目简介</label>
+                  <textarea type="text" class="form-control" name="ucase-description" id="ucase-description"></textarea>
                 </div>
                 <div class="input-group">
-                  <label for="case-image" class="input-group-addon">项目图片</label>
+                  <label for="ucase-image" class="input-group-addon">项目图片</label>
                   <div class="form-control case-thumb">
                     <div class="col-sm-4 col-md-3">
                       <input type="file" style="display: none;" multiple="true" accept=".png, .jpg, .jpeg">
@@ -215,6 +286,26 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
 
     </section>
     <section class="page-foot"></section>
+
+  <!-- Modal confirm-->
+  <div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="modalConfirmLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title text-danger" id="modalConfirmLabel">敬告</h4>
+        </div>
+        <div class="modal-body">
+          此操作不可逆，请谨慎选择！您确认要删除吗？
+        </div>
+        <div class="modal-footer">
+          <span class="tips"></span>
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-danger">确认</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   </div> <!-- /.layer-->
 
