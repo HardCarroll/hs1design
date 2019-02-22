@@ -1,10 +1,36 @@
 $(function() {
-  paginationClick({object: $("#case-list>li")});
+  // 分页按钮列表
+  paginationList({
+    token: "refreshPagination",
+    url: "/cms/include/php/handle.php",
+    target: $("#caseTab>.list-wrap")
+  });
+
   // 案例管理标签页上传按钮
-  $("#caseTab>.case-head>.btn").on("click", function(e) {
+  $("#caseTab .btn-upload").on("click", function(e) {
     e.stopPropagation();
     e.preventDefault();
     activateTab($(this));
+  });
+
+  // 案例管理标签页上分类按钮处理函数
+  $(".overview .wrap").each(function() {
+    $(this).off("click").on("click", function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      if($(this).hasClass("total")) {
+        refresh_caseList({page: 1, rule: ""});
+        paginationList({token: "refreshPagination", url: "/cms/include/php/handle.php", target: $("#caseTab>.list-wrap"), rule: ""});
+      }
+      if($(this).hasClass("unpost")) {
+        refresh_caseList({page: 1, rule: "c_posted=0"});
+        paginationList({token: "refreshPagination", url: "/cms/include/php/handle.php", target: $("#caseTab>.list-wrap"), rule: "c_posted=0"});
+      }
+      if($(this).hasClass("marked")) {
+        refresh_caseList({page: 1, rule: "c_recommends=1"});
+        paginationList({token: "refreshPagination", url: "/cms/include/php/handle.php", target: $("#caseTab>.list-wrap"), rule: "c_recommends=1"});
+      }
+    });
   });
 
   // 添加图片按钮点击事件
@@ -58,7 +84,6 @@ $(function() {
 
   // 发布按钮点击事件处理函数
   $(".btn-post").off("click").on("click", function() {
-    // 
     if($(this).prev().hasClass("disabled")) {
       uploadCase("op");
     }
@@ -67,6 +92,7 @@ $(function() {
     }
   });
 
+  // 删除确认对话框处理函数
   $("#modalConfirm .btn-danger").off("click").on("click", function() {
     var fmd = new FormData();
     fmd.append("token", "removeCase");
@@ -82,8 +108,6 @@ $(function() {
       success: function(result) {
         if(!JSON.parse(result).err_no) {
           location.reload(true);
-          // refresh_caseList({page: 1});
-          // alert("案例已成功删除！");
         }
       },
       error: function(err) {
@@ -92,7 +116,7 @@ $(function() {
     });
   });
 
-  refresh_caseList({page: "1"});
+  refresh_caseList({page: 1});
 
 });
 
@@ -161,7 +185,6 @@ function refresh_caseList(data) {
     data: fmd,
     processData: false,
     contentType: false,   //数据为formData时必须定义此项
-    // dataType: "json",     //返回json格式数据
     context: $("#caseTab>.case-wrap"),
     success: function(result) {
       // 先清空内容后再追加
@@ -193,10 +216,12 @@ function refresh_caseList(data) {
                 context: $(this),
                 success: function(result) {
                   if(JSON.parse(result).err_no) {
-                    alert(JSON.parse(result).err_code);
                     $(this).toggleClass("glyphicon-star-empty").toggleClass("glyphicon-star");
+                    alert(JSON.parse(result).err_code);
                   }
-                  console.log(result);
+                  else {
+                    getCounts({rule: "c_recommends=1", target: $(".wrap.marked>span.digital")});
+                  }
                 },
                 error: function(err) {
                   console.log("fail: "+err);
@@ -223,6 +248,7 @@ function refresh_caseList(data) {
                 success: function(result) {
                   if(!JSON.parse(result).err_no) {
                     refresh_caseList({page: 1});
+                    getCounts({rule: "c_posted=0", target: $(".wrap.unpost>span.digital")});
                     alert("案例已成功发布！");
                   }
                 },
@@ -244,6 +270,30 @@ function refresh_caseList(data) {
     }
   }); // ajax_func
 
+}
+
+/**
+ * 实时获取数据库对应条件的记录数
+ * @param {JSON} argJson {rule: 数据库查询条件, target: 目标DOM对象}
+ */
+function getCounts(argJson) {
+  var fmd = new FormData();
+  fmd.append("token", "getCounts");
+  fmd.append("rule", argJson.rule);
+  $.ajax({
+    url: "/cms/include/php/handle.php",
+    type: "POST",
+    data: fmd,
+    processData: false,
+    contentType: false,   //数据为formData时必须定义此项
+    context: argJson.target,
+    success: function(result) {
+      $(this).html("").html(result);
+    },
+    error: function(err) {
+      console.log("fail: "+err);
+    }
+  });
 }
 
 /**

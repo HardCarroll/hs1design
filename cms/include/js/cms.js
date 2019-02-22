@@ -35,6 +35,14 @@ $(function(){
   // 关闭按钮点击事件处理函数
   $(".btn-close").off("click").on("click", function() {
     $("#pageTabs").find(".active").children().last().click();
+    getCounts({rule: "", target: $(".wrap.total>span.digital")});
+    getCounts({rule: "c_posted=0", target: $(".wrap.unpost>span.digital")});
+    getCounts({rule: "c_recommends=1", target: $(".wrap.marked>span.digital")});
+    paginationList({
+      token: "refreshPagination",
+      url: "/cms/include/php/handle.php",
+      target: $("#caseTab>.list-wrap")
+    });
   });
 
   regTabEvent();
@@ -104,8 +112,8 @@ function activateTab(target) {
   $($(target).attr("href")).addClass("active").siblings().removeClass("active");
 
   // 更新左侧导航栏激活状态
-  // $(".nav-list").find('[href="#' + $("#pageTabContent").find(".active").attr("id") + '"]').addClass("active").siblings().removeClass("active");
   $(".nav-list").find('[href="' + $("#pageTabs").find(".active").attr("href") + '"]').addClass("active").siblings().removeClass("active");
+  // $(".nav-list").find('[href="' + $(target).attr("href") + '"]').addClass("active").siblings().removeClass("active");
 
   if($(target).attr("href") === "#siteTab") {
     refresh_siteTab();
@@ -139,7 +147,6 @@ function regTabEvent() {
     $(this).parent().remove();
 
     // 更新左侧导航栏激活状态
-    // $(".nav-list").find('[href="#' + $("#pageTabContent").find(".active").attr("id") + '"]').addClass("active").siblings().removeClass("active");
     $(".nav-list").find('[href="' + $("#pageTabs").find(".active").attr("href") + '"]').addClass("active").siblings().removeClass("active");
     
     if($("#pageTabs").find(".active").attr("href") === "#caseTab") {
@@ -160,17 +167,49 @@ function test() {
 }
 
 /**
+ * 分页列表实时生成，并注册点击事件
+ * @param {JSON} argJson 
+ */
+function paginationList(argJson) {
+  if (argJson.url) {
+    var fmd = new FormData();
+    fmd.append("token", argJson.token);
+    if(argJson.rule) {
+      fmd.append("rule", argJson.rule);
+    }
+    else {
+      fmd.append("rule", "");
+    }
+    $.ajax({
+      url: argJson.url,
+      type: "POST",
+      data: fmd,
+      processData: false,
+      contentType: false,   //数据为formData时必须定义此项
+      context: argJson.target,
+      success: function(result) {
+        $(this).html("").html(result);
+        paginationClick({object: $(this).find("li"), rule: argJson.rule});
+      },
+      error: function(err) {
+        console.log("fail: "+err);
+      }
+    }); // ajax_func
+  }
+}
+
+/**
  * 分页按钮点击处理函数
- * @param paramJson
+ * @param argJson
  * {
- *  object: "target_object",
- *  url: "ajax_url",
+ *  object: DOM对象,
+ *  rule: 查询数据库记录集条件,
  * }  
  * 
  */
-function paginationClick(paramJson) {
-  paramJson.object.each(function() {
-    $(this).click(function() {
+function paginationClick(argJson) {
+  argJson.object.each(function() {
+    $(this).off("click").on("click", function() {
       var curIndex = 0;
       if ($(this).index() === 0) {
         // previous process 上一页处理
@@ -208,27 +247,7 @@ function paginationClick(paramJson) {
         curIndex = $(this).index();
       }
 
-      if (paramJson.url) {
-        var fmd = new FormData();
-        fmd.append("dataJson", paramJson.data);
-        $.ajax({
-          url: paramJson.url,
-          type: "POST",
-          data: fmd,
-          processData: false,
-          contentType: false,   //数据为formData时必须定义此项
-          context: paramJson.target,
-          success: function(result) {
-            $(this).html(result);
-            console.log(result);
-          },
-          error: function(err) {
-            console.log("fail: "+err);
-          }
-        }); // ajax_func
-      }
-
-      refresh_caseList({page: curIndex});
+      refresh_caseList({page: curIndex, rule: argJson.rule});
       
     }); // click_func
   }); // each_func

@@ -118,42 +118,38 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
           <div id="pageTabContent" class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="caseTab">
               <div class="clearfix overview">
-                <div class="col-xs-6 col-sm-4 col-md-3 total">
-                  <div class="wrap">
+                <div class="col-xs-6 col-sm-4 col-md-3">
+                  <div class="wrap total">
                     <p>全部案例</p>
                     <span class="text-primary digital"><?php echo $caseManage->getCounts(); ?></span>
                     <span>条</span>
                   </div>
                 </div>
-                <div class="col-xs-6 col-sm-4 col-md-3 notpost">
-                  <div class="wrap">
+                <div class="col-xs-6 col-sm-4 col-md-3">
+                  <div class="wrap unpost">
                     <p>暂未发布</p>
                     <span class="text-danger digital"><?php echo $caseManage->getCounts("c_posted=0"); ?></span>
                     <span>条</span>
                   </div>
                 </div>
-                <div class="col-xs-6 col-sm-4 col-md-3 marked">
-                  <div class="wrap">
+                <div class="col-xs-6 col-sm-4 col-md-3">
+                  <div class="wrap marked">
                     <p>推荐阅读</p>
                     <span class="text-success digital"><?php echo $caseManage->getCounts("c_recommends=1"); ?></span>
                     <span>条</span>
                   </div>
                 </div>
-                <div class="col-xs-6 col-sm-4 col-md-3 marked">
-                  <div class="wrap btn-upload" href="#uploadTab">
+                <div class="col-xs-6 col-sm-4 col-md-3">
+                  <div class="btn-upload" href="#uploadTab">
                     <span class="glyphicon glyphicon-cloud-upload"></span>
                     <span class="title">上传案例</span>
                   </div>
                 </div>
               </div>
-              <div class="case-head">
-                当前总共有<span class="text-primary"><?php echo $caseManage->getCounts(); ?></span>条案例，其中有<span class="text-danger"><?php echo $caseManage->getCounts("c_posted=0")?></span>条还未发布，您还可以继续
-                <a class="btn btn-primary" href="#uploadTab">
-                  <span class="glyphicon glyphicon-cloud-upload"></span>
-                  <span class="title">上传案例</span>
-                </a>
-              </div>
               <div class="case-wrap">
+                <!-- <div class="panel-group" role="tablist" aria-multiselectable="true"> -->
+                <!-- 动态生成案例列表 -->
+                <!-- </div> .panel-group -->
                 <?php
                 $result = $caseManage->queryTable();
                 $counts = $caseManage->getCounts();
@@ -179,25 +175,22 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                   echo '</div>';
                 }
                 ?>
-                <!-- <div class="panel-group" role="tablist" aria-multiselectable="true"> -->
-                <!-- 动态生成案例列表 -->
-                <!-- </div> .panel-group -->
               </div> <!-- .case-wrap -->
               <div class="list-wrap">
                 <!-- 分页按钮动态输出 -->
                 <?php
-                $cnt = $caseManage->getCounts();
-                if ($cnt/10>1) {
-                  echo '<ul class="pagination" id="case-list"><li class="disabled"><span aria-label="Previous"><span aria-hidden="true">&laquo;</span></span></li>';
-                  echo '<li class="active"><span>1</span></li>';
+                // $cnt = $caseManage->getCounts();
+                // if ($cnt/10>1) {
+                //   echo '<ul class="pagination" id="case-list"><li class="disabled"><span aria-label="Previous"><span aria-hidden="true">&laquo;</span></span></li>';
+                //   echo '<li class="active"><span>1</span></li>';
                   
-                  for($i=1; $i<$cnt/10; $i++) {
-                    echo '<li><span>';
-                    echo $i+1;
-                    echo '</span></li>';
-                  }
-                  echo '<li><span aria-label="Next"><span aria-hidden="true">&raquo;</span></span></li></ul>';
-                }
+                //   for($i=1; $i<$cnt/10; $i++) {
+                //     echo '<li><span>';
+                //     echo $i+1;
+                //     echo '</span></li>';
+                //   }
+                //   echo '<li><span aria-label="Next"><span aria-hidden="true">&raquo;</span></span></li></ul>';
+                // }
                 ?>
               </div>
             </div> <!-- #caseTab -->

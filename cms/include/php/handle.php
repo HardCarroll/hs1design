@@ -21,6 +21,9 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
     case "refreshRecommends": // 刷新推荐列表
       echo proc_refreshRecommends($caseManage);
       break;
+    case "refreshPagination": // 刷新分页列表
+      echo proc_refreshPagination($caseManage, $_POST["rule"]);
+      break;
     case "uploadCase":  // 上传案例
       echo proc_uploadCase($caseManage, $_POST["flag"], $_POST["data"]);
       break;
@@ -32,6 +35,9 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
       break;
     case "markCase":  //推荐案例
       echo proc_markCase($caseManage, $_POST["id"], $_POST["data"]);
+      break;
+    case "getCounts": // 获取记录数
+      echo $caseManage->getCounts($_POST["rule"]);
       break;
     case "uploadFiles": // 上传文件
       echo proc_uploadFiles($_FILES["files"]);
@@ -111,7 +117,7 @@ function proc_refreshUploadTab($id = null) {
 }
 
 /**
- * 动态生成案例列表
+ * 实时生成案例列表
  */
 function proc_refreshCaseList($caseManage, $data = null) {
   // <div class="panel panel-default">
@@ -166,7 +172,7 @@ function proc_refreshCaseList($caseManage, $data = null) {
 }
 
 /**
- * 动态更新推荐列表数据条目
+ * 实时更新推荐列表数据条目
  */
 function proc_refreshRecommends($caseManage) {
   $recommends = $caseManage->queryTable("c_recommends=1");
@@ -177,6 +183,24 @@ function proc_refreshRecommends($caseManage) {
     }
   }
   return $ret;
+}
+
+/**
+ * 实时更新分页列表
+ */
+function proc_refreshPagination($caseManage, $rule = null) {
+  $html = '';
+  $cnt = $caseManage->getCounts($rule);
+  if ($cnt/10>1) {
+    $html .= '<ul class="pagination" id="case-list"><li class="disabled"><span aria-label="Previous"><span aria-hidden="true">&laquo;</span></span></li>';
+    $html .= '<li class="active"><span>1</span></li>';
+    
+    for($i=1; $i<$cnt/10; $i++) {
+      $html .= '<li><span>'.($i+1).'</span></li>';
+    }
+    $html .= '<li><span aria-label="Next"><span aria-hidden="true">&raquo;</span></span></li></ul>';
+  }
+  return $html;
 }
 
 /**
