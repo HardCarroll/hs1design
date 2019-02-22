@@ -124,6 +124,11 @@ function activateTab(target) {
   if($(target).attr("href") === "#uploadTab") {
     refresh_uploadTab($("#uploadTab").attr("data-cid"));
   }
+  if($(target).attr("href") === "#editTab") {
+    $("#pageTabs>li[href='#editTab']").children().eq(0).addClass("glyphicon glyphicon-edit");
+    $("#pageTabs>li[href='#editTab']").children().eq(1).html($(target).parent().parent().prev().children().eq(0).html());
+    // refresh_uploadTab($("#uploadTab").attr("data-cid"));
+  }
 }
 
 function regTabEvent() {

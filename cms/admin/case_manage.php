@@ -178,20 +178,6 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
               </div> <!-- .case-wrap -->
               <div class="list-wrap">
                 <!-- 分页按钮动态输出 -->
-                <?php
-                // $cnt = $caseManage->getCounts();
-                // if ($cnt/10>1) {
-                //   echo '<ul class="pagination" id="case-list"><li class="disabled"><span aria-label="Previous"><span aria-hidden="true">&laquo;</span></span></li>';
-                //   echo '<li class="active"><span>1</span></li>';
-                  
-                //   for($i=1; $i<$cnt/10; $i++) {
-                //     echo '<li><span>';
-                //     echo $i+1;
-                //     echo '</span></li>';
-                //   }
-                //   echo '<li><span aria-label="Next"><span aria-hidden="true">&raquo;</span></span></li></ul>';
-                // }
-                ?>
               </div>
             </div> <!-- #caseTab -->
 
@@ -273,6 +259,84 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                 </div>
               </div>
             </div> <!--#uploadTab-->
+            <div role="tabpanel" class="tab-pane" id="editTab" data-cid="">
+              <div class="case-page">
+                <div class="input-group">
+                  <label for="ecp-title" class="input-group-addon">网页标题</label>
+                  <input type="text" class="form-control" name="ecp-title" id="ecp-title">
+                </div>
+                <div class="input-group">
+                  <label for="ecp-keywords" class="input-group-addon">网页关键词</label>
+                  <input type="text" class="form-control" name="ecp-keywords" id="ecp-keywords">
+                </div>
+                <div class="input-group">
+                  <label for="ecp-description" class="input-group-addon">网页内容简介</label>
+                  <textarea type="text" class="form-control" name="ecp-description" id="ecp-description"></textarea>
+                </div>
+                <div class="input-group">
+                  <label for="ecase-title" class="input-group-addon">项目名称</label>
+                  <input type="text" class="form-control" name="ecase-title" id="ecase-title">
+                </div>
+                <div class="input-group">
+                  <label for="ecase-area" class="input-group-addon">项目面积</label>
+                  <input type="text" class="form-control" name="ecase-area" id="ecase-area">
+                  <span class="input-group-addon">㎡</span>
+                </div>
+                <div class="input-group">
+                  <label for="ecase-class" class="input-group-addon">项目类型</label>
+                  <select class="form-control" name="ecase-class" id="ecase-class">
+                    <option value="0">餐厅空间</option>
+                    <option value="1">酒店空间</option>
+                    <option value="2">娱乐空间</option>
+                    <option value="3">其他设计</option>
+                  </select>
+                </div>
+                <div class="input-group">
+                  <label for="ecase-address" class="input-group-addon">项目地址</label>
+                  <input type="text" class="form-control" name="ecase-address" id="ecase-address">
+                </div>
+                <div class="input-group">
+                  <label for="ecase-team" class="input-group-addon">主创团队</label>
+                  <input type="text" class="form-control" name="ecase-team" id="ecase-team">
+                </div>
+                <div class="input-group">
+                  <label for="ecase-company" class="input-group-addon">出品单位</label>
+                  <input type="text" class="form-control" name="ecase-company" id="ecase-company">
+                </div>
+                <div class="input-group">
+                  <label for="ecase-description" class="input-group-addon">项目简介</label>
+                  <textarea type="text" class="form-control" name="ecase-description" id="ecase-description"></textarea>
+                </div>
+                <div class="input-group">
+                  <label for="ecase-image" class="input-group-addon">项目图片</label>
+                  <div class="form-control case-thumb">
+                    <div class="col-sm-4 col-md-3">
+                      <input type="file" style="display: none;" multiple="true" accept=".png, .jpg, .jpeg">
+                      <div class="btn btn-default btn-local">
+                        <span class="glyphicon glyphicon-open"></span>
+                        <span>本地上传</span>
+                      </div>
+                      <div class="btn btn-default btn-remote">
+                        <span class="glyphicon glyphicon-folder-open"></span>
+                        <span>远程文件</span>
+                      </div>
+                      <div class="btn btn-default btn-online">
+                        <span class="glyphicon glyphicon-globe"></span>
+                        <span>网络图片</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <p class="text-state">&nbsp;</p>
+                </div>
+                <div class="input-group">
+                  <span class="btn btn-default btn-close" role="button">关闭</span>
+                  <span class="btn btn-warning btn-save" role="button">保存</span>
+                  <span class="btn btn-success btn-post" role="button">发布</span>
+                </div>
+              </div>
+            </div> <!--#editTab-->
           </div> <!-- #pageTabContent-->
         </div> <!-- .content-inner-->
       </div> <!-- .content-wrap-->
