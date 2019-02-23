@@ -184,29 +184,29 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
             <div role="tabpanel" class="tab-pane" id="uploadTab" data-cid="">
               <div class="case-page">
                 <div class="input-group">
-                  <label for="ucp-title" class="input-group-addon">网页标题</label>
-                  <input type="text" class="form-control" name="ucp-title" id="ucp-title">
+                  <label for="cp-title" class="input-group-addon">网页标题</label>
+                  <input type="text" class="form-control" name="cp-title" id="cp-title">
                 </div>
                 <div class="input-group">
-                  <label for="ucp-keywords" class="input-group-addon">网页关键词</label>
-                  <input type="text" class="form-control" name="ucp-keywords" id="ucp-keywords">
+                  <label for="cp-keywords" class="input-group-addon">网页关键词</label>
+                  <input type="text" class="form-control" name="cp-keywords" id="cp-keywords">
                 </div>
                 <div class="input-group">
-                  <label for="ucp-description" class="input-group-addon">网页内容简介</label>
-                  <textarea type="text" class="form-control" name="ucp-description" id="ucp-description"></textarea>
+                  <label for="cp-description" class="input-group-addon">网页内容简介</label>
+                  <textarea type="text" class="form-control" name="cp-description" id="cp-description"></textarea>
                 </div>
                 <div class="input-group">
-                  <label for="ucase-title" class="input-group-addon">项目名称</label>
-                  <input type="text" class="form-control" name="ucase-title" id="ucase-title">
+                  <label for="case-title" class="input-group-addon">项目名称</label>
+                  <input type="text" class="form-control" name="case-title" id="case-title">
                 </div>
                 <div class="input-group">
-                  <label for="ucase-area" class="input-group-addon">项目面积</label>
-                  <input type="text" class="form-control" name="ucase-area" id="ucase-area">
+                  <label for="case-area" class="input-group-addon">项目面积</label>
+                  <input type="text" class="form-control" name="case-area" id="case-area">
                   <span class="input-group-addon">㎡</span>
                 </div>
                 <div class="input-group">
-                  <label for="ucase-class" class="input-group-addon">项目类型</label>
-                  <select class="form-control" name="ucase-class" id="ucase-class">
+                  <label for="case-class" class="input-group-addon">项目类型</label>
+                  <select class="form-control" name="case-class" id="case-class">
                     <option value="0">餐厅空间</option>
                     <option value="1">酒店空间</option>
                     <option value="2">娱乐空间</option>
@@ -214,23 +214,23 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                   </select>
                 </div>
                 <div class="input-group">
-                  <label for="ucase-address" class="input-group-addon">项目地址</label>
-                  <input type="text" class="form-control" name="ucase-address" id="ucase-address">
+                  <label for="case-address" class="input-group-addon">项目地址</label>
+                  <input type="text" class="form-control" name="case-address" id="case-address">
                 </div>
                 <div class="input-group">
-                  <label for="ucase-team" class="input-group-addon">主创团队</label>
-                  <input type="text" class="form-control" name="ucase-team" id="ucase-team">
+                  <label for="case-team" class="input-group-addon">主创团队</label>
+                  <input type="text" class="form-control" name="case-team" id="case-team">
                 </div>
                 <div class="input-group">
-                  <label for="ucase-company" class="input-group-addon">出品单位</label>
-                  <input type="text" class="form-control" name="ucase-company" id="ucase-company">
+                  <label for="case-company" class="input-group-addon">出品单位</label>
+                  <input type="text" class="form-control" name="case-company" id="case-company">
                 </div>
                 <div class="input-group">
-                  <label for="ucase-description" class="input-group-addon">项目简介</label>
-                  <textarea type="text" class="form-control" name="ucase-description" id="ucase-description"></textarea>
+                  <label for="case-description" class="input-group-addon">项目简介</label>
+                  <textarea type="text" class="form-control" name="case-description" id="case-description"></textarea>
                 </div>
                 <div class="input-group">
-                  <label for="ucase-image" class="input-group-addon">项目图片</label>
+                  <label for="case-image" class="input-group-addon">项目图片</label>
                   <div class="form-control case-thumb">
                     <div class="col-sm-4 col-md-3">
                       <input type="file" style="display: none;" multiple="true" accept=".png, .jpg, .jpeg">
@@ -262,29 +262,29 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
             <div role="tabpanel" class="tab-pane" id="editTab" data-cid="">
               <div class="case-page">
                 <div class="input-group">
-                  <label for="ecp-title" class="input-group-addon">网页标题</label>
-                  <input type="text" class="form-control" name="ecp-title" id="ecp-title">
+                  <label for="cp-title" class="input-group-addon">网页标题</label>
+                  <input type="text" class="form-control" name="cp-title">
                 </div>
                 <div class="input-group">
-                  <label for="ecp-keywords" class="input-group-addon">网页关键词</label>
-                  <input type="text" class="form-control" name="ecp-keywords" id="ecp-keywords">
+                  <label for="cp-keywords" class="input-group-addon">网页关键词</label>
+                  <input type="text" class="form-control" name="cp-keywords">
                 </div>
                 <div class="input-group">
-                  <label for="ecp-description" class="input-group-addon">网页内容简介</label>
-                  <textarea type="text" class="form-control" name="ecp-description" id="ecp-description"></textarea>
+                  <label for="cp-description" class="input-group-addon">网页内容简介</label>
+                  <textarea type="text" class="form-control" name="cp-description"></textarea>
                 </div>
                 <div class="input-group">
-                  <label for="ecase-title" class="input-group-addon">项目名称</label>
-                  <input type="text" class="form-control" name="ecase-title" id="ecase-title">
+                  <label for="case-title" class="input-group-addon">项目名称</label>
+                  <input type="text" class="form-control" name="case-title">
                 </div>
                 <div class="input-group">
-                  <label for="ecase-area" class="input-group-addon">项目面积</label>
-                  <input type="text" class="form-control" name="ecase-area" id="ecase-area">
+                  <label for="case-area" class="input-group-addon">项目面积</label>
+                  <input type="text" class="form-control" name="case-area">
                   <span class="input-group-addon">㎡</span>
                 </div>
                 <div class="input-group">
-                  <label for="ecase-class" class="input-group-addon">项目类型</label>
-                  <select class="form-control" name="ecase-class" id="ecase-class">
+                  <label for="case-class" class="input-group-addon">项目类型</label>
+                  <select class="form-control" name="case-class">
                     <option value="0">餐厅空间</option>
                     <option value="1">酒店空间</option>
                     <option value="2">娱乐空间</option>
@@ -292,23 +292,23 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                   </select>
                 </div>
                 <div class="input-group">
-                  <label for="ecase-address" class="input-group-addon">项目地址</label>
-                  <input type="text" class="form-control" name="ecase-address" id="ecase-address">
+                  <label for="case-address" class="input-group-addon">项目地址</label>
+                  <input type="text" class="form-control" name="case-address">
                 </div>
                 <div class="input-group">
-                  <label for="ecase-team" class="input-group-addon">主创团队</label>
-                  <input type="text" class="form-control" name="ecase-team" id="ecase-team">
+                  <label for="case-team" class="input-group-addon">主创团队</label>
+                  <input type="text" class="form-control" name="case-team">
                 </div>
                 <div class="input-group">
-                  <label for="ecase-company" class="input-group-addon">出品单位</label>
-                  <input type="text" class="form-control" name="ecase-company" id="ecase-company">
+                  <label for="case-company" class="input-group-addon">出品单位</label>
+                  <input type="text" class="form-control" name="case-company">
                 </div>
                 <div class="input-group">
-                  <label for="ecase-description" class="input-group-addon">项目简介</label>
-                  <textarea type="text" class="form-control" name="ecase-description" id="ecase-description"></textarea>
+                  <label for="case-description" class="input-group-addon">项目简介</label>
+                  <textarea type="text" class="form-control" name="case-description"></textarea>
                 </div>
                 <div class="input-group">
-                  <label for="ecase-image" class="input-group-addon">项目图片</label>
+                  <label for="case-image" class="input-group-addon">项目图片</label>
                   <div class="form-control case-thumb">
                     <div class="col-sm-4 col-md-3">
                       <input type="file" style="display: none;" multiple="true" accept=".png, .jpg, .jpeg">

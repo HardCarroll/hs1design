@@ -117,10 +117,9 @@ class CaseManager {
 
     $id = $this->queryTable()[0]["id"];
     // 生成JSON文件
-    // $path = ROOT_PATH."/cms/upload/case/";
     $path = ROOT_PATH.PATH_UPLOAD."/case/";
     if(is_dir($path) or @mkdir($path, 0777, true)) {
-      file_put_contents($path."/$id.json", $data);
+      file_put_contents($path."/$id.json", $this->transferJson("id=$id"));
     }
     
     if($this->dbo->state["err_no"]) {
@@ -166,9 +165,36 @@ class CaseManager {
     }
     // UPDATE table SET key1=value1, key2=value2, ..., keyN=valueN
     $dataArray = json_decode($data, true);
+    // 格式化上传图片字符串
+    $imageStr = '';
+    if($dataArray["c_image"]) {
+      $imageStr .= '[';
+      foreach($dataArray["c_image"] as $item) {
+        $imageStr .= '{"';
+        foreach($item as $key=>$value) {
+          $imageStr .= $key;
+          $imageStr .= '":"';
+          $imageStr .= $value;
+          if($value !== end($item)) {
+            $imageStr .= '","';
+          }
+        }
+        $imageStr .= '"}';
+  
+        if($item !== end($dataArray["c_image"])) {
+          $imageStr .= ',';
+        }
+      }
+      $imageStr .= ']';
+    }
     $sql_update = "UPDATE $this->tab_name SET ";
     foreach($dataArray as $key=>$value) {
-      $sql_update .= $key."='".$value."'";
+      if($key === "c_image") {
+        $sql_update .= ($key."='".$imageStr."'");
+      }
+      else {
+        $sql_update .= ($key."='".$value."'");
+      }
       if(end($dataArray) !== $value) {
         $sql_update .= ",";
       }
@@ -177,6 +203,13 @@ class CaseManager {
     $sql_update .= "WHERE id=$id";
     $this->dbo->exec_update($sql_update);
     $ret = '{"err_no":'.$this->dbo->state["err_no"].', "err_code": "'.$this->dbo->state["err_code"].'"}';
+
+    // 生成JSON文件
+    $path = ROOT_PATH.PATH_UPLOAD."/case/";
+    if(is_dir($path) or @mkdir($path, 0777, true)) {
+      file_put_contents($path."/$id.json", $this->transferJson("id=$id"));
+    }
+
     return $ret;
   }
 
@@ -190,6 +223,30 @@ class CaseManager {
     return $ret;
   }
 
+  /**
+   * 转换数据库记录为json字符串
+   */
+  public function transferJson($rule) {
+    if(!$rule) {
+      return '{"err_no": -1, "err_code": "转换参数不能为空！"}';
+    }
+    $result = $this->queryTable($rule)[0];
+    $json = '{';
+    foreach($result as $key=>$value) {
+      if($key === "c_image") {
+        $json .= ('"'.$key.'":'.$value);
+      }
+      else {
+        $json .= ('"'.$key.'":"'.$value.'"');
+      }
+      if($value !== end($result)) {
+        $json .= ',';
+      }
+    }
+    $json .= '}';
+
+    return $json;
+  }
 
   /**
    * 获取案例总数
@@ -273,7 +330,7 @@ class DBOperator {
   /**
   * 执行MYSQL查询操作
   * @param $sql: 要执行的SQL语句;
-  * @returen $ret: 将执行结果返回
+  * @returen $ret: 将执行结果以数组形式返回
   */
   public function exec_query($sql) {
     $result = mysqli_query($this->links, $sql);

@@ -27,11 +27,15 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
     case "uploadCase":  // 上传案例
       echo proc_uploadCase($caseManage, $_POST["flag"], $_POST["data"]);
       break;
+    case "updateCase":  // 上传案例
+      // echo proc_uploadCase($caseManage, $_POST["flag"], $_POST["data"]);
+      echo json_encode($caseManage->updateItem($_POST["id"], $_POST["data"]));
+      break;
     case "removeCase":  // 删除案例
       echo proc_removeCase($caseManage, $_POST["id"]);
       break;
     case "postCase":  // 发布案例
-      echo json_encode($caseManage->postItem($_POST["data"]));
+      echo json_encode($caseManage->postItem($_POST["id"]));
       break;
     case "markCase":  //推荐案例
       echo proc_markCase($caseManage, $_POST["id"], $_POST["data"]);

@@ -34,7 +34,7 @@ $(function() {
   });
 
   // 添加图片按钮点击事件
-  $("#uploadTab .case-thumb>div>.btn").off("click").on("click", function(e) {
+  $(".case-thumb>div>.btn").off("click").on("click", function(e) {
     e.stopPropagation();
     e.preventDefault();
     // 本地上传按钮
@@ -79,16 +79,26 @@ $(function() {
 
   // 保存按钮点击事件处理函数
   $(".btn-save").off("click").on("click", function() {
-    uploadCase("os");
+    if($(this).parent().parent().parent().attr("id") === "uploadTab") {
+      updateCase({target: $("#uploadTab"), token: "uploadCase", flag: "os"});
+    }
+    if($(this).parent().parent().parent().attr("id") === "editTab") {
+      updateCase({target: $("#editTab"), token: "updateCase", id: $("#editTab").attr("data-cid")});
+    }
   });
 
   // 发布按钮点击事件处理函数
   $(".btn-post").off("click").on("click", function() {
-    if($(this).prev().hasClass("disabled")) {
-      uploadCase("op");
+    if($(this).parent().parent().parent().attr("id") === "uploadTab") {
+      if($(this).prev().hasClass("disabled")) {
+        updateCase({target: $("#uploadTab"), token: "uploadCase", flag: "op"});
+      }
+      else {
+        updateCase({target: $("#uploadTab"), token: "uploadCase", flag: "sp"});
+      }
     }
-    else {
-      uploadCase("sp");
+    if($(this).parent().parent().parent().attr("id") === "editTab") {
+      // updateCase({target: $("#editTab"), token: "updateCase", id: $("#editTab").attr("data-cid")});
     }
   });
 
@@ -121,12 +131,17 @@ $(function() {
 });
 
 /**
- * ajax更新上传案例标签页
+ * ajax更新上传\编辑案例标签页
+ * @param {JSON} argJson
+ * {
+ *  target: 目标DOM对象,
+ *  id: 数据库记录ID
+ * }
  */
-function refresh_uploadTab(cid) {
+function refresh_uploadTab(argJson) {
   var fmd = new FormData();
   fmd.append("token", "refreshUploadTab");
-  fmd.append("cid", cid);
+  fmd.append("cid", argJson.id);
   $.ajax({
     url: "/cms/include/php/handle.php",
     type: "POST",
@@ -134,20 +149,20 @@ function refresh_uploadTab(cid) {
     processData: false,
     contentType: false,   //数据为formData时必须定义此项
     dataType: "json",     //返回json格式数据
-    context: $("#uploadTab"),
+    context: argJson.target,
     success: function(result) {
       var data = JSON.parse(result);
       if($(this).attr("data-cid")) {
-        $(this).find("#ucp-title").val(data.p_title);
-        $(this).find("#ucp-keywords").val(data.p_keywords);
-        $(this).find("#ucp-description").val(data.p_description);
-        $(this).find("#ucase-title").val(data.c_title);
-        $(this).find("#ucase-area").val(data.c_area);
-        $(this).find("#ucase-class").val(data.c_class);
-        $(this).find("#ucase-address").val(data.c_address);
-        $(this).find("#ucase-team").val(data.c_team);
-        $(this).find("#ucase-company").val(data.c_company);
-        $(this).find("#ucase-description").val(data.c_description);
+        $(this).find("[name='cp-title']").val(data.p_title);
+        $(this).find("[name='cp-keywords']").val(data.p_keywords);
+        $(this).find("[name='cp-description']").val(data.p_description);
+        $(this).find("[name='case-title']").val(data.c_title);
+        $(this).find("[name='case-area']").val(data.c_area);
+        $(this).find("[name='case-class']").val(data.c_class);
+        $(this).find("[name='case-address']").val(data.c_address);
+        $(this).find("[name='case-team']").val(data.c_team);
+        $(this).find("[name='case-company']").val(data.c_company);
+        $(this).find("[name='case-description']").val(data.c_description);
         for(var i in data.c_image) {
           if(data.c_image.length < $(this).find(".case-thumb").children().length) {
             $(this).find(".case-thumb").children().eq(0).remove();
@@ -156,9 +171,9 @@ function refresh_uploadTab(cid) {
         }
       }
       else {
-        $(this).find("#ucp-title").val(data.title);
-        $(this).find("#ucp-keywords").val(data.keywords);
-        $(this).find("#ucp-description").val(data.description);
+        $(this).find("[name='cp-title']").val(data.title);
+        $(this).find("[name='cp-keywords']").val(data.keywords);
+        $(this).find("[name='cp-description']").val(data.description);
       }
     },
     error: function(err) {
@@ -230,14 +245,15 @@ function refresh_caseList(data) {
               break;
             // 编辑案例
             case "edit":
+              $("#editTab").attr("data-cid", $(this).parent().attr("data-id"));
               activateTab($(this));
-              console.log("edit: " + $(this).parent().attr("data-id"));
+              // console.log("edit: " + $(this).parent().attr("data-id"));
               break;
             // 发布案例
             case "post":
               var fmd = new FormData();
               fmd.append("token", "postCase");
-              fmd.append("data", $(this).parent().attr("data-id"));
+              fmd.append("id", $(this).parent().attr("data-id"));
               $.ajax({
                 url: "/cms/include/php/handle.php",
                 type: "POST",
@@ -297,20 +313,33 @@ function getCounts(argJson) {
 }
 
 /**
- * 上传案例处理函数
- * @param {string} flag: 上传案例分类请求标签
+ * 更新案例处理函数
+ * @param {JSON} argJson: 
+ * {
+ *  target: 目标DOM对象,
+ *  token: 请求标识,
+ *  id: 数据库记录ID
+ * }
  */
-function uploadCase(flag) {
+function updateCase(argJson) {
   var imgArray = new Array();
-  $("#uploadTab .case-thumb").children().not(":last").each(function() {
+  argJson.target.find(".case-thumb").children().not(":last").each(function() {
     var str = '{"url": "'+$(this).find("img").attr("src")+'", "attr_alt": "'+$(this).find('[name="data-alt"]').val()+'", "attr_title": "'+$(this).find('[name="data-title"]').val()+'"}';
     imgArray.push(str);
   });
-  
-  var caseData = '{"p_title": "'+$("#ucp-title").val()+'", "p_keywords": "'+$("#ucp-keywords").val()+'", "p_description": "'+$("#ucp-description").val()+'", "c_path": "", "c_title": "'+$("#ucase-title").val()+'", "c_area": "'+$("#ucase-area").val()+'", "c_address": "'+$("#ucase-address").val()+'", "c_class": "'+$("#ucase-class").val()+'", "c_team": "'+$("#ucase-team").val()+'", "c_company": "'+$("#ucase-company").val()+'", "c_description": "'+$("#ucase-description").val()+'", "c_image": ['+imgArray+'], "c_recommends": 0, "c_posted": '+((flag==="sp" || flag==="op" || flag==="up")?1:0)+'}';
+
   var fmd = new FormData();
-  fmd.append("token", "uploadCase");
-  fmd.append("flag", flag);
+  fmd.append("token", argJson.token);
+  if(argJson.flag) {
+    fmd.append("flag", argJson.flag);
+    var caseData = '{"p_title": "'+argJson.target.find("[name='cp-title']").val()+'", "p_keywords": "'+argJson.target.find("[name='cp-keywords']").val()+'", "p_description": "'+argJson.target.find("[name='cp-description']").val()+'", "c_path": "", "c_title": "'+argJson.target.find("[name='case-title']").val()+'", "c_area": "'+argJson.target.find("[name='case-area']").val()+'", "c_address": "'+argJson.target.find("[name='case-address']").val()+'", "c_class": "'+argJson.target.find("[name='case-class']").val()+'", "c_team": "'+argJson.target.find("[name='case-team']").val()+'", "c_company": "'+argJson.target.find("[name='case-company']").val()+'", "c_description": "'+argJson.target.find("[name='case-description']").val()+'", "c_image": ['+imgArray+'], "c_recommends": 0, "c_posted": '+((argJson.flag==="sp" || argJson.flag==="op" || argJson.flag==="up")?1:0)+'}';
+  }
+  else {
+    var caseData = '{"p_title": "'+argJson.target.find("[name='cp-title']").val()+'", "p_keywords": "'+argJson.target.find("[name='cp-keywords']").val()+'", "p_description": "'+argJson.target.find("[name='cp-description']").val()+'", "c_title": "'+argJson.target.find("[name='case-title']").val()+'", "c_area": "'+argJson.target.find("[name='case-area']").val()+'", "c_address": "'+argJson.target.find("[name='case-address']").val()+'", "c_class": "'+argJson.target.find("[name='case-class']").val()+'", "c_team": "'+argJson.target.find("[name='case-team']").val()+'", "c_company": "'+argJson.target.find("[name='case-company']").val()+'", "c_description": "'+argJson.target.find("[name='case-description']").val()+'", "c_image": ['+imgArray+']}';
+  }
+  if(argJson.id) {
+    fmd.append("id", argJson.id);
+  }
   fmd.append("data", caseData);
   $.ajax({
     url: "/cms/include/php/handle.php",
@@ -319,7 +348,7 @@ function uploadCase(flag) {
     processData: false,
     contentType: false,   //数据为formData时必须定义此项
     dataType: "json",     //返回json格式数据
-    context: $("#uploadTab span.btn-save"),
+    context: argJson.target.find("span.btn-save"),
     success: function(result) {
       if(!JSON.parse(result).err_no) {
         $(this).addClass("disabled");
@@ -327,7 +356,7 @@ function uploadCase(flag) {
           location.reload(true);
         }
       }
-      // console.log(JSON.parse(result));
+      console.log(JSON.parse(result));
     },
     error: function(err) {
       console.log("fail: "+err);

@@ -122,12 +122,13 @@ function activateTab(target) {
     refresh_caseList({page: 1});
   }
   if($(target).attr("href") === "#uploadTab") {
-    refresh_uploadTab($("#uploadTab").attr("data-cid"));
+    refresh_uploadTab({target: $("#uploadTab"), id: $("#uploadTab").attr("data-cid")});
   }
   if($(target).attr("href") === "#editTab") {
     $("#pageTabs>li[href='#editTab']").children().eq(0).addClass("glyphicon glyphicon-edit");
     $("#pageTabs>li[href='#editTab']").children().eq(1).html($(target).parent().parent().prev().children().eq(0).html());
-    // refresh_uploadTab($("#uploadTab").attr("data-cid"));
+    $("#pageTabs>li[href='#editTab']").attr("title", $(target).parent().parent().prev().children().eq(0).html());
+    refresh_uploadTab({target: $("#editTab"), id: $("#editTab").attr("data-cid")});
   }
 }
 

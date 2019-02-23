@@ -69,30 +69,31 @@
   cursor: pointer;
 }
 
-#uploadTab>.case-page>.input-group {
+/* #uploadTab, #caseTab CSS */
+.case-page>.input-group {
   width: 100%;
   margin-bottom: 5px;
 }
-#uploadTab>.case-page>.input-group:last-child {
+.case-page>.input-group:last-child {
   text-align: right;
 }
-#uploadTab>.case-page>.input-group:last-child>span {
+.case-page>.input-group:last-child>span {
   margin-left: 15px;
 }
-#uploadTab>.case-page>.input-group>label {
+.case-page>.input-group>label {
   width: 100px;
   padding: 6px;
 }
-#uploadTab>.case-page>.input-group>.case-thumb {
+.case-page>.input-group>.case-thumb {
   float: none;
   padding: 0;
   position: relative;
 }
-#uploadTab>.case-page>.input-group>.case-thumb>div {
+.case-page>.input-group>.case-thumb>div {
   padding: 5px;
   position: relative;
 }
-#uploadTab>.case-page>.input-group>.case-thumb>div>.btn-remove {
+.case-page>.input-group>.case-thumb>div>.btn-remove {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -101,25 +102,25 @@
   border-radius: 0;
   opacity: 0;
 }
-#uploadTab>.case-page>.input-group>.case-thumb>div:hover>.btn-remove {
+.case-page>.input-group>.case-thumb>div:hover>.btn-remove {
   opacity: 1;
 }
-#uploadTab>.case-page>.input-group>.case-thumb>div>.thumbnail {
+.case-page>.input-group>.case-thumb>div>.thumbnail {
   margin-bottom: 0;
 }
-#uploadTab>.case-page>.input-group>.case-thumb>div>.thumbnail>.caption {
+.case-page>.input-group>.case-thumb>div>.thumbnail>.caption {
   background-color: #e6e8e8;
 }
-#uploadTab>.case-page>.input-group>.case-thumb>div>.thumbnail>.caption>input {
+.case-page>.input-group>.case-thumb>div>.thumbnail>.caption>input {
   width: 100%;
   padding: 0 5px;
 }
-#uploadTab>.case-page>.input-group>.case-thumb>div>.thumbnail>.caption>input+input {
+.case-page>.input-group>.case-thumb>div>.thumbnail>.caption>input+input {
   margin-top: 5px;
 }
-#uploadTab>.case-page>.input-group>.case-thumb>div:last-child {
+.case-page>.input-group>.case-thumb>div:last-child {
   text-align: center;
 }
-#uploadTab>.case-page>.input-group>.case-thumb>div>div.btn {
+.case-page>.input-group>.case-thumb>div>div.btn {
   margin: 20px;
 }
