@@ -24,12 +24,8 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
     case "refreshPagination": // 刷新分页列表
       echo proc_refreshPagination($caseManage, $_POST["rule"]);
       break;
-    case "uploadCase":  // 上传案例
-      echo proc_uploadCase($caseManage, $_POST["flag"], $_POST["data"]);
-      break;
     case "updateCase":  // 上传案例
-      // echo proc_uploadCase($caseManage, $_POST["flag"], $_POST["data"]);
-      echo json_encode($caseManage->updateItem($_POST["id"], $_POST["data"]));
+      echo proc_updateCase($caseManage, $_POST["id"], $_POST["data"]);
       break;
     case "removeCase":  // 删除案例
       echo proc_removeCase($caseManage, $_POST["id"]);
@@ -54,12 +50,20 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
 /**
  * 案例上传处理函数
  */
-function proc_uploadCase($caseManage, $flag, $data = null) {
-  if($flag === "os" || $flag === "sp") {
+function proc_updateCase($caseManage, $id = null, $data = null) {
+  if(!$id) {  // $id为空，则此时为新增数据项
     $ret = $caseManage->addItem($data);
   }
-  if($flag === "op" || $flag === "sp") {
-      $ret = $caseManage->postItem($caseManage->queryTable()[0]["id"]);
+  else {  // $id不为空，则此时为修改对应的数据项内容
+    if(!$data) { // 数据为空时为仅发布
+      $ret = $caseManage->updateItem($id, '{"c_path": "/case/'.$id.'.html", "c_posted": "T"}');
+      if(!$caseManage->dbo->state["err_no"]) {
+        $ret = '{"err_no": 0, "err_code": "案例已成功发布"}';
+      }
+    }
+    else {  // 数据不为空时为修改并发布
+      $ret = $caseManage->updateItem($id, $data);
+    }
   }
   return json_encode($ret);
 }

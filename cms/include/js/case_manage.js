@@ -79,12 +79,13 @@ $(function() {
 
   // 保存按钮点击事件处理函数
   $(".btn-save").off("click").on("click", function() {
-    if($(this).parent().parent().parent().attr("id") === "uploadTab") {
-      updateCase({target: $("#uploadTab"), token: "uploadCase", flag: "os"});
-    }
-    if($(this).parent().parent().parent().attr("id") === "editTab") {
-      updateCase({target: $("#editTab"), token: "updateCase", id: $("#editTab").attr("data-cid")});
-    }
+    // if($(this).parent().parent().parent().attr("id") === "uploadTab") {
+    //   updateCase({target: $("#uploadTab"), token: "uploadCase", flag: "os"});
+    // }
+    // if($(this).parent().parent().parent().attr("id") === "editTab") {
+    //   updateCase({target: $("#editTab"), token: "updateCase", id: $("#editTab").attr("data-cid")});
+    // }
+    updateCase({target: $(this).parent().parent().parent(), token: "updateCase", id: $(this).parent().parent().parent().attr("data-cid")});
   });
 
   // 发布按钮点击事件处理函数
@@ -252,27 +253,7 @@ function refresh_caseList(data) {
               break;
             // 发布案例
             case "post":
-              var fmd = new FormData();
-              fmd.append("token", "postCase");
-              fmd.append("id", $(this).parent().attr("data-id"));
-              $.ajax({
-                url: "/cms/include/php/handle.php",
-                type: "POST",
-                data: fmd,
-                processData: false,
-                contentType: false,   //数据为formData时必须定义此项
-                dataType: "json",     //返回json格式数据
-                success: function(result) {
-                  if(!JSON.parse(result).err_no) {
-                    refresh_caseList({page: 1});
-                    getCounts({rule: "c_posted='F'", target: $(".wrap.unpost>span.digital")});
-                    alert("案例已成功发布！");
-                  }
-                },
-                error: function(err) {
-                  console.log("fail: "+err);
-                }
-              });
+              updateCase({token: "updateCase", id: $(this).parent().attr("data-id")});
               break;
             // 删除案例
             case "remove":
@@ -323,25 +304,20 @@ function getCounts(argJson) {
  * }
  */
 function updateCase(argJson) {
-  var imgArray = new Array();
-  argJson.target.find(".case-thumb").children().not(":last").each(function() {
-    var str = '{"url": "'+$(this).find("img").attr("src")+'", "attr_alt": "'+$(this).find('[name="data-alt"]').val()+'", "attr_title": "'+$(this).find('[name="data-title"]').val()+'"}';
-    imgArray.push(str);
-  });
-
   var fmd = new FormData();
   fmd.append("token", argJson.token);
-  if(argJson.flag) {
-    fmd.append("flag", argJson.flag);
-    var caseData = '{"p_title": "'+argJson.target.find("[name='cp-title']").val()+'", "p_keywords": "'+argJson.target.find("[name='cp-keywords']").val()+'", "p_description": "'+argJson.target.find("[name='cp-description']").val()+'", "c_path": "", "c_title": "'+argJson.target.find("[name='case-title']").val()+'", "c_area": "'+argJson.target.find("[name='case-area']").val()+'", "c_address": "'+argJson.target.find("[name='case-address']").val()+'", "c_class": "'+argJson.target.find("[name='case-class']").val()+'", "c_team": "'+argJson.target.find("[name='case-team']").val()+'", "c_company": "'+argJson.target.find("[name='case-company']").val()+'", "c_description": "'+argJson.target.find("[name='case-description']").val()+'", "c_image": ['+imgArray+'], "c_recommends": 0, "c_posted": "'+((argJson.flag==="sp" || argJson.flag==="op" || argJson.flag==="up")?"T":"F")+'"}';
-  }
-  else {
-    var caseData = '{"p_title": "'+argJson.target.find("[name='cp-title']").val()+'", "p_keywords": "'+argJson.target.find("[name='cp-keywords']").val()+'", "p_description": "'+argJson.target.find("[name='cp-description']").val()+'", "c_title": "'+argJson.target.find("[name='case-title']").val()+'", "c_area": "'+argJson.target.find("[name='case-area']").val()+'", "c_address": "'+argJson.target.find("[name='case-address']").val()+'", "c_class": "'+argJson.target.find("[name='case-class']").val()+'", "c_team": "'+argJson.target.find("[name='case-team']").val()+'", "c_company": "'+argJson.target.find("[name='case-company']").val()+'", "c_description": "'+argJson.target.find("[name='case-description']").val()+'", "c_image": ['+imgArray+']}';
-  }
   if(argJson.id) {
     fmd.append("id", argJson.id);
   }
-  fmd.append("data", caseData);
+  if(argJson.target) {
+    var imgArray = new Array();
+    argJson.target.find(".case-thumb").children().not(":last").each(function() {
+      var str = '{"url": "'+$(this).find("img").attr("src")+'", "attr_alt": "'+$(this).find('[name="data-alt"]').val()+'", "attr_title": "'+$(this).find('[name="data-title"]').val()+'"}';
+      imgArray.push(str);
+    });
+    var caseData = '{"p_title": "'+argJson.target.find("[name='cp-title']").val()+'", "p_keywords": "'+argJson.target.find("[name='cp-keywords']").val()+'", "p_description": "'+argJson.target.find("[name='cp-description']").val()+'", "c_title": "'+argJson.target.find("[name='case-title']").val()+'", "c_area": "'+argJson.target.find("[name='case-area']").val()+'", "c_address": "'+argJson.target.find("[name='case-address']").val()+'", "c_class": "'+argJson.target.find("[name='case-class']").val()+'", "c_team": "'+argJson.target.find("[name='case-team']").val()+'", "c_company": "'+argJson.target.find("[name='case-company']").val()+'", "c_description": "'+argJson.target.find("[name='case-description']").val()+'", "c_image": ['+imgArray+']}';
+    fmd.append("data", caseData);
+  }
   $.ajax({
     url: "/cms/include/php/handle.php",
     type: "POST",
@@ -349,11 +325,14 @@ function updateCase(argJson) {
     processData: false,
     contentType: false,   //数据为formData时必须定义此项
     dataType: "json",     //返回json格式数据
-    context: argJson.target.find("span.btn-save"),
     success: function(result) {
       if(!JSON.parse(result).err_no) {
-        $(this).addClass("disabled");
-        if(JSON.parse(result).err_code === "案例已成功发布！") {
+        if(argJson.target) {
+          argJson.target.find("span.btn-save").addClass("disabled");
+          argJson.target.attr("data-cid", JSON.parse(result).err_code);
+        }
+        if(JSON.parse(result).err_code === "案例已成功发布") {
+          alert(JSON.parse(result).err_code);
           location.reload(true);
         }
       }
@@ -366,7 +345,7 @@ function updateCase(argJson) {
 }
 
 /**
- * 清除案例编辑、上传标签页的信息
+ * 清除案例编辑、上传标签页的内容
  * @param {JSON} $argJson: JSON形式参数
  */
 function clearTabContent($argJson) {

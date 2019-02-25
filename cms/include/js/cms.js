@@ -154,8 +154,9 @@ function regTabEvent() {
     if($("#pageTabs").find(".active").attr("href") === "#caseTab") {
       refresh_caseList({page: 1});
     }
-    
-    // clearTabContent({target: $("#uploadTab")});
+
+    // 清除data-cid属性值
+    $($(this).parent().attr("href")).attr("data-cid", "");
   });
 
   // 标签页点击事件处理函数

@@ -92,7 +92,8 @@ class CaseManager {
     $dataArray = json_decode($data, true);
     $imageStr = $this->transferImageJson($dataArray["c_image"]);
     // 往数据库添加数据项
-    $sql_insert = "INSERT INTO ".$this->tab_name."(p_title, p_keywords, p_description, c_path, c_title, c_area, c_address, c_class, c_team, c_company, c_description, c_image, c_recommends, c_posted) VALUES('".$dataArray["p_title"]."','".$dataArray["p_keywords"]."','".$dataArray["p_description"]."','".$dataArray["c_path"]."','".$dataArray["c_title"]."', '".$dataArray["c_area"]."', '".$dataArray["c_address"]."', '".$dataArray["c_class"]."', '".$dataArray["c_team"]."', '".$dataArray["c_company"]."', '".$dataArray["c_description"]."', '".$imageStr."', '".$dataArray["c_recommends"]."','".$dataArray["c_posted"]."')";
+    // $sql_insert = "INSERT INTO ".$this->tab_name."(p_title, p_keywords, p_description, c_path, c_title, c_area, c_address, c_class, c_team, c_company, c_description, c_image, c_recommends, c_posted) VALUES('".$dataArray["p_title"]."','".$dataArray["p_keywords"]."','".$dataArray["p_description"]."','".$dataArray["c_path"]."','".$dataArray["c_title"]."', '".$dataArray["c_area"]."', '".$dataArray["c_address"]."', '".$dataArray["c_class"]."', '".$dataArray["c_team"]."', '".$dataArray["c_company"]."', '".$dataArray["c_description"]."', '".$imageStr."', '".$dataArray["c_recommends"]."','".$dataArray["c_posted"]."')";
+    $sql_insert = "INSERT INTO ".$this->tab_name."(p_title, p_keywords, p_description, c_path, c_title, c_area, c_address, c_class, c_team, c_company, c_description, c_image, c_recommends, c_posted) VALUES('".$dataArray["p_title"]."','".$dataArray["p_keywords"]."','".$dataArray["p_description"]."','".$dataArray["c_path"]."','".$dataArray["c_title"]."', '".$dataArray["c_area"]."', '".$dataArray["c_address"]."', '".$dataArray["c_class"]."', '".$dataArray["c_team"]."', '".$dataArray["c_company"]."', '".$dataArray["c_description"]."', '".$imageStr."', '0','F')";
     $this->dbo->exec_insert($sql_insert);
 
     $id = $this->queryTable()[0]["id"];
@@ -150,11 +151,11 @@ class CaseManager {
     
     $sql_update = "UPDATE $this->tab_name SET ";
     foreach($dataArray as $key=>$value) {
-      if($key === "c_image") {
-        $sql_update .= ($key."='".$imageStr."'");
+      if($key !== "c_image") {
+        $sql_update .= ($key."='".$value."'");
       }
       else {
-        $sql_update .= ($key."='".$value."'");
+        $sql_update .= ($key."='".$imageStr."'");
       }
       if(end($dataArray) !== $value) {
         $sql_update .= ",";
@@ -163,7 +164,6 @@ class CaseManager {
     }
     $sql_update .= "WHERE id=$id";
     $this->dbo->exec_update($sql_update);
-    $ret = '{"err_no":'.$this->dbo->state["err_no"].', "err_code": "'.$this->dbo->state["err_code"].'"}';
 
     // 同时更新JSON文件
     $path = ROOT_PATH.PATH_UPLOAD."/case/";
@@ -176,6 +176,14 @@ class CaseManager {
       $url = "http://".$siteinfo["domain"]."/template/case_temp.php";
       $str = curl_request($url, $this->transferJson("id=$id"));
       file_put_contents(ROOT_PATH."/case/$id.html", $str);
+    }
+
+    // 格式化返回值
+    if($this->dbo->state["err_no"]) {
+      $ret = '{"err_no":'.$this->dbo->state["err_no"].', "err_code": "'.$this->dbo->state["err_code"].'"}';
+    }
+    else {
+      $ret = '{"err_no":'.$this->dbo->state["err_no"].', "err_code": "'.$id.'"}';
     }
     return $ret;
   }
