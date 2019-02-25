@@ -90,29 +90,9 @@ class CaseManager {
   public function addItem($data) {
     // 格式化上传图片字符串
     $dataArray = json_decode($data, true);
-    $imageStr = '';
-    if($dataArray["c_image"]) {
-      $imageStr .= '[';
-      foreach($dataArray["c_image"] as $item) {
-        $imageStr .= '{"';
-        foreach($item as $key=>$value) {
-          $imageStr .= $key;
-          $imageStr .= '":"';
-          $imageStr .= $value;
-          if($value !== end($item)) {
-            $imageStr .= '","';
-          }
-        }
-        $imageStr .= '"}';
-  
-        if($item !== end($dataArray["c_image"])) {
-          $imageStr .= ',';
-        }
-      }
-      $imageStr .= ']';
-    }
+    $imageStr = $this->transferImageJson($dataArray["c_image"]);
     // 往数据库添加数据项
-    $sql_insert = "INSERT INTO ".$this->tab_name."(p_title, p_keywords, p_description, c_path, c_title, c_area, c_address, c_class, c_team, c_company, c_description, c_image, c_recommends, c_posted) VALUES('".$dataArray["p_title"]."','".$dataArray["p_keywords"]."','".$dataArray["p_description"]."','".$dataArray["c_path"]."','".$dataArray["c_title"]."', '".$dataArray["c_area"]."', '".$dataArray["c_address"]."', '".$dataArray["c_class"]."', '".$dataArray["c_team"]."', '".$dataArray["c_company"]."', '".$dataArray["c_description"]."', '".$imageStr."', ".$dataArray["c_recommends"].",".$dataArray["c_posted"].")";
+    $sql_insert = "INSERT INTO ".$this->tab_name."(p_title, p_keywords, p_description, c_path, c_title, c_area, c_address, c_class, c_team, c_company, c_description, c_image, c_recommends, c_posted) VALUES('".$dataArray["p_title"]."','".$dataArray["p_keywords"]."','".$dataArray["p_description"]."','".$dataArray["c_path"]."','".$dataArray["c_title"]."', '".$dataArray["c_area"]."', '".$dataArray["c_address"]."', '".$dataArray["c_class"]."', '".$dataArray["c_team"]."', '".$dataArray["c_company"]."', '".$dataArray["c_description"]."', '".$imageStr."', '".$dataArray["c_recommends"]."','".$dataArray["c_posted"]."')";
     $this->dbo->exec_insert($sql_insert);
 
     $id = $this->queryTable()[0]["id"];
@@ -135,16 +115,16 @@ class CaseManager {
    * 发布数据项
    */
   public function postItem($id) {
-    // 从文件读取数据
+    // 从对应JSON文件读取数据
     $path = ROOT_PATH.PATH_UPLOAD."/case/";
     $data = file_get_contents($path."/$id.json");
     // 生成html文件
     $siteinfo = json_decode(file_get_contents(ROOT_PATH.PATH_JSON."/siteinfo.json"), true);
     $url = "http://".$siteinfo["domain"]."/template/case_temp.php";
     $str = curl_request($url, $data);
-    $result = file_put_contents(ROOT_PATH."/case/$id.html", $str);
+    file_put_contents(ROOT_PATH."/case/$id.html", $str);
     // 更新数据库文件路径
-    $ret = $this->updateItem($id, '{"c_path": "/case/'.$id.'.html", "c_posted": 1}');
+    $ret = $this->updateItem($id, '{"c_path": "/case/'.$id.'.html", "c_posted": "T"}');
     $retArray = json_decode($ret, true);
     if(!$retArray["err_no"]) {
       $retArray["err_code"] = "案例已成功发布！";
@@ -166,27 +146,8 @@ class CaseManager {
     // UPDATE table SET key1=value1, key2=value2, ..., keyN=valueN
     $dataArray = json_decode($data, true);
     // 格式化上传图片字符串
-    $imageStr = '';
-    if($dataArray["c_image"]) {
-      $imageStr .= '[';
-      foreach($dataArray["c_image"] as $item) {
-        $imageStr .= '{"';
-        foreach($item as $key=>$value) {
-          $imageStr .= $key;
-          $imageStr .= '":"';
-          $imageStr .= $value;
-          if($value !== end($item)) {
-            $imageStr .= '","';
-          }
-        }
-        $imageStr .= '"}';
-  
-        if($item !== end($dataArray["c_image"])) {
-          $imageStr .= ',';
-        }
-      }
-      $imageStr .= ']';
-    }
+    $imageStr = $this->transferImageJson($dataArray["c_image"]);
+    
     $sql_update = "UPDATE $this->tab_name SET ";
     foreach($dataArray as $key=>$value) {
       if($key === "c_image") {
@@ -204,12 +165,18 @@ class CaseManager {
     $this->dbo->exec_update($sql_update);
     $ret = '{"err_no":'.$this->dbo->state["err_no"].', "err_code": "'.$this->dbo->state["err_code"].'"}';
 
-    // 生成JSON文件
+    // 同时更新JSON文件
     $path = ROOT_PATH.PATH_UPLOAD."/case/";
     if(is_dir($path) or @mkdir($path, 0777, true)) {
       file_put_contents($path."/$id.json", $this->transferJson("id=$id"));
     }
-
+    if($this->queryTable("id=$id")[0]["c_posted"] === "T") {
+      // 如果已发布则同时更新html文件
+      $siteinfo = json_decode(file_get_contents(ROOT_PATH.PATH_JSON."/siteinfo.json"), true);
+      $url = "http://".$siteinfo["domain"]."/template/case_temp.php";
+      $str = curl_request($url, $this->transferJson("id=$id"));
+      file_put_contents(ROOT_PATH."/case/$id.html", $str);
+    }
     return $ret;
   }
 
@@ -224,6 +191,36 @@ class CaseManager {
   }
 
   /**
+   * 将以数组形式保存的数据转换成JSON格式的字符串
+   * @param Array $dataArray: 数组形式的数据
+   * @return JSON $dataString: JSON格式的字符串
+   */
+  public function transferImageJson($dataArray) {
+    $dataString = '';
+    if($dataArray) {
+      $dataString .= '[';
+      foreach($dataArray as $item) {
+        $dataString .= '{"';
+        foreach($item as $key=>$value) {
+          $dataString .= $key;
+          $dataString .= '":"';
+          $dataString .= $value;
+          if($value !== end($item)) {
+            $dataString .= '","';
+          }
+        }
+        $dataString .= '"}';
+  
+        if($item !== end($dataArray)) {
+          $dataString .= ',';
+        }
+      }
+      $dataString .= ']';
+    }
+    return $dataString;
+  }
+
+  /**
    * 转换数据库记录为json字符串
    */
   public function transferJson($rule) {
@@ -234,7 +231,12 @@ class CaseManager {
     $json = '{';
     foreach($result as $key=>$value) {
       if($key === "c_image") {
-        $json .= ('"'.$key.'":'.$value);
+        if($value) {
+          $json .= ('"'.$key.'":'.$value);
+        }
+        else {
+          $json .= ('"'.$key.'":""');
+        }
       }
       else {
         $json .= ('"'.$key.'":"'.$value.'"');

@@ -54,7 +54,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
             </ul>
             <form class="navbar-form navbar-left">
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search">
+                <input required type="text" class="form-control" placeholder="Search">
               </div>
               <button type="submit" class="btn btn-default">Submit</button>
             </form>
@@ -128,7 +128,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                 <div class="col-xs-6 col-sm-4 col-md-3">
                   <div class="wrap unpost">
                     <p>暂未发布</p>
-                    <span class="text-danger digital"><?php echo $caseManage->getCounts("c_posted=0"); ?></span>
+                    <span class="text-danger digital"><?php echo $caseManage->getCounts("c_posted='F'"); ?></span>
                     <span>条</span>
                   </div>
                 </div>
@@ -185,23 +185,23 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
               <div class="case-page">
                 <div class="input-group">
                   <label for="cp-title" class="input-group-addon">网页标题</label>
-                  <input type="text" class="form-control" name="cp-title" id="cp-title">
+                  <input required type="text" class="form-control" name="cp-title" id="cp-title">
                 </div>
                 <div class="input-group">
                   <label for="cp-keywords" class="input-group-addon">网页关键词</label>
-                  <input type="text" class="form-control" name="cp-keywords" id="cp-keywords">
+                  <input required type="text" class="form-control" name="cp-keywords" id="cp-keywords">
                 </div>
                 <div class="input-group">
                   <label for="cp-description" class="input-group-addon">网页内容简介</label>
-                  <textarea type="text" class="form-control" name="cp-description" id="cp-description"></textarea>
+                  <textarea required type="text" class="form-control" name="cp-description" id="cp-description"></textarea>
                 </div>
                 <div class="input-group">
                   <label for="case-title" class="input-group-addon">项目名称</label>
-                  <input type="text" class="form-control" name="case-title" id="case-title">
+                  <input required type="text" class="form-control" name="case-title" id="case-title">
                 </div>
                 <div class="input-group">
                   <label for="case-area" class="input-group-addon">项目面积</label>
-                  <input type="text" class="form-control" name="case-area" id="case-area">
+                  <input required type="text" class="form-control" name="case-area" id="case-area">
                   <span class="input-group-addon">㎡</span>
                 </div>
                 <div class="input-group">
@@ -215,25 +215,25 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                 </div>
                 <div class="input-group">
                   <label for="case-address" class="input-group-addon">项目地址</label>
-                  <input type="text" class="form-control" name="case-address" id="case-address">
+                  <input required type="text" class="form-control" name="case-address" id="case-address">
                 </div>
                 <div class="input-group">
                   <label for="case-team" class="input-group-addon">主创团队</label>
-                  <input type="text" class="form-control" name="case-team" id="case-team">
+                  <input required type="text" class="form-control" name="case-team" id="case-team">
                 </div>
                 <div class="input-group">
                   <label for="case-company" class="input-group-addon">出品单位</label>
-                  <input type="text" class="form-control" name="case-company" id="case-company">
+                  <input required type="text" class="form-control" name="case-company" id="case-company">
                 </div>
                 <div class="input-group">
                   <label for="case-description" class="input-group-addon">项目简介</label>
-                  <textarea type="text" class="form-control" name="case-description" id="case-description"></textarea>
+                  <textarea required type="text" class="form-control" name="case-description" id="case-description"></textarea>
                 </div>
                 <div class="input-group">
                   <label for="case-image" class="input-group-addon">项目图片</label>
                   <div class="form-control case-thumb">
                     <div class="col-sm-4 col-md-3">
-                      <input type="file" style="display: none;" multiple="true" accept=".png, .jpg, .jpeg">
+                      <input required type="file" style="display: none;" multiple="true" accept=".png, .jpg, .jpeg">
                       <div class="btn btn-default btn-local">
                         <span class="glyphicon glyphicon-open"></span>
                         <span>本地上传</span>
@@ -255,7 +255,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                 <div class="input-group">
                   <span class="btn btn-default btn-close" role="button">关闭</span>
                   <span class="btn btn-warning btn-save" role="button">保存</span>
-                  <span class="btn btn-success btn-post" role="button">发布</span>
+                  <!-- <span class="btn btn-success btn-post" role="button">发布</span> -->
                 </div>
               </div>
             </div> <!--#uploadTab-->
@@ -263,23 +263,23 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
               <div class="case-page">
                 <div class="input-group">
                   <label for="cp-title" class="input-group-addon">网页标题</label>
-                  <input type="text" class="form-control" name="cp-title">
+                  <input required type="text" class="form-control" name="cp-title">
                 </div>
                 <div class="input-group">
                   <label for="cp-keywords" class="input-group-addon">网页关键词</label>
-                  <input type="text" class="form-control" name="cp-keywords">
+                  <input required type="text" class="form-control" name="cp-keywords">
                 </div>
                 <div class="input-group">
                   <label for="cp-description" class="input-group-addon">网页内容简介</label>
-                  <textarea type="text" class="form-control" name="cp-description"></textarea>
+                  <textarea required type="text" class="form-control" name="cp-description"></textarea>
                 </div>
                 <div class="input-group">
                   <label for="case-title" class="input-group-addon">项目名称</label>
-                  <input type="text" class="form-control" name="case-title">
+                  <input required type="text" class="form-control" name="case-title">
                 </div>
                 <div class="input-group">
                   <label for="case-area" class="input-group-addon">项目面积</label>
-                  <input type="text" class="form-control" name="case-area">
+                  <input required type="text" class="form-control" name="case-area">
                   <span class="input-group-addon">㎡</span>
                 </div>
                 <div class="input-group">
@@ -293,25 +293,25 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                 </div>
                 <div class="input-group">
                   <label for="case-address" class="input-group-addon">项目地址</label>
-                  <input type="text" class="form-control" name="case-address">
+                  <input required type="text" class="form-control" name="case-address">
                 </div>
                 <div class="input-group">
                   <label for="case-team" class="input-group-addon">主创团队</label>
-                  <input type="text" class="form-control" name="case-team">
+                  <input required type="text" class="form-control" name="case-team">
                 </div>
                 <div class="input-group">
                   <label for="case-company" class="input-group-addon">出品单位</label>
-                  <input type="text" class="form-control" name="case-company">
+                  <input required type="text" class="form-control" name="case-company">
                 </div>
                 <div class="input-group">
                   <label for="case-description" class="input-group-addon">项目简介</label>
-                  <textarea type="text" class="form-control" name="case-description"></textarea>
+                  <textarea required type="text" class="form-control" name="case-description"></textarea>
                 </div>
                 <div class="input-group">
                   <label for="case-image" class="input-group-addon">项目图片</label>
                   <div class="form-control case-thumb">
                     <div class="col-sm-4 col-md-3">
-                      <input type="file" style="display: none;" multiple="true" accept=".png, .jpg, .jpeg">
+                      <input required type="file" style="display: none;" multiple="true" accept=".png, .jpg, .jpeg">
                       <div class="btn btn-default btn-local">
                         <span class="glyphicon glyphicon-open"></span>
                         <span>本地上传</span>
@@ -333,7 +333,6 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                 <div class="input-group">
                   <span class="btn btn-default btn-close" role="button">关闭</span>
                   <span class="btn btn-warning btn-save" role="button">保存</span>
-                  <span class="btn btn-success btn-post" role="button">发布</span>
                 </div>
               </div>
             </div> <!--#editTab-->

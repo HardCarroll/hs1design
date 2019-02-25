@@ -36,13 +36,9 @@ $(function(){
   $(".btn-close").off("click").on("click", function() {
     $("#pageTabs").find(".active").children().last().click();
     getCounts({rule: "", target: $(".wrap.total>span.digital")});
-    getCounts({rule: "c_posted=0", target: $(".wrap.unpost>span.digital")});
+    getCounts({rule: "c_posted='F'", target: $(".wrap.unpost>span.digital")});
     getCounts({rule: "c_recommends=1", target: $(".wrap.marked>span.digital")});
-    paginationList({
-      token: "refreshPagination",
-      url: "/cms/include/php/handle.php",
-      target: $("#caseTab>.list-wrap")
-    });
+    paginationList({token: "refreshPagination", url: "/cms/include/php/handle.php", target: $("#caseTab>.list-wrap")});
   });
 
   regTabEvent();
@@ -158,6 +154,8 @@ function regTabEvent() {
     if($("#pageTabs").find(".active").attr("href") === "#caseTab") {
       refresh_caseList({page: 1});
     }
+    
+    // clearTabContent({target: $("#uploadTab")});
   });
 
   // 标签页点击事件处理函数

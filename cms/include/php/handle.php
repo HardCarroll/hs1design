@@ -69,7 +69,7 @@ function proc_uploadCase($caseManage, $flag, $data = null) {
  * 先判断是否已发布，未发布则先发布此案例。
  */
 function proc_markCase($caseManage, $id, $data) {
-  if(!$caseManage->queryTable("id=".$id)[0]["c_posted"]) {
+  if($caseManage->queryTable("id=".$id)[0]["c_posted"] === "F") {
     return json_encode('{"err_no": -1, "err_code": "当前案例暂未发布，请先发布此案例！"}');
   }
   $ret = $caseManage->updateItem($id, $data);
@@ -153,7 +153,7 @@ function proc_refreshCaseList($caseManage, $data = null) {
   if($caseManage->getCounts()) {
     $html = '<div class="panel-group" role="tablist" aria-multiselectable="true">';
     for ($i = ($page-1)*10; $i < ($page-1)*10+$cmp; $i++) {
-      if($result[$i]["c_posted"]) {
+      if($result[$i]["c_posted"] === "T") {
         $html .= '<div class="panel panel-default">';
       }
       else {

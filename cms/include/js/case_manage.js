@@ -23,8 +23,8 @@ $(function() {
         paginationList({token: "refreshPagination", url: "/cms/include/php/handle.php", target: $("#caseTab>.list-wrap"), rule: ""});
       }
       if($(this).hasClass("unpost")) {
-        refresh_caseList({page: 1, rule: "c_posted=0"});
-        paginationList({token: "refreshPagination", url: "/cms/include/php/handle.php", target: $("#caseTab>.list-wrap"), rule: "c_posted=0"});
+        refresh_caseList({page: 1, rule: "c_posted='F'"});
+        paginationList({token: "refreshPagination", url: "/cms/include/php/handle.php", target: $("#caseTab>.list-wrap"), rule: "c_posted='F'"});
       }
       if($(this).hasClass("marked")) {
         refresh_caseList({page: 1, rule: "c_recommends=1"});
@@ -88,19 +88,19 @@ $(function() {
   });
 
   // 发布按钮点击事件处理函数
-  $(".btn-post").off("click").on("click", function() {
-    if($(this).parent().parent().parent().attr("id") === "uploadTab") {
-      if($(this).prev().hasClass("disabled")) {
-        updateCase({target: $("#uploadTab"), token: "uploadCase", flag: "op"});
-      }
-      else {
-        updateCase({target: $("#uploadTab"), token: "uploadCase", flag: "sp"});
-      }
-    }
-    if($(this).parent().parent().parent().attr("id") === "editTab") {
-      // updateCase({target: $("#editTab"), token: "updateCase", id: $("#editTab").attr("data-cid")});
-    }
-  });
+  // $(".btn-post").off("click").on("click", function() {
+  //   if($(this).parent().parent().parent().attr("id") === "uploadTab") {
+  //     if($(this).prev().hasClass("disabled")) {
+  //       updateCase({target: $("#uploadTab"), token: "uploadCase", flag: "op"});
+  //     }
+  //     else {
+  //       updateCase({target: $("#uploadTab"), token: "uploadCase", flag: "sp"});
+  //     }
+  //   }
+  //   if($(this).parent().parent().parent().attr("id") === "editTab") {
+  //     // updateCase({target: $("#editTab"), token: "updateCase", id: $("#editTab").attr("data-cid")});
+  //   }
+  // });
 
   // 删除确认对话框处理函数
   $("#modalConfirm .btn-danger").off("click").on("click", function() {
@@ -139,6 +139,7 @@ $(function() {
  * }
  */
 function refresh_uploadTab(argJson) {
+  clearTabContent({target: argJson.target});
   var fmd = new FormData();
   fmd.append("token", "refreshUploadTab");
   fmd.append("cid", argJson.id);
@@ -264,7 +265,7 @@ function refresh_caseList(data) {
                 success: function(result) {
                   if(!JSON.parse(result).err_no) {
                     refresh_caseList({page: 1});
-                    getCounts({rule: "c_posted=0", target: $(".wrap.unpost>span.digital")});
+                    getCounts({rule: "c_posted='F'", target: $(".wrap.unpost>span.digital")});
                     alert("案例已成功发布！");
                   }
                 },
@@ -332,7 +333,7 @@ function updateCase(argJson) {
   fmd.append("token", argJson.token);
   if(argJson.flag) {
     fmd.append("flag", argJson.flag);
-    var caseData = '{"p_title": "'+argJson.target.find("[name='cp-title']").val()+'", "p_keywords": "'+argJson.target.find("[name='cp-keywords']").val()+'", "p_description": "'+argJson.target.find("[name='cp-description']").val()+'", "c_path": "", "c_title": "'+argJson.target.find("[name='case-title']").val()+'", "c_area": "'+argJson.target.find("[name='case-area']").val()+'", "c_address": "'+argJson.target.find("[name='case-address']").val()+'", "c_class": "'+argJson.target.find("[name='case-class']").val()+'", "c_team": "'+argJson.target.find("[name='case-team']").val()+'", "c_company": "'+argJson.target.find("[name='case-company']").val()+'", "c_description": "'+argJson.target.find("[name='case-description']").val()+'", "c_image": ['+imgArray+'], "c_recommends": 0, "c_posted": '+((argJson.flag==="sp" || argJson.flag==="op" || argJson.flag==="up")?1:0)+'}';
+    var caseData = '{"p_title": "'+argJson.target.find("[name='cp-title']").val()+'", "p_keywords": "'+argJson.target.find("[name='cp-keywords']").val()+'", "p_description": "'+argJson.target.find("[name='cp-description']").val()+'", "c_path": "", "c_title": "'+argJson.target.find("[name='case-title']").val()+'", "c_area": "'+argJson.target.find("[name='case-area']").val()+'", "c_address": "'+argJson.target.find("[name='case-address']").val()+'", "c_class": "'+argJson.target.find("[name='case-class']").val()+'", "c_team": "'+argJson.target.find("[name='case-team']").val()+'", "c_company": "'+argJson.target.find("[name='case-company']").val()+'", "c_description": "'+argJson.target.find("[name='case-description']").val()+'", "c_image": ['+imgArray+'], "c_recommends": 0, "c_posted": "'+((argJson.flag==="sp" || argJson.flag==="op" || argJson.flag==="up")?"T":"F")+'"}';
   }
   else {
     var caseData = '{"p_title": "'+argJson.target.find("[name='cp-title']").val()+'", "p_keywords": "'+argJson.target.find("[name='cp-keywords']").val()+'", "p_description": "'+argJson.target.find("[name='cp-description']").val()+'", "c_title": "'+argJson.target.find("[name='case-title']").val()+'", "c_area": "'+argJson.target.find("[name='case-area']").val()+'", "c_address": "'+argJson.target.find("[name='case-address']").val()+'", "c_class": "'+argJson.target.find("[name='case-class']").val()+'", "c_team": "'+argJson.target.find("[name='case-team']").val()+'", "c_company": "'+argJson.target.find("[name='case-company']").val()+'", "c_description": "'+argJson.target.find("[name='case-description']").val()+'", "c_image": ['+imgArray+']}';
@@ -362,4 +363,16 @@ function updateCase(argJson) {
       console.log("fail: "+err);
     }
   }); // ajax_func
+}
+
+/**
+ * 清除案例编辑、上传标签页的信息
+ * @param {JSON} $argJson: JSON形式参数
+ */
+function clearTabContent($argJson) {
+  $argJson.target.find("input[type='text']").val("");
+  $argJson.target.find("textarea").val("");
+  $argJson.target.find("select").val(0);
+  $argJson.target.find(".case-thumb").children().not(":last-child").remove();
+  $argJson.target.find(".btn-save").removeClass("disabled");
 }
