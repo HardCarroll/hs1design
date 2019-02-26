@@ -30,7 +30,7 @@ input, textarea, button, select {
   -webkit-appearance: none;
 }
 textarea {
-  height: 80px !important;
+  min-height: 80px;
 }
 ul {
   margin-bottom: 0;

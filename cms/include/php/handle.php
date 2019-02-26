@@ -96,7 +96,7 @@ function proc_removeCase($caseManage, $id) {
  */
 function proc_uploadFiles($files) {
   $ret = [];
-  $path = PATH_UPLOAD."/images/".date("Ymd/");
+  $path = PATH_UPLOAD."/image/".date("Ymd/");
   is_dir(ROOT_PATH.$path) or @mkdir(ROOT_PATH.$path, 0777, true);
 
   for($i = 0; $i < count($files["size"]); $i++) {

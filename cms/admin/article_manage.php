@@ -15,8 +15,8 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
   <link rel="stylesheet" href="/cms/include/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="/cms/include/css/icons.css">
   <link rel="stylesheet" href="/cms/include/css/cms.css">
-  <link rel="stylesheet" href="/cms/include/css/case_manage.css">
-  <title>案例管理——Powered by 黄狮虎</title>
+  <link rel="stylesheet" href="/cms/include/css/article_manage.css">
+  <title>文章管理——Powered by 黄狮虎</title>
 </head>
 <body>
   <div class="layer">
@@ -77,14 +77,14 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
               <span class="title">网站设置</span>
             </div>
           </div>
-          <div class="list-item slide slide-left active" role="button" href="/cms/admin/case_manage.php">
+          <div class="list-item slide slide-left" role="button" href="/cms/admin/case_manage.php">
             <div class="slide-head">
               <span class="glyphicon glyphicon-blackboard"></span>
               <span class="title">案例管理</span>
               <span class="pull-right glyphicon glyphicon-menu"></span>
             </div>
             <ul class="slide-menu">
-              <li class="text-primary active" href="#caseTab">
+              <li class="text-primary" href="#caseTab">
                 <span class="glyphicon glyphicon-list"></span>
                 <span class="title">案例总览</span>
               </li>
@@ -94,14 +94,14 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
               </li>
             </ul>
           </div>
-          <div class="list-item slide slide-left" role="button" href="/cms/admin/article_manage.php">
+          <div class="list-item slide slide-left active" role="button" href="/cms/admin/article_manage.php">
             <div class="slide-head">
               <span class="glyphicon glyphicon-pencil"></span>
               <span class="title">文章管理</span>
               <span class="pull-right glyphicon glyphicon-menu"></span>
             </div>
             <ul class="slide-menu">
-              <li class="text-primary" href="#articleTab">
+              <li class="text-primary active" href="#articleTab">
                 <span class="glyphicon glyphicon-list"></span>
                 <span class="title">文章总览</span>
               </li>
@@ -127,13 +127,13 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
       <div class="content-wrap">
         <div class="content-inner">
           <ul id="pageTabs" class="hidden-xs nav nav-tabs" role="tablist">
-            <li role="presentation" class="active" href="#caseTab">
+            <li role="presentation" class="active" href="#articleTab">
               <span class="pull-left glyphicon glyphicon-list"></span>
-              <span class="title">案例总览</span>
+              <span class="title">文章总览</span>
             </li>
           </ul>
           <div id="pageTabContent" class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="caseTab">
+            <div role="tabpanel" class="tab-pane active" id="articleTab">
               <div class="clearfix overview">
                 <div class="col-xs-6 col-sm-4 col-md-3">
                   <div class="wrap total">
@@ -157,13 +157,13 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                   </div>
                 </div>
                 <div class="col-xs-6 col-sm-4 col-md-3">
-                  <div class="btn-upload" href="#uploadTab">
+                  <div class="btn-upload" href="#uploadAritlce">
                     <span class="glyphicon glyphicon-cloud-upload"></span>
                     <span class="title">上传案例</span>
                   </div>
                 </div>
               </div>
-              <div class="case-wrap">
+              <div class="article-wrap">
                 <!-- <div class="panel-group" role="tablist" aria-multiselectable="true"> -->
                 <!-- 动态生成案例列表 -->
                 <!-- </div> .panel-group -->
@@ -180,8 +180,8 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                       echo '<div class="panel panel-danger">';
                     }
                     echo '<div class="panel-heading" role="tab">';
-                    echo '<a class="collapsed" role="button" data-toggle="collapse" href="#case_'.$result[$i]["id"].'">'.$result[$i]["c_title"].'</a></div>';
-                    echo '<div id="case_'.$result[$i]["id"].'" class="panel-collapse collapse" role="tabpanel">';
+                    echo '<a class="collapsed" role="button" data-toggle="collapse" href="#article_'.$result[$i]["id"].'">'.$result[$i]["c_title"].'</a></div>';
+                    echo '<div id="article_'.$result[$i]["id"].'" class="panel-collapse collapse" role="tabpanel">';
                     echo '<ul class="btn-group" data-id="'.$result[$i]["id"].'">';
                     echo '<li role="button" data-token="mark" title="星标" class="btn btn-default glyphicon '.($result[$i]["c_recommends"] ? "glyphicon-star" : "glyphicon-star-empty").'"></li>';
                     echo '<li role="button" data-token="edit" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>';
@@ -192,14 +192,14 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                   echo '</div>';
                 }
                 ?>
-              </div> <!-- .case-wrap -->
+              </div> <!-- .article-wrap -->
               <div class="list-wrap">
                 <!-- 分页按钮动态输出 -->
               </div>
-            </div> <!-- #caseTab -->
+            </div> <!-- #articleTab -->
 
-            <div role="tabpanel" class="tab-pane" id="uploadTab" data-cid="">
-              <div class="case-page">
+            <div role="tabpanel" class="tab-pane" id="uploadArticle" data-cid="">
+              <div class="article-page">
                 <div class="input-group">
                   <label for="cp-title" class="input-group-addon">网页标题</label>
                   <input required type="text" class="form-control" name="cp-title">
@@ -213,146 +213,59 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                   <textarea required type="text" class="form-control" name="cp-description"></textarea>
                 </div>
                 <div class="input-group">
-                  <label for="case-title" class="input-group-addon">项目名称</label>
-                  <input required type="text" class="form-control" name="case-title">
+                  <label for="article-title" class="input-group-addon">文章标题</label>
+                  <input required type="text" class="form-control" name="article-title">
                 </div>
                 <div class="input-group">
-                  <label for="case-area" class="input-group-addon">项目面积</label>
-                  <input required type="text" class="form-control" name="case-area">
-                  <span class="input-group-addon">㎡</span>
+                  <label for="article-author" class="input-group-addon">文章作者</label>
+                  <input required type="text" class="form-control" name="article-author">
                 </div>
                 <div class="input-group">
-                  <label for="case-class" class="input-group-addon">项目类型</label>
-                  <select class="form-control" name="case-class">
-                    <option value="0">餐厅空间</option>
-                    <option value="1">酒店空间</option>
-                    <option value="2">娱乐空间</option>
-                    <option value="3">其他设计</option>
+                  <label for="article-class" class="input-group-addon">文章类别</label>
+                  <select name="news-class" class="form-control">
+                    <option value="0">公司要闻</option>
+                    <option value="1">综合新闻</option>
                   </select>
                 </div>
                 <div class="input-group">
-                  <label for="case-address" class="input-group-addon">项目地址</label>
-                  <input required type="text" class="form-control" name="case-address">
+                  <label for="article-date" class="input-group-addon">发布日期</label>
+                  <input type="date" class="form-control" name="article-date" required>
                 </div>
                 <div class="input-group">
-                  <label for="case-team" class="input-group-addon">主创团队</label>
-                  <input required type="text" class="form-control" name="case-team">
+                  <label for="article-content" class="input-group-addon">文章内容</label>
+                  <textarea class="form-control" id="article-content"></textarea>
                 </div>
-                <div class="input-group">
-                  <label for="case-company" class="input-group-addon">出品单位</label>
-                  <input required type="text" class="form-control" name="case-company">
-                </div>
-                <div class="input-group">
-                  <label for="case-description" class="input-group-addon">项目简介</label>
-                  <textarea required type="text" class="form-control" name="case-description"></textarea>
-                </div>
-                <div class="input-group">
-                  <label for="case-image" class="input-group-addon">项目图片</label>
-                  <div class="form-control case-thumb">
-                    <div class="col-sm-4 col-md-3">
-                      <input required type="file" style="display: none;" multiple="true" accept=".png, .jpg, .jpeg">
-                      <div class="btn btn-default btn-local">
-                        <span class="glyphicon glyphicon-open"></span>
-                        <span>本地上传</span>
-                      </div>
-                      <div class="btn btn-default btn-remote">
-                        <span class="glyphicon glyphicon-folder-open"></span>
-                        <span>远程文件</span>
-                      </div>
-                      <div class="btn btn-default btn-online">
-                        <span class="glyphicon glyphicon-globe"></span>
-                        <span>网络图片</span>
-                      </div>
+                <!-- <div class="row ct-wrap">
+                  <section class="content col-lg-10 col-sm-9">
+                    <div class="content-title">
                     </div>
-                  </div>
-                </div>
-                <div class="input-group">
-                  <p class="text-state">&nbsp;</p>
-                </div>
-                <div class="input-group">
-                  <span class="btn btn-default btn-close" role="button">关闭</span>
-                  <span class="btn btn-warning btn-save" role="button">保存</span>
-                  <!-- <span class="btn btn-success btn-post" role="button">发布</span> -->
-                </div>
+                    <div class="input-group">
+                      <span class="input-group-addon"><b class="text-danger">*</b>标题：</span>
+                      <input type="text" class="form-control" id="news-title" name="news-title" placeholder="请输入文章标题" required>
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-addon"><b class="text-danger">*</b>类别：</span>
+                      <select name="news-class" id="news-class" class="form-control">
+                        <option value="0">公司要闻</option>
+                        <option value="1">综合新闻</option>
+                      </select>
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-addon"><b class="text-danger">*</b>日期：</span>
+                      <input type="date" class="form-control" id="news-date" name="news-date" required>
+                    </div>
+                    <div class="input-group">
+                      <label for="message-text" class="control-label input-group-addon"><b class="text-danger">*</b>内容：</label>
+                      <textarea class="form-control" id="news-content"></textarea>
+                    </div>
+                    <div style="text-align: center;">
+                      <button type="button" class="btn btn-default" id="btn_cancle">取消</button>
+                      <button type="button" class="btn btn-success" id="btn_post">确定</button>
+                    </div>
+                  </section>
+                </div> -->
               </div>
             </div> <!--#uploadTab-->
-            <div role="tabpanel" class="tab-pane" id="editTab" data-cid="">
-              <div class="case-page">
-                <div class="input-group">
-                  <label for="cp-title" class="input-group-addon">网页标题</label>
-                  <input required type="text" class="form-control" name="cp-title">
-                </div>
-                <div class="input-group">
-                  <label for="cp-keywords" class="input-group-addon">网页关键词</label>
-                  <input required type="text" class="form-control" name="cp-keywords">
-                </div>
-                <div class="input-group">
-                  <label for="cp-description" class="input-group-addon">网页内容简介</label>
-                  <textarea required type="text" class="form-control" name="cp-description"></textarea>
-                </div>
-                <div class="input-group">
-                  <label for="case-title" class="input-group-addon">项目名称</label>
-                  <input required type="text" class="form-control" name="case-title">
-                </div>
-                <div class="input-group">
-                  <label for="case-area" class="input-group-addon">项目面积</label>
-                  <input required type="text" class="form-control" name="case-area">
-                  <span class="input-group-addon">㎡</span>
-                </div>
-                <div class="input-group">
-                  <label for="case-class" class="input-group-addon">项目类型</label>
-                  <select class="form-control" name="case-class">
-                    <option value="0">餐厅空间</option>
-                    <option value="1">酒店空间</option>
-                    <option value="2">娱乐空间</option>
-                    <option value="3">其他设计</option>
-                  </select>
-                </div>
-                <div class="input-group">
-                  <label for="case-address" class="input-group-addon">项目地址</label>
-                  <input required type="text" class="form-control" name="case-address">
-                </div>
-                <div class="input-group">
-                  <label for="case-team" class="input-group-addon">主创团队</label>
-                  <input required type="text" class="form-control" name="case-team">
-                </div>
-                <div class="input-group">
-                  <label for="case-company" class="input-group-addon">出品单位</label>
-                  <input required type="text" class="form-control" name="case-company">
-                </div>
-                <div class="input-group">
-                  <label for="case-description" class="input-group-addon">项目简介</label>
-                  <textarea required type="text" class="form-control" name="case-description"></textarea>
-                </div>
-                <div class="input-group">
-                  <label for="case-image" class="input-group-addon">项目图片</label>
-                  <div class="form-control case-thumb">
-                    <div class="col-sm-4 col-md-3">
-                      <input required type="file" style="display: none;" multiple="true" accept=".png, .jpg, .jpeg">
-                      <div class="btn btn-default btn-local">
-                        <span class="glyphicon glyphicon-open"></span>
-                        <span>本地上传</span>
-                      </div>
-                      <div class="btn btn-default btn-remote">
-                        <span class="glyphicon glyphicon-folder-open"></span>
-                        <span>远程文件</span>
-                      </div>
-                      <div class="btn btn-default btn-online">
-                        <span class="glyphicon glyphicon-globe"></span>
-                        <span>网络图片</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="input-group">
-                  <p class="text-state">&nbsp;</p>
-                </div>
-                <div class="input-group">
-                  <span class="btn btn-default btn-close" role="button">关闭</span>
-                  <span class="btn btn-warning btn-save" role="button">保存</span>
-                </div>
-              </div>
-            </div> <!--#editTab-->
           </div> <!-- #pageTabContent-->
         </div> <!-- .content-inner-->
       </div> <!-- .content-wrap-->
@@ -384,7 +297,66 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
 
   <script type="text/javascript" src="/cms/include/jquery/jquery.min.js"></script>
   <script type="text/javascript" src="/cms/include/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/cms/include/kindeditor/kindeditor-all-min.js"></script>
+  <script src="/cms/include/kindeditor/lang/zh-CN.js"></script>
   <script type="text/javascript" src="/cms/include/js/cms.js"></script>
-  <script type="text/javascript" src="/cms/include/js/case_manage.js"></script>
+  <script type="text/javascript" src="/cms/include/js/article_manage.js"></script>
+  <script>
+		KindEditor.ready(function(K) {
+      window.editor = K.create('#article-content', {
+        width: '100%',
+        height: '450px',
+        resizeType: 0,
+        allowFileManager : true,
+        items: ['preview', '|', 'undo', 'redo', '|', 'template', 'plainpaste', '|', 'justifyleft', 'justifycenter', 'justifyright', 'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript', 'superscript', 'clearhtml', 'quickformat', '|', 'selectall', 'formatblock', 'fontsize', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image','anchor', 'link', 'unlink', '|', 'source']
+      });
+
+      // $("#news-title").val("<?php echo $news_title; ?>");
+      // $("#news-class").val("<?php echo $news_class; ?>");
+      // $("#news-date").val("<?php echo $news_date; ?>");
+      // window.editor.html("<?php echo $news_content; ?>");
+
+      $("#btn_cancle").click(function() {
+        window.location.href = "/cms/mod_news.php?cls="+$("#news-class").val();
+      });
+
+      $("#btn_post").click(function() {
+        editor.sync();
+        var fmd = new FormData();
+        <?php
+        if (isset($nid) && !empty($nid)) {
+          echo 'fmd.append("nid", '.$nid.');';
+        }
+        ?>
+        fmd.append("token", "<?php echo $token; ?>");
+        fmd.append("title", $("#news-title").val());
+        fmd.append("class", $("#news-class").val());
+        fmd.append("issue", toDateString($("#news-date").val(), "-"));
+        fmd.append("content", $("#news-content").val());
+        $.ajax({
+          url: "/cms/handle.php",
+          type: "POST",
+          data: fmd,
+          processData: false,
+          contentType: false,
+          success: function(res) {
+            if ("success:post" === res || "success:edit" === res) {
+              if ("success:post" === res) {
+                alert("发布成功");
+              }
+              if ("success:edit" === res) {
+                alert("修改成功");
+              }
+              window.location.href = "/cms/mod_news.php?cls="+$("#news-class").val();
+            }
+            else {
+              alert(res);
+            }
+          }
+        });
+      });
+
+    });
+  </script>
 </body>
 </html>

@@ -275,7 +275,35 @@ class CaseManager {
  * 文章管理类
  */
 class ArticleManager {
-  
+  public $dbo;
+  public $tab_name;
+  public $sql_query;
+
+  // 构造函数
+  function __construct($dbo, $tab_name) {
+    $this->dbo = $dbo;
+    $this->tab_name = $tab_name;
+    $this->sql_query = "SELECT * FROM " . $tab_name;
+  }
+
+  // 析构函数
+  function __destruct() {
+    $this->dbo = null;
+    $this->tab_name = null;
+    $this->sql_query = null;
+  }
+
+  /**
+   * 按条件查询表并按升序排序
+   */
+  public function queryTable($rule = null) {
+    $sql = $this->sql_query;
+    if($rule) {
+      $sql .= " WHERE $rule";
+    }
+    $sql .= " ORDER BY id ASC";
+    return $this->dbo->exec_query($sql);
+  }
 }
 
 /**
