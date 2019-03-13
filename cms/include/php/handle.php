@@ -195,7 +195,7 @@ function proc_refreshCaseList($caseManage, $data = null) {
       $html .= '<a class="collapsed" role="button" data-toggle="collapse" href="#case_'.$result[$i]["id"].'">'.$result[$i]["c_title"].'</a></div>';
       $html .= '<div id="case_'.$result[$i]["id"].'" class="panel-collapse collapse" role="tabpanel">';
       $html .= '<ul class="btn-group" data-id="'.$result[$i]["id"].'">';
-      $html .= '<li role="button" data-token="mark" title="星标" class="btn btn-default glyphicon '.($result[$i]["b_recommends"] ? "glyphicon-star" : "glyphicon-star-empty").'"></li>';
+      $html .= '<li role="button" data-token="mark" title="星标" class="btn btn-default glyphicon '.($result[$i]["b_recommends"]==="T" ? "glyphicon-star" : "glyphicon-star-empty").'"></li>';
       $html .= '<li role="button" href="#editTab" data-token="edit" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>';
       $html .= '<li role="button" data-token="post" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>';
       $html .= '<li role="button" data-token="remove" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>';
@@ -330,12 +330,16 @@ function proc_login($dbo, $data) {
  * 调试函数
  */
 function pro_debug($data) {
-  $result = $data;
+  // $result = $data;
   // $result = str_replace("\"", "\\\"", $result);
   // $result = str_replace("'", "\'", $result);
-  $result = str_replace("\n", "", $result);
-  $result = str_replace("\t", "", $result);
-  return json_encode($result);
+  // $result = str_replace("\n", "", $result);
+  // $result = str_replace("\t", "", $result);
+  $path = ROOT_PATH.PATH_UPLOAD."/case/";
+  if(is_dir($path) or @mkdir($path, 0777, true)) {
+    file_put_contents($path."/106.json", $data);
+  }
+  return json_encode('{"err_code": "test"}');
 }
 
 /**

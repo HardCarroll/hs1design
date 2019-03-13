@@ -152,7 +152,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                 <div class="col-xs-6 col-sm-4 col-md-3">
                   <div class="wrap marked">
                     <p>推荐阅读</p>
-                    <span class="text-success digital"><?php echo $caseManage->getCounts("b_recommends='F'"); ?></span>
+                    <span class="text-success digital"><?php echo $caseManage->getCounts("b_recommends='T'"); ?></span>
                     <span>条</span>
                   </div>
                 </div>
@@ -183,7 +183,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                     echo '<a class="collapsed" role="button" data-toggle="collapse" href="#case_'.$result[$i]["id"].'">'.$result[$i]["c_title"].'</a></div>';
                     echo '<div id="case_'.$result[$i]["id"].'" class="panel-collapse collapse" role="tabpanel">';
                     echo '<ul class="btn-group" data-id="'.$result[$i]["id"].'">';
-                    echo '<li role="button" data-token="mark" title="星标" class="btn btn-default glyphicon '.($result[$i]["b_recommends"] ? "glyphicon-star" : "glyphicon-star-empty").'"></li>';
+                    echo '<li role="button" data-token="mark" title="星标" class="btn btn-default glyphicon '.($result[$i]["b_recommends"]==="T" ? "glyphicon-star" : "glyphicon-star-empty").'"></li>';
                     echo '<li role="button" data-token="edit" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>';
                     echo '<li role="button" data-token="post" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>';
                     echo '<li role="button" data-token="remove" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>';
@@ -272,7 +272,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                 <div class="input-group">
                   <span class="btn btn-default btn-close" role="button">关闭</span>
                   <span class="btn btn-warning btn-save" role="button">保存</span>
-                  <!-- <span class="btn btn-success btn-post" role="button">发布</span> -->
+                  <span class="btn btn-success btn-post" role="button">发布</span>
                 </div>
               </div>
             </div> <!--#uploadTab-->

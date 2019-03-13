@@ -98,19 +98,53 @@ $(function() {
   });
 
   // 发布按钮点击事件处理函数
-  // $(".btn-post").off("click").on("click", function() {
-  //   if($(this).parent().parent().parent().attr("id") === "uploadTab") {
-  //     if($(this).prev().hasClass("disabled")) {
-  //       updateCase({target: $("#uploadTab"), token: "uploadCase", flag: "op"});
-  //     }
-  //     else {
-  //       updateCase({target: $("#uploadTab"), token: "uploadCase", flag: "sp"});
-  //     }
-  //   }
-  //   if($(this).parent().parent().parent().attr("id") === "editTab") {
-  //     // updateCase({target: $("#editTab"), token: "updateCase", id: $("#editTab").attr("data-cid")});
-  //   }
-  // });
+  $(".btn-post").off("click").on("click", function() {
+    // if($(this).parent().parent().parent().attr("id") === "uploadTab") {
+    //   if($(this).prev().hasClass("disabled")) {
+    //     updateCase({target: $("#uploadTab"), token: "uploadCase", flag: "op"});
+    //   }
+    //   else {
+    //     updateCase({target: $("#uploadTab"), token: "uploadCase", flag: "sp"});
+    //   }
+    // }
+    // if($(this).parent().parent().parent().attr("id") === "editTab") {
+    //   // updateCase({target: $("#editTab"), token: "updateCase", id: $("#editTab").attr("data-cid")});
+    // }
+    var imgArray = new Array();
+    $(this).parent().parent().parent().find(".case-thumb").children().not(":last").each(function() {
+      var str = '{"url": "'+$(this).find("img").attr("src")+'", "attr_alt": "'+$(this).find('[name="data-alt"]').val()+'", "attr_title": "'+$(this).find('[name="data-title"]').val()+'"}';
+      imgArray.push(str);
+    });
+    var jsonData = {
+      p_title: $("[name='cp-title']").val(),
+      p_keywords: $("[name='cp-keywords']").val(),
+      p_description: $("[name='cp-description']").val(),
+      c_image: imgArray
+    };
+
+    var fmd = new FormData();
+    fmd.append("token", "debug");
+    fmd.append("data", JSON.stringify(jsonData));
+
+    $.ajax({
+      url: "/cms/include/php/handle.php",
+      type: "POST",
+      data: fmd,
+      processData: false,
+      contentType: false,   //数据为formData时必须定义此项
+      dataType: "json",     //返回json格式数据
+      success: function(result) {
+        console.log(JSON.parse(result));
+      },
+      error: function(err) {
+        console.log("fail: "+err);
+      }
+    }); // ajax_func
+
+
+    console.log(jsonData);
+    console.log(JSON.stringify(jsonData));
+  });
 
   // 删除确认对话框处理函数
   $("#modalConfirm .btn-danger").off("click").on("click", function() {
