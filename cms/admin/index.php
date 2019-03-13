@@ -93,6 +93,23 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
               </li>
             </ul>
           </div>
+          <div class="list-item slide slide-left" role="button" href="/cms/admin/article_manage.php">
+            <div class="slide-head">
+              <span class="glyphicon glyphicon-pencil"></span>
+              <span class="title">文章管理</span>
+              <span class="pull-right glyphicon glyphicon-menu"></span>
+            </div>
+            <ul class="slide-menu">
+              <li class="text-primary" href="#articleTab">
+                <span class="glyphicon glyphicon-list"></span>
+                <span class="title">文章总览</span>
+              </li>
+              <li class="text-primary" href="#uploadArticle">
+                <span class="glyphicon glyphicon-cloud-upload"></span>
+                <span class="title">上传文章</span>
+              </li>
+            </ul>
+          </div>
           <div class="list-item slide" role="button" href="/cms/admin/user_manage.php">
             <div class="slide-head">
               <span class="glyphicon glyphicon-user"></span>

@@ -284,6 +284,7 @@ class ArticleManager {
     $this->dbo = $dbo;
     $this->tab_name = $tab_name;
     $this->sql_query = "SELECT * FROM " . $tab_name;
+    // $this->init();
   }
 
   // 析构函数
@@ -303,6 +304,44 @@ class ArticleManager {
     }
     $sql .= " ORDER BY id ASC";
     return $this->dbo->exec_query($sql);
+  }
+
+  /**
+   * 初始化类
+   */
+  public function init() {
+    $sql_create = "CREATE TABLE `hs1design`.`tab_article` ( `id` INT(255) UNSIGNED NOT NULL AUTO_INCREMENT , `p_title` VARCHAR(120) NOT NULL , `p_keywords` VARCHAR(120)NOT NULL , `p_description` VARCHAR(400) NOT NULL , `a_title` VARCHAR(120)NOT NULL , `a_author` VARCHAR(60) NOT NULL , `a_class` VARCHAR(2) NOT NULL ,`a_issue` TEXT NOT NULL , `a_content` LONGTEXT NOT NULL , `a_path` TEXT NOT NULL , `b_recommends` VARCHAR(1) NOT NULL , `b_posted` VARCHAR(1) NOT NULL, PRIMARY KEY (`id`)) ENGINE = InnoDB";
+    // $sql_insert = "";
+    $this->dbo->exec_query($sql_create);
+  }
+
+  /**
+   * 插入数据项
+   * @param $data: json格式数据
+  */
+  public function addItem($data) {
+    // 格式化上传图片字符串
+    $dataArray = json_decode($data, true);
+    $imageStr = $this->transferImageJson($dataArray["c_image"]);
+    // 往数据库添加数据项
+    // $sql_insert = "INSERT INTO ".$this->tab_name."(p_title, p_keywords, p_description, c_path, c_title, c_area, c_address, c_class, c_team, c_company, c_description, c_image, c_recommends, c_posted) VALUES('".$dataArray["p_title"]."','".$dataArray["p_keywords"]."','".$dataArray["p_description"]."','".$dataArray["c_path"]."','".$dataArray["c_title"]."', '".$dataArray["c_area"]."', '".$dataArray["c_address"]."', '".$dataArray["c_class"]."', '".$dataArray["c_team"]."', '".$dataArray["c_company"]."', '".$dataArray["c_description"]."', '".$imageStr."', '".$dataArray["c_recommends"]."','".$dataArray["c_posted"]."')";
+    $sql_insert = "INSERT INTO ".$this->tab_name."(p_title, p_keywords, p_description, c_path, c_title, c_area, c_address, c_class, c_team, c_company, c_description, c_image, c_recommends, c_posted) VALUES('".$dataArray["p_title"]."','".$dataArray["p_keywords"]."','".$dataArray["p_description"]."','".$dataArray["c_path"]."','".$dataArray["c_title"]."', '".$dataArray["c_area"]."', '".$dataArray["c_address"]."', '".$dataArray["c_class"]."', '".$dataArray["c_team"]."', '".$dataArray["c_company"]."', '".$dataArray["c_description"]."', '".$imageStr."', '0','F')";
+    $this->dbo->exec_insert($sql_insert);
+
+    $id = $this->queryTable()[0]["id"];
+    // 生成JSON文件
+    $path = ROOT_PATH.PATH_UPLOAD."/article/";
+    if(is_dir($path) or @mkdir($path, 0777, true)) {
+      file_put_contents($path."/$id.json", $this->transferJson("id=$id"));
+    }
+    
+    if($this->dbo->state["err_no"]) {
+      $ret = '{"err_no":'.$this->dbo->state["err_no"].', "err_code": "'.$this->dbo->state["err_code"].'"}';
+    }
+    else {
+      $ret = '{"err_no":'.$this->dbo->state["err_no"].', "err_code": "'.$id.'"}';
+    }
+    return $ret;
   }
 }
 
