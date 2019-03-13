@@ -138,28 +138,28 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                 <div class="col-xs-6 col-sm-4 col-md-3">
                   <div class="wrap total">
                     <p>全部案例</p>
-                    <span class="text-primary digital"><?php echo $caseManage->getCounts(); ?></span>
+                    <span class="text-primary digital"><?php echo $articleManage->getCounts(); ?></span>
                     <span>条</span>
                   </div>
                 </div>
                 <div class="col-xs-6 col-sm-4 col-md-3">
                   <div class="wrap unpost">
                     <p>暂未发布</p>
-                    <span class="text-danger digital"><?php echo $caseManage->getCounts("b_posted='F'"); ?></span>
+                    <span class="text-danger digital"><?php echo $articleManage->getCounts("b_posted='F'"); ?></span>
                     <span>条</span>
                   </div>
                 </div>
                 <div class="col-xs-6 col-sm-4 col-md-3">
                   <div class="wrap marked">
                     <p>推荐阅读</p>
-                    <span class="text-success digital"><?php echo $caseManage->getCounts("b_recommends='T'"); ?></span>
+                    <span class="text-success digital"><?php echo $articleManage->getCounts("b_recommends='T'"); ?></span>
                     <span>条</span>
                   </div>
                 </div>
                 <div class="col-xs-6 col-sm-4 col-md-3">
-                  <div class="btn-upload" href="#uploadAritlce">
+                  <div class="btn-upload" href="#uploadArticle">
                     <span class="glyphicon glyphicon-cloud-upload"></span>
-                    <span class="title">上传案例</span>
+                    <span class="title">上传文章</span>
                   </div>
                 </div>
               </div>
@@ -168,8 +168,8 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                 <!-- 动态生成案例列表 -->
                 <!-- </div> .panel-group -->
                 <?php
-                $result = $caseManage->queryTable();
-                $counts = $caseManage->getCounts();
+                $result = $articleManage->queryTable();
+                $counts = $articleManage->getCounts();
                 if($counts) {
                   echo '<div class="panel-group" role="tablist" aria-multiselectable="true">';
                   for ($i = 0; $i < ($counts>10?10:$counts); $i++) {
@@ -180,10 +180,10 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                       echo '<div class="panel panel-danger">';
                     }
                     echo '<div class="panel-heading" role="tab">';
-                    echo '<a class="collapsed" role="button" data-toggle="collapse" href="#article_'.$result[$i]["id"].'">'.$result[$i]["c_title"].'</a></div>';
+                    echo '<a class="collapsed" role="button" data-toggle="collapse" href="#article_'.$result[$i]["id"].'">'.$result[$i]["a_title"].'</a></div>';
                     echo '<div id="article_'.$result[$i]["id"].'" class="panel-collapse collapse" role="tabpanel">';
                     echo '<ul class="btn-group" data-id="'.$result[$i]["id"].'">';
-                    echo '<li role="button" data-token="mark" title="星标" class="btn btn-default glyphicon '.($result[$i]["c_recommends"] ? "glyphicon-star" : "glyphicon-star-empty").'"></li>';
+                    echo '<li role="button" data-token="mark" title="星标" class="btn btn-default glyphicon '.($result[$i]["b_recommends"]==="T" ? "glyphicon-star" : "glyphicon-star-empty").'"></li>';
                     echo '<li role="button" data-token="edit" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>';
                     echo '<li role="button" data-token="post" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>';
                     echo '<li role="button" data-token="remove" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>';

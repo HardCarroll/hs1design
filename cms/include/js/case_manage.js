@@ -7,7 +7,7 @@ $(function() {
   });
 
   // 案例管理标签页上传按钮
-  $("#caseTab .btn-upload").on("click", function(e) {
+  $("#caseTab .btn-upload").off("click").on("click", function(e) {
     e.stopPropagation();
     e.preventDefault();
     activateTab($(this));

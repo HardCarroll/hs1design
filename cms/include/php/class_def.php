@@ -378,6 +378,18 @@ class ArticleManager {
     }
     return $ret;
   }
+
+  /**
+   * 获取案例总数
+   * @return {number} $counts: 返回案例总数;
+   */
+  public function getCounts($rule = null) {
+    $counts = 0;
+    if($this->queryTable($rule)) {
+      $counts = count($this->queryTable($rule));
+    }
+    return $counts;
+  }
 }
 
 /**

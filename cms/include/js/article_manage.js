@@ -1,4 +1,11 @@
 $(function() {
+  // 文章管理标签页上传按钮
+  $("#articleTab .btn-upload").off("click").on("click", function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    activateTab($(this));
+  });
+
   // 关闭按钮点击事件处理函数
   $(".btn-close").off("click").on("click", function() {
     clearTabContent({target: $("#uploadArticle")});
