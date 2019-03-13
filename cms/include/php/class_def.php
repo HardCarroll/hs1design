@@ -92,8 +92,7 @@ class CaseManager {
     $dataArray = json_decode($data, true);
     $imageStr = $this->transferImageJson($dataArray["c_image"]);
     // 往数据库添加数据项
-    // $sql_insert = "INSERT INTO ".$this->tab_name."(p_title, p_keywords, p_description, c_path, c_title, c_area, c_address, c_class, c_team, c_company, c_description, c_image, c_recommends, c_posted) VALUES('".$dataArray["p_title"]."','".$dataArray["p_keywords"]."','".$dataArray["p_description"]."','".$dataArray["c_path"]."','".$dataArray["c_title"]."', '".$dataArray["c_area"]."', '".$dataArray["c_address"]."', '".$dataArray["c_class"]."', '".$dataArray["c_team"]."', '".$dataArray["c_company"]."', '".$dataArray["c_description"]."', '".$imageStr."', '".$dataArray["c_recommends"]."','".$dataArray["c_posted"]."')";
-    $sql_insert = "INSERT INTO ".$this->tab_name."(p_title, p_keywords, p_description, c_path, c_title, c_area, c_address, c_class, c_team, c_company, c_description, c_image, c_recommends, c_posted) VALUES('".$dataArray["p_title"]."','".$dataArray["p_keywords"]."','".$dataArray["p_description"]."','".$dataArray["c_path"]."','".$dataArray["c_title"]."', '".$dataArray["c_area"]."', '".$dataArray["c_address"]."', '".$dataArray["c_class"]."', '".$dataArray["c_team"]."', '".$dataArray["c_company"]."', '".$dataArray["c_description"]."', '".$imageStr."', '0','F')";
+    $sql_insert = "INSERT INTO ".$this->tab_name."(p_title, p_keywords, p_description, c_path, c_title, c_area, c_address, c_class, c_team, c_company, c_description, c_image, b_recommends, b_posted, b_end) VALUES('".$dataArray["p_title"]."','".$dataArray["p_keywords"]."','".$dataArray["p_description"]."','".$dataArray["c_path"]."','".$dataArray["c_title"]."', '".$dataArray["c_area"]."', '".$dataArray["c_address"]."', '".$dataArray["c_class"]."', '".$dataArray["c_team"]."', '".$dataArray["c_company"]."', '".$dataArray["c_description"]."', '".$imageStr."', 'F','F', 'TAB_END')";
     $this->dbo->exec_insert($sql_insert);
 
     $id = $this->queryTable()[0]["id"];
@@ -125,7 +124,7 @@ class CaseManager {
     $str = curl_request($url, $data);
     file_put_contents(ROOT_PATH."/case/$id.html", $str);
     // 更新数据库文件路径
-    $ret = $this->updateItem($id, '{"c_path": "/case/'.$id.'.html", "c_posted": "T"}');
+    $ret = $this->updateItem($id, '{"c_path": "/case/'.$id.'.html", "b_posted": "T"}');
     $retArray = json_decode($ret, true);
     if(!$retArray["err_no"]) {
       $retArray["err_code"] = "案例已成功发布！";
@@ -170,7 +169,7 @@ class CaseManager {
     if(is_dir($path) or @mkdir($path, 0777, true)) {
       file_put_contents($path."/$id.json", $this->transferJson("id=$id"));
     }
-    if($this->queryTable("id=$id")[0]["c_posted"] === "T") {
+    if($this->queryTable("id=$id")[0]["b_posted"] === "T") {
       // 如果已发布则同时更新html文件
       $siteinfo = json_decode(file_get_contents(ROOT_PATH.PATH_JSON."/siteinfo.json"), true);
       $url = "http://".$siteinfo["domain"]."/template/case_temp.php";
@@ -238,6 +237,7 @@ class CaseManager {
     $result = $this->queryTable($rule)[0];
     $json = '{';
     foreach($result as $key=>$value) {
+      $ret = str_replace("\"", "\\\"", $value);
       if($key === "c_image") {
         if($value) {
           $json .= ('"'.$key.'":'.$value);
@@ -310,9 +310,42 @@ class ArticleManager {
    * 初始化类
    */
   public function init() {
-    $sql_create = "CREATE TABLE `hs1design`.`tab_article` ( `id` INT(255) UNSIGNED NOT NULL AUTO_INCREMENT , `p_title` VARCHAR(120) NOT NULL , `p_keywords` VARCHAR(120)NOT NULL , `p_description` VARCHAR(400) NOT NULL , `a_title` VARCHAR(120)NOT NULL , `a_author` VARCHAR(60) NOT NULL , `a_class` VARCHAR(2) NOT NULL ,`a_issue` TEXT NOT NULL , `a_content` LONGTEXT NOT NULL , `a_path` TEXT NOT NULL , `b_recommends` VARCHAR(1) NOT NULL , `b_posted` VARCHAR(1) NOT NULL, PRIMARY KEY (`id`)) ENGINE = InnoDB";
+    $sql_create = "CREATE TABLE `hs1design`.`tab_article` ( `id` INT(255) UNSIGNED NOT NULL AUTO_INCREMENT , `p_title` VARCHAR(120) NOT NULL , `p_keywords` VARCHAR(120) NOT NULL , `p_description` VARCHAR(400) NOT NULL , `a_title` VARCHAR(120) NOT NULL , `a_author` VARCHAR(60) NOT NULL , `a_class` VARCHAR(2) NOT NULL ,`a_issue` VARCHAR(30) NOT NULL , `a_content` LONGTEXT NOT NULL , `a_path` TEXT NOT NULL , `b_recommends` VARCHAR(1) NOT NULL , `b_posted` VARCHAR(1) NOT NULL, PRIMARY KEY (`id`)) ENGINE = InnoDB";
     // $sql_insert = "";
     $this->dbo->exec_query($sql_create);
+  }
+
+  
+  /**
+   * 转换数据库记录为json字符串
+   */
+  public function transferJson($rule) {
+    if(!$rule) {
+      return '{"err_no": -1, "err_code": "转换参数不能为空！"}';
+    }
+    $result = $this->queryTable($rule)[0];
+    $json = '{';
+    foreach($result as $key=>$value) {
+      $ret = str_replace("\"", "\\\"", $value); //解决写入文件时引号导致JSON格式错误的问题
+      // $ret = str_replace("'", "\'", $ret);
+      if($key === "c_image") {
+        if($value) {
+          $json .= ('"'.$key.'":'.$ret);
+        }
+        else {
+          $json .= ('"'.$key.'":""');
+        }
+      }
+      else {
+        $json .= ('"'.$key.'":"'.$ret.'"');
+      }
+      if($value !== end($result)) {
+        $json .= ',';
+      }
+    }
+    $json .= '}';
+
+    return $json;
   }
 
   /**
@@ -320,12 +353,14 @@ class ArticleManager {
    * @param $data: json格式数据
   */
   public function addItem($data) {
-    // 格式化上传图片字符串
     $dataArray = json_decode($data, true);
-    $imageStr = $this->transferImageJson($dataArray["c_image"]);
+    $content = $dataArray["a_content"];
+    $content = str_replace("\"", "\\\"", $content);
+    $content = str_replace("'", "\'", $content);
+    $content = str_replace("\n", "", $content);
+    $content = str_replace("\t", "", $content);
     // 往数据库添加数据项
-    // $sql_insert = "INSERT INTO ".$this->tab_name."(p_title, p_keywords, p_description, c_path, c_title, c_area, c_address, c_class, c_team, c_company, c_description, c_image, c_recommends, c_posted) VALUES('".$dataArray["p_title"]."','".$dataArray["p_keywords"]."','".$dataArray["p_description"]."','".$dataArray["c_path"]."','".$dataArray["c_title"]."', '".$dataArray["c_area"]."', '".$dataArray["c_address"]."', '".$dataArray["c_class"]."', '".$dataArray["c_team"]."', '".$dataArray["c_company"]."', '".$dataArray["c_description"]."', '".$imageStr."', '".$dataArray["c_recommends"]."','".$dataArray["c_posted"]."')";
-    $sql_insert = "INSERT INTO ".$this->tab_name."(p_title, p_keywords, p_description, c_path, c_title, c_area, c_address, c_class, c_team, c_company, c_description, c_image, c_recommends, c_posted) VALUES('".$dataArray["p_title"]."','".$dataArray["p_keywords"]."','".$dataArray["p_description"]."','".$dataArray["c_path"]."','".$dataArray["c_title"]."', '".$dataArray["c_area"]."', '".$dataArray["c_address"]."', '".$dataArray["c_class"]."', '".$dataArray["c_team"]."', '".$dataArray["c_company"]."', '".$dataArray["c_description"]."', '".$imageStr."', '0','F')";
+    $sql_insert = "INSERT INTO ".$this->tab_name."(p_title, p_keywords, p_description, a_path, a_title, a_author, a_class, a_issue, a_content, b_recommends, b_posted, b_end) VALUES('".$dataArray["p_title"]."','".$dataArray["p_keywords"]."','".$dataArray["p_description"]."','".$dataArray["a_path"]."','".$dataArray["a_title"]."', '".$dataArray["a_author"]."', '".$dataArray["a_class"]."', '".$dataArray["a_issue"]."', '".$content."', 'F', 'F', 'TAB_END')";
     $this->dbo->exec_insert($sql_insert);
 
     $id = $this->queryTable()[0]["id"];

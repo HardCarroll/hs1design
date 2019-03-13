@@ -145,14 +145,14 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                 <div class="col-xs-6 col-sm-4 col-md-3">
                   <div class="wrap unpost">
                     <p>暂未发布</p>
-                    <span class="text-danger digital"><?php echo $caseManage->getCounts("c_posted='F'"); ?></span>
+                    <span class="text-danger digital"><?php echo $caseManage->getCounts("b_posted='F'"); ?></span>
                     <span>条</span>
                   </div>
                 </div>
                 <div class="col-xs-6 col-sm-4 col-md-3">
                   <div class="wrap marked">
                     <p>推荐阅读</p>
-                    <span class="text-success digital"><?php echo $caseManage->getCounts("c_recommends=1"); ?></span>
+                    <span class="text-success digital"><?php echo $caseManage->getCounts("b_recommends='F'"); ?></span>
                     <span>条</span>
                   </div>
                 </div>
@@ -173,7 +173,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                 if($counts) {
                   echo '<div class="panel-group" role="tablist" aria-multiselectable="true">';
                   for ($i = 0; $i < ($counts>10?10:$counts); $i++) {
-                    if($result[$i]["c_posted"]) {
+                    if($result[$i]["b_posted"]) {
                       echo '<div class="panel panel-default">';
                     }
                     else {
@@ -183,7 +183,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                     echo '<a class="collapsed" role="button" data-toggle="collapse" href="#case_'.$result[$i]["id"].'">'.$result[$i]["c_title"].'</a></div>';
                     echo '<div id="case_'.$result[$i]["id"].'" class="panel-collapse collapse" role="tabpanel">';
                     echo '<ul class="btn-group" data-id="'.$result[$i]["id"].'">';
-                    echo '<li role="button" data-token="mark" title="星标" class="btn btn-default glyphicon '.($result[$i]["c_recommends"] ? "glyphicon-star" : "glyphicon-star-empty").'"></li>';
+                    echo '<li role="button" data-token="mark" title="星标" class="btn btn-default glyphicon '.($result[$i]["b_recommends"] ? "glyphicon-star" : "glyphicon-star-empty").'"></li>';
                     echo '<li role="button" data-token="edit" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>';
                     echo '<li role="button" data-token="post" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>';
                     echo '<li role="button" data-token="remove" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>';

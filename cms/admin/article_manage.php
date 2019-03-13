@@ -145,14 +145,14 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                 <div class="col-xs-6 col-sm-4 col-md-3">
                   <div class="wrap unpost">
                     <p>暂未发布</p>
-                    <span class="text-danger digital"><?php echo $caseManage->getCounts("c_posted='F'"); ?></span>
+                    <span class="text-danger digital"><?php echo $caseManage->getCounts("b_posted='F'"); ?></span>
                     <span>条</span>
                   </div>
                 </div>
                 <div class="col-xs-6 col-sm-4 col-md-3">
                   <div class="wrap marked">
                     <p>推荐阅读</p>
-                    <span class="text-success digital"><?php echo $caseManage->getCounts("c_recommends=1"); ?></span>
+                    <span class="text-success digital"><?php echo $caseManage->getCounts("b_recommends='T'"); ?></span>
                     <span>条</span>
                   </div>
                 </div>
@@ -198,7 +198,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
               </div>
             </div> <!-- #articleTab -->
 
-            <div role="tabpanel" class="tab-pane" id="uploadArticle" data-cid="">
+            <div role="tabpanel" class="tab-pane" id="uploadArticle" data-aid="">
               <div class="article-page">
                 <div class="input-group">
                   <label for="cp-title" class="input-group-addon">网页标题</label>
@@ -222,7 +222,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                 </div>
                 <div class="input-group">
                   <label for="article-class" class="input-group-addon">文章类别</label>
-                  <select name="news-class" class="form-control">
+                  <select name="article-class" class="form-control">
                     <option value="0">公司要闻</option>
                     <option value="1">综合新闻</option>
                   </select>
@@ -235,35 +235,14 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                   <label for="article-content" class="input-group-addon">文章内容</label>
                   <textarea class="form-control" id="article-content"></textarea>
                 </div>
-                <!-- <div class="row ct-wrap">
-                  <section class="content col-lg-10 col-sm-9">
-                    <div class="content-title">
-                    </div>
-                    <div class="input-group">
-                      <span class="input-group-addon"><b class="text-danger">*</b>标题：</span>
-                      <input type="text" class="form-control" id="news-title" name="news-title" placeholder="请输入文章标题" required>
-                    </div>
-                    <div class="input-group">
-                      <span class="input-group-addon"><b class="text-danger">*</b>类别：</span>
-                      <select name="news-class" id="news-class" class="form-control">
-                        <option value="0">公司要闻</option>
-                        <option value="1">综合新闻</option>
-                      </select>
-                    </div>
-                    <div class="input-group">
-                      <span class="input-group-addon"><b class="text-danger">*</b>日期：</span>
-                      <input type="date" class="form-control" id="news-date" name="news-date" required>
-                    </div>
-                    <div class="input-group">
-                      <label for="message-text" class="control-label input-group-addon"><b class="text-danger">*</b>内容：</label>
-                      <textarea class="form-control" id="news-content"></textarea>
-                    </div>
-                    <div style="text-align: center;">
-                      <button type="button" class="btn btn-default" id="btn_cancle">取消</button>
-                      <button type="button" class="btn btn-success" id="btn_post">确定</button>
-                    </div>
-                  </section>
-                </div> -->
+                <div class="input-group">
+                  <p class="text-state">&nbsp;</p>
+                </div>
+                <div class="input-group">
+                  <span class="btn btn-default btn-close" role="button">关闭</span>
+                  <span class="btn btn-warning btn-save" role="button">保存</span>
+                  <span class="btn btn-success btn-post" role="button">发布</span>
+                </div>
               </div>
             </div> <!--#uploadTab-->
           </div> <!-- #pageTabContent-->
@@ -301,62 +280,5 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
   <script src="/cms/include/kindeditor/lang/zh-CN.js"></script>
   <script type="text/javascript" src="/cms/include/js/cms.js"></script>
   <script type="text/javascript" src="/cms/include/js/article_manage.js"></script>
-  <script>
-		KindEditor.ready(function(K) {
-      window.editor = K.create('#article-content', {
-        width: '100%',
-        height: '450px',
-        resizeType: 0,
-        allowFileManager : true,
-        items: ['preview', '|', 'undo', 'redo', '|', 'template', 'plainpaste', '|', 'justifyleft', 'justifycenter', 'justifyright', 'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript', 'superscript', 'clearhtml', 'quickformat', '|', 'selectall', 'formatblock', 'fontsize', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image','anchor', 'link', 'unlink', '|', 'source']
-      });
-
-      // $("#news-title").val("<?php echo $news_title; ?>");
-      // $("#news-class").val("<?php echo $news_class; ?>");
-      // $("#news-date").val("<?php echo $news_date; ?>");
-      // window.editor.html("<?php echo $news_content; ?>");
-
-      $("#btn_cancle").click(function() {
-        window.location.href = "/cms/mod_news.php?cls="+$("#news-class").val();
-      });
-
-      $("#btn_post").click(function() {
-        editor.sync();
-        var fmd = new FormData();
-        <?php
-        if (isset($nid) && !empty($nid)) {
-          echo 'fmd.append("nid", '.$nid.');';
-        }
-        ?>
-        fmd.append("token", "<?php echo $token; ?>");
-        fmd.append("title", $("#news-title").val());
-        fmd.append("class", $("#news-class").val());
-        fmd.append("issue", toDateString($("#news-date").val(), "-"));
-        fmd.append("content", $("#news-content").val());
-        $.ajax({
-          url: "/cms/handle.php",
-          type: "POST",
-          data: fmd,
-          processData: false,
-          contentType: false,
-          success: function(res) {
-            if ("success:post" === res || "success:edit" === res) {
-              if ("success:post" === res) {
-                alert("发布成功");
-              }
-              if ("success:edit" === res) {
-                alert("修改成功");
-              }
-              window.location.href = "/cms/mod_news.php?cls="+$("#news-class").val();
-            }
-            else {
-              alert(res);
-            }
-          }
-        });
-      });
-
-    });
-  </script>
 </body>
 </html>

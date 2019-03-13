@@ -42,8 +42,36 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
     case "uploadFiles": // 上传文件
       echo proc_uploadFiles($_FILES["files"]);
       break;
+    case "updateArticle":
+      echo proc_updateArticle($articleManage, $_POST["id"], $_POST["data"]);
+      break;
+    case "refreshTabContent":
+      echo proc_refreshTabContent($_POST["aid"] ? $_POST["aid"]: 0);
+      break;
+    case "debug":
+      echo pro_debug($_POST["data"]);
+      break;
     default:
       break;
+  }
+}
+
+/**
+ * 文章上传处理函数
+ */
+function proc_updateArticle($articleManage, $id = null, $data = null) {
+  if(!$id) {
+    $ret = $articleManage->addItem($data);
+  }
+  return json_encode($ret);
+}
+
+function proc_refreshTabContent($id = null) {
+  if($id) {
+    return json_encode(file_get_contents(ROOT_PATH.PATH_UPLOAD."/article/$id.json"));
+  }
+  else {
+    return proc_getSiteInfo(ROOT_PATH.PATH_JSON);
   }
 }
 
@@ -56,7 +84,7 @@ function proc_updateCase($caseManage, $id = null, $data = null) {
   }
   else {  // $id不为空，则此时为修改对应的数据项内容
     if(!$data) { // 数据为空时为仅发布
-      $ret = $caseManage->updateItem($id, '{"c_path": "/case/'.$id.'.html", "c_posted": "T"}');
+      $ret = $caseManage->updateItem($id, '{"c_path": "/case/'.$id.'.html", "b_posted": "T"}');
       if(!$caseManage->dbo->state["err_no"]) {
         $ret = '{"err_no": 0, "err_code": "案例已成功发布"}';
       }
@@ -73,7 +101,7 @@ function proc_updateCase($caseManage, $id = null, $data = null) {
  * 先判断是否已发布，未发布则先发布此案例。
  */
 function proc_markCase($caseManage, $id, $data) {
-  if($caseManage->queryTable("id=".$id)[0]["c_posted"] === "F") {
+  if($caseManage->queryTable("id=".$id)[0]["b_posted"] === "F") {
     return json_encode('{"err_no": -1, "err_code": "当前案例暂未发布，请先发布此案例！"}');
   }
   $ret = $caseManage->updateItem($id, $data);
@@ -157,7 +185,7 @@ function proc_refreshCaseList($caseManage, $data = null) {
   if($caseManage->getCounts()) {
     $html = '<div class="panel-group" role="tablist" aria-multiselectable="true">';
     for ($i = ($page-1)*10; $i < ($page-1)*10+$cmp; $i++) {
-      if($result[$i]["c_posted"] === "T") {
+      if($result[$i]["b_posted"] === "T") {
         $html .= '<div class="panel panel-default">';
       }
       else {
@@ -167,7 +195,7 @@ function proc_refreshCaseList($caseManage, $data = null) {
       $html .= '<a class="collapsed" role="button" data-toggle="collapse" href="#case_'.$result[$i]["id"].'">'.$result[$i]["c_title"].'</a></div>';
       $html .= '<div id="case_'.$result[$i]["id"].'" class="panel-collapse collapse" role="tabpanel">';
       $html .= '<ul class="btn-group" data-id="'.$result[$i]["id"].'">';
-      $html .= '<li role="button" data-token="mark" title="星标" class="btn btn-default glyphicon '.($result[$i]["c_recommends"] ? "glyphicon-star" : "glyphicon-star-empty").'"></li>';
+      $html .= '<li role="button" data-token="mark" title="星标" class="btn btn-default glyphicon '.($result[$i]["b_recommends"] ? "glyphicon-star" : "glyphicon-star-empty").'"></li>';
       $html .= '<li role="button" href="#editTab" data-token="edit" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>';
       $html .= '<li role="button" data-token="post" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>';
       $html .= '<li role="button" data-token="remove" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>';
@@ -183,8 +211,8 @@ function proc_refreshCaseList($caseManage, $data = null) {
  * 实时更新推荐列表数据条目
  */
 function proc_refreshRecommends($caseManage) {
-  $recommends = $caseManage->queryTable("c_recommends=1");
-  if($caseManage->getCounts("c_recommends=1")) {
+  $recommends = $caseManage->queryTable("b_recommends='T'");
+  if($caseManage->getCounts("b_recommends='T'")) {
     $ret = '';
     foreach($recommends as $recommends_item) {
       $ret .= '<div class="list-group-item text-info text-ellipsis"><a href="'.$recommends_item["c_path"].'">'.$recommends_item["c_title"].'</a></div>';
@@ -296,6 +324,18 @@ function proc_login($dbo, $data) {
   }
 
   return json_encode($ret);
+}
+
+/**
+ * 调试函数
+ */
+function pro_debug($data) {
+  $result = $data;
+  // $result = str_replace("\"", "\\\"", $result);
+  // $result = str_replace("'", "\'", $result);
+  $result = str_replace("\n", "", $result);
+  $result = str_replace("\t", "", $result);
+  return json_encode($result);
 }
 
 /**

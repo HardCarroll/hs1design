@@ -31,16 +31,6 @@ $(function(){
     activateTab($(this));
   });
 
-  // tabpanel 标签页面按钮
-  // 关闭按钮点击事件处理函数
-  $(".btn-close").off("click").on("click", function() {
-    $("#pageTabs").find(".active").children().last().click();
-    getCounts({rule: "", target: $(".wrap.total>span.digital")});
-    getCounts({rule: "c_posted='F'", target: $(".wrap.unpost>span.digital")});
-    getCounts({rule: "c_recommends=1", target: $(".wrap.marked>span.digital")});
-    paginationList({token: "refreshPagination", url: "/cms/include/php/handle.php", target: $("#caseTab>.list-wrap")});
-  });
-
   regTabEvent();
 });
 
@@ -125,6 +115,9 @@ function activateTab(target) {
     $("#pageTabs>li[href='#editTab']").children().eq(1).html($(target).parent().parent().prev().children().eq(0).html());
     $("#pageTabs>li[href='#editTab']").attr("title", $(target).parent().parent().prev().children().eq(0).html());
     refresh_uploadTab({target: $("#editTab"), id: $("#editTab").attr("data-cid")});
+  }
+  if($(target).attr("href") === "#uploadArticle") {
+    refreshTabContent({target: $("#uploadArticle"), id: $("#uploadArticle").attr("data-aid")});
   }
 }
 

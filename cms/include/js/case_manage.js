@@ -23,12 +23,12 @@ $(function() {
         paginationList({token: "refreshPagination", url: "/cms/include/php/handle.php", target: $("#caseTab>.list-wrap"), rule: ""});
       }
       if($(this).hasClass("unpost")) {
-        refresh_caseList({page: 1, rule: "c_posted='F'"});
-        paginationList({token: "refreshPagination", url: "/cms/include/php/handle.php", target: $("#caseTab>.list-wrap"), rule: "c_posted='F'"});
+        refresh_caseList({page: 1, rule: "b_posted='F'"});
+        paginationList({token: "refreshPagination", url: "/cms/include/php/handle.php", target: $("#caseTab>.list-wrap"), rule: "b_posted='F'"});
       }
       if($(this).hasClass("marked")) {
-        refresh_caseList({page: 1, rule: "c_recommends=1"});
-        paginationList({token: "refreshPagination", url: "/cms/include/php/handle.php", target: $("#caseTab>.list-wrap"), rule: "c_recommends=1"});
+        refresh_caseList({page: 1, rule: "b_recommends='T'"});
+        paginationList({token: "refreshPagination", url: "/cms/include/php/handle.php", target: $("#caseTab>.list-wrap"), rule: "b_recommends='T'"});
       }
     });
   });
@@ -75,6 +75,15 @@ $(function() {
       // proc_addPictures($(this), {url: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1548685758785&di=9457da526fb1b08a4eae2c8bbd66913f&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fb8389b504fc2d562e613fdc4ec1190ef76c66cfb.jpg"});
       alert("此功能正在开发中，敬请期待！");
     }
+  });
+
+  // 关闭按钮点击事件处理函数
+  $(".btn-close").off("click").on("click", function() {
+    $("#pageTabs").find(".active").children().last().click();
+    getCounts({rule: "", target: $(".wrap.total>span.digital")});
+    getCounts({rule: "b_posted='F'", target: $(".wrap.unpost>span.digital")});
+    getCounts({rule: "b_recommends='T'", target: $(".wrap.marked>span.digital")});
+    paginationList({token: "refreshPagination", url: "/cms/include/php/handle.php", target: $("#caseTab>.list-wrap")});
   });
 
   // 保存按钮点击事件处理函数
@@ -187,7 +196,7 @@ function refresh_uploadTab(argJson) {
 /**
  * ajax刷新案例列表
  * @param {JSON} data:{page: 1, //按10条每页计算，获取第几页的内容
- *                      rule: "c_recommends=1"  //查询数据库规则
+ *                      rule: "b_recommends='T'"  //查询数据库规则
  *                    }
  */
 function refresh_caseList(data) {
@@ -218,10 +227,10 @@ function refresh_caseList(data) {
               fmd.append("id", $(this).parent().attr("data-id"));
               $(this).toggleClass("glyphicon-star-empty").toggleClass("glyphicon-star");
               if($(this).hasClass("glyphicon-star")) {
-                fmd.append("data", '{"c_recommends": 1}');
+                fmd.append("data", '{"b_recommends": "T"}');
               }
               else {
-                fmd.append("data", '{"c_recommends": 0}');
+                fmd.append("data", '{"b_recommends": "F"}');
               }
               $.ajax({
                 url: "/cms/include/php/handle.php",
@@ -237,7 +246,7 @@ function refresh_caseList(data) {
                     alert(JSON.parse(result).err_code);
                   }
                   else {
-                    getCounts({rule: "c_recommends=1", target: $(".wrap.marked>span.digital")});
+                    getCounts({rule: "b_recommends='T'", target: $(".wrap.marked>span.digital")});
                   }
                 },
                 error: function(err) {
@@ -346,12 +355,12 @@ function updateCase(argJson) {
 
 /**
  * 清除案例编辑、上传标签页的内容
- * @param {JSON} $argJson: JSON形式参数
+ * @param {JSON} argJson: JSON形式参数
  */
-function clearTabContent($argJson) {
-  $argJson.target.find("input[type='text']").val("");
-  $argJson.target.find("textarea").val("");
-  $argJson.target.find("select").val(0);
-  $argJson.target.find(".case-thumb").children().not(":last-child").remove();
-  $argJson.target.find(".btn-save").removeClass("disabled");
+function clearTabContent(argJson) {
+  argJson.target.find("input[type='text']").val("");
+  argJson.target.find("textarea").val("");
+  argJson.target.find("select").val(0);
+  argJson.target.find(".case-thumb").children().not(":last-child").remove();
+  argJson.target.find(".btn-save").removeClass("disabled");
 }
