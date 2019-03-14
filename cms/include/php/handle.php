@@ -330,11 +330,6 @@ function proc_login($dbo, $data) {
  * 调试函数
  */
 function pro_debug($data) {
-  // $result = $data;
-  // $result = str_replace("\"", "\\\"", $result);
-  // $result = str_replace("'", "\'", $result);
-  // $result = str_replace("\n", "", $result);
-  // $result = str_replace("\t", "", $result);
   $path = ROOT_PATH.PATH_UPLOAD."/case/";
   if(is_dir($path) or @mkdir($path, 0777, true)) {
     file_put_contents($path."/106.json", $data);

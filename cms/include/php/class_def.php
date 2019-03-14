@@ -92,7 +92,8 @@ class CaseManager {
     $dataArray = json_decode($data, true);
     $imageStr = $this->transferImageJson($dataArray["c_image"]);
     // 往数据库添加数据项
-    $sql_insert = "INSERT INTO ".$this->tab_name."(p_title, p_keywords, p_description, c_path, c_title, c_area, c_address, c_class, c_team, c_company, c_description, c_image, b_recommends, b_posted, b_end) VALUES('".$dataArray["p_title"]."','".$dataArray["p_keywords"]."','".$dataArray["p_description"]."','".$dataArray["c_path"]."','".$dataArray["c_title"]."', '".$dataArray["c_area"]."', '".$dataArray["c_address"]."', '".$dataArray["c_class"]."', '".$dataArray["c_team"]."', '".$dataArray["c_company"]."', '".$dataArray["c_description"]."', '".$imageStr."', 'F','F', 'TAB_END')";
+    $sql_insert = "INSERT INTO ".$this->tab_name."(p_title, p_keywords, p_description, c_path, c_title, c_area, c_address, c_class, c_team, c_company, c_description, c_image, b_recommends, b_posted, b_end) VALUES('".$this->formatItem($dataArray["p_title"])."','".$this->formatItem($dataArray["p_keywords"])."','".$this->formatItem($dataArray["p_description"])."','".$this->formatItem($dataArray["c_path"])."','".$this->formatItem($dataArray["c_title"])."', '".$this->formatItem($dataArray["c_area"])."', '".$this->formatItem($dataArray["c_address"])."', '".$this->formatItem($dataArray["c_class"])."', '".$this->formatItem($dataArray["c_team"])."', '".$this->formatItem($dataArray["c_company"])."', '".$this->formatItem($dataArray["c_description"])."', '".$imageStr."', 'F','F', 'TAB_END')";
+    // $sql_insert = "INSERT INTO ".$this->tab_name."(p_title, p_keywords, p_description, c_path, c_title, c_area, c_address, c_class, c_team, c_company, c_description, c_image, b_recommends, b_posted, b_end) VALUES('".$dataArray["p_title"]."','".$dataArray["p_keywords"]."','".$dataArray["p_description"]."','".$dataArray["c_path"]."','".$dataArray["c_title"]."', '".$dataArray["c_area"]."', '".$dataArray["c_address"]."', '".$dataArray["c_class"]."', '".$dataArray["c_team"]."', '".$dataArray["c_company"]."', '".$dataArray["c_description"]."', '".$imageStr."', 'F','F', 'TAB_END')";
     $this->dbo->exec_insert($sql_insert);
 
     $id = $this->queryTable()[0]["id"];
@@ -269,6 +270,17 @@ class CaseManager {
     }
     return $counts;
   }
+
+  /**
+   * 格式化插入字段数据
+   */
+  public function formatItem($src) {
+    $src = str_replace("\"", "\\\"", $src);
+    $src = str_replace("'", "\'", $src);
+    $src = str_replace("\n", "", $src);
+    $src = str_replace("\t", "", $src);
+    return $src;
+  }
 }
 
 /**
@@ -354,13 +366,8 @@ class ArticleManager {
   */
   public function addItem($data) {
     $dataArray = json_decode($data, true);
-    $content = $dataArray["a_content"];
-    $content = str_replace("\"", "\\\"", $content);
-    $content = str_replace("'", "\'", $content);
-    $content = str_replace("\n", "", $content);
-    $content = str_replace("\t", "", $content);
     // 往数据库添加数据项
-    $sql_insert = "INSERT INTO ".$this->tab_name."(p_title, p_keywords, p_description, a_path, a_title, a_author, a_class, a_issue, a_content, b_recommends, b_posted, b_end) VALUES('".$dataArray["p_title"]."','".$dataArray["p_keywords"]."','".$dataArray["p_description"]."','".$dataArray["a_path"]."','".$dataArray["a_title"]."', '".$dataArray["a_author"]."', '".$dataArray["a_class"]."', '".$dataArray["a_issue"]."', '".$content."', 'F', 'F', 'TAB_END')";
+    $sql_insert = "INSERT INTO ".$this->tab_name."(p_title, p_keywords, p_description, a_path, a_title, a_author, a_class, a_issue, a_content, b_recommends, b_posted, b_end) VALUES('".$this->formatItem($dataArray["p_title"])."','".$this->formatItem($dataArray["p_keywords"])."','".$this->formatItem($dataArray["p_description"])."','".$this->formatItem($dataArray["a_path"])."','".$this->formatItem($dataArray["a_title"])."', '".$this->formatItem($dataArray["a_author"])."', '".$this->formatItem($dataArray["a_class"])."', '".$this->formatItem($dataArray["a_issue"])."', '".$this->formatItem($dataArray["a_content"])."', 'F', 'F', 'TAB_END')";
     $this->dbo->exec_insert($sql_insert);
 
     $id = $this->queryTable()[0]["id"];
@@ -389,6 +396,17 @@ class ArticleManager {
       $counts = count($this->queryTable($rule));
     }
     return $counts;
+  }
+
+  /**
+   * 格式化插入字段数据
+   */
+  public function formatItem($src) {
+    $src = str_replace("\"", "\\\"", $src);
+    $src = str_replace("'", "\'", $src);
+    $src = str_replace("\n", "", $src);
+    $src = str_replace("\t", "", $src);
+    return $src;
   }
 }
 

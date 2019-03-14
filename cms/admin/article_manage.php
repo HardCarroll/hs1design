@@ -173,7 +173,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                 if($counts) {
                   echo '<div class="panel-group" role="tablist" aria-multiselectable="true">';
                   for ($i = 0; $i < ($counts>10?10:$counts); $i++) {
-                    if($result[$i]["c_posted"]) {
+                    if($result[$i]["b_posted"]) {
                       echo '<div class="panel panel-default">';
                     }
                     else {

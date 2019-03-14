@@ -110,12 +110,14 @@ $(function() {
     // if($(this).parent().parent().parent().attr("id") === "editTab") {
     //   // updateCase({target: $("#editTab"), token: "updateCase", id: $("#editTab").attr("data-cid")});
     // }
+
+
     var imgArray = new Array();
     $(this).parent().parent().parent().find(".case-thumb").children().not(":last").each(function() {
-      var str = '{"url": "'+$(this).find("img").attr("src")+'", "attr_alt": "'+$(this).find('[name="data-alt"]').val()+'", "attr_title": "'+$(this).find('[name="data-title"]').val()+'"}';
-      imgArray.push(str);
+      var imgJson = {url: $(this).find("img").attr("src"), attr_alt: $(this).find('[name="data-alt"]').val(), attr_title: $(this).find('[name="data-title"]').val()};
+      imgArray.push(imgJson);
     });
-    var jsonData = {
+    var caseData = {
       p_title: $("[name='cp-title']").val(),
       p_keywords: $("[name='cp-keywords']").val(),
       p_description: $("[name='cp-description']").val(),
@@ -124,7 +126,7 @@ $(function() {
 
     var fmd = new FormData();
     fmd.append("token", "debug");
-    fmd.append("data", JSON.stringify(jsonData));
+    fmd.append("data", JSON.stringify(caseData));
 
     $.ajax({
       url: "/cms/include/php/handle.php",
@@ -142,8 +144,8 @@ $(function() {
     }); // ajax_func
 
 
-    console.log(jsonData);
-    console.log(JSON.stringify(jsonData));
+    console.log(caseData);
+    console.log(JSON.stringify(caseData));
   });
 
   // 删除确认对话框处理函数
@@ -355,11 +357,23 @@ function updateCase(argJson) {
   if(argJson.target) {
     var imgArray = new Array();
     argJson.target.find(".case-thumb").children().not(":last").each(function() {
-      var str = '{"url": "'+$(this).find("img").attr("src")+'", "attr_alt": "'+$(this).find('[name="data-alt"]').val()+'", "attr_title": "'+$(this).find('[name="data-title"]').val()+'"}';
-      imgArray.push(str);
+      var imgJson = {url: $(this).find("img").attr("src"), attr_alt: $(this).find('[name="data-alt"]').val(), attr_title: $(this).find('[name="data-title"]').val()};
+      imgArray.push(imgJson);
     });
-    var caseData = '{"p_title": "'+argJson.target.find("[name='cp-title']").val()+'", "p_keywords": "'+argJson.target.find("[name='cp-keywords']").val()+'", "p_description": "'+argJson.target.find("[name='cp-description']").val()+'", "c_title": "'+argJson.target.find("[name='case-title']").val()+'", "c_area": "'+argJson.target.find("[name='case-area']").val()+'", "c_address": "'+argJson.target.find("[name='case-address']").val()+'", "c_class": "'+argJson.target.find("[name='case-class']").val()+'", "c_team": "'+argJson.target.find("[name='case-team']").val()+'", "c_company": "'+argJson.target.find("[name='case-company']").val()+'", "c_description": "'+argJson.target.find("[name='case-description']").val()+'", "c_image": ['+imgArray+']}';
-    fmd.append("data", caseData);
+    var caseData = {
+      p_title: argJson.target.find("[name='cp-title']").val(),
+      p_keywords: argJson.target.find("[name='cp-keywords']").val(),
+      p_description: argJson.target.find("[name='cp-description']").val(),
+      c_title: argJson.target.find("[name='case-title']").val(),
+      c_area: argJson.target.find("[name='case-area']").val(),
+      c_address: argJson.target.find("[name='case-address']").val(),
+      c_class: argJson.target.find("[name='case-class']").val(),
+      c_team: argJson.target.find("[name='case-team']").val(),
+      c_company: argJson.target.find("[name='case-company']").val(),
+      c_description: argJson.target.find("[name='case-description']").val(),
+      c_image: imgArray
+    };
+    fmd.append("data", JSON.stringify(caseData));
   }
   $.ajax({
     url: "/cms/include/php/handle.php",
