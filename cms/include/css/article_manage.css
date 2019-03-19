@@ -65,7 +65,7 @@
   text-align: center;
   cursor: default;
 }
-.list-wrap>#article-list {
+.list-wrap>.pagination {
   cursor: pointer;
 }
 

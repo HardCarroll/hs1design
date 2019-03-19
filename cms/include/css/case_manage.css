@@ -65,7 +65,7 @@
   text-align: center;
   cursor: default;
 }
-#caseTab>.list-wrap>#case-list {
+#caseTab>.list-wrap>.pagination {
   cursor: pointer;
 }
 

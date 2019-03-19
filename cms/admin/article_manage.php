@@ -137,7 +137,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
               <div class="clearfix overview">
                 <div class="col-xs-6 col-sm-4 col-md-3">
                   <div class="wrap total">
-                    <p>全部案例</p>
+                    <p>全部文章</p>
                     <span class="text-primary digital"><?php echo $articleManage->getCounts(); ?></span>
                     <span>条</span>
                   </div>
@@ -164,23 +164,21 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                 </div>
               </div>
               <div class="article-wrap">
-                <!-- <div class="panel-group" role="tablist" aria-multiselectable="true"> -->
                 <!-- 动态生成案例列表 -->
-                <!-- </div> .panel-group -->
                 <?php
                 $result = $articleManage->queryTable();
                 $counts = $articleManage->getCounts();
                 if($counts) {
                   echo '<div class="panel-group" role="tablist" aria-multiselectable="true">';
                   for ($i = 0; $i < ($counts>10?10:$counts); $i++) {
-                    if($result[$i]["b_posted"]) {
+                    if($result[$i]["b_posted"] === "T") {
                       echo '<div class="panel panel-default">';
                     }
                     else {
                       echo '<div class="panel panel-danger">';
                     }
                     echo '<div class="panel-heading" role="tab">';
-                    echo '<a class="collapsed" role="button" data-toggle="collapse" href="#article_'.$result[$i]["id"].'">'.$result[$i]["a_title"].'</a></div>';
+                    echo '<a class="collapsed" role="button" data-toggle="collapse" href="#article_'.$result[$i]["id"].'">'.$result[$i]["ct_title"].'</a></div>';
                     echo '<div id="article_'.$result[$i]["id"].'" class="panel-collapse collapse" role="tabpanel">';
                     echo '<ul class="btn-group" data-id="'.$result[$i]["id"].'">';
                     echo '<li role="button" data-token="mark" title="星标" class="btn btn-default glyphicon '.($result[$i]["b_recommends"]==="T" ? "glyphicon-star" : "glyphicon-star-empty").'"></li>';
@@ -241,7 +239,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                 <div class="input-group">
                   <span class="btn btn-default btn-close" role="button">关闭</span>
                   <span class="btn btn-warning btn-save" role="button">保存</span>
-                  <span class="btn btn-success btn-post" role="button">发布</span>
+                  <!-- <span class="btn btn-success btn-post" role="button">发布</span> -->
                 </div>
               </div>
             </div> <!--#uploadTab-->

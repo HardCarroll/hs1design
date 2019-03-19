@@ -12,17 +12,23 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
     case "getSiteInfo": // 获取网站信息
       echo proc_getSiteInfo(ROOT_PATH.PATH_JSON);
       break;
-    case "refreshUploadTab":  // 刷新案例上传标签页
-      echo proc_refreshUploadTab($_POST["cid"] ? $_POST["cid"]: 0);
+    case "refreshUploadCase":  // 刷新案例上传标签页
+      echo proc_refreshUploadCase($_POST["cid"] ? $_POST["cid"]: 0);
       break;
     case "refreshCaseList": // 刷新案例列表
       echo proc_refreshCaseList($caseManage, json_decode($_POST["data"], true));
+      break;
+    case "refreshArticleList": // 刷新案例列表
+      echo proc_refreshArticleList($articleManage, json_decode($_POST["data"], true));
       break;
     case "refreshRecommends": // 刷新推荐列表
       echo proc_refreshRecommends($caseManage);
       break;
     case "refreshPagination": // 刷新分页列表
       echo proc_refreshPagination($caseManage, $_POST["rule"]);
+      break;
+    case "refreshPagination_Article": // 刷新分页列表
+      echo proc_refreshPagination($articleManage, $_POST["rule"]);
       break;
     case "updateCase":  // 上传案例
       echo proc_updateCase($caseManage, $_POST["id"], $_POST["data"]);
@@ -38,6 +44,9 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
       break;
     case "getCounts": // 获取记录数
       echo $caseManage->getCounts($_POST["rule"]);
+      break;
+    case "getArticleCounts": // 获取记录数
+      echo $articleManage->getCounts($_POST["rule"]);
       break;
     case "uploadFiles": // 上传文件
       echo proc_uploadFiles($_FILES["files"]);
@@ -84,7 +93,7 @@ function proc_updateCase($caseManage, $id = null, $data = null) {
   }
   else {  // $id不为空，则此时为修改对应的数据项内容
     if(!$data) { // 数据为空时为仅发布
-      $ret = $caseManage->updateItem($id, '{"c_path": "/case/'.$id.'.html", "b_posted": "T"}');
+      $ret = $caseManage->updateItem($id, '{"st_path": "/case/'.$id.'.html", "b_posted": "T"}');
       if(!$caseManage->dbo->state["err_no"]) {
         $ret = '{"err_no": 0, "err_code": "案例已成功发布"}';
       }
@@ -143,7 +152,7 @@ function proc_uploadFiles($files) {
 /**
  * 更新上传案例标签页内容
  */
-function proc_refreshUploadTab($id = null) {
+function proc_refreshUploadCase($id = null) {
   if($id) {
     return json_encode(file_get_contents(ROOT_PATH.PATH_UPLOAD."/case/$id.json"));
   }
@@ -156,21 +165,6 @@ function proc_refreshUploadTab($id = null) {
  * 实时生成案例列表
  */
 function proc_refreshCaseList($caseManage, $data = null) {
-  // <div class="panel panel-default">
-  //   <div class="panel-heading" role="tab">
-  //     <a class="collapsed" role="button" data-toggle="collapse" href="#case_2">
-  //       案例02标题文字
-  //     </a>
-  //   </div>
-  //   <div id="case_2" class="panel-collapse collapse" role="tabpanel">
-  //     <ul class="btn-group">
-  //       <li role="button" title="星标" class="btn btn-default glyphicon glyphicon-star-empty"></li>
-  //       <li role="button" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>
-  //       <li role="button" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>
-  //       <li role="button" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>
-  //     </ul>
-  //   </div>
-  // </div>
   empty($data["page"]) ? $page = 1 : $page = $data["page"];
   if(isset($data["rule"])) {
     $result = $caseManage->queryTable($data["rule"]);
@@ -192,11 +186,51 @@ function proc_refreshCaseList($caseManage, $data = null) {
         $html .= '<div class="panel panel-danger">';
       }
       $html .= '<div class="panel-heading" role="tab">';
-      $html .= '<a class="collapsed" role="button" data-toggle="collapse" href="#case_'.$result[$i]["id"].'">'.$result[$i]["c_title"].'</a></div>';
+      $html .= '<a class="collapsed" role="button" data-toggle="collapse" href="#case_'.$result[$i]["id"].'">'.$result[$i]["ct_title"].'</a></div>';
       $html .= '<div id="case_'.$result[$i]["id"].'" class="panel-collapse collapse" role="tabpanel">';
       $html .= '<ul class="btn-group" data-id="'.$result[$i]["id"].'">';
       $html .= '<li role="button" data-token="mark" title="星标" class="btn btn-default glyphicon '.($result[$i]["b_recommends"]==="T" ? "glyphicon-star" : "glyphicon-star-empty").'"></li>';
-      $html .= '<li role="button" href="#editTab" data-token="edit" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>';
+      $html .= '<li role="button" href="#editCase" data-token="edit" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>';
+      $html .= '<li role="button" data-token="post" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>';
+      $html .= '<li role="button" data-token="remove" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>';
+      $html .= '</ul></div></div>';
+    }
+    $html .= '</div>';
+  }
+  
+  return $html;
+}
+
+/**
+ * 实时生成文章列表
+ */
+function proc_refreshArticleList($articleManage, $data = null) {
+  empty($data["page"]) ? $page = 1 : $page = $data["page"];
+  if(isset($data["rule"])) {
+    $result = $articleManage->queryTable($data["rule"]);
+  }
+  else {
+    $result = $articleManage->queryTable();
+  }
+  $counts = count($result);
+  $cmp = $counts / ($page*10) >= 1 ? 10 : ($counts%10);
+
+  $html = '';
+  if($articleManage->getCounts()) {
+    $html = '<div class="panel-group" role="tablist" aria-multiselectable="true">';
+    for ($i = ($page-1)*10; $i < ($page-1)*10+$cmp; $i++) {
+      if($result[$i]["b_posted"] === "T") {
+        $html .= '<div class="panel panel-default">';
+      }
+      else {
+        $html .= '<div class="panel panel-danger">';
+      }
+      $html .= '<div class="panel-heading" role="tab">';
+      $html .= '<a class="collapsed" role="button" data-toggle="collapse" href="#article_'.$result[$i]["id"].'">'.$result[$i]["ct_title"].'</a></div>';
+      $html .= '<div id="article_'.$result[$i]["id"].'" class="panel-collapse collapse" role="tabpanel">';
+      $html .= '<ul class="btn-group" data-id="'.$result[$i]["id"].'">';
+      $html .= '<li role="button" data-token="mark" title="星标" class="btn btn-default glyphicon '.($result[$i]["b_recommends"]==="T" ? "glyphicon-star" : "glyphicon-star-empty").'"></li>';
+      $html .= '<li role="button" href="#editArticle" data-token="edit" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>';
       $html .= '<li role="button" data-token="post" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>';
       $html .= '<li role="button" data-token="remove" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>';
       $html .= '</ul></div></div>';
@@ -215,7 +249,7 @@ function proc_refreshRecommends($caseManage) {
   if($caseManage->getCounts("b_recommends='T'")) {
     $ret = '';
     foreach($recommends as $recommends_item) {
-      $ret .= '<div class="list-group-item text-info text-ellipsis"><a href="'.$recommends_item["c_path"].'">'.$recommends_item["c_title"].'</a></div>';
+      $ret .= '<div class="list-group-item text-info text-ellipsis"><a href="'.$recommends_item["st_path"].'">'.$recommends_item["ct_title"].'</a></div>';
     }
   }
   return $ret;
@@ -224,11 +258,11 @@ function proc_refreshRecommends($caseManage) {
 /**
  * 实时更新分页列表
  */
-function proc_refreshPagination($caseManage, $rule = null) {
+function proc_refreshPagination($hd_dbo, $rule = null) {
   $html = '';
-  $cnt = $caseManage->getCounts($rule);
+  $cnt = $hd_dbo->getCounts($rule);
   if ($cnt/10>1) {
-    $html .= '<ul class="pagination" id="case-list"><li class="disabled"><span aria-label="Previous"><span aria-hidden="true">&laquo;</span></span></li>';
+    $html .= '<ul class="pagination"><li class="disabled"><span aria-label="Previous"><span aria-hidden="true">&laquo;</span></span></li>';
     $html .= '<li class="active"><span>1</span></li>';
     
     for($i=1; $i<$cnt/10; $i++) {

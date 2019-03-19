@@ -19,15 +19,15 @@ $(function() {
       e.stopPropagation();
       e.preventDefault();
       if($(this).hasClass("total")) {
-        refresh_caseList({page: 1, rule: ""});
+        refreshTabList({page: 1, rule: ""});
         paginationList({token: "refreshPagination", url: "/cms/include/php/handle.php", target: $("#caseTab>.list-wrap"), rule: ""});
       }
       if($(this).hasClass("unpost")) {
-        refresh_caseList({page: 1, rule: "b_posted='F'"});
+        refreshTabList({page: 1, rule: "b_posted='F'"});
         paginationList({token: "refreshPagination", url: "/cms/include/php/handle.php", target: $("#caseTab>.list-wrap"), rule: "b_posted='F'"});
       }
       if($(this).hasClass("marked")) {
-        refresh_caseList({page: 1, rule: "b_recommends='T'"});
+        refreshTabList({page: 1, rule: "b_recommends='T'"});
         paginationList({token: "refreshPagination", url: "/cms/include/php/handle.php", target: $("#caseTab>.list-wrap"), rule: "b_recommends='T'"});
       }
     });
@@ -88,40 +88,21 @@ $(function() {
 
   // 保存按钮点击事件处理函数
   $(".btn-save").off("click").on("click", function() {
-    // if($(this).parent().parent().parent().attr("id") === "uploadTab") {
-    //   updateCase({target: $("#uploadTab"), token: "uploadCase", flag: "os"});
-    // }
-    // if($(this).parent().parent().parent().attr("id") === "editTab") {
-    //   updateCase({target: $("#editTab"), token: "updateCase", id: $("#editTab").attr("data-cid")});
-    // }
     updateCase({target: $(this).parent().parent().parent(), token: "updateCase", id: $(this).parent().parent().parent().attr("data-cid")});
   });
 
   // 发布按钮点击事件处理函数
   $(".btn-post").off("click").on("click", function() {
-    // if($(this).parent().parent().parent().attr("id") === "uploadTab") {
-    //   if($(this).prev().hasClass("disabled")) {
-    //     updateCase({target: $("#uploadTab"), token: "uploadCase", flag: "op"});
-    //   }
-    //   else {
-    //     updateCase({target: $("#uploadTab"), token: "uploadCase", flag: "sp"});
-    //   }
-    // }
-    // if($(this).parent().parent().parent().attr("id") === "editTab") {
-    //   // updateCase({target: $("#editTab"), token: "updateCase", id: $("#editTab").attr("data-cid")});
-    // }
-
-
     var imgArray = new Array();
     $(this).parent().parent().parent().find(".case-thumb").children().not(":last").each(function() {
       var imgJson = {url: $(this).find("img").attr("src"), attr_alt: $(this).find('[name="data-alt"]').val(), attr_title: $(this).find('[name="data-title"]').val()};
       imgArray.push(imgJson);
     });
     var caseData = {
-      p_title: $("[name='cp-title']").val(),
-      p_keywords: $("[name='cp-keywords']").val(),
-      p_description: $("[name='cp-description']").val(),
-      c_image: imgArray
+      st_title: $("[name='cp-title']").val(),
+      st_keywords: $("[name='cp-keywords']").val(),
+      st_description: $("[name='cp-description']").val(),
+      ct_image: imgArray
     };
 
     var fmd = new FormData();
@@ -144,8 +125,8 @@ $(function() {
     }); // ajax_func
 
 
-    console.log(caseData);
-    console.log(JSON.stringify(caseData));
+    // console.log(caseData);
+    // console.log(JSON.stringify(caseData));
   });
 
   // 删除确认对话框处理函数
@@ -172,7 +153,7 @@ $(function() {
     });
   });
 
-  refresh_caseList({page: 1});
+  refreshTabList({page: 1});
 
 });
 
@@ -184,10 +165,10 @@ $(function() {
  *  id: 数据库记录ID
  * }
  */
-function refresh_uploadTab(argJson) {
+function refresh_uploadCase(argJson) {
   clearTabContent({target: argJson.target});
   var fmd = new FormData();
-  fmd.append("token", "refreshUploadTab");
+  fmd.append("token", "refreshUploadCase");
   fmd.append("cid", argJson.id);
   $.ajax({
     url: "/cms/include/php/handle.php",
@@ -200,21 +181,21 @@ function refresh_uploadTab(argJson) {
     success: function(result) {
       var data = JSON.parse(result);
       if($(this).attr("data-cid")) {
-        $(this).find("[name='cp-title']").val(data.p_title);
-        $(this).find("[name='cp-keywords']").val(data.p_keywords);
-        $(this).find("[name='cp-description']").val(data.p_description);
-        $(this).find("[name='case-title']").val(data.c_title);
-        $(this).find("[name='case-area']").val(data.c_area);
-        $(this).find("[name='case-class']").val(data.c_class);
-        $(this).find("[name='case-address']").val(data.c_address);
-        $(this).find("[name='case-team']").val(data.c_team);
-        $(this).find("[name='case-company']").val(data.c_company);
-        $(this).find("[name='case-description']").val(data.c_description);
-        for(var i in data.c_image) {
-          if(data.c_image.length < $(this).find(".case-thumb").children().length) {
+        $(this).find("[name='cp-title']").val(data.st_title);
+        $(this).find("[name='cp-keywords']").val(data.st_keywords);
+        $(this).find("[name='cp-description']").val(data.st_description);
+        $(this).find("[name='case-title']").val(data.ct_title);
+        $(this).find("[name='case-area']").val(data.ct_area);
+        $(this).find("[name='case-class']").val(data.ct_class);
+        $(this).find("[name='case-address']").val(data.ct_address);
+        $(this).find("[name='case-team']").val(data.ct_team);
+        $(this).find("[name='case-company']").val(data.ct_company);
+        $(this).find("[name='case-description']").val(data.ct_description);
+        for(var i in data.ct_image) {
+          if(data.ct_image.length < $(this).find(".case-thumb").children().length) {
             $(this).find(".case-thumb").children().eq(0).remove();
           }
-          proc_addPictures($(this).find(".case-thumb>div>div.btn"), data.c_image[i]);
+          proc_addPictures($(this).find(".case-thumb>div>div.btn"), data.ct_image[i]);
         }
       }
       else {
@@ -235,7 +216,7 @@ function refresh_uploadTab(argJson) {
  *                      rule: "b_recommends='T'"  //查询数据库规则
  *                    }
  */
-function refresh_caseList(data) {
+function refreshTabList(data) {
   var fmd = new FormData();
   fmd.append("token", "refreshCaseList");
   if(data) {
@@ -292,7 +273,7 @@ function refresh_caseList(data) {
               break;
             // 编辑案例
             case "edit":
-              $("#editTab").attr("data-cid", $(this).parent().attr("data-id"));
+              $("#editCase").attr("data-cid", $(this).parent().attr("data-id"));
               activateTab($(this));
               // console.log("edit: " + $(this).parent().attr("data-id"));
               break;
@@ -361,17 +342,17 @@ function updateCase(argJson) {
       imgArray.push(imgJson);
     });
     var caseData = {
-      p_title: argJson.target.find("[name='cp-title']").val(),
-      p_keywords: argJson.target.find("[name='cp-keywords']").val(),
-      p_description: argJson.target.find("[name='cp-description']").val(),
-      c_title: argJson.target.find("[name='case-title']").val(),
-      c_area: argJson.target.find("[name='case-area']").val(),
-      c_address: argJson.target.find("[name='case-address']").val(),
-      c_class: argJson.target.find("[name='case-class']").val(),
-      c_team: argJson.target.find("[name='case-team']").val(),
-      c_company: argJson.target.find("[name='case-company']").val(),
-      c_description: argJson.target.find("[name='case-description']").val(),
-      c_image: imgArray
+      st_title: argJson.target.find("[name='cp-title']").val(),
+      st_keywords: argJson.target.find("[name='cp-keywords']").val(),
+      st_description: argJson.target.find("[name='cp-description']").val(),
+      ct_title: argJson.target.find("[name='case-title']").val(),
+      ct_area: argJson.target.find("[name='case-area']").val(),
+      ct_address: argJson.target.find("[name='case-address']").val(),
+      ct_class: argJson.target.find("[name='case-class']").val(),
+      ct_team: argJson.target.find("[name='case-team']").val(),
+      ct_company: argJson.target.find("[name='case-company']").val(),
+      ct_description: argJson.target.find("[name='case-description']").val(),
+      ct_image: imgArray
     };
     fmd.append("data", JSON.stringify(caseData));
   }

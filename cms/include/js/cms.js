@@ -105,16 +105,16 @@ function activateTab(target) {
     refresh_siteTab();
   }
   if($(target).attr("href") === "#caseTab") {
-    refresh_caseList({page: 1});
+    refreshTabList({page: 1});
   }
-  if($(target).attr("href") === "#uploadTab") {
-    refresh_uploadTab({target: $("#uploadTab"), id: $("#uploadTab").attr("data-cid")});
+  if($(target).attr("href") === "#uploadCase") {
+    refresh_uploadCase({target: $("#uploadCase"), id: $("#uploadCase").attr("data-cid")});
   }
-  if($(target).attr("href") === "#editTab") {
-    $("#pageTabs>li[href='#editTab']").children().eq(0).addClass("glyphicon glyphicon-edit");
-    $("#pageTabs>li[href='#editTab']").children().eq(1).html($(target).parent().parent().prev().children().eq(0).html());
-    $("#pageTabs>li[href='#editTab']").attr("title", $(target).parent().parent().prev().children().eq(0).html());
-    refresh_uploadTab({target: $("#editTab"), id: $("#editTab").attr("data-cid")});
+  if($(target).attr("href") === "#editCase") {
+    $("#pageTabs>li[href='#editCase']").children().eq(0).addClass("glyphicon glyphicon-edit");
+    $("#pageTabs>li[href='#editCase']").children().eq(1).html($(target).parent().parent().prev().children().eq(0).html());
+    $("#pageTabs>li[href='#editCase']").attr("title", $(target).parent().parent().prev().children().eq(0).html());
+    refresh_uploadCase({target: $("#editCase"), id: $("#editCase").attr("data-cid")});
   }
   if($(target).attr("href") === "#uploadArticle") {
     refreshTabContent({target: $("#uploadArticle"), id: $("#uploadArticle").attr("data-aid")});
@@ -145,7 +145,7 @@ function regTabEvent() {
     $(".nav-list").find('[href="' + $("#pageTabs").find(".active").attr("href") + '"]').addClass("active").siblings().removeClass("active");
     
     if($("#pageTabs").find(".active").attr("href") === "#caseTab") {
-      refresh_caseList({page: 1});
+      refreshTabList({page: 1});
     }
 
     // 清除data-cid属性值
@@ -158,10 +158,6 @@ function regTabEvent() {
     e.preventDefault();
     activateTab($(this));
   });
-}
-
-function test() {
-  console.log("hello world, this is a test!");
 }
 
 /**
@@ -245,7 +241,7 @@ function paginationClick(argJson) {
         curIndex = $(this).index();
       }
 
-      refresh_caseList({page: curIndex, rule: argJson.rule});
+      refreshTabList({page: curIndex, rule: argJson.rule});
       
     }); // click_func
   }); // each_func
