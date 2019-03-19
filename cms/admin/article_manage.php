@@ -250,25 +250,25 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
     </section>
     <section class="page-foot"></section>
 
-  <!-- Modal confirm-->
-  <div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="modalConfirmLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title text-danger" id="modalConfirmLabel">敬告</h4>
-        </div>
-        <div class="modal-body">
-          此操作不可逆，请谨慎选择！您确认要删除吗？
-        </div>
-        <div class="modal-footer">
-          <span class="tips"></span>
-          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-          <button type="button" class="btn btn-danger">确认</button>
+    <!-- Modal confirm-->
+    <div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="modalConfirmLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title text-danger" id="modalConfirmLabel">敬告</h4>
+          </div>
+          <div class="modal-body">
+            此操作不可逆，请谨慎选择！您确认要删除吗？
+          </div>
+          <div class="modal-footer">
+            <span class="tips"></span>
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-danger">确认</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
   </div> <!-- /.layer-->
 

@@ -147,6 +147,9 @@ function regTabEvent() {
     if($("#pageTabs").find(".active").attr("href") === "#caseTab") {
       refreshTabList({page: 1});
     }
+    if($("#pageTabs").find(".active").attr("href") === "#articleTab") {
+      refreshTabList({page: 1});
+    }
 
     // 清除data-cid属性值
     $($(this).parent().attr("href")).attr("data-cid", "");

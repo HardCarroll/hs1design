@@ -92,47 +92,48 @@ $(function() {
   });
 
   // 发布按钮点击事件处理函数
-  $(".btn-post").off("click").on("click", function() {
-    var imgArray = new Array();
-    $(this).parent().parent().parent().find(".case-thumb").children().not(":last").each(function() {
-      var imgJson = {url: $(this).find("img").attr("src"), attr_alt: $(this).find('[name="data-alt"]').val(), attr_title: $(this).find('[name="data-title"]').val()};
-      imgArray.push(imgJson);
-    });
-    var caseData = {
-      st_title: $("[name='cp-title']").val(),
-      st_keywords: $("[name='cp-keywords']").val(),
-      st_description: $("[name='cp-description']").val(),
-      ct_image: imgArray
-    };
+  // $(".btn-post").off("click").on("click", function() {
+  //   var imgArray = new Array();
+  //   $(this).parent().parent().parent().find(".case-thumb").children().not(":last").each(function() {
+  //     var imgJson = {url: $(this).find("img").attr("src"), attr_alt: $(this).find('[name="data-alt"]').val(), attr_title: $(this).find('[name="data-title"]').val()};
+  //     imgArray.push(imgJson);
+  //   });
+  //   var caseData = {
+  //     st_title: $("[name='cp-title']").val(),
+  //     st_keywords: $("[name='cp-keywords']").val(),
+  //     st_description: $("[name='cp-description']").val(),
+  //     ct_image: imgArray
+  //   };
 
-    var fmd = new FormData();
-    fmd.append("token", "debug");
-    fmd.append("data", JSON.stringify(caseData));
+  //   var fmd = new FormData();
+  //   fmd.append("token", "debug");
+  //   fmd.append("data", JSON.stringify(caseData));
 
-    $.ajax({
-      url: "/cms/include/php/handle.php",
-      type: "POST",
-      data: fmd,
-      processData: false,
-      contentType: false,   //数据为formData时必须定义此项
-      dataType: "json",     //返回json格式数据
-      success: function(result) {
-        console.log(JSON.parse(result));
-      },
-      error: function(err) {
-        console.log("fail: "+err);
-      }
-    }); // ajax_func
+  //   $.ajax({
+  //     url: "/cms/include/php/handle.php",
+  //     type: "POST",
+  //     data: fmd,
+  //     processData: false,
+  //     contentType: false,   //数据为formData时必须定义此项
+  //     dataType: "json",     //返回json格式数据
+  //     success: function(result) {
+  //       console.log(JSON.parse(result));
+  //     },
+  //     error: function(err) {
+  //       console.log("fail: "+err);
+  //     }
+  //   }); // ajax_func
 
 
-    // console.log(caseData);
-    // console.log(JSON.stringify(caseData));
-  });
+  //   // console.log(caseData);
+  //   // console.log(JSON.stringify(caseData));
+  // });
 
   // 删除确认对话框处理函数
   $("#modalConfirm .btn-danger").off("click").on("click", function() {
     var fmd = new FormData();
-    fmd.append("token", "removeCase");
+    fmd.append("token", "removeItem");
+    fmd.append("handle", "case");
     fmd.append("id", $(this).attr("data-id"));
     $.ajax({
       url: "/cms/include/php/handle.php",
@@ -240,7 +241,8 @@ function refreshTabList(data) {
             // 推荐阅读
             case "mark":
               var fmd = new FormData();
-              fmd.append("token", "markCase");
+              fmd.append("token", "markItem");
+              fmd.append("handle", "case");
               fmd.append("id", $(this).parent().attr("data-id"));
               $(this).toggleClass("glyphicon-star-empty").toggleClass("glyphicon-star");
               if($(this).hasClass("glyphicon-star")) {

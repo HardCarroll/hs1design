@@ -38,6 +38,7 @@ $(function() {
     };
     var fmd = new FormData();
     fmd.append("token", "updateArticle");
+    fmd.append("id", $(this).parent().parent().parent().attr("data-aid"));
     fmd.append("data", JSON.stringify(jsonData));
     $.ajax({
       url: "/cms/include/php/handle.php",
@@ -54,10 +55,33 @@ $(function() {
       }
     });
   });
-  $(".btn-post").off("click").on("click", function() {
-    editor.html("hello world");
+
+  // 删除确认对话框处理函数
+  $("#modalConfirm .btn-danger").off("click").on("click", function() {
+    var fmd = new FormData();
+    fmd.append("token", "removeItem");
+    fmd.append("handle", "article");
+    fmd.append("id", $(this).attr("data-id"));
+    $.ajax({
+      url: "/cms/include/php/handle.php",
+      type: "POST",
+      data: fmd,
+      processData: false,
+      contentType: false,   //数据为formData时必须定义此项
+      dataType: "json",     //返回json格式数据
+      context: $(this),
+      success: function(result) {
+        if(!JSON.parse(result).err_no) {
+          location.reload(true);
+        }
+      },
+      error: function(err) {
+        console.log("fail: "+err);
+      }
+    });
   });
 
+  refreshTabList({page: 1});
 });
 
 KindEditor.ready(function(K) {
@@ -99,6 +123,7 @@ function refreshTabList(data) {
           switch($(this).attr("data-token")) {
             // 推荐阅读
             case "mark":
+              console.log("mark");
               // var fmd = new FormData();
               // fmd.append("token", "markCase");
               // fmd.append("id", $(this).parent().attr("data-id"));
@@ -133,17 +158,20 @@ function refreshTabList(data) {
               break;
             // 编辑案例
             case "edit":
+              console.log("mark");
               // $("#editTab").attr("data-cid", $(this).parent().attr("data-id"));
               // activateTab($(this));
               // console.log("edit: " + $(this).parent().attr("data-id"));
               break;
             // 发布案例
             case "post":
+            console.log("mark");
               // updateCase({token: "updateCase", id: $(this).parent().attr("data-id")});
               break;
             // 删除案例
             case "remove":
-              // $("#modalConfirm").modal("show").find(".btn-danger").attr("data-id", $(this).parent().attr("data-id"));
+              $("#modalConfirm").modal("show").find(".btn-danger").attr("data-id", $(this).parent().attr("data-id"));
+              console.log("mark");
               break;
           }
         });

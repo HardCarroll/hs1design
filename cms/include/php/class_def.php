@@ -151,7 +151,7 @@ class CaseManager {
     $sql_update = "UPDATE $this->tab_name SET ";
     foreach($dataArray as $key=>$value) {
       if($key !== "ct_image") {
-        $sql_update .= ($key."='".$value."'");
+        $sql_update .= ($key."='".$this->formatItem($value)."'");
       }
       else {
         $sql_update .= ($key."='".$imageStr."'");
@@ -322,7 +322,7 @@ class ArticleManager {
    * 初始化类
    */
   public function init() {
-    $sql_create = "CREATE TABLE `hs1design`.`tab_article` ( `id` INT(255) UNSIGNED NOT NULL AUTO_INCREMENT , `st_title` VARCHAR(120) NOT NULL , `st_keywords` VARCHAR(120) NOT NULL , `st_description` VARCHAR(400) NOT NULL , `ct_title` VARCHAR(120) NOT NULL , `ct_author` VARCHAR(60) NOT NULL , `ct_class` VARCHAR(2) NOT NULL ,`ct_issue` VARCHAR(30) NOT NULL , `ct_content` LONGTEXT NOT NULL , `st_path` TEXT NOT NULL , `b_recommends` VARCHAR(1) NOT NULL , `b_posted` VARCHAR(1) NOT NULL, PRIMARY KEY (`id`)) ENGINE = InnoDB";
+    $sql_create = "CREATE TABLE `hs1design`.`tab_article` ( `id` INT(255) UNSIGNED NOT NULL AUTO_INCREMENT , `st_title` VARCHAR(120) NOT NULL , `st_keywords` VARCHAR(120) NOT NULL , `st_description` VARCHAR(400) NOT NULL , `st_path` TEXT NOT NULL , `ct_title` VARCHAR(120) NOT NULL , `ct_author` VARCHAR(60) NOT NULL , `ct_class` VARCHAR(2) NOT NULL ,`ct_issue` VARCHAR(30) NOT NULL , `ct_content` LONGTEXT NOT NULL , `b_recommends` VARCHAR(1) NOT NULL , `b_posted` VARCHAR(1) NOT NULL, PRIMARY KEY (`id`)) ENGINE = InnoDB";
     // $sql_insert = "";
     $this->dbo->exec_query($sql_create);
   }
@@ -383,6 +383,93 @@ class ArticleManager {
     else {
       $ret = '{"err_no":'.$this->dbo->state["err_no"].', "err_code": "'.$id.'"}';
     }
+    return $ret;
+  }
+
+  
+  /**
+   * 发布数据项
+   */
+  public function postItem($id) {
+    // 从对应JSON文件读取数据
+    $path = ROOT_PATH.PATH_UPLOAD."/article/";
+    $data = file_get_contents($path."/$id.json");
+    // 生成html文件
+    $siteinfo = json_decode(file_get_contents(ROOT_PATH.PATH_JSON."/siteinfo.json"), true);
+    $url = "http://".$siteinfo["domain"]."/template/article_temp.php";
+    $str = curl_request($url, $data);
+    file_put_contents(ROOT_PATH."/article/$id.html", $str);
+    // 更新数据库文件路径
+    $ret = $this->updateItem($id, '{"st_path": "/article/'.$id.'.html", "b_posted": "T"}');
+    $retArray = json_decode($ret, true);
+    if(!$retArray["err_no"]) {
+      $retArray["err_code"] = "案例已成功发布！";
+      $ret = json_encode($retArray);
+    }
+    return $ret;
+  }
+
+  /**
+   * 更新数据项
+   * @param   int $id 数据库对应的id
+   * @param   string $data JSON格式的数据字符串
+   * @return  string $ret JSON格式的结果字符串
+   */
+  public function updateItem($id, $data) {
+    if(!$data) {
+      return  '{"err_no": -1, "err_code": "数据不能为空！"}';
+    }
+    // UPDATE table SET key1=value1, key2=value2, ..., keyN=valueN
+    $dataArray = json_decode($data, true);
+    // 格式化上传图片字符串
+    $imageStr = $this->transferImageJson($dataArray["ct_image"]);
+    
+    $sql_update = "UPDATE $this->tab_name SET ";
+    foreach($dataArray as $key=>$value) {
+      if($key !== "ct_image") {
+        $sql_update .= ($key."='".$this->formatItem($value)."'");
+      }
+      else {
+        $sql_update .= ($key."='".$imageStr."'");
+      }
+      if(end($dataArray) !== $value) {
+        $sql_update .= ",";
+      }
+      $sql_update .= " ";
+    }
+    $sql_update .= "WHERE id=$id";
+    $this->dbo->exec_update($sql_update);
+
+    // 同时更新JSON文件
+    $path = ROOT_PATH.PATH_UPLOAD."/article/";
+    if(is_dir($path) or @mkdir($path, 0777, true)) {
+      file_put_contents($path."/$id.json", $this->transferJson("id=$id"));
+    }
+    if($this->queryTable("id=$id")[0]["b_posted"] === "T") {
+      // 如果已发布则同时更新html文件
+      $siteinfo = json_decode(file_get_contents(ROOT_PATH.PATH_JSON."/siteinfo.json"), true);
+      $url = "http://".$siteinfo["domain"]."/template/article_temp.php";
+      $str = curl_request($url, $this->transferJson("id=$id"));
+      file_put_contents(ROOT_PATH."/article/$id.html", $str);
+    }
+
+    // 格式化返回值
+    if($this->dbo->state["err_no"]) {
+      $ret = '{"err_no":'.$this->dbo->state["err_no"].', "err_code": "'.$this->dbo->state["err_code"].'"}';
+    }
+    else {
+      $ret = '{"err_no":'.$this->dbo->state["err_no"].', "err_code": "'.$id.'"}';
+    }
+    return $ret;
+  }
+
+  /**
+   * 删除数据项
+   */
+  public function removeItem($id) {
+    $sql_remove = 'DELETE FROM '.$this->tab_name.' WHERE id='.$id;
+    $this->dbo->exec_delete($sql_remove);
+    $ret = '{"err_no": '.$this->dbo->state["err_no"].', "err_code": "'.$this->dbo->state["err_code"].'"}';
     return $ret;
   }
 

@@ -33,14 +33,24 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
     case "updateCase":  // 上传案例
       echo proc_updateCase($caseManage, $_POST["id"], $_POST["data"]);
       break;
-    case "removeCase":  // 删除案例
-      echo proc_removeCase($caseManage, $_POST["id"]);
+    case "removeItem":  // 删除案例
+      if($_POST["handle"] === "case") {
+        echo proc_removeItem($caseManage, $_POST["handle"], $_POST["id"]);
+      }
+      else if($_POST["handle"] === "article") {
+        echo proc_removeItem($articleManage, $_POST["handle"], $_POST["id"]);
+      }
       break;
     case "postCase":  // 发布案例
       echo json_encode($caseManage->postItem($_POST["id"]));
       break;
-    case "markCase":  //推荐案例
-      echo proc_markCase($caseManage, $_POST["id"], $_POST["data"]);
+    case "markItem":  //推荐条目
+      if($_POST["handle"] === "case") {
+        echo proc_markItem($caseManage, $_POST["id"], $_POST["data"]);
+      }
+      else if($_POST["handle"] === "article") {
+        echo proc_markItem($articleManage, $_POST["id"], $_POST["data"]);
+      }
       break;
     case "getCounts": // 获取记录数
       echo $caseManage->getCounts($_POST["rule"]);
@@ -109,23 +119,23 @@ function proc_updateCase($caseManage, $id = null, $data = null) {
  * 星标案例处理函数
  * 先判断是否已发布，未发布则先发布此案例。
  */
-function proc_markCase($caseManage, $id, $data) {
-  if($caseManage->queryTable("id=".$id)[0]["b_posted"] === "F") {
+function proc_markItem($hd, $id, $data) {
+  if($hd->queryTable("id=".$id)[0]["b_posted"] === "F") {
     return json_encode('{"err_no": -1, "err_code": "当前案例暂未发布，请先发布此案例！"}');
   }
-  $ret = $caseManage->updateItem($id, $data);
+  $ret = $hd->updateItem($id, $data);
   return json_encode($ret);
 }
 /**
  * 删除案例处理函数
  * 删除数据库记录，并同时删除json和html文件
  */
-function proc_removeCase($caseManage, $id) {
-  $htmlPath = ROOT_PATH."/case/$id.html";
-  $jsonPath = ROOT_PATH.PATH_UPLOAD."/case/$id.json";
+function proc_removeItem($hd, $dir, $id) {
+  $htmlPath = ROOT_PATH."/$dir/$id.html";
+  $jsonPath = ROOT_PATH.PATH_UPLOAD."/$dir/$id.json";
   @unlink($htmlPath);
   @unlink($jsonPath);
-  return json_encode($caseManage->removeItem($id));
+  return json_encode($hd->removeItem($id));
 }
 
 /**
