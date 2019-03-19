@@ -170,7 +170,7 @@ function transmitCasetype($key) {
                 </section> -->
                 <!-- 动态生成案例图片缩略图 -->
                 <?php
-                $imgs = $dataArray["c_image"];
+                $imgs = $dataArray["ct_image"];
                 foreach($imgs as $imgs_item) {
                   echo '<section class="col-xs-6 col-sm-4 col-md-3 col-lg-2 case-thumb-item"><img src="'.$imgs_item["url"].'" title="'.$imgs_item["attr_title"].'" alt="'.$imgs_item["attr_alt"].'"></section>';
                 }
@@ -188,9 +188,9 @@ function transmitCasetype($key) {
                 <!-- 动态生成推荐阅读列表 -->
                 <?php
                 $recommends = $caseManage->queryTable("c_recommends=1");
-                if($caseManage->getCounts("c_recommends=1")) {
+                if($caseManage->getCounts("b_recommends='T'")) {
                   foreach($recommends as $recommends_item) {
-                    echo '<div class="list-group-item text-info text-ellipsis"><a href="'.$recommends_item["c_path"].'">'.$recommends_item["c_title"].'</a></div>';
+                    echo '<div class="list-group-item text-info text-ellipsis"><a href="'.$recommends_item["st_path"].'">'.$recommends_item["ct_title"].'</a></div>';
                   }
                 }
                 else {
@@ -433,7 +433,7 @@ function transmitCasetype($key) {
   <div id="displayModal" class="modal" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
         <h4 class="modal-title" id="displayModalLabel">Modal title</h4>
       </div>
       <div class="modal-content">
