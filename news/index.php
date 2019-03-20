@@ -126,13 +126,9 @@
             <li class="disabled"><span aria-label="Previous"><span aria-hidden="true">&laquo;</span></span></li>
             <li class="active"><a href="javascript:;">1</a></li>
             <li><a href="javascript:;">2</a></li>
-            <li><a href="javascript:;">3</a></li>
-            <li><a href="javascript:;">4</a></li>
-            <li><a href="javascript:;">5</a></li>
             <li><a href="javascript:;" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
           </ul>
         </section>
-        <h1 id="test">test text</h1>
       </div>
     </div><!-- 网页内容区域结束 // #pageContent end -->
 

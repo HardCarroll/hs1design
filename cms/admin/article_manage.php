@@ -221,8 +221,8 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                 <div class="input-group">
                   <label for="article-class" class="input-group-addon">文章类别</label>
                   <select name="article-class" class="form-control">
-                    <option value="0">公司要闻</option>
-                    <option value="1">综合新闻</option>
+                    <option value="0">公司动态</option>
+                    <option value="1">行业资讯</option>
                   </select>
                 </div>
                 <div class="input-group">

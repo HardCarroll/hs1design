@@ -257,7 +257,7 @@ function getCounts(argJson) {
 function clearTabContent(argJson) {
   argJson.target.find("input").val("");
   argJson.target.find("textarea").val("");
-  argJson.target.find("select").val(1);
+  argJson.target.find("select").val(0);
   window.editor.html("");
   argJson.target.find(".btn-save").removeClass("disabled");
 }
