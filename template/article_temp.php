@@ -1,18 +1,16 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"]."/cms/include/php/include.php");
-// $dataJson = file_get_contents($_SERVER["DOCUMENT_ROOT"]."/lib/json/case_temp.json");
+$dataJson = file_get_contents($_SERVER["DOCUMENT_ROOT"]."/cms/upload/article/1.json");
 // $dataJson = file_get_contents("php://input");
-// $dataArray = json_decode($dataJson, true);
-// $p_title = $dataArray["st_title"];
-// $p_keywords = $dataArray["st_keywords"];
-// $p_description = $dataArray["st_description"];
-// $c_title = $dataArray["ct_title"];
-// $c_area = $dataArray["ct_area"];
-// $c_address = $dataArray["ct_address"];
-// $c_class = $dataArray["ct_class"];
-// $c_team = $dataArray["ct_team"];
-// $c_company = $dataArray["ct_company"];
-// $c_description = $dataArray["ct_description"];
+$dataArray = json_decode($dataJson, true);
+$st_title = $dataArray["st_title"];
+$st_keywords = $dataArray["st_keywords"];
+$st_description = $dataArray["st_description"];
+$ct_title = $dataArray["ct_title"];
+$ct_author = $dataArray["ct_author"];
+$ct_class = $dataArray["ct_class"];
+$ct_issue = $dataArray["ct_issue"];
+$ct_content = $dataArray["ct_content"];
 // $more_prev = $dataArray["more_prev"];
 // $more_next = $dataArray["more_next"];
 function transmitType($key) {
@@ -34,13 +32,13 @@ function transmitType($key) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="Keywords" content="<?php echo $p_keywords; ?>">
-  <meta name="Description" content="<?php echo $p_description; ?>">
-  <title><?php echo $p_title; ?></title>
+  <meta name="Keywords" content="<?php echo $st_keywords; ?>">
+  <meta name="Description" content="<?php echo $st_description; ?>">
+  <title><?php echo $st_title; ?></title>
   <link rel="stylesheet" href="/cms/include/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="/cms/include/css/icons.css">
   <link rel="stylesheet" href="/lib/css/shared.css">
-  <link rel="stylesheet" href="/lib/css/case_temp.css">
+  <link rel="stylesheet" href="/lib/css/article_temp.css">
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 </head>
 <body>
@@ -103,65 +101,32 @@ function transmitType($key) {
     <!-- 网页内容区域开始 #pageContent begin-->
     <div id="pageContent" class="container-fluid">
 
-      <!-- 案例展示区域开始 .case-display begin -->
-      <div class="container-fluid wrapper case-display">
+      <!-- 案例展示区域开始 .article-display begin -->
+      <div class="container-fluid wrapper article-display">
         <div class="inner current-position">
           <ol class="breadcrumb">
             <span class="glyphicon glyphicon-map-marker"></span>
             <li><a href="/">首页</a></li>
             <li><a href="/news">综合资讯</a></li>
-            <li><?php echo '<a href="/case/index.php?type='.$c_class.'">'.transmitType($c_class).'</a>'; ?></li>
-            <li class="active"><?php echo $c_title; ?></li>
+            <li class="active"><?php echo $ct_title; ?></li>
           </ol>
         </div>
 
-        <div class="inner row case-content">
-          <div class="col-xs-12 col-md-8 col-lg-9 case-card">
-            <ul class="contain-fluid card-list">
-              <span class="glyphicon glyphicon-bookmark"></span>
-              <li>
-                <span>项目名称：</span>
-                <p><?php echo $c_title; ?></p>
-              </li>
-              <li>
-                <span>项目面积：</span>
-                <p><?php echo $c_area; ?></p>
-              </li>
-              <li>
-                <span>项目地址：</span>
-                <p><?php echo $c_address; ?></p>
-              </li>
-              <li>
-                <span>项目类型：</span>
-                <p><?php echo transmitType($c_class); ?></p>
-              </li>
-              <li>
-                <span>主创团队：</span>
-                <p><?php echo $c_team; ?></p>
-              </li>
-              <li>
-                <span>出品单位：</span>
-                <p><?php echo $c_company; ?></p>
-              </li>
-              <hr>
-              <div class="case-description">
-                <span>案例简介：</span>
-                <p><?php echo $c_description; ?></p>
+        <div class="inner row article-content">
+          <div class="col-xs-12 col-md-8 col-lg-9 article-card">
+            <div class="contain-fluid card-wrap">
+              <span class="glyphicon glyphicon-bullhorn"></span>
+              <div class="card-head">
+                <p class="title"><?php echo $ct_title; ?></p>
+                <p class="extra">
+                  <span style="margin-left: 15px;">作者：</span><a href="/" class="author"><?php echo $ct_author; ?></a>
+                  <span style="margin-left: 15px;">类别：</span><a href="/news/" class="type"><?php echo transmitType($ct_class); ?></a>
+                  <span style="margin-left: 15px;">发布时间：</span><span class="date"><?php echo $ct_issue; ?></span>
+                </p>
               </div>
               <hr>
-              <div class="row case-thumb">
-                <!-- <section class="col-xs-6 col-sm-4 col-md-3 col-lg-2 case-thumb-item">
-                  <img src="img_url" alt="img_alt" title="img_title">
-                </section> -->
-                <!-- 动态生成案例图片缩略图 -->
-                <?php
-                $imgs = $dataArray["ct_image"];
-                foreach($imgs as $imgs_item) {
-                  echo '<section class="col-xs-6 col-sm-4 col-md-3 col-lg-2 case-thumb-item"><img src="'.$imgs_item["url"].'" title="'.$imgs_item["attr_title"].'" alt="'.$imgs_item["attr_alt"].'"></section>';
-                }
-                ?>
-              </div>
-            </ul>
+              <div class="card-body"><?php echo $ct_content; ?></div>
+            </div>
           </div>
           <div class="col-md-4 col-lg-3 visible-md-block visible-lg-block recommends-wrap">
             <div class="panel panel-default recommends">
@@ -172,14 +137,14 @@ function transmitType($key) {
                 <!-- <div class="list-group-item text-info text-ellipsis"><a href="Article_url">Article_Title</a></div> -->
                 <!-- 动态生成推荐阅读列表 -->
                 <?php
-                $recommends = $caseManage->queryTable("b_recommends='T'");
-                if($caseManage->getCounts("b_recommends='T'")) {
+                $recommends = $articleManage->queryTable("b_recommends='T'");
+                if($articleManage->getCounts("b_recommends='T'")) {
                   foreach($recommends as $recommends_item) {
                     echo '<div class="list-group-item text-info text-ellipsis"><a href="'.$recommends_item["st_path"].'">'.$recommends_item["ct_title"].'</a></div>';
                   }
                 }
                 else {
-                  echo "暂无推荐案例！";
+                  echo "暂无推荐文章！";
                 }
                 ?>
               </div>
@@ -187,7 +152,7 @@ function transmitType($key) {
           </div>
         </div>
 
-      </div> <!-- 案例展示区域结束 .case-display end -->
+      </div> <!-- 案例展示区域结束 .article-display end -->
 
       <!-- 免费咨询区块开始 #online begin -->
       <div class="container-fluid wrapper" id="online">
@@ -467,6 +432,6 @@ function transmitType($key) {
   <script src="/cms/include/jquery/jquery.min.js"></script>
   <script src="/cms/include/bootstrap/js/bootstrap.min.js"></script>
   <script src="/lib/js/shared.js"></script>
-  <script src="/lib/js/case_temp.js"></script>
+  <!-- <script src="/lib/js/case_temp.js"></script> -->
 </body>
 </html>

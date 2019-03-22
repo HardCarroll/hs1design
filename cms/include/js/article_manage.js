@@ -158,20 +158,20 @@ function refreshTabList(data) {
               break;
             // 编辑案例
             case "edit":
-              console.log("mark");
+              console.log("edit");
               // $("#editTab").attr("data-cid", $(this).parent().attr("data-id"));
               // activateTab($(this));
               // console.log("edit: " + $(this).parent().attr("data-id"));
               break;
             // 发布案例
             case "post":
-            console.log("mark");
+            console.log("post");
               // updateCase({token: "updateCase", id: $(this).parent().attr("data-id")});
               break;
             // 删除案例
             case "remove":
               $("#modalConfirm").modal("show").find(".btn-danger").attr("data-id", $(this).parent().attr("data-id"));
-              console.log("mark");
+              console.log("remove");
               break;
           }
         });

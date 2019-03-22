@@ -82,6 +82,17 @@ function proc_updateArticle($articleManage, $id = null, $data = null) {
   if(!$id) {
     $ret = $articleManage->addItem($data);
   }
+  else {  // $id不为空，则此时为修改对应的数据项内容
+    if(!$data) { // 数据为空时为仅发布
+      $ret = $articleManage->updateItem($id, '{"st_path": "/news/'.$id.'.html", "b_posted": "T"}');
+      if(!$articleManage->dbo->state["err_no"]) {
+        $ret = '{"err_no": 0, "err_code": "案例已成功发布"}';
+      }
+    }
+    else {  // 数据不为空时为修改并发布
+      $ret = $articleManage->updateItem($id, $data);
+    }
+  }
   return json_encode($ret);
 }
 

@@ -322,7 +322,7 @@ class ArticleManager {
    * 初始化类
    */
   public function init() {
-    $sql_create = "CREATE TABLE `hs1design`.`tab_article` ( `id` INT(255) UNSIGNED NOT NULL AUTO_INCREMENT , `st_title` VARCHAR(120) NOT NULL , `st_keywords` VARCHAR(120) NOT NULL , `st_description` VARCHAR(400) NOT NULL , `st_path` TEXT NOT NULL , `ct_title` VARCHAR(120) NOT NULL , `ct_author` VARCHAR(60) NOT NULL , `ct_class` VARCHAR(2) NOT NULL ,`ct_issue` VARCHAR(30) NOT NULL , `ct_content` LONGTEXT NOT NULL , `b_recommends` VARCHAR(1) NOT NULL , `b_posted` VARCHAR(1) NOT NULL, PRIMARY KEY (`id`)) ENGINE = InnoDB";
+    $sql_create = "CREATE TABLE `hs1design`.`tab_article` ( `id` INT(255) UNSIGNED NOT NULL, `st_title` VARCHAR(120) NOT NULL , `st_keywords` VARCHAR(120) NOT NULL , `st_description` VARCHAR(400) NOT NULL , `st_path` TEXT NOT NULL , `ct_title` VARCHAR(120) NOT NULL , `ct_author` VARCHAR(60) NOT NULL , `ct_class` VARCHAR(2) NOT NULL ,`ct_issue` VARCHAR(30) NOT NULL , `ct_content` LONGTEXT NOT NULL , `b_recommends` VARCHAR(1) NOT NULL , `b_posted` VARCHAR(1) NOT NULL, PRIMARY KEY (`id`)) ENGINE = InnoDB";
     // $sql_insert = "";
     $this->dbo->exec_query($sql_create);
   }
@@ -398,9 +398,9 @@ class ArticleManager {
     $siteinfo = json_decode(file_get_contents(ROOT_PATH.PATH_JSON."/siteinfo.json"), true);
     $url = "http://".$siteinfo["domain"]."/template/article_temp.php";
     $str = curl_request($url, $data);
-    file_put_contents(ROOT_PATH."/article/$id.html", $str);
+    file_put_contents(ROOT_PATH."/news/$id.html", $str);
     // 更新数据库文件路径
-    $ret = $this->updateItem($id, '{"st_path": "/article/'.$id.'.html", "b_posted": "T"}');
+    $ret = $this->updateItem($id, '{"st_path": "/news/'.$id.'.html", "b_posted": "T"}');
     $retArray = json_decode($ret, true);
     if(!$retArray["err_no"]) {
       $retArray["err_code"] = "案例已成功发布！";
@@ -450,7 +450,7 @@ class ArticleManager {
       $siteinfo = json_decode(file_get_contents(ROOT_PATH.PATH_JSON."/siteinfo.json"), true);
       $url = "http://".$siteinfo["domain"]."/template/article_temp.php";
       $str = curl_request($url, $this->transferJson("id=$id"));
-      file_put_contents(ROOT_PATH."/article/$id.html", $str);
+      file_put_contents(ROOT_PATH."/news/$id.html", $str);
     }
 
     // 格式化返回值
