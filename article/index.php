@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="/cms/include/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="/cms/include/css/icons.css">
   <link rel="stylesheet" href="/lib/css/shared.css">
-  <link rel="stylesheet" href="/lib/css/news.css">
+  <link rel="stylesheet" href="/lib/css/article.css">
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 </head>
 <body>
@@ -60,7 +60,7 @@
             <li class="dropdown" id="nav_about">
               <a href="/about" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">更多 <span class="caret visible-xs-inline-block"></span></a>
               <ul class="dropdown-menu">
-                <li class="active"><a href="/news">综合资讯</a></li>
+                <li class="active"><a href="/article">综合资讯</a></li>
                 <li><a href="/about">关于我们</a></li>
                 <li><a href="/contact">联系我们</a></li>
               </ul>
@@ -218,6 +218,6 @@
   <script src="/cms/include/jquery/jquery.min.js"></script>
   <script src="/cms/include/bootstrap/js/bootstrap.min.js"></script>
   <script src="/lib/js/shared.js"></script>
-  <script src="/lib/js/news.js"></script>
+  <script src="/lib/js/article.js"></script>
 </body>
 </html>

@@ -88,7 +88,7 @@ function transmitType($key) {
             <li class="dropdown active" id="nav_about">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">更多 <span class="caret visible-xs-inline-block"></span></a>
               <ul class="dropdown-menu">
-                <li class="active"><a href="/news">综合资讯</a></li>
+                <li class="active"><a href="/article">综合资讯</a></li>
                 <li><a href="/about">关于我们</a></li>
                 <li><a href="/contact">联系我们</a></li>
               </ul>
@@ -107,7 +107,7 @@ function transmitType($key) {
           <ol class="breadcrumb">
             <span class="glyphicon glyphicon-map-marker"></span>
             <li><a href="/">首页</a></li>
-            <li><a href="/news">综合资讯</a></li>
+            <li><a href="/article">综合资讯</a></li>
             <li class="active"><?php echo $ct_title; ?></li>
           </ol>
         </div>
@@ -120,7 +120,7 @@ function transmitType($key) {
                 <p class="title"><?php echo $ct_title; ?></p>
                 <p class="extra">
                   <span style="margin-left: 15px;">作者：</span><a href="/" class="author"><?php echo $ct_author; ?></a>
-                  <span style="margin-left: 15px;">类别：</span><a href="/news/" class="type"><?php echo transmitType($ct_class); ?></a>
+                  <span style="margin-left: 15px;">类别：</span><a href="/article/" class="type"><?php echo transmitType($ct_class); ?></a>
                   <span style="margin-left: 15px;">发布时间：</span><span class="date"><?php echo $ct_issue; ?></span>
                 </p>
               </div>
@@ -432,6 +432,6 @@ function transmitType($key) {
   <script src="/cms/include/jquery/jquery.min.js"></script>
   <script src="/cms/include/bootstrap/js/bootstrap.min.js"></script>
   <script src="/lib/js/shared.js"></script>
-  <!-- <script src="/lib/js/case_temp.js"></script> -->
+  <script src="/lib/js/article_temp.js"></script>
 </body>
 </html>

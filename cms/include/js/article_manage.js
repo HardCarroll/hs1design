@@ -27,7 +27,7 @@ $(function() {
   $(".btn-save").off("click").on("click", function() {
     window.editor_upload.sync();
     window.editor_edit.sync();
-    updateArticle({target: $(this).parent().parent().parent(), token: "updateArticle", id: $(this).parent().parent().parent().attr("data-id")});
+    updateItem({target: $(this).parent().parent().parent(), token: "updateItem", id: $(this).parent().parent().parent().attr("data-id")});
   });
 
   // 删除确认对话框处理函数
@@ -144,7 +144,7 @@ function refreshTabList(data) {
               break;
             // 发布案例
             case "post":
-              updateArticle({token: "updateArticle", id: $(this).parent().attr("data-id")});
+              updateItem({token: "updateItem", id: $(this).parent().attr("data-id")});
               break;
             // 删除案例
             case "remove":
@@ -217,8 +217,9 @@ function refreshTabContent(argJson) {
  *  id: 数据库记录ID
  * }
  */
-function updateArticle(argJson) {
+function updateItem(argJson) {
   var fmd = new FormData();
+  fmd.append("handle", "article");
   fmd.append("token", argJson.token);
   if(argJson.id) {
     fmd.append("id", argJson.id);
@@ -256,8 +257,8 @@ function updateArticle(argJson) {
           argJson.target.find("span.btn-save").addClass("disabled");
           argJson.target.attr("data-id", JSON.parse(result).err_code);
         }
-        if(JSON.parse(result).err_code === "已成功发布") {
-          alert(JSON.parse(result).err_code);
+        else {
+          alert("已成功发布！");
           location.reload(true);
         }
       }

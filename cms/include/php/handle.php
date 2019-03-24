@@ -22,7 +22,12 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
       echo proc_refreshArticleList($articleManage, json_decode($_POST["data"], true));
       break;
     case "refreshRecommends": // 刷新推荐列表
-      echo proc_refreshRecommends($caseManage);
+      if($_POST["handle"] === "case") {
+        echo proc_refreshRecommends($caseManage);
+      }
+      else if($_POST["handle"] === "article") {
+        echo proc_refreshRecommends($articleManage);
+      }
       break;
     case "refreshPagination": // 刷新分页列表
       echo proc_refreshPagination($caseManage, $_POST["rule"]);
@@ -30,10 +35,15 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
     case "refreshPagination_Article": // 刷新分页列表
       echo proc_refreshPagination($articleManage, $_POST["rule"]);
       break;
-    case "updateCase":  // 上传案例
-      echo proc_updateCase($caseManage, $_POST["id"], $_POST["data"]);
+    case "updateItem":
+      if($_POST["handle"] === "case") {
+        echo proc_updateItem($caseManage, $_POST["id"], $_POST["data"]);
+      }
+      else if($_POST["handle"] === "article") {
+        echo proc_updateItem($articleManage, $_POST["id"], $_POST["data"]);
+      }
       break;
-    case "removeItem":  // 删除案例
+    case "removeItem":  // 删除项
       if($_POST["handle"] === "case") {
         echo proc_removeItem($caseManage, $_POST["handle"], $_POST["id"]);
       }
@@ -41,10 +51,7 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
         echo proc_removeItem($articleManage, $_POST["handle"], $_POST["id"]);
       }
       break;
-    // case "postCase":  // 发布案例
-    //   echo json_encode($caseManage->postItem($_POST["id"]));
-    //   break;
-    case "markItem":  //推荐条目
+    case "markItem":  //推荐项
       if($_POST["handle"] === "case") {
         echo proc_markItem($caseManage, $_POST["id"], $_POST["data"]);
       }
@@ -61,9 +68,6 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
     case "uploadFiles": // 上传文件
       echo proc_uploadFiles($_FILES["files"]);
       break;
-    case "updateArticle":
-      echo proc_updateArticle($articleManage, $_POST["id"], $_POST["data"]);
-      break;
     case "refreshTabContent":
       echo proc_refreshTabContent($_POST["id"] ? $_POST["id"]: 0);
       break;
@@ -73,27 +77,6 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
     default:
       break;
   }
-}
-
-/**
- * 文章上传处理函数
- */
-function proc_updateArticle($articleManage, $id = null, $data = null) {
-  if(!$id) {
-    $ret = $articleManage->addItem($data);
-  }
-  else {  // $id不为空，则此时为修改对应的数据项内容
-    if(!$data) { // 数据为空时为仅发布
-      $ret = $articleManage->updateItem($id, '{"st_path": "/news/'.$id.'.html", "b_posted": "T"}');
-      if(!$articleManage->dbo->state["err_no"]) {
-        $ret = '{"err_no": 0, "err_code": "已成功发布"}';
-      }
-    }
-    else {  // 数据不为空时为修改并发布
-      $ret = $articleManage->updateItem($id, $data);
-    }
-  }
-  return json_encode($ret);
 }
 
 function proc_refreshTabContent($id = null) {
@@ -106,28 +89,20 @@ function proc_refreshTabContent($id = null) {
 }
 
 /**
- * 案例上传处理函数
+ * 修改项处理函数
  */
-function proc_updateCase($caseManage, $id = null, $data = null) {
+function proc_updateItem($hd, $id = null, $data = null) {
   if(!$id) {  // $id为空，则此时为新增数据项
-    $ret = $caseManage->addItem($data);
+    $ret = $hd->addItem($data);
   }
-  else {  // $id不为空，则此时为修改对应的数据项内容
-    if(!$data) { // 数据为空时为仅发布
-      $ret = $caseManage->updateItem($id, '{"st_path": "/case/'.$id.'.html", "b_posted": "T"}');
-      if(!$caseManage->dbo->state["err_no"]) {
-        $ret = '{"err_no": 0, "err_code": "已成功发布"}';
-      }
-    }
-    else {  // 数据不为空时为修改并发布
-      $ret = $caseManage->updateItem($id, $data);
-    }
+  else {  // $id不为空时，则为修改对应数据项
+    $ret = $hd->updateItem($id, $data);
   }
   return json_encode($ret);
 }
 
 /**
- * 星标案例处理函数
+ * 星标项处理函数
  * 先判断是否已发布，未发布则先发布此案例。
  */
 function proc_markItem($hd, $id, $data) {
@@ -138,7 +113,7 @@ function proc_markItem($hd, $id, $data) {
   return json_encode($ret);
 }
 /**
- * 删除案例处理函数
+ * 删除项处理函数
  * 删除数据库记录，并同时删除json和html文件
  */
 function proc_removeItem($hd, $dir, $id) {
@@ -265,9 +240,9 @@ function proc_refreshArticleList($articleManage, $data = null) {
 /**
  * 实时更新推荐列表数据条目
  */
-function proc_refreshRecommends($caseManage) {
-  $recommends = $caseManage->queryTable("b_recommends='T'");
-  if($caseManage->getCounts("b_recommends='T'")) {
+function proc_refreshRecommends($hd) {
+  $recommends = $hd->queryTable("b_recommends='T'");
+  if($hd->getCounts("b_recommends='T'")) {
     $ret = '';
     foreach($recommends as $recommends_item) {
       $ret .= '<div class="list-group-item text-info text-ellipsis"><a href="'.$recommends_item["st_path"].'">'.$recommends_item["ct_title"].'</a></div>';

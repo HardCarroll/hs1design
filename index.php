@@ -78,7 +78,7 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
             <li class="dropdown" id="nav_about">
               <a href="/about" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">更多 <span class="caret visible-xs-inline-block"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="/news">综合资讯</a></li>
+                <li><a href="/article">综合资讯</a></li>
                 <li><a href="/about">关于我们</a></li>
                 <li><a href="/contact">联系我们</a></li>
               </ul>
@@ -277,7 +277,7 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
             
           </ul>
         </div>
-      </div> <!-- 设计案例展示结束 #news end -->
+      </div> <!-- 设计案例展示结束 #article end -->
 
       <!-- 我们的优势版块开始 #advantage begin -->
       <div class="container-fluid wrapper clearfix" id="advantage">

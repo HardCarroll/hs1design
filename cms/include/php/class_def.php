@@ -140,26 +140,30 @@ class CaseManager {
    * @return  string $ret JSON格式的结果字符串
    */
   public function updateItem($id, $data) {
-    if(!$data) {
-      return  '{"err_no": -1, "err_code": "数据不能为空！"}';
-    }
     // UPDATE table SET key1=value1, key2=value2, ..., keyN=valueN
-    $dataArray = json_decode($data, true);
-    // 格式化上传图片字符串
-    $imageStr = $this->transferImageJson($dataArray["ct_image"]);
-    
     $sql_update = "UPDATE $this->tab_name SET ";
-    foreach($dataArray as $key=>$value) {
-      if($key !== "ct_image") {
-        $sql_update .= ($key."='".$this->formatItem($value)."'");
+    if(!$data) {
+      $sql_update .= "st_path='/case/$id.html', b_posted='T'";
+    }
+    else {
+      $dataArray = json_decode($data, true);
+      // 格式化上传图片字符串
+      if(isset($dataArray["ct_image"])) {
+        $imageStr = $this->transferImageJson($dataArray["ct_image"]);
       }
-      else {
-        $sql_update .= ($key."='".$imageStr."'");
+      
+      foreach($dataArray as $key=>$value) {
+        if($key !== "ct_image") {
+          $sql_update .= ($key."='".$this->formatItem($value)."'");
+        }
+        else {
+          $sql_update .= ($key."='".$imageStr."'");
+        }
+        if(end($dataArray) !== $value) {
+          $sql_update .= ",";
+        }
+        $sql_update .= " ";
       }
-      if(end($dataArray) !== $value) {
-        $sql_update .= ",";
-      }
-      $sql_update .= " ";
     }
     $sql_update .= "WHERE id=$id";
     $this->dbo->exec_update($sql_update);
@@ -398,9 +402,9 @@ class ArticleManager {
   //   $siteinfo = json_decode(file_get_contents(ROOT_PATH.PATH_JSON."/siteinfo.json"), true);
   //   $url = "http://".$siteinfo["domain"]."/template/article_temp.php";
   //   $str = curl_request($url, $data);
-  //   file_put_contents(ROOT_PATH."/news/$id.html", $str);
+  //   file_put_contents(ROOT_PATH."/article/$id.html", $str);
   //   // 更新数据库文件路径
-  //   $ret = $this->updateItem($id, '{"st_path": "/news/'.$id.'.html", "b_posted": "T"}');
+  //   $ret = $this->updateItem($id, '{"st_path": "/article/'.$id.'.html", "b_posted": "T"}');
   //   $retArray = json_decode($ret, true);
   //   if(!$retArray["err_no"]) {
   //     $retArray["err_code"] = "已成功发布！";
@@ -416,29 +420,33 @@ class ArticleManager {
    * @return  string $ret JSON格式的结果字符串
    */
   public function updateItem($id, $data) {
-    if(!$data) {
-      return  '{"err_no": -1, "err_code": "数据不能为空！"}';
-    }
     // UPDATE table SET key1=value1, key2=value2, ..., keyN=valueN
-    $dataArray = json_decode($data, true);
-    // 格式化上传图片字符串
-    if(isset($dataArray["ct_image"])) {
-      $imageStr = $this->transferImageJson($dataArray["ct_image"]);
+    $sql_update = "UPDATE $this->tab_name SET ";
+    if(!$data) {
+      //数据为空则仅发布项目
+      $sql_update .= "st_path='/article/$id.html', b_posted='T'";
+    }
+    else {
+      $dataArray = json_decode($data, true);
+      // 格式化上传图片字符串
+      if(isset($dataArray["ct_image"])) {
+        $imageStr = $this->transferImageJson($dataArray["ct_image"]);
+      }
+
+      foreach($dataArray as $key=>$value) {
+        if($key !== "ct_image") {
+          $sql_update .= ($key."='".$this->formatItem($value)."'");
+        }
+        else {
+          $sql_update .= ($key."='".$imageStr."'");
+        }
+        if(end($dataArray) !== $value) {
+          $sql_update .= ",";
+        }
+        $sql_update .= " ";
+      }
     }
     
-    $sql_update = "UPDATE $this->tab_name SET ";
-    foreach($dataArray as $key=>$value) {
-      if($key !== "ct_image") {
-        $sql_update .= ($key."='".$this->formatItem($value)."'");
-      }
-      else {
-        $sql_update .= ($key."='".$imageStr."'");
-      }
-      if(end($dataArray) !== $value) {
-        $sql_update .= ",";
-      }
-      $sql_update .= " ";
-    }
     $sql_update .= "WHERE id=$id";
     $this->dbo->exec_update($sql_update);
 
@@ -452,7 +460,7 @@ class ArticleManager {
       $siteinfo = json_decode(file_get_contents(ROOT_PATH.PATH_JSON."/siteinfo.json"), true);
       $url = "http://".$siteinfo["domain"]."/template/article_temp.php";
       $str = curl_request($url, $this->transferJson("id=$id"));
-      file_put_contents(ROOT_PATH."/news/$id.html", $str);
+      file_put_contents(ROOT_PATH."/article/$id.html", $str);
     }
 
     // 格式化返回值

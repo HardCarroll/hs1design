@@ -88,7 +88,7 @@ $(function() {
 
   // 保存按钮点击事件处理函数
   $(".btn-save").off("click").on("click", function() {
-    updateCase({target: $(this).parent().parent().parent(), token: "updateCase", id: $(this).parent().parent().parent().attr("data-id")});
+    updateItem({target: $(this).parent().parent().parent(), token: "updateItem", id: $(this).parent().parent().parent().attr("data-id")});
   });
 
   // 发布按钮点击事件处理函数
@@ -281,7 +281,7 @@ function refreshTabList(data) {
               break;
             // 发布案例
             case "post":
-              updateCase({token: "updateCase", id: $(this).parent().attr("data-id")});
+              updateItem({token: "updateItem", id: $(this).parent().attr("data-id")});
               break;
             // 删除案例
             case "remove":
@@ -331,9 +331,10 @@ function getCounts(argJson) {
  *  id: 数据库记录ID
  * }
  */
-function updateCase(argJson) {
+function updateItem(argJson) {
   var fmd = new FormData();
   fmd.append("token", argJson.token);
+  fmd.append("handle", "case");
   if(argJson.id) {
     fmd.append("id", argJson.id);
   }
@@ -371,8 +372,8 @@ function updateCase(argJson) {
           argJson.target.find("span.btn-save").addClass("disabled");
           argJson.target.attr("data-id", JSON.parse(result).err_code);
         }
-        if(JSON.parse(result).err_code === "已成功发布") {
-          alert(JSON.parse(result).err_code);
+        else {
+          alert("已成功发布！");
           location.reload(true);
         }
       }
