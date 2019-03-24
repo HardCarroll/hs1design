@@ -25,35 +25,8 @@ $(function() {
 
   // 保存按钮点击事件处理函数
   $(".btn-save").off("click").on("click", function() {
-    window.editor.sync();
-    var jsonData = {
-      st_title: $("[name='cp-title']").val(),
-      st_keywords: $("[name='cp-keywords']").val(),
-      st_description: $("[name='cp-description']").val(),
-      ct_title: $("[name='article-title']").val(),
-      ct_author: $("[name='article-author']").val(),
-      ct_class: $("[name='article-class']").val(),
-      ct_issue: $("[name='article-date']").val(),
-      ct_content: $("#article-content").val()
-    };
-    var fmd = new FormData();
-    fmd.append("token", "updateArticle");
-    fmd.append("id", $(this).parent().parent().parent().attr("data-aid"));
-    fmd.append("data", JSON.stringify(jsonData));
-    $.ajax({
-      url: "/cms/include/php/handle.php",
-      type: "POST",
-      data: fmd,
-      processData: false,
-      contentType: false,
-      dataType: "json",
-      success: function(res) {
-        console.log(res);
-      },
-      error: function(msg) {
-        console.log("fail: " + msg);
-      }
-    });
+    window.editor_upload.sync();
+    updateArticle({target: $(this).parent().parent().parent(), token: "updateArticle", id: $(this).parent().parent().parent().attr("data-id")});
   });
 
   // 删除确认对话框处理函数
@@ -85,7 +58,14 @@ $(function() {
 });
 
 KindEditor.ready(function(K) {
-  window.editor = K.create('#article-content', {
+  window.editor_upload = K.create('#article-content', {
+    width: '100%',
+    height: '400px',
+    resizeType: 0,
+    allowFileManager : true,
+    items: ['preview', '|', 'undo', 'redo', '|', 'template', 'plainpaste', '|', 'justifyleft', 'justifycenter', 'justifyright', 'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript', 'superscript', 'clearhtml', 'quickformat', '|', 'selectall', 'formatblock', 'fontsize', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image','anchor', 'link', 'unlink', '|', 'source']
+  });
+  window.editor_edit = K.create('#edit-content', {
     width: '100%',
     height: '400px',
     resizeType: 0,
@@ -158,20 +138,16 @@ function refreshTabList(data) {
               break;
             // 编辑案例
             case "edit":
-              console.log("edit");
-              // $("#editTab").attr("data-cid", $(this).parent().attr("data-id"));
-              // activateTab($(this));
-              // console.log("edit: " + $(this).parent().attr("data-id"));
+              $("#editArticle").attr("data-id", $(this).parent().attr("data-id"));
+              activateTab($(this));
               break;
             // 发布案例
             case "post":
-            console.log("post");
-              // updateCase({token: "updateCase", id: $(this).parent().attr("data-id")});
+              updateArticle({token: "updateArticle", id: $(this).parent().attr("data-id")});
               break;
             // 删除案例
             case "remove":
               $("#modalConfirm").modal("show").find(".btn-danger").attr("data-id", $(this).parent().attr("data-id"));
-              console.log("remove");
               break;
           }
         });
@@ -193,7 +169,7 @@ function refreshTabContent(argJson) {
 
   var fmd = new FormData();
   fmd.append("token", "refreshTabContent");
-  fmd.append("aid", argJson.id);
+  fmd.append("id", argJson.id);
   $.ajax({
     url: "/cms/include/php/handle.php",
     type: "POST",
@@ -204,7 +180,7 @@ function refreshTabContent(argJson) {
     context: argJson.target,
     success: function(result) {
       var data = JSON.parse(result);
-      if($(this).attr("data-aid")) {
+      if($(this).attr("data-id")) {
         $(this).find("[name='cp-title']").val(data.st_title);
         $(this).find("[name='cp-keywords']").val(data.st_keywords);
         $(this).find("[name='cp-description']").val(data.st_description);
@@ -212,7 +188,7 @@ function refreshTabContent(argJson) {
         $(this).find("[name='article-author']").val(data.ct_author);
         $(this).find("[name='article-class']").val(data.ct_class);
         $(this).find("[name='article-date']").val(data.ct_issue);
-        window.editor.html(data.ct_content);
+        window.editor_upload.html(data.ct_content);
       }
       else {
         $(this).find("[name='cp-title']").val(data.title);
@@ -224,6 +200,60 @@ function refreshTabContent(argJson) {
       console.log("fail: " + msg);
     }
   });
+}
+
+/**
+ * 更新文章处理函数
+ * @param {JSON} argJson: 
+ * {
+ *  target: 目标DOM对象,
+ *  token: 请求标识,
+ *  id: 数据库记录ID
+ * }
+ */
+function updateArticle(argJson) {
+  var fmd = new FormData();
+  fmd.append("token", argJson.token);
+  if(argJson.id) {
+    fmd.append("id", argJson.id);
+  }
+  if(argJson.target) {
+    var jsonData = {
+      st_title: argJson.target.find("[name='cp-title']").val(),
+      st_keywords: argJson.target.find("[name='cp-keywords']").val(),
+      st_description: argJson.target.find("[name='cp-description']").val(),
+      ct_title: argJson.target.find("[name='article-title']").val(),
+      ct_author: argJson.target.find("[name='article-author']").val(),
+      ct_class: argJson.target.find("[name='article-class']").val(),
+      ct_issue: argJson.target.find("[name='article-date']").val(),
+      ct_content: argJson.target.find("#article-content").val()
+    };
+    fmd.append("data", JSON.stringify(jsonData));
+  }
+  $.ajax({
+    url: "/cms/include/php/handle.php",
+    type: "POST",
+    data: fmd,
+    processData: false,
+    contentType: false,   //数据为formData时必须定义此项
+    dataType: "json",     //返回json格式数据
+    success: function(result) {
+      if(!JSON.parse(result).err_no) {
+        if(argJson.target) {
+          argJson.target.find("span.btn-save").addClass("disabled");
+          argJson.target.attr("data-id", JSON.parse(result).err_code);
+        }
+        if(JSON.parse(result).err_code === "已成功发布") {
+          alert(JSON.parse(result).err_code);
+          location.reload(true);
+        }
+      }
+      console.log(JSON.parse(result));
+    },
+    error: function(err) {
+      console.log("fail: "+err);
+    }
+  }); // ajax_func
 }
 
 /**
@@ -258,7 +288,7 @@ function clearTabContent(argJson) {
   argJson.target.find("input").val("");
   argJson.target.find("textarea").val("");
   argJson.target.find("select").val(0);
-  window.editor.html("");
+  window.editor_upload.html("");
   argJson.target.find(".btn-save").removeClass("disabled");
 }
 

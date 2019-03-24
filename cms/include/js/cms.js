@@ -107,17 +107,25 @@ function activateTab(target) {
   if($(target).attr("href") === "#caseTab") {
     refreshTabList({page: 1});
   }
+
   if($(target).attr("href") === "#uploadCase") {
-    refresh_uploadCase({target: $("#uploadCase"), id: $("#uploadCase").attr("data-cid")});
+    refresh_uploadCase({target: $("#uploadCase"), id: $("#uploadCase").attr("data-id")});
   }
   if($(target).attr("href") === "#editCase") {
     $("#pageTabs>li[href='#editCase']").children().eq(0).addClass("glyphicon glyphicon-edit");
     $("#pageTabs>li[href='#editCase']").children().eq(1).html($(target).parent().parent().prev().children().eq(0).html());
     $("#pageTabs>li[href='#editCase']").attr("title", $(target).parent().parent().prev().children().eq(0).html());
-    refresh_uploadCase({target: $("#editCase"), id: $("#editCase").attr("data-cid")});
+    refresh_uploadCase({target: $("#editCase"), id: $("#editCase").attr("data-id")});
   }
+
   if($(target).attr("href") === "#uploadArticle") {
-    refreshTabContent({target: $("#uploadArticle"), id: $("#uploadArticle").attr("data-aid")});
+    refreshTabContent({target: $("#uploadArticle"), id: $("#uploadArticle").attr("data-id")});
+  }
+  if($(target).attr("href") === "#editArticle") {
+    $("#pageTabs>li[href='#editArticle']").children().eq(0).addClass("glyphicon glyphicon-edit");
+    $("#pageTabs>li[href='#editArticle']").children().eq(1).html($(target).parent().parent().prev().children().eq(0).html());
+    $("#pageTabs>li[href='#editArticle']").attr("title", $(target).parent().parent().prev().children().eq(0).html());
+    refreshTabContent({target: $("#editArticle"), id: $("#editArticle").attr("data-id")});
   }
 }
 
@@ -151,8 +159,8 @@ function regTabEvent() {
       refreshTabList({page: 1});
     }
 
-    // 清除data-cid属性值
-    $($(this).parent().attr("href")).attr("data-cid", "");
+    // 清除data-id属性值
+    $($(this).parent().attr("href")).attr("data-id", "");
   });
 
   // 标签页点击事件处理函数

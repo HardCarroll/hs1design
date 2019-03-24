@@ -13,7 +13,7 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
       echo proc_getSiteInfo(ROOT_PATH.PATH_JSON);
       break;
     case "refreshUploadCase":  // 刷新案例上传标签页
-      echo proc_refreshUploadCase($_POST["cid"] ? $_POST["cid"]: 0);
+      echo proc_refreshUploadCase($_POST["id"] ? $_POST["id"]: 0);
       break;
     case "refreshCaseList": // 刷新案例列表
       echo proc_refreshCaseList($caseManage, json_decode($_POST["data"], true));
@@ -65,7 +65,7 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
       echo proc_updateArticle($articleManage, $_POST["id"], $_POST["data"]);
       break;
     case "refreshTabContent":
-      echo proc_refreshTabContent($_POST["aid"] ? $_POST["aid"]: 0);
+      echo proc_refreshTabContent($_POST["id"] ? $_POST["id"]: 0);
       break;
     case "debug":
       echo pro_debug($_POST["data"]);
@@ -86,7 +86,7 @@ function proc_updateArticle($articleManage, $id = null, $data = null) {
     if(!$data) { // 数据为空时为仅发布
       $ret = $articleManage->updateItem($id, '{"st_path": "/news/'.$id.'.html", "b_posted": "T"}');
       if(!$articleManage->dbo->state["err_no"]) {
-        $ret = '{"err_no": 0, "err_code": "案例已成功发布"}';
+        $ret = '{"err_no": 0, "err_code": "已成功发布"}';
       }
     }
     else {  // 数据不为空时为修改并发布
@@ -116,7 +116,7 @@ function proc_updateCase($caseManage, $id = null, $data = null) {
     if(!$data) { // 数据为空时为仅发布
       $ret = $caseManage->updateItem($id, '{"st_path": "/case/'.$id.'.html", "b_posted": "T"}');
       if(!$caseManage->dbo->state["err_no"]) {
-        $ret = '{"err_no": 0, "err_code": "案例已成功发布"}';
+        $ret = '{"err_no": 0, "err_code": "已成功发布"}';
       }
     }
     else {  // 数据不为空时为修改并发布

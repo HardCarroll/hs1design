@@ -196,7 +196,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
               </div>
             </div> <!-- #articleTab -->
 
-            <div role="tabpanel" class="tab-pane" id="uploadArticle" data-aid="">
+            <div role="tabpanel" class="tab-pane" id="uploadArticle" data-id="">
               <div class="article-page">
                 <div class="input-group">
                   <label for="cp-title" class="input-group-addon">网页标题</label>
@@ -232,6 +232,53 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                 <div class="input-group">
                   <label for="article-content" class="input-group-addon">文章内容</label>
                   <textarea class="form-control" id="article-content"></textarea>
+                </div>
+                <div class="input-group">
+                  <p class="text-state">&nbsp;</p>
+                </div>
+                <div class="input-group">
+                  <span class="btn btn-default btn-close" role="button">关闭</span>
+                  <span class="btn btn-warning btn-save" role="button">保存</span>
+                  <!-- <span class="btn btn-success btn-post" role="button">发布</span> -->
+                </div>
+              </div>
+            </div> <!--#uploadTab-->
+            <div role="tabpanel" class="tab-pane" id="editArticle" data-id="">
+              <div class="article-page">
+                <div class="input-group">
+                  <label for="cp-title" class="input-group-addon">网页标题</label>
+                  <input required type="text" class="form-control" name="cp-title">
+                </div>
+                <div class="input-group">
+                  <label for="cp-keywords" class="input-group-addon">网页关键词</label>
+                  <input required type="text" class="form-control" name="cp-keywords">
+                </div>
+                <div class="input-group">
+                  <label for="cp-description" class="input-group-addon">网页内容简介</label>
+                  <textarea required type="text" class="form-control" name="cp-description"></textarea>
+                </div>
+                <div class="input-group">
+                  <label for="article-title" class="input-group-addon">文章标题</label>
+                  <input required type="text" class="form-control" name="article-title">
+                </div>
+                <div class="input-group">
+                  <label for="article-author" class="input-group-addon">文章作者</label>
+                  <input required type="text" class="form-control" name="article-author">
+                </div>
+                <div class="input-group">
+                  <label for="article-class" class="input-group-addon">文章类别</label>
+                  <select name="article-class" class="form-control">
+                    <option value="0">公司动态</option>
+                    <option value="1">行业资讯</option>
+                  </select>
+                </div>
+                <div class="input-group">
+                  <label for="article-date" class="input-group-addon">发布日期</label>
+                  <input type="date" class="form-control" name="article-date" required>
+                </div>
+                <div class="input-group">
+                  <label for="article-content" class="input-group-addon">文章内容</label>
+                  <textarea class="form-control" id="edit-content"></textarea>
                 </div>
                 <div class="input-group">
                   <p class="text-state">&nbsp;</p>

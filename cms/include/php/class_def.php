@@ -127,7 +127,7 @@ class CaseManager {
     $ret = $this->updateItem($id, '{"st_path": "/case/'.$id.'.html", "b_posted": "T"}');
     $retArray = json_decode($ret, true);
     if(!$retArray["err_no"]) {
-      $retArray["err_code"] = "案例已成功发布！";
+      $retArray["err_code"] = "已成功发布！";
       $ret = json_encode($retArray);
     }
     return $ret;
@@ -403,7 +403,7 @@ class ArticleManager {
     $ret = $this->updateItem($id, '{"st_path": "/news/'.$id.'.html", "b_posted": "T"}');
     $retArray = json_decode($ret, true);
     if(!$retArray["err_no"]) {
-      $retArray["err_code"] = "案例已成功发布！";
+      $retArray["err_code"] = "已成功发布！";
       $ret = json_encode($retArray);
     }
     return $ret;

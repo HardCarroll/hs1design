@@ -196,7 +196,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
               </div>
             </div> <!-- #caseTab -->
 
-            <div role="tabpanel" class="tab-pane" id="uploadCase" data-cid="">
+            <div role="tabpanel" class="tab-pane" id="uploadCase" data-id="">
               <div class="case-page">
                 <div class="input-group">
                   <label for="cp-title" class="input-group-addon">网页标题</label>
@@ -274,7 +274,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                 </div>
               </div>
             </div> <!--#uploadCase-->
-            <div role="tabpanel" class="tab-pane" id="editCase" data-cid="">
+            <div role="tabpanel" class="tab-pane" id="editCase" data-id="">
               <div class="case-page">
                 <div class="input-group">
                   <label for="cp-title" class="input-group-addon">网页标题</label>

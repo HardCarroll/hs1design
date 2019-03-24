@@ -88,7 +88,7 @@ $(function() {
 
   // 保存按钮点击事件处理函数
   $(".btn-save").off("click").on("click", function() {
-    updateCase({target: $(this).parent().parent().parent(), token: "updateCase", id: $(this).parent().parent().parent().attr("data-cid")});
+    updateCase({target: $(this).parent().parent().parent(), token: "updateCase", id: $(this).parent().parent().parent().attr("data-id")});
   });
 
   // 发布按钮点击事件处理函数
@@ -170,7 +170,7 @@ function refresh_uploadCase(argJson) {
   clearTabContent({target: argJson.target});
   var fmd = new FormData();
   fmd.append("token", "refreshUploadCase");
-  fmd.append("cid", argJson.id);
+  fmd.append("id", argJson.id);
   $.ajax({
     url: "/cms/include/php/handle.php",
     type: "POST",
@@ -181,7 +181,7 @@ function refresh_uploadCase(argJson) {
     context: argJson.target,
     success: function(result) {
       var data = JSON.parse(result);
-      if($(this).attr("data-cid")) {
+      if($(this).attr("data-id")) {
         $(this).find("[name='cp-title']").val(data.st_title);
         $(this).find("[name='cp-keywords']").val(data.st_keywords);
         $(this).find("[name='cp-description']").val(data.st_description);
@@ -275,7 +275,7 @@ function refreshTabList(data) {
               break;
             // 编辑案例
             case "edit":
-              $("#editCase").attr("data-cid", $(this).parent().attr("data-id"));
+              $("#editCase").attr("data-id", $(this).parent().attr("data-id"));
               activateTab($(this));
               // console.log("edit: " + $(this).parent().attr("data-id"));
               break;
@@ -369,9 +369,9 @@ function updateCase(argJson) {
       if(!JSON.parse(result).err_no) {
         if(argJson.target) {
           argJson.target.find("span.btn-save").addClass("disabled");
-          argJson.target.attr("data-cid", JSON.parse(result).err_code);
+          argJson.target.attr("data-id", JSON.parse(result).err_code);
         }
-        if(JSON.parse(result).err_code === "案例已成功发布") {
+        if(JSON.parse(result).err_code === "已成功发布") {
           alert(JSON.parse(result).err_code);
           location.reload(true);
         }
