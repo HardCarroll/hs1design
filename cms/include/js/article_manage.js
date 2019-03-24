@@ -26,6 +26,7 @@ $(function() {
   // 保存按钮点击事件处理函数
   $(".btn-save").off("click").on("click", function() {
     window.editor_upload.sync();
+    window.editor_edit.sync();
     updateArticle({target: $(this).parent().parent().parent(), token: "updateArticle", id: $(this).parent().parent().parent().attr("data-id")});
   });
 
@@ -58,7 +59,7 @@ $(function() {
 });
 
 KindEditor.ready(function(K) {
-  window.editor_upload = K.create('#article-content', {
+  window.editor_upload = K.create('#upload-content', {
     width: '100%',
     height: '400px',
     resizeType: 0,
@@ -103,38 +104,38 @@ function refreshTabList(data) {
           switch($(this).attr("data-token")) {
             // 推荐阅读
             case "mark":
-              console.log("mark");
-              // var fmd = new FormData();
-              // fmd.append("token", "markCase");
-              // fmd.append("id", $(this).parent().attr("data-id"));
-              // $(this).toggleClass("glyphicon-star-empty").toggleClass("glyphicon-star");
-              // if($(this).hasClass("glyphicon-star")) {
-              //   fmd.append("data", '{"b_recommends": "T"}');
-              // }
-              // else {
-              //   fmd.append("data", '{"b_recommends": "F"}');
-              // }
-              // $.ajax({
-              //   url: "/cms/include/php/handle.php",
-              //   type: "POST",
-              //   data: fmd,
-              //   processData: false,
-              //   contentType: false,   //数据为formData时必须定义此项
-              //   dataType: "json",     //返回json格式数据
-              //   context: $(this),
-              //   success: function(result) {
-              //     if(JSON.parse(result).err_no) {
-              //       $(this).toggleClass("glyphicon-star-empty").toggleClass("glyphicon-star");
-              //       alert(JSON.parse(result).err_code);
-              //     }
-              //     else {
-              //       getCounts({rule: "b_recommends='T'", target: $(".wrap.marked>span.digital")});
-              //     }
-              //   },
-              //   error: function(err) {
-              //     console.log("fail: "+err);
-              //   }
-              // });
+              var fmd = new FormData();
+              fmd.append("token", "markItem");
+              fmd.append("handle", "article");
+              fmd.append("id", $(this).parent().attr("data-id"));
+              $(this).toggleClass("glyphicon-star-empty").toggleClass("glyphicon-star");
+              if($(this).hasClass("glyphicon-star")) {
+                fmd.append("data", '{"b_recommends": "T"}');
+              }
+              else {
+                fmd.append("data", '{"b_recommends": "F"}');
+              }
+              $.ajax({
+                url: "/cms/include/php/handle.php",
+                type: "POST",
+                data: fmd,
+                processData: false,
+                contentType: false,   //数据为formData时必须定义此项
+                dataType: "json",     //返回json格式数据
+                context: $(this),
+                success: function(result) {
+                  if(JSON.parse(result).err_no) {
+                    $(this).toggleClass("glyphicon-star-empty").toggleClass("glyphicon-star");
+                    alert(JSON.parse(result).err_code);
+                  }
+                  else {
+                    getCounts({rule: "b_recommends='T'", target: $(".wrap.marked>span.digital")});
+                  }
+                },
+                error: function(err) {
+                  console.log("fail: "+err);
+                }
+              });
               break;
             // 编辑案例
             case "edit":
@@ -188,7 +189,12 @@ function refreshTabContent(argJson) {
         $(this).find("[name='article-author']").val(data.ct_author);
         $(this).find("[name='article-class']").val(data.ct_class);
         $(this).find("[name='article-date']").val(data.ct_issue);
-        window.editor_upload.html(data.ct_content);
+        if($(this).attr("id") === "editArticle") {
+          window.editor_edit.html(data.ct_content);
+        }
+        if($(this).attr("id") === "uploadArticle") {
+          window.editor_upload.html(data.ct_content);
+        }
       }
       else {
         $(this).find("[name='cp-title']").val(data.title);
@@ -218,6 +224,13 @@ function updateArticle(argJson) {
     fmd.append("id", argJson.id);
   }
   if(argJson.target) {
+    var content = "";
+    if(argJson.target.attr("id") === "uploadArticle") {
+      content = argJson.target.find("#upload-content").val();
+    }
+    if(argJson.target.attr("id") === "editArticle") {
+      content = argJson.target.find("#edit-content").val();
+    }
     var jsonData = {
       st_title: argJson.target.find("[name='cp-title']").val(),
       st_keywords: argJson.target.find("[name='cp-keywords']").val(),
@@ -226,7 +239,7 @@ function updateArticle(argJson) {
       ct_author: argJson.target.find("[name='article-author']").val(),
       ct_class: argJson.target.find("[name='article-class']").val(),
       ct_issue: argJson.target.find("[name='article-date']").val(),
-      ct_content: argJson.target.find("#article-content").val()
+      ct_content: content
     };
     fmd.append("data", JSON.stringify(jsonData));
   }
@@ -288,7 +301,12 @@ function clearTabContent(argJson) {
   argJson.target.find("input").val("");
   argJson.target.find("textarea").val("");
   argJson.target.find("select").val(0);
-  window.editor_upload.html("");
+  if(argJson.target.attr("id") === "uploadArticle") {
+    window.editor_upload.html("");
+  }
+  if(argJson.target.attr("id") === "editArticle") {
+    window.editor_edit.html("");
+  }
   argJson.target.find(".btn-save").removeClass("disabled");
 }
 

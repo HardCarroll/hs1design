@@ -230,8 +230,8 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                   <input type="date" class="form-control" name="article-date" required>
                 </div>
                 <div class="input-group">
-                  <label for="article-content" class="input-group-addon">文章内容</label>
-                  <textarea class="form-control" id="article-content"></textarea>
+                  <label for="upload-content" class="input-group-addon">文章内容</label>
+                  <textarea class="form-control" id="upload-content"></textarea>
                 </div>
                 <div class="input-group">
                   <p class="text-state">&nbsp;</p>
@@ -242,7 +242,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                   <!-- <span class="btn btn-success btn-post" role="button">发布</span> -->
                 </div>
               </div>
-            </div> <!--#uploadTab-->
+            </div> <!--#uploadArticle-->
             <div role="tabpanel" class="tab-pane" id="editArticle" data-id="">
               <div class="article-page">
                 <div class="input-group">
@@ -277,7 +277,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                   <input type="date" class="form-control" name="article-date" required>
                 </div>
                 <div class="input-group">
-                  <label for="article-content" class="input-group-addon">文章内容</label>
+                  <label for="edit-content" class="input-group-addon">文章内容</label>
                   <textarea class="form-control" id="edit-content"></textarea>
                 </div>
                 <div class="input-group">
@@ -289,7 +289,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                   <!-- <span class="btn btn-success btn-post" role="button">发布</span> -->
                 </div>
               </div>
-            </div> <!--#uploadTab-->
+            </div> <!--#editArticle-->
           </div> <!-- #pageTabContent-->
         </div> <!-- .content-inner-->
       </div> <!-- .content-wrap-->

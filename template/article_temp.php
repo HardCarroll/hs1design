@@ -1,7 +1,7 @@
 <?php
 require_once($_SERVER["DOCUMENT_ROOT"]."/cms/include/php/include.php");
-$dataJson = file_get_contents($_SERVER["DOCUMENT_ROOT"]."/cms/upload/article/1.json");
-// $dataJson = file_get_contents("php://input");
+// $dataJson = file_get_contents($_SERVER["DOCUMENT_ROOT"]."/cms/upload/article/1.json");
+$dataJson = file_get_contents("php://input");
 $dataArray = json_decode($dataJson, true);
 $st_title = $dataArray["st_title"];
 $st_keywords = $dataArray["st_keywords"];

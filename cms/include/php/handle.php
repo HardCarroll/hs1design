@@ -41,9 +41,9 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
         echo proc_removeItem($articleManage, $_POST["handle"], $_POST["id"]);
       }
       break;
-    case "postCase":  // 发布案例
-      echo json_encode($caseManage->postItem($_POST["id"]));
-      break;
+    // case "postCase":  // 发布案例
+    //   echo json_encode($caseManage->postItem($_POST["id"]));
+    //   break;
     case "markItem":  //推荐条目
       if($_POST["handle"] === "case") {
         echo proc_markItem($caseManage, $_POST["id"], $_POST["data"]);
