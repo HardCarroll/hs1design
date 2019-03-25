@@ -166,7 +166,7 @@ $(function() {
  *  id: 数据库记录ID
  * }
  */
-function refresh_uploadCase(argJson) {
+function refreshTabContent(argJson) {
   clearTabContent({target: argJson.target});
   var fmd = new FormData();
   fmd.append("token", "refreshUploadCase");
@@ -219,7 +219,8 @@ function refresh_uploadCase(argJson) {
  */
 function refreshTabList(data) {
   var fmd = new FormData();
-  fmd.append("token", "refreshCaseList");
+  fmd.append("token", "refreshTabList");
+  fmd.append("handle", "case");
   if(data) {
     fmd.append("data", JSON.stringify(data));
   }
@@ -275,7 +276,7 @@ function refreshTabList(data) {
               break;
             // 编辑案例
             case "edit":
-              $("#editCase").attr("data-id", $(this).parent().attr("data-id"));
+              $("#editTab").attr("data-id", $(this).parent().attr("data-id"));
               activateTab($(this));
               // console.log("edit: " + $(this).parent().attr("data-id"));
               break;

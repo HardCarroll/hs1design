@@ -15,11 +15,13 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
     case "refreshUploadCase":  // 刷新案例上传标签页
       echo proc_refreshUploadCase($_POST["id"] ? $_POST["id"]: 0);
       break;
-    case "refreshCaseList": // 刷新案例列表
-      echo proc_refreshCaseList($caseManage, json_decode($_POST["data"], true));
-      break;
-    case "refreshArticleList": // 刷新案例列表
-      echo proc_refreshArticleList($articleManage, json_decode($_POST["data"], true));
+    case "refreshTabList":  // 实时更新案例、文章列表
+      if($_POST["handle"] === "case") {
+        echo proc_refreshTabList($caseManage, json_decode($_POST["data"], true));
+      }
+      else if($_POST["handle"] === "article") {
+        echo proc_refreshTabList($articleManage, json_decode($_POST["data"], true));
+      }
       break;
     case "refreshRecommends": // 刷新推荐列表
       if($_POST["handle"] === "case") {
@@ -35,7 +37,7 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
     case "refreshPagination_Article": // 刷新分页列表
       echo proc_refreshPagination($articleManage, $_POST["rule"]);
       break;
-    case "updateItem":
+    case "updateItem":  // 修改项
       if($_POST["handle"] === "case") {
         echo proc_updateItem($caseManage, $_POST["id"], $_POST["data"]);
       }
@@ -157,23 +159,24 @@ function proc_refreshUploadCase($id = null) {
   }
 }
 
+
 /**
- * 实时生成案例列表
+ * 实时生成案例/文章列表
  */
-function proc_refreshCaseList($caseManage, $data = null) {
+function proc_refreshTabList($hd, $data = null) {
   empty($data["page"]) ? $page = 1 : $page = $data["page"];
   if(isset($data["rule"])) {
-    $result = $caseManage->queryTable($data["rule"]);
+    $result = $hd->queryTable($data["rule"]);
   }
   else {
-    $result = $caseManage->queryTable();
+    $result = $hd->queryTable();
   }
   $counts = count($result);
   $cmp = $counts / ($page*10) >= 1 ? 10 : ($counts%10);
 
   $html = '';
-  if($caseManage->getCounts()) {
-    $html = '<div class="panel-group" role="tablist" aria-multiselectable="true">';
+  if($hd->getCounts()) {
+    $html = '<div class="panel-group" role="tablist" aria-multiselectable="true" id="panel-wrap">';
     for ($i = ($page-1)*10; $i < ($page-1)*10+$cmp; $i++) {
       if($result[$i]["b_posted"] === "T") {
         $html .= '<div class="panel panel-default">';
@@ -182,11 +185,11 @@ function proc_refreshCaseList($caseManage, $data = null) {
         $html .= '<div class="panel panel-danger">';
       }
       $html .= '<div class="panel-heading" role="tab">';
-      $html .= '<a class="collapsed" role="button" data-toggle="collapse" href="#case_'.$result[$i]["id"].'">'.$result[$i]["ct_title"].'</a></div>';
-      $html .= '<div id="case_'.$result[$i]["id"].'" class="panel-collapse collapse" role="tabpanel">';
+      $html .= '<a class="collapsed" role="button" data-toggle="collapse" data-parent="#panel-wrap" href="#item_'.$result[$i]["id"].'">'.$result[$i]["ct_title"].'</a></div>';
+      $html .= '<div id="item_'.$result[$i]["id"].'" class="panel-collapse collapse" role="tabpanel">';
       $html .= '<ul class="btn-group" data-id="'.$result[$i]["id"].'">';
       $html .= '<li role="button" data-token="mark" title="星标" class="btn btn-default glyphicon '.($result[$i]["b_recommends"]==="T" ? "glyphicon-star" : "glyphicon-star-empty").'"></li>';
-      $html .= '<li role="button" href="#editCase" data-token="edit" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>';
+      $html .= '<li role="button" href="#editTab" data-token="edit" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>';
       $html .= '<li role="button" data-token="post" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>';
       $html .= '<li role="button" data-token="remove" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>';
       $html .= '</ul></div></div>';
@@ -197,45 +200,85 @@ function proc_refreshCaseList($caseManage, $data = null) {
   return $html;
 }
 
-/**
- * 实时生成文章列表
- */
-function proc_refreshArticleList($articleManage, $data = null) {
-  empty($data["page"]) ? $page = 1 : $page = $data["page"];
-  if(isset($data["rule"])) {
-    $result = $articleManage->queryTable($data["rule"]);
-  }
-  else {
-    $result = $articleManage->queryTable();
-  }
-  $counts = count($result);
-  $cmp = $counts / ($page*10) >= 1 ? 10 : ($counts%10);
+// /**
+//  * 实时生成案例列表
+//  */
+// function proc_refreshCaseList($caseManage, $data = null) {
+//   empty($data["page"]) ? $page = 1 : $page = $data["page"];
+//   if(isset($data["rule"])) {
+//     $result = $caseManage->queryTable($data["rule"]);
+//   }
+//   else {
+//     $result = $caseManage->queryTable();
+//   }
+//   $counts = count($result);
+//   $cmp = $counts / ($page*10) >= 1 ? 10 : ($counts%10);
 
-  $html = '';
-  if($articleManage->getCounts()) {
-    $html = '<div class="panel-group" role="tablist" aria-multiselectable="true">';
-    for ($i = ($page-1)*10; $i < ($page-1)*10+$cmp; $i++) {
-      if($result[$i]["b_posted"] === "T") {
-        $html .= '<div class="panel panel-default">';
-      }
-      else {
-        $html .= '<div class="panel panel-danger">';
-      }
-      $html .= '<div class="panel-heading" role="tab">';
-      $html .= '<a class="collapsed" role="button" data-toggle="collapse" href="#article_'.$result[$i]["id"].'">'.$result[$i]["ct_title"].'</a></div>';
-      $html .= '<div id="article_'.$result[$i]["id"].'" class="panel-collapse collapse" role="tabpanel">';
-      $html .= '<ul class="btn-group" data-id="'.$result[$i]["id"].'">';
-      $html .= '<li role="button" data-token="mark" title="星标" class="btn btn-default glyphicon '.($result[$i]["b_recommends"]==="T" ? "glyphicon-star" : "glyphicon-star-empty").'"></li>';
-      $html .= '<li role="button" href="#editArticle" data-token="edit" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>';
-      $html .= '<li role="button" data-token="post" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>';
-      $html .= '<li role="button" data-token="remove" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>';
-      $html .= '</ul></div></div>';
-    }
-    $html .= '</div>';
-  }
+//   $html = '';
+//   if($caseManage->getCounts()) {
+//     $html = '<div class="panel-group" role="tablist" aria-multiselectable="true" id="panel-wrap">';
+//     for ($i = ($page-1)*10; $i < ($page-1)*10+$cmp; $i++) {
+//       if($result[$i]["b_posted"] === "T") {
+//         $html .= '<div class="panel panel-default">';
+//       }
+//       else {
+//         $html .= '<div class="panel panel-danger">';
+//       }
+//       $html .= '<div class="panel-heading" role="tab">';
+//       $html .= '<a class="collapsed" role="button" data-toggle="collapse" data-parent="#panel-wrap" href="#item_'.$result[$i]["id"].'">'.$result[$i]["ct_title"].'</a></div>';
+//       $html .= '<div id="item_'.$result[$i]["id"].'" class="panel-collapse collapse" role="tabpanel">';
+//       $html .= '<ul class="btn-group" data-id="'.$result[$i]["id"].'">';
+//       $html .= '<li role="button" data-token="mark" title="星标" class="btn btn-default glyphicon '.($result[$i]["b_recommends"]==="T" ? "glyphicon-star" : "glyphicon-star-empty").'"></li>';
+//       $html .= '<li role="button" href="#editCase" data-token="edit" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>';
+//       $html .= '<li role="button" data-token="post" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>';
+//       $html .= '<li role="button" data-token="remove" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>';
+//       $html .= '</ul></div></div>';
+//     }
+//     $html .= '</div>';
+//   }
   
-  return $html;
-}
+//   return $html;
+// }
+
+// /**
+//  * 实时生成文章列表
+//  */
+// function proc_refreshArticleList($articleManage, $data = null) {
+//   empty($data["page"]) ? $page = 1 : $page = $data["page"];
+//   if(isset($data["rule"])) {
+//     $result = $articleManage->queryTable($data["rule"]);
+//   }
+//   else {
+//     $result = $articleManage->queryTable();
+//   }
+//   $counts = count($result);
+//   $cmp = $counts / ($page*10) >= 1 ? 10 : ($counts%10);
+
+//   $html = '';
+//   if($articleManage->getCounts()) {
+//     $html = '<div class="panel-group" role="tablist" aria-multiselectable="true" id="panel-wrap">';
+//     for ($i = ($page-1)*10; $i < ($page-1)*10+$cmp; $i++) {
+//       if($result[$i]["b_posted"] === "T") {
+//         $html .= '<div class="panel panel-default">';
+//       }
+//       else {
+//         $html .= '<div class="panel panel-danger">';
+//       }
+//       $html .= '<div class="panel-heading" role="tab">';
+//       $html .= '<a class="collapsed" role="button" data-toggle="collapse" data-parent="#panel-wrap" href="#item_'.$result[$i]["id"].'">'.$result[$i]["ct_title"].'</a></div>';
+//       $html .= '<div id="item_'.$result[$i]["id"].'" class="panel-collapse collapse" role="tabpanel">';
+//       $html .= '<ul class="btn-group" data-id="'.$result[$i]["id"].'">';
+//       $html .= '<li role="button" data-token="mark" title="星标" class="btn btn-default glyphicon '.($result[$i]["b_recommends"]==="T" ? "glyphicon-star" : "glyphicon-star-empty").'"></li>';
+//       $html .= '<li role="button" href="#editArticle" data-token="edit" title="编辑" class="btn btn-default glyphicon glyphicon-edit"></li>';
+//       $html .= '<li role="button" data-token="post" title="发布" class="btn btn-default glyphicon glyphicon-send"></li>';
+//       $html .= '<li role="button" data-token="remove" title="删除" class="btn btn-default glyphicon glyphicon-trash"></li>';
+//       $html .= '</ul></div></div>';
+//     }
+//     $html .= '</div>';
+//   }
+  
+//   return $html;
+// }
 
 /**
  * 实时更新推荐列表数据条目

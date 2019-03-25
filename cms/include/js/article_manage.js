@@ -83,7 +83,8 @@ KindEditor.ready(function(K) {
  */
 function refreshTabList(data) {
   var fmd = new FormData();
-  fmd.append("token", "refreshArticleList");
+  fmd.append("token", "refreshTabList");
+  fmd.append("handle", "article");
   if(data) {
     fmd.append("data", JSON.stringify(data));
   }
@@ -139,7 +140,7 @@ function refreshTabList(data) {
               break;
             // 编辑案例
             case "edit":
-              $("#editArticle").attr("data-id", $(this).parent().attr("data-id"));
+              $("#editTab").attr("data-id", $(this).parent().attr("data-id"));
               activateTab($(this));
               break;
             // 发布案例
@@ -189,7 +190,7 @@ function refreshTabContent(argJson) {
         $(this).find("[name='article-author']").val(data.ct_author);
         $(this).find("[name='article-class']").val(data.ct_class);
         $(this).find("[name='article-date']").val(data.ct_issue);
-        if($(this).attr("id") === "editArticle") {
+        if($(this).attr("id") === "editTab") {
           window.editor_edit.html(data.ct_content);
         }
         if($(this).attr("id") === "uploadArticle") {
@@ -229,7 +230,7 @@ function updateItem(argJson) {
     if(argJson.target.attr("id") === "uploadArticle") {
       content = argJson.target.find("#upload-content").val();
     }
-    if(argJson.target.attr("id") === "editArticle") {
+    if(argJson.target.attr("id") === "editTab") {
       content = argJson.target.find("#edit-content").val();
     }
     var jsonData = {
@@ -305,7 +306,7 @@ function clearTabContent(argJson) {
   if(argJson.target.attr("id") === "uploadArticle") {
     window.editor_upload.html("");
   }
-  if(argJson.target.attr("id") === "editArticle") {
+  if(argJson.target.attr("id") === "editTab") {
     window.editor_edit.html("");
   }
   argJson.target.find(".btn-save").removeClass("disabled");

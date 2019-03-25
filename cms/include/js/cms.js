@@ -109,23 +109,16 @@ function activateTab(target) {
   }
 
   if($(target).attr("href") === "#uploadCase") {
-    refresh_uploadCase({target: $("#uploadCase"), id: $("#uploadCase").attr("data-id")});
+    refreshTabContent({target: $("#uploadCase"), id: $("#uploadCase").attr("data-id")});
   }
-  if($(target).attr("href") === "#editCase") {
-    $("#pageTabs>li[href='#editCase']").children().eq(0).addClass("glyphicon glyphicon-edit");
-    $("#pageTabs>li[href='#editCase']").children().eq(1).html($(target).parent().parent().prev().children().eq(0).html());
-    $("#pageTabs>li[href='#editCase']").attr("title", $(target).parent().parent().prev().children().eq(0).html());
-    refresh_uploadCase({target: $("#editCase"), id: $("#editCase").attr("data-id")});
-  }
-
   if($(target).attr("href") === "#uploadArticle") {
     refreshTabContent({target: $("#uploadArticle"), id: $("#uploadArticle").attr("data-id")});
   }
-  if($(target).attr("href") === "#editArticle") {
-    $("#pageTabs>li[href='#editArticle']").children().eq(0).addClass("glyphicon glyphicon-edit");
-    $("#pageTabs>li[href='#editArticle']").children().eq(1).html($(target).parent().parent().prev().children().eq(0).html());
-    $("#pageTabs>li[href='#editArticle']").attr("title", $(target).parent().parent().prev().children().eq(0).html());
-    refreshTabContent({target: $("#editArticle"), id: $("#editArticle").attr("data-id")});
+  if($(target).attr("href") === "#editTab") {
+    $("#pageTabs>li[href='#editTab']").children().eq(0).addClass("glyphicon glyphicon-edit");
+    $("#pageTabs>li[href='#editTab']").children().eq(1).html($(target).parent().parent().prev().children().eq(0).html());
+    $("#pageTabs>li[href='#editTab']").attr("title", $(target).parent().parent().prev().children().eq(0).html());
+    refreshTabContent({target: $("#editTab"), id: $("#editTab").attr("data-id")});
   }
 }
 

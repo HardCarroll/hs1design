@@ -35,6 +35,12 @@
   padding: 0 5px;
   font-size: 26px;
 }
+.article-wrap {
+  height: 535px;
+}
+.article-wrap>.panel-group {
+  margin-bottom: 0;
+}
 .article-wrap>.panel-group>.panel>.panel-heading {
   padding: 0;
 }

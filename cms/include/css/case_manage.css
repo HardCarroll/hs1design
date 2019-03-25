@@ -35,6 +35,12 @@
   padding: 0 5px;
   font-size: 26px;
 }
+#caseTab>.case-wrap {
+  height: 535px;
+}
+#caseTab>.case-wrap>.panel-group {
+  margin-bottom: 0;
+}
 #caseTab>.case-wrap>.panel-group>.panel>.panel-heading {
   padding: 0;
 }

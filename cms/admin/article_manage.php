@@ -243,7 +243,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                 </div>
               </div>
             </div> <!--#uploadArticle-->
-            <div role="tabpanel" class="tab-pane" id="editArticle" data-id="">
+            <div role="tabpanel" class="tab-pane" id="editTab" data-id="">
               <div class="article-page">
                 <div class="input-group">
                   <label for="cp-title" class="input-group-addon">网页标题</label>
@@ -289,7 +289,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                   <!-- <span class="btn btn-success btn-post" role="button">发布</span> -->
                 </div>
               </div>
-            </div> <!--#editArticle-->
+            </div> <!--#editTab-->
           </div> <!-- #pageTabContent-->
         </div> <!-- .content-inner-->
       </div> <!-- .content-wrap-->
