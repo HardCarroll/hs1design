@@ -279,6 +279,7 @@ function updateItem(argJson) {
 function getCounts(argJson) {
   var fmd = new FormData();
   fmd.append("token", "getArticleCounts");
+  fmd.append("handle", "article");
   fmd.append("rule", argJson.rule);
   $.ajax({
     url: "/cms/include/php/handle.php",

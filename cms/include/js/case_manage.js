@@ -307,6 +307,7 @@ function refreshTabList(data) {
 function getCounts(argJson) {
   var fmd = new FormData();
   fmd.append("token", "getCounts");
+  fmd.append("handle", "case");
   fmd.append("rule", argJson.rule);
   $.ajax({
     url: "/cms/include/php/handle.php",

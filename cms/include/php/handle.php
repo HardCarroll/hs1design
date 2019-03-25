@@ -64,14 +64,19 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
       }
       break;
     case "getCounts": // 获取记录数
-      echo $caseManage->getCounts($_POST["rule"]);
+      if($_POST["handle"] === "case") {
+        echo $caseManage->getCounts($_POST["rule"]);
+      }
+      else if($_POST["handle"] === "article") {
+        echo $articleManage->getCounts($_POST["rule"]);
+      }
       break;
-    case "getArticleCounts": // 获取记录数
-      echo $articleManage->getCounts($_POST["rule"]);
-      break;
-    case "uploadFiles": // 上传文件
-      echo proc_uploadFiles($_FILES["files"]);
-      break;
+    // case "getArticleCounts": // 获取记录数
+    //   echo $articleManage->getCounts($_POST["rule"]);
+    //   break;
+    // case "uploadFiles": // 上传文件
+    //   echo proc_uploadFiles($_FILES["files"]);
+    //   break;
     case "refreshTabContent":
       echo proc_refreshTabContent($_POST["id"] ? $_POST["id"]: 0);
       break;
