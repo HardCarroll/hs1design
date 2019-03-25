@@ -2,6 +2,7 @@ $(function() {
   // 分页按钮列表
   paginationList({
     token: "refreshPagination",
+    handle: "case",
     url: "/cms/include/php/handle.php",
     target: $("#caseTab>.list-wrap")
   });
@@ -20,15 +21,15 @@ $(function() {
       e.preventDefault();
       if($(this).hasClass("total")) {
         refreshTabList({page: 1, rule: ""});
-        paginationList({token: "refreshPagination", url: "/cms/include/php/handle.php", target: $("#caseTab>.list-wrap"), rule: ""});
+        paginationList({token: "refreshPagination", handle: "case", url: "/cms/include/php/handle.php", target: $("#caseTab>.list-wrap"), rule: ""});
       }
       if($(this).hasClass("unpost")) {
         refreshTabList({page: 1, rule: "b_posted='F'"});
-        paginationList({token: "refreshPagination", url: "/cms/include/php/handle.php", target: $("#caseTab>.list-wrap"), rule: "b_posted='F'"});
+        paginationList({token: "refreshPagination", handle: "case", url: "/cms/include/php/handle.php", target: $("#caseTab>.list-wrap"), rule: "b_posted='F'"});
       }
       if($(this).hasClass("marked")) {
         refreshTabList({page: 1, rule: "b_recommends='T'"});
-        paginationList({token: "refreshPagination", url: "/cms/include/php/handle.php", target: $("#caseTab>.list-wrap"), rule: "b_recommends='T'"});
+        paginationList({token: "refreshPagination", handle: "case", url: "/cms/include/php/handle.php", target: $("#caseTab>.list-wrap"), rule: "b_recommends='T'"});
       }
     });
   });
@@ -83,7 +84,7 @@ $(function() {
     getCounts({rule: "", target: $(".wrap.total>span.digital")});
     getCounts({rule: "b_posted='F'", target: $(".wrap.unpost>span.digital")});
     getCounts({rule: "b_recommends='T'", target: $(".wrap.marked>span.digital")});
-    paginationList({token: "refreshPagination", url: "/cms/include/php/handle.php", target: $("#caseTab>.list-wrap")});
+    paginationList({token: "refreshPagination", handle: "case", url: "/cms/include/php/handle.php", target: $("#caseTab>.list-wrap")});
   });
 
   // 保存按钮点击事件处理函数

@@ -1,7 +1,8 @@
 $(function() {
   // 分页按钮列表
   paginationList({
-    token: "refreshPagination_Article",
+    token: "refreshPagination",
+    handle: "article",
     url: "/cms/include/php/handle.php",
     target: $("#articleTab>.list-wrap")
   });
@@ -20,7 +21,7 @@ $(function() {
     getCounts({rule: "", target: $(".wrap.total>span.digital")});
     getCounts({rule: "b_posted='F'", target: $(".wrap.unpost>span.digital")});
     getCounts({rule: "b_recommends='T'", target: $(".wrap.marked>span.digital")});
-    paginationList({token: "refreshPagination_Article", url: "/cms/include/php/handle.php", target: $("#articleTab>.list-wrap")});
+    paginationList({token: "refreshPagination", handle: "article", url: "/cms/include/php/handle.php", target: $("#articleTab>.list-wrap")});
   });
 
   // 保存按钮点击事件处理函数

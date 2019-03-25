@@ -172,6 +172,7 @@ function paginationList(argJson) {
   if (argJson.url) {
     var fmd = new FormData();
     fmd.append("token", argJson.token);
+    fmd.append("handle", argJson.handle);
     if(argJson.rule) {
       fmd.append("rule", argJson.rule);
     }

@@ -32,10 +32,12 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
       }
       break;
     case "refreshPagination": // 刷新分页列表
-      echo proc_refreshPagination($caseManage, $_POST["rule"]);
-      break;
-    case "refreshPagination_Article": // 刷新分页列表
-      echo proc_refreshPagination($articleManage, $_POST["rule"]);
+      if($_POST["handle"] === "case") {
+        echo proc_refreshPagination($caseManage, $_POST["rule"]);
+      }
+      else if($_POST["handle"] === "article") {
+        echo proc_refreshPagination($articleManage, $_POST["rule"]);
+      }
       break;
     case "updateItem":  // 修改项
       if($_POST["handle"] === "case") {
