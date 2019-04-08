@@ -68,6 +68,9 @@ ul {
   border: none;
   margin-bottom: 0;
 }
+#navbar-config {
+  float: right;
+}
 .navbar .navbar-toggle {
   width: 50px;
   height: 50px;
@@ -284,8 +287,15 @@ ul {
   text-align: right;
   padding-right: 50px;
 }
+#modPwd .modal-dialog {
+  top: 50%;
+  transform: translateY(-50%);
+}
 
 @media (max-width: 768px) {
+  #navbar-config {
+    float: none;
+  }
   #navbar-menu {
     width: 0;
     opacity: 0;

@@ -112,28 +112,6 @@ class CaseManager {
   }
 
   /**
-   * 发布数据项
-   */
-  // public function postItem($id) {
-  //   // 从对应JSON文件读取数据
-  //   $path = ROOT_PATH.PATH_UPLOAD."/case/";
-  //   $data = file_get_contents($path."/$id.json");
-  //   // 生成html文件
-  //   $siteinfo = json_decode(file_get_contents(ROOT_PATH.PATH_JSON."/siteinfo.json"), true);
-  //   $url = "http://".$siteinfo["domain"]."/template/case_temp.php";
-  //   $str = curl_request($url, $data);
-  //   file_put_contents(ROOT_PATH."/case/$id.html", $str);
-  //   // 更新数据库文件路径
-  //   $ret = $this->updateItem($id, '{"st_path": "/case/'.$id.'.html", "b_posted": "T"}');
-  //   $retArray = json_decode($ret, true);
-  //   if(!$retArray["err_no"]) {
-  //     $retArray["err_code"] = "已成功发布！";
-  //     $ret = json_encode($retArray);
-  //   }
-  //   return $ret;
-  // }
-
-  /**
    * 更新数据项
    * @param   int $id 数据库对应的id
    * @param   string $data JSON格式的数据字符串
@@ -389,29 +367,6 @@ class ArticleManager {
     }
     return $ret;
   }
-
-  
-  /**
-   * 发布数据项
-   */
-  // public function postItem($id) {
-  //   // 从对应JSON文件读取数据
-  //   $path = ROOT_PATH.PATH_UPLOAD."/article/";
-  //   $data = file_get_contents($path."/$id.json");
-  //   // 生成html文件
-  //   $siteinfo = json_decode(file_get_contents(ROOT_PATH.PATH_JSON."/siteinfo.json"), true);
-  //   $url = "http://".$siteinfo["domain"]."/template/article_temp.php";
-  //   $str = curl_request($url, $data);
-  //   file_put_contents(ROOT_PATH."/article/$id.html", $str);
-  //   // 更新数据库文件路径
-  //   $ret = $this->updateItem($id, '{"st_path": "/article/'.$id.'.html", "b_posted": "T"}');
-  //   $retArray = json_decode($ret, true);
-  //   if(!$retArray["err_no"]) {
-  //     $retArray["err_code"] = "已成功发布！";
-  //     $ret = json_encode($retArray);
-  //   }
-  //   return $ret;
-  // }
 
   /**
    * 更新数据项

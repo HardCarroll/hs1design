@@ -14,6 +14,26 @@ $(function() {
     activateTab($(this));
   });
 
+  // 文章管理标签页上分类按钮处理函数
+  $(".overview .wrap").each(function() {
+    $(this).off("click").on("click", function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      if($(this).hasClass("total")) {
+        refreshTabList({page: 1, rule: ""});
+        paginationList({token: "refreshPagination", handle: "article", url: "/cms/include/php/handle.php", target: $("#articleTab>.list-wrap"), rule: ""});
+      }
+      if($(this).hasClass("unpost")) {
+        refreshTabList({page: 1, rule: "b_posted='F'"});
+        paginationList({token: "refreshPagination", handle: "article", url: "/cms/include/php/handle.php", target: $("#articleTab>.list-wrap"), rule: "b_posted='F'"});
+      }
+      if($(this).hasClass("marked")) {
+        refreshTabList({page: 1, rule: "b_recommends='T'"});
+        paginationList({token: "refreshPagination", handle: "article", url: "/cms/include/php/handle.php", target: $("#articleTab>.list-wrap"), rule: "b_recommends='T'"});
+      }
+    });
+  });
+
   // 关闭按钮点击事件处理函数
   $(".btn-close").off("click").on("click", function() {
     // clearTabContent({target: $("#uploadArticle")});

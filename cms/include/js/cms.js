@@ -15,6 +15,78 @@ $(function(){
     $($(this).attr("data-target")).toggleClass("in");
   });
 
+  $("#logout").off("click").on("click", function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    var fmd = new FormData();
+    fmd.append("token", "logout");
+    $.ajax({
+      url: "/cms/include/php/handle.php",
+      type: "POST",
+      data: fmd,
+      processData: false,
+      contentType: false,
+      dataType: "json",
+      success: function(result) {
+        if(!result.err_no) {
+          window.location.href = result.href;
+        }
+        else {
+          console.log(result);
+        }
+      },
+      error: function(err) {
+        console.log("fail: " + err);
+      }
+    });
+  });
+
+  $("#btn_ok").click(function(){
+    if ($("#new-pwd1").val() !== $("#new-pwd2").val()) {
+      $(".modal-footer>.tips").html("两次输入的密码不同，请重新输入！");
+      $("#new-pwd1").focus();
+    }
+    else {
+      var fmd = new FormData();
+      var value = {username: $("#username").html(), oldPwd: $("#old-pwd").val(), newPwd1: $("#new-pwd1").val(), newPwd2: $("#new-pwd2").val()};
+      fmd.append("token", "modifyPassword");
+      fmd.append("data", JSON.stringify(value));
+      $.ajax({
+        url: "/cms/include/php/handle.php",
+        type: "POST",
+        data: fmd,
+        dataType: "json",
+        processData: false,
+        contentType: false,
+        success: function (result) {
+          // var ret = JSON.parse(result);
+          // $(".modal-footer>.tips").html(ret.err_msg);
+          // if (ret.err_no) {
+          //   $("#old-pwd").focus();
+          // }
+          // else {
+          //   setTimeout(function() {
+          //     $("#modPwd").modal("hide");
+          //     location.reload(true);
+          //   }, 1600);
+          // }
+          console.log(result);
+//          console.log("success: "+result);
+        },
+        error: function(msg) {
+          console.log("fail: "+msg);
+        }
+      });
+    }
+  });
+
+  $("#modPwd").on('hidden.bs.modal', function () {
+    $("#old-pwd").val('');
+    $("#new-pwd1").val('');
+    $("#new-pwd2").val('');
+    $(".modal-footer>.tips").html('');
+  });
+
   // 左侧导航列表点击事件处理
   $(".nav-list>.list-item").off("click").on("click", function(e) {
     e.stopPropagation();

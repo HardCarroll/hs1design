@@ -36,27 +36,26 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="navbar-config">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-              <li><a href="#">Link</a></li>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <span class="glyphicon glyphicon-user"></span>
+                  <span id="username"><?php echo $_SESSION["user"]["username"]; ?></span>
+                  <span class="caret"></span>
+                </a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Action</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else here</a></li>
+                  <li><a href="#" data-toggle="modal" data-target="#modPwd" role="button"><span class="glyphicon glyphicon-lock"></span>&nbsp;修改密码</a></li>
+                  <li><a id="logout" href="#" role="button"><span class="glyphicon glyphicon-log-out"></span>&nbsp;注销登录</a></li>
                   <li role="separator" class="divider"></li>
-                  <li><a href="#">Separated link</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li><a href="#">One more separated link</a></li>
+                  <li><a href="/index.php"><span class="glyphicon glyphicon-home"></span>&nbsp;返回前台</a></li>
                 </ul>
               </li>
             </ul>
-            <form class="navbar-form navbar-left">
+            <!-- <form class="navbar-form navbar-left">
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Search">
               </div>
               <button type="submit" class="btn btn-default">Submit</button>
-            </form>
+            </form> -->
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
       </nav>
@@ -155,6 +154,38 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
     <section class="page-foot"></section>
 
 
+    <!-- Modal -->
+    <div class="modal fade" id="modPwd" tabindex="-1" role="dialog" aria-labelledby="modPwdLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="modPwdLabel">修改用户密码</h4>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="old-pwd" class="control-label">旧密码:</label>
+                <input type="password" class="form-control" id="old-pwd" name="old-pwd" required>
+              </div>
+              <div class="form-group">
+                <label for="new-pwd1" class="control-label">新的密码:</label>
+                <input type="password" class="form-control" id="new-pwd1" name="new-pwd1" required>
+              </div>
+              <div class="form-group">
+                <label for="new-pwd2" class="control-label">确认新密码:</label>
+                <input type="password" class="form-control" id="new-pwd2" name="new-pwd2" required>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <span class="tips"></span>
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-primary" id="btn_ok">确认</button>
+          </div>
+        </div>
+      </div>
+    </div>
     
 
   </div> <!-- /.layer-->
