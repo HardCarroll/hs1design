@@ -3,6 +3,9 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/cms/include/php/include.php");
 
 if (isset($_POST["token"]) && !empty($_POST["token"])) {
   switch ($_POST["token"]) {
+    case "uploadFiles":
+      proc_uploadFiles($_POST[]);
+      break;
     case "login": // 登录按钮点击处理过程
       echo proc_login($dbo, json_decode($_POST["data"], true));
       break;

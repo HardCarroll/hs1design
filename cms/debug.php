@@ -28,12 +28,37 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/cms/include/php/include.php");
 // $sqlArray = array("create_table"=>"CREATE TABLE tab_admin(uid VARCHAR(11) NOT NULL, username VARCHAR(16) NOT NULL, password VARCHAR(16) NOT NULL, access VARCHAR(1) NOT NULL, PRIMARY KEY(uid), UNIQUE(username)) ENGINE=InnoDB", "insert_admin"=>"INSERT INTO tab_admin(uid, username, password, access) VALUES('000000', 'admin', 'admin', '0')");
 // $dbo->init($sqlArray);
 // var_dump($dbo);
-$arr = array("a"=>"hello", "b"=>"world");
-print_r($arr);
-if(!array_key_exists("c", $arr)) {
-  $arr["c"] = "test";
+// $arr = array("a"=>"hello", "b"=>"world");
+// // print_r($arr);
+// // if(!array_key_exists("c", $arr)) {
+// //   $arr["c"] = "test";
+// // }
+// // print_r($arr);
+// $str = "hello world";
+// $test = '{"a": "hello", "b": "world", "c": [{"a1": "a1", "b1": "b1"}, {"a2": "a2", "b2": "b2"}]}';
+// $ts = json_decode($test, true);
+// // echo "\$ts['a'] = ".$ts["a"];
+// var_dump($ts["a"]);
+// echo "<br>";
+// // echo "\$ts['b'] = ".$ts["b"];
+// var_dump($ts["b"]);
+// echo "<br>";
+// // echo "\$ts['c'] = ".json_encode($ts["c"]);
+// var_dump($ts["c"]);
+// echo "<br>";
+// var_dump(is_array($ts["c"]));
+// echo "<br>";
+// var_dump(is_string($ts["c"]));
+// echo "<br>";
+
+// $user = '{"uid": 123456, "username": "demo", "password": "demo", "access": 0}';
+// var_dump($userManage->addItem("tab_admin", $user));
+// echo "<br>";
+if(isset($_POST["tab_name"]) && isset($_POST["data"])) {
+  // $result = array("tabname"=>$_POST["tab_name"], "caseData"=>$_POST["data"]);
+  // $result = $userManage->addItem($_POST["tab_name"], $_POST["data"]);
+  // echo json_encode($result);
 }
-print_r($arr);
 
 /**
 * curl请求

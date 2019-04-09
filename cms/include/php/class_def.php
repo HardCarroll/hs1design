@@ -7,21 +7,96 @@ date_default_timezone_set("Asia/Shanghai");
  * 
  */
 class UserManager {
-  public $dbo;
-  public $tab_name;
-  public $sql_query;
 
-  // 构造函数
-  function __construct($dbo, $tab_name) {
-    $this->dbo = $dbo;
-    $this->tab_name = $tab_name;
-    $this->sql_query = "SELECT * FROM " . $tab_name;
+//    主机名
+  public $hostname;
+//    数据库用户名
+  public $username;
+//    数据库密码
+  public $password;
+//    数据库名称
+  public $dbname;
+//    数据库连接字符串
+  public $links;
+//    数据库操作的状态信息
+  public $state;
+
+//    构造函数
+  function __construct($hostname, $username, $password, $dbname) {
+    $this->hostname = $hostname;
+    $this->username = $username;
+    $this->password = $password;
+    $this->dbname = $dbname;
+    $this->link = mysqli_connect($hostname, $username, $password, $dbname);
+    $this->state = array("err_no"=>mysqli_connect_errno(), "err_code"=>mysqli_connect_error());
   }
 
-  // 析构函数
+//    析构函数
   function __destruct() {
-    $this->dbo = null;
-    $this->tab_name = null;
+    $this->hostname = null;
+    $this->username = null;
+    $this->password = null;
+    $this->dbname = null;
+    $this->state = null;
+    !$this->links or $this->links->close();
+  }
+
+  public function execute($sql) {
+    mysqli_query($this->link, $sql);
+    $this->state = array("err_no"=>mysqli_errno($this->link), "err_code"=>mysqli_error($this->link));
+  }
+
+  /**
+   * 添加数据项
+   * @param string $tab_name 指定的数据表名
+   * @param mixed $data JSON格式的字符串数据
+   * @return array 执行完成后的状态信息
+   */
+  public function addItem($tab_name, $data) {
+    $dataArray = json_decode($data, true);
+    $sql_h = "INSERT INTO " . $tab_name . "(";
+    $sql_b = ") VALUES(";
+    $sql_t = ")";
+    foreach($dataArray as $key => $value) {
+      $sql_h .= $key;
+      $sql_b .= "'" . $this->formatData($value) . "'";
+      if(end($dataArray) !== $value) {
+        $sql_h .= ", ";
+        $sql_b .= ", ";
+      }
+    }
+    $sql = $sql_h . $sql_b . $sql_t;
+    $this->execute($sql);
+    return $this->state;
+  }
+
+  public function deleteItem() {
+
+  }
+
+  public function updateItem() {
+
+  }
+  
+  public function selectItem() {
+
+  }
+
+   /**
+   * 格式化插入字段数据
+   */
+  public function formatData($data) {
+    if(is_array($data)) {
+      return json_encode($data);
+    }
+    else {
+      $data = str_replace("\"", "\\\"", $data);
+      $data = str_replace("'", "\'", $data);
+      $data = str_replace("\n", "", $data);
+      $data = str_replace("\t", "", $data);
+    }
+    
+    return $data;
   }
 
   /**

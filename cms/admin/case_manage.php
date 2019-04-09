@@ -270,7 +270,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                 <div class="input-group">
                   <span class="btn btn-default btn-close" role="button">关闭</span>
                   <span class="btn btn-warning btn-save" role="button">保存</span>
-                  <!-- <span class="btn btn-success btn-post" role="button">发布</span> -->
+                  <span class="btn btn-success btn-post" role="button">发布</span>
                 </div>
               </div>
             </div> <!--#uploadCase-->
