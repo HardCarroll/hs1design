@@ -124,47 +124,49 @@ $(function() {
     //     console.log("fail: "+err);
     //   }
     // }); // ajax_func
-    // var fmd = new FormData();
-    // fmd.append("tab_name", "tab_case");
 
-    // var imgArray = new Array();
-    // var target = $(this).parent().parent().parent();
-    // target.find(".case-thumb").children().not(":last").each(function() {
-    //   var imgJson = {url: $(this).find("img").attr("src"), attr_alt: $(this).find('[name="data-alt"]').val(), attr_title: $(this).find('[name="data-title"]').val()};
-    //   imgArray.push(imgJson);
-    // });
-    // var caseData = {
-    //   st_title: target.find("[name='cp-title']").val(),
-    //   st_keywords: target.find("[name='cp-keywords']").val(),
-    //   st_description: target.find("[name='cp-description']").val(),
-    //   ct_title: target.find("[name='case-title']").val(),
-    //   ct_area: target.find("[name='case-area']").val(),
-    //   ct_address: target.find("[name='case-address']").val(),
-    //   ct_class: target.find("[name='case-class']").val(),
-    //   ct_team: target.find("[name='case-team']").val(),
-    //   ct_company: target.find("[name='case-company']").val(),
-    //   ct_description: target.find("[name='case-description']").val(),
-    //   ct_image: imgArray
-    // };
-    // fmd.append("data", JSON.stringify(caseData));
-    // $.ajax({
-    //   url: "/cms/debug.php",
-    //   type: "POST",
-    //   data: fmd,
-    //   dataType: "json",
-    //   processData: false,
-    //   contentType: false,
-    //   success: function(result) {
-    //     console.log(result);
-    //   },
-    //   error: function(error) {
-    //     console.log(error);
-    //   }
-    // });
+    var fmd = new FormData();
+    fmd.append("token", "add");
+    fmd.append("tab_name", "tab_case");
+
+    var imgArray = new Array();
+    var target = $(this).parent().parent().parent();
+    target.find(".case-thumb").children().not(":last").each(function() {
+      var imgJson = {url: $(this).find("img").attr("src"), attr_alt: $(this).find('[name="data-alt"]').val(), attr_title: $(this).find('[name="data-title"]').val()};
+      imgArray.push(imgJson);
+    });
+    var caseData = {
+      st_title: target.find("[name='cp-title']").val(),
+      st_keywords: target.find("[name='cp-keywords']").val(),
+      st_description: target.find("[name='cp-description']").val(),
+      ct_title: target.find("[name='case-title']").val(),
+      ct_area: target.find("[name='case-area']").val(),
+      ct_address: target.find("[name='case-address']").val(),
+      ct_class: target.find("[name='case-class']").val(),
+      ct_team: target.find("[name='case-team']").val(),
+      ct_company: target.find("[name='case-company']").val(),
+      ct_description: target.find("[name='case-description']").val(),
+      ct_image: imgArray
+    };
+    fmd.append("data", JSON.stringify(caseData));
+    $.ajax({
+      url: "/cms/debug.php",
+      type: "POST",
+      data: fmd,
+      dataType: "json",
+      processData: false,
+      contentType: false,
+      success: function(result) {
+        console.log(result);
+      },
+      error: function(error) {
+        console.log(error);
+      }
+    });
 
     // console.log(caseData);
     // console.log(JSON.stringify(caseData));
-    console.log("post");
+    // console.log("post");
   });
 
   // 删除确认对话框处理函数

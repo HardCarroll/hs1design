@@ -50,14 +50,44 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/cms/include/php/include.php");
 // echo "<br>";
 // var_dump(is_string($ts["c"]));
 // echo "<br>";
-
-// $user = '{"uid": 123456, "username": "demo", "password": "demo", "access": 0}';
-// var_dump($userManage->addItem("tab_admin", $user));
-// echo "<br>";
-if(isset($_POST["tab_name"]) && isset($_POST["data"])) {
-  // $result = array("tabname"=>$_POST["tab_name"], "caseData"=>$_POST["data"]);
-  // $result = $userManage->addItem($_POST["tab_name"], $_POST["data"]);
-  // echo json_encode($result);
+if(isset($_POST["token"])) {
+  switch($_POST["token"]) {
+    case "add":
+      if(isset($_POST["tab_name"]) && isset($_POST["data"])) {
+        $result = $userManage->addItem($_POST["tab_name"], $_POST["data"]);
+        echo json_encode($result, 320);
+      }
+      break;
+    case "select":
+      $result = $userManage->selectItem($_POST["tab_name"])[0];
+      echo json_encode($result, 320);
+      break;
+    case "test":
+      // $result = array("tabName"=>$_POST["tab_name"], "caseData"=>$_POST["data"]);
+      $dataArray = json_decode($_POST["data"], true);
+      $sql_h = "INSERT INTO " . $_POST["tab_name"] . "(";
+      $sql_b = ") VALUES(";
+      $sql_t = ")";
+      foreach($dataArray as $key => $value) {
+        $sql_h .= $key;
+        $sql_b .= "'" . (is_array($value) ? json_encode($value, 320) : $value) . "'";
+        if(end($dataArray) !== $value) {
+          $sql_h .= ", ";
+          $sql_b .= ", ";
+        }
+      }
+      $sql = $sql_h . $sql_b . $sql_t;
+      // echo json_encode($result, 320);
+      echo json_encode(array("sql" => $sql), 320);
+      break;
+    case "debug":
+      $result = $userManage->selectItem($_POST["tab_name"], "id=22")[0];
+      file_put_contents(ROOT_PATH.PATH_UPLOAD."/debug.json", json_encode($result, 320));
+      // $str = curl_request("http://192.168.0.216:8888/template/case_temp.php", json_encode($result, 320));
+      // file_put_contents(ROOT_PATH."/case/debug.html", $str);
+      echo json_encode($result, 320);
+      break;
+  }
 }
 
 /**

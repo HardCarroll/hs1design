@@ -36,7 +36,7 @@ $(function(){
     var $btn = $(this).button('loading');
     var fmd_login = new FormData();
     fmd_login.append('token', 'login');
-    fmd_login.append('data', '{"uid":"'+$("#in_account").val()+'", "pwd": "'+$("#in_password").val()+'"}');
+    fmd_login.append('data', '{"id":"'+$("#in_account").val()+'", "pwd": "'+$("#in_password").val()+'"}');
     $.ajax({
       url: "/cms/include/php/handle.php",
       type: "POST",

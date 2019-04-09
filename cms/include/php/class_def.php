@@ -59,7 +59,9 @@ class UserManager {
     $sql_t = ")";
     foreach($dataArray as $key => $value) {
       $sql_h .= $key;
-      $sql_b .= "'" . $this->formatData($value) . "'";
+      // $sql_b .= "'" . $this->formatData($value) . "'";
+      
+      $sql_b .= "'" . addslashes(is_array($value) ? json_encode($value, 320) : $value) . "'";
       if(end($dataArray) !== $value) {
         $sql_h .= ", ";
         $sql_b .= ", ";
@@ -67,6 +69,10 @@ class UserManager {
     }
     $sql = $sql_h . $sql_b . $sql_t;
     $this->execute($sql);
+
+    $result = $this->selectItem($tab_name)[0];
+    // file_put_contents(ROOT_PATH.PATH_UPLOAD."/debug.json", json_encode($result, JSON_UNESCAPED_UNICODE));
+    // return $sql;
     return $this->state;
   }
 
@@ -78,25 +84,42 @@ class UserManager {
 
   }
   
-  public function selectItem() {
-
-  }
-
-   /**
-   * 格式化插入字段数据
+  /**
+   * 查询数据项，并以数组形式返回记录集
+   * @param string $tab_name 指定的数据表名
+   * @param string $rule  指定查询条件
+   * @return array $result  查询结果
    */
-  public function formatData($data) {
-    if(is_array($data)) {
-      return json_encode($data);
+  public function selectItem($tab_name, $rule = null) {
+    $sql = "SELECT * FROM " . $tab_name;
+    if($rule) {
+      $sql .= " WHERE " . $rule;
+    }
+    $sql .= " ORDER BY id ASC";
+
+    $result = mysqli_query($this->link, $sql);
+    if($result) {
+      if ($result->num_rows) {
+        // 查询结果行数不为0，，将值格式化到数组中返回
+        $ret = array();
+        while ($tmp = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+          array_unshift($ret, $tmp);
+        }
+      }
+      else {
+        // 查询结果行数为0，即没有查询到数据
+        $ret = array("err_no" => 0, "err_code" => "记录集为0");
+      }
     }
     else {
-      $data = str_replace("\"", "\\\"", $data);
-      $data = str_replace("'", "\'", $data);
-      $data = str_replace("\n", "", $data);
-      $data = str_replace("\t", "", $data);
+      // 查询语句有误
+      // 通过检查mysqli_error($this->links)的返回值判断语句是否有误
+      $ret = array("err_no" => 0, "err_code" => "请检查语法错误");
     }
-    
-    return $data;
+
+    // 更新操作后状态信息
+    $this->state = array("err_no"=>mysqli_errno($this->links), "err_code"=>mysqli_error($this->links));
+    return $ret;
   }
 
   /**

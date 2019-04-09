@@ -43,7 +43,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                   <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a href="#" data-toggle="modal" data-target="#modPwd" role="button"><span class="glyphicon glyphicon-lock"></span>&nbsp;修改密码</a></li>
+                  <li><a href="#" data-toggle="modal" data-target="#modPwd" role="button"><span class="icon icon-cuz icon-key"></span>&nbsp;修改密码</a></li>
                   <li><a id="logout" href="#" role="button"><span class="glyphicon glyphicon-log-out"></span>&nbsp;注销登录</a></li>
                   <li role="separator" class="divider"></li>
                   <li><a href="/index.php"><span class="glyphicon glyphicon-home"></span>&nbsp;返回前台</a></li>

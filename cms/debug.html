@@ -21,29 +21,73 @@
     </select>
   </div>
   <input type="button" value="add">
+  <input type="button" value="select">
+  <input type="button" value="debug">
 </body>
 </html>
 <script type="text/javascript" src="/cms/include/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="/cms/include/bootstrap/js/bootstrap.min.js"></script>
 <script>
-  $("input[value='add']").off("click").on("click", function() {
-    var data = {uid: $("input[name='uid']").val(), username: $("input[name='username']").val(), password: $("input[name='password']").val(), access: $("select[name='access']").val()};
-    var fmd = new FormData();
-    fmd.append("data", JSON.stringify(data));
-    fmd.append("tab_name", "tab_admin");
-    $.ajax({
-      url: "/cms/debug.php",
-      type: "POST",
-      processData: false,
-      contentType: false,
-      data: fmd,
-      dataType: "json",
-      success: function(result) {
-        console.log(result);
-      },
-      error: function(error) {
-        console.log(error);
-      }
+  $(function() {
+    $("input[value='add']").off("click").on("click", function() {
+      var data = {uid: $("input[name='uid']").val(), username: $("input[name='username']").val(), password: $("input[name='password']").val(), access: $("select[name='access']").val()};
+      var fmd = new FormData();
+      fmd.append("data", JSON.stringify(data));
+      fmd.append("tab_name", "tab_admin");
+      fmd.append("token", "test");
+      $.ajax({
+        url: "/cms/debug.php",
+        type: "POST",
+        processData: false,
+        contentType: false,
+        data: fmd,
+        dataType: "json",
+        success: function(result) {
+          console.log(result);
+        },
+        error: function(error) {
+          console.log(error);
+        }
+      });
+    });
+    $("input[value='select']").off("click").on("click", function() {
+      var fmd = new FormData();
+      fmd.append("tab_name", "tab_case");
+      fmd.append("token", "select");
+      $.ajax({
+        url: "/cms/debug.php",
+        type: "POST",
+        processData: false,
+        contentType: false,
+        data: fmd,
+        dataType: "json",
+        success: function(result) {
+          console.log(result);
+        },
+        error: function(error) {
+          console.log(error);
+        }
+      });
+    });
+    $("input[value='debug']").off("click").on("click", function() {
+      var fmd = new FormData();
+      fmd.append("tab_name", "tab_case");
+      fmd.append("token", "debug");
+      $.ajax({
+        url: "/cms/debug.php",
+        type: "POST",
+        processData: false,
+        contentType: false,
+        data: fmd,
+        dataType: "json",
+        success: function(result) {
+          console.log(result);
+        },
+        error: function(error) {
+          console.log(error);
+        }
+      });
     });
   });
+  
 </script>
