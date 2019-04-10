@@ -407,9 +407,9 @@ function pro_debug($data) {
 
 /**
 * curl请求
-* @param $url：发送请求的地址
-* @param $post：请求post的数据
-* @return $output：请求返回的结果
+* @param string $url：发送请求的地址
+* @param mixed|null $post：请求post的数据
+* @return mixed $data：请求返回的结果
 */
 function curl_request($url, $post = null) {
   $curl = curl_init();

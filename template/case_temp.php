@@ -170,8 +170,8 @@ function transmitCasetype($key) {
                 </section> -->
                 <!-- 动态生成案例图片缩略图 -->
                 <?php
-                // $imgs = json_decode($dataArray["ct_image"], true);
-                $imgs = $dataArray["ct_image"];
+                $imgs = json_decode($dataArray["ct_image"], true);
+                // $imgs = $dataArray["ct_image"];
                 foreach($imgs as $imgs_item) {
                   echo '<section class="col-xs-6 col-sm-4 col-md-3 col-lg-2 case-thumb-item"><img src="'.$imgs_item["url"].'" title="'.$imgs_item["attr_title"].'" alt="'.$imgs_item["attr_alt"].'"></section>';
                 }

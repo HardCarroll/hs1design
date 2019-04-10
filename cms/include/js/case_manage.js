@@ -127,7 +127,6 @@ $(function() {
 
     var fmd = new FormData();
     fmd.append("token", "add");
-    fmd.append("tab_name", "tab_case");
 
     var imgArray = new Array();
     var target = $(this).parent().parent().parent();
