@@ -120,7 +120,7 @@ function setSiteCookie() {
     dataType: "json",     //返回json格式数据
     success: function(result) {
       if(result) {
-        setCookie("siteInfo", result);
+        setCookie("siteInfo", JSON.stringify(result));
       }
     },
     error: function(err) {

@@ -93,80 +93,45 @@ $(function() {
   });
 
   // 发布按钮点击事件处理函数
-  $(".btn-post").off("click").on("click", function() {
+  // $(".btn-post").off("click").on("click", function() {
+    // var fmd = new FormData();
+    // fmd.append("token", "add");
+
     // var imgArray = new Array();
-    // $(this).parent().parent().parent().find(".case-thumb").children().not(":last").each(function() {
+    // var target = $(this).parent().parent().parent();
+    // target.find(".case-thumb").children().not(":last").each(function() {
     //   var imgJson = {url: $(this).find("img").attr("src"), attr_alt: $(this).find('[name="data-alt"]').val(), attr_title: $(this).find('[name="data-title"]').val()};
     //   imgArray.push(imgJson);
     // });
     // var caseData = {
-    //   st_title: $("[name='cp-title']").val(),
-    //   st_keywords: $("[name='cp-keywords']").val(),
-    //   st_description: $("[name='cp-description']").val(),
+    //   st_title: target.find("[name='cp-title']").val(),
+    //   st_keywords: target.find("[name='cp-keywords']").val(),
+    //   st_description: target.find("[name='cp-description']").val(),
+    //   ct_title: target.find("[name='case-title']").val(),
+    //   ct_area: target.find("[name='case-area']").val(),
+    //   ct_address: target.find("[name='case-address']").val(),
+    //   ct_class: target.find("[name='case-class']").val(),
+    //   ct_team: target.find("[name='case-team']").val(),
+    //   ct_company: target.find("[name='case-company']").val(),
+    //   ct_description: target.find("[name='case-description']").val(),
     //   ct_image: imgArray
     // };
-
-    // var fmd = new FormData();
-    // fmd.append("token", "debug");
     // fmd.append("data", JSON.stringify(caseData));
-
     // $.ajax({
-    //   url: "/cms/include/php/handle.php",
+    //   url: "/cms/debug.php",
     //   type: "POST",
     //   data: fmd,
+    //   dataType: "json",
     //   processData: false,
-    //   contentType: false,   //数据为formData时必须定义此项
-    //   dataType: "json",     //返回json格式数据
+    //   contentType: false,
     //   success: function(result) {
-    //     console.log(JSON.parse(result));
+    //     console.log(result);
     //   },
-    //   error: function(err) {
-    //     console.log("fail: "+err);
+    //   error: function(error) {
+    //     console.log(error);
     //   }
-    // }); // ajax_func
-
-    var fmd = new FormData();
-    fmd.append("token", "add");
-
-    var imgArray = new Array();
-    var target = $(this).parent().parent().parent();
-    target.find(".case-thumb").children().not(":last").each(function() {
-      var imgJson = {url: $(this).find("img").attr("src"), attr_alt: $(this).find('[name="data-alt"]').val(), attr_title: $(this).find('[name="data-title"]').val()};
-      imgArray.push(imgJson);
-    });
-    var caseData = {
-      st_title: target.find("[name='cp-title']").val(),
-      st_keywords: target.find("[name='cp-keywords']").val(),
-      st_description: target.find("[name='cp-description']").val(),
-      ct_title: target.find("[name='case-title']").val(),
-      ct_area: target.find("[name='case-area']").val(),
-      ct_address: target.find("[name='case-address']").val(),
-      ct_class: target.find("[name='case-class']").val(),
-      ct_team: target.find("[name='case-team']").val(),
-      ct_company: target.find("[name='case-company']").val(),
-      ct_description: target.find("[name='case-description']").val(),
-      ct_image: imgArray
-    };
-    fmd.append("data", JSON.stringify(caseData));
-    $.ajax({
-      url: "/cms/debug.php",
-      type: "POST",
-      data: fmd,
-      dataType: "json",
-      processData: false,
-      contentType: false,
-      success: function(result) {
-        console.log(result);
-      },
-      error: function(error) {
-        console.log(error);
-      }
-    });
-
-    // console.log(caseData);
-    // console.log(JSON.stringify(caseData));
-    // console.log("post");
-  });
+    // });
+  // });
 
   // 删除确认对话框处理函数
   $("#modalConfirm .btn-danger").off("click").on("click", function() {
@@ -183,7 +148,7 @@ $(function() {
       dataType: "json",     //返回json格式数据
       context: $(this),
       success: function(result) {
-        if(!JSON.parse(result).err_no) {
+        if(!result.err_no) {
           location.reload(true);
         }
       },
@@ -208,8 +173,9 @@ $(function() {
 function refreshTabContent(argJson) {
   clearTabContent({target: argJson.target});
   var fmd = new FormData();
-  fmd.append("token", "refreshUploadCase");
+  fmd.append("token", "refreshTabContent");
   fmd.append("id", argJson.id);
+  fmd.append("handle", "case");
   $.ajax({
     url: "/cms/include/php/handle.php",
     type: "POST",
@@ -219,30 +185,32 @@ function refreshTabContent(argJson) {
     dataType: "json",     //返回json格式数据
     context: argJson.target,
     success: function(result) {
-      var data = JSON.parse(result);
       if($(this).attr("data-id")) {
-        $(this).find("[name='cp-title']").val(data.st_title);
-        $(this).find("[name='cp-keywords']").val(data.st_keywords);
-        $(this).find("[name='cp-description']").val(data.st_description);
-        $(this).find("[name='case-title']").val(data.ct_title);
-        $(this).find("[name='case-area']").val(data.ct_area);
-        $(this).find("[name='case-class']").val(data.ct_class);
-        $(this).find("[name='case-address']").val(data.ct_address);
-        $(this).find("[name='case-team']").val(data.ct_team);
-        $(this).find("[name='case-company']").val(data.ct_company);
-        $(this).find("[name='case-description']").val(data.ct_description);
-        for(var i in data.ct_image) {
-          if(data.ct_image.length < $(this).find(".case-thumb").children().length) {
+        $(this).find("[name='cp-title']").val(result.st_title);
+        $(this).find("[name='cp-keywords']").val(result.st_keywords);
+        $(this).find("[name='cp-description']").val(result.st_description);
+        $(this).find("[name='case-title']").val(result.ct_title);
+        $(this).find("[name='case-area']").val(result.ct_area);
+        $(this).find("[name='case-class']").val(result.ct_class);
+        $(this).find("[name='case-address']").val(result.ct_address);
+        $(this).find("[name='case-team']").val(result.ct_team);
+        $(this).find("[name='case-company']").val(result.ct_company);
+        $(this).find("[name='case-description']").val(result.ct_description);
+        var imgArray = JSON.parse(result.ct_image);
+        for(var i in imgArray) {
+          if(imgArray.length < $(this).find(".case-thumb").children().length) {
             $(this).find(".case-thumb").children().eq(0).remove();
           }
-          proc_addPictures($(this).find(".case-thumb>div>div.btn"), data.ct_image[i]);
+          proc_addPictures($(this).find(".case-thumb>div>div.btn"), imgArray[i]);
+        // console.log(imgArray[i]);
         }
       }
       else {
-        $(this).find("[name='cp-title']").val(data.title);
-        $(this).find("[name='cp-keywords']").val(data.keywords);
-        $(this).find("[name='cp-description']").val(data.description);
+        $(this).find("[name='cp-title']").val(result.title);
+        $(this).find("[name='cp-keywords']").val(result.keywords);
+        $(this).find("[name='cp-description']").val(result.description);
       }
+      // console.log(JSON.parse(result.ct_image));
     },
     error: function(err) {
       console.log("fail: "+err);
@@ -300,9 +268,9 @@ function refreshTabList(data) {
                 dataType: "json",     //返回json格式数据
                 context: $(this),
                 success: function(result) {
-                  if(JSON.parse(result).err_no) {
+                  if(result.err_no) {
                     $(this).toggleClass("glyphicon-star-empty").toggleClass("glyphicon-star");
-                    alert(JSON.parse(result).err_code);
+                    alert(result.err_code);
                   }
                   else {
                     getCounts({rule: "b_recommends='T'", target: $(".wrap.marked>span.digital")});
@@ -317,7 +285,6 @@ function refreshTabList(data) {
             case "edit":
               $("#editTab").attr("data-id", $(this).parent().attr("data-id"));
               activateTab($(this));
-              // console.log("edit: " + $(this).parent().attr("data-id"));
               break;
             // 发布案例
             case "post":
@@ -396,10 +363,12 @@ function updateItem(argJson) {
       ct_team: argJson.target.find("[name='case-team']").val(),
       ct_company: argJson.target.find("[name='case-company']").val(),
       ct_description: argJson.target.find("[name='case-description']").val(),
-      ct_image: imgArray
+      ct_image: imgArray,
+      b_end: "TAB_END"
     };
     fmd.append("data", JSON.stringify(caseData));
   }
+
   $.ajax({
     url: "/cms/include/php/handle.php",
     type: "POST",
@@ -408,17 +377,20 @@ function updateItem(argJson) {
     contentType: false,   //数据为formData时必须定义此项
     dataType: "json",     //返回json格式数据
     success: function(result) {
-      if(!JSON.parse(result).err_no) {
+      if(!result.err_no) {
         if(argJson.target) {
           argJson.target.find("span.btn-save").addClass("disabled");
-          argJson.target.attr("data-id", JSON.parse(result).err_code);
+          argJson.target.attr("data-id", result.err_code);
         }
         else {
           alert("已成功发布！");
           location.reload(true);
         }
       }
-      console.log(JSON.parse(result));
+      else {
+        alert(result.err_code);
+      }
+      console.log(result);
     },
     error: function(err) {
       console.log("fail: "+err);

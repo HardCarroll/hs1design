@@ -28,12 +28,12 @@ function refresh_siteTab() {
     context: $(".site-wrap"),
     success: function(result) {
       if(result) {
-        var data = JSON.parse(result);
-        $(this).find("[id='domain']").val(data.domain);
-        $(this).find("[id='title']").val(data.title);
-        $(this).find("[id='keywords']").val(data.keywords);
-        $(this).find("[id='description']").val(data.description);
-        setCookie("siteInfo", result);
+        $(this).find("[id='domain']").val(result.domain);
+        $(this).find("[id='title']").val(result.title);
+        $(this).find("[id='keywords']").val(result.keywords);
+        $(this).find("[id='description']").val(result.description);
+        setCookie("siteInfo", JSON.stringify(result));
+        // setCookie("siteInfo", result);
       }
     },
     error: function(err) {
@@ -59,7 +59,7 @@ function save_siteInfo() {
     dataType: "json",     //返回json格式数据
     context: $("#siteTab"),
     success: function(result) {
-      $(this).find(".text-state").addClass("text-success").html(JSON.parse(result).err_code);
+      $(this).find(".text-state").addClass("text-success").html(result.err_code);
       $(this).find(".btn-save").addClass("disabled");
       setTimeout(function() {
         $(".text-state").html("&nbsp;");

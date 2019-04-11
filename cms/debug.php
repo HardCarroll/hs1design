@@ -50,6 +50,13 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/cms/include/php/include.php");
 // echo "<br>";
 // var_dump(is_string($ts["c"]));
 // echo "<br>";
+// echo file_get_contents("http://192.168.0.216:8888/cms/admin/index.php");
+
+// var_dump($caseManage->getRecordCounts("b_recommends='T'"));
+// var_dump($caseManage->selectItem("b_recommends='T'"));
+// var_dump($caseManage->getRecordCounts());
+
+
 if(isset($_POST["token"])) {
   switch($_POST["token"]) {
     case "add":
@@ -75,7 +82,7 @@ if(isset($_POST["token"])) {
       // // file_put_contents(ROOT_PATH."/case/debug.html", $str);
       // echo json_encode($result, 320);
       // $result = $bbb->updateItem(22, json_encode($aaa->selectItem()[0], 320));
-      $result = $classManage->addItem($_POST["data"]);
+      $result = $caseManage->logHtmlFile(23);
       echo json_encode($result, 320);
       break;
   }

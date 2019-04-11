@@ -48,6 +48,11 @@ class DBManager {
     !$this->links or $this->links->close();
   }
 
+  /**
+   * 执行SQL语句
+   * @param string $sql:要执行SQL语句
+   * @return mixed 执行完成后的结果
+   */
   public function execute($sql) {
     $result = mysqli_query($this->link, $sql);
     $this->state = array("err_no"=>mysqli_errno($this->link), "err_code"=>mysqli_error($this->link));
@@ -75,10 +80,17 @@ class DBManager {
       }
     }
     $sql = $sql_h . $sql_b . $sql_t;
-    $result = $this->execute($sql);
+    $this->execute($sql);
+    $id = $this->selectItem()[0]["id"];
 
-    // return $sql;
-    return $result;
+    // 格式化返回值
+    if($this->state["err_no"]) {
+      $ret = $this->state;
+    }
+    else {
+      $ret = array("err_no" => $this->state["err_no"], "err_code" => $id);
+    }
+    return $ret;
   }
 
   /**
@@ -87,37 +99,42 @@ class DBManager {
    */
   public function deleteItem($id) {
     $sql = "DELETE FROM " . $this->tabname . " WHERE id=" . $id;
-    $result = $this->execute($sql);
-    return $result;
+    $this->execute($sql);
+    return $this->state;
   }
 
   /**
    * 更新数据项
    * @param int $id 更新项对应的id
-   * @param string|null $data 更新项数据的JSON格式字符串
+   * @param string $data 更新项数据的JSON格式字符串
    * @return string $result 执行结果的JSON格式字符串
    */
-  public function updateItem($id, $data = null) {
+  public function updateItem($id, $data) {
     // UPDATE table SET key1=value1, key2=value2, ..., keyN=valueN
     $sql_h = "UPDATE $this->tabname SET ";
     $sql_b = "";
     $sql_t = " WHERE id=$id";
     if(!$data) {
-      // $sql_b .= "st_path='/case/$id.html', b_posted='T'";
+      return array("err_no" => -1, "err_code" => "修改的内容不能为空");
     }
-    else {
-      $dataArray = json_decode($data, true);
-      foreach($dataArray as $key => $value) {
-        $sql_b .= ($key . "='" . addslashes(is_array($value) ? json_encode($value, 320) : $value) . "'");
-        if(end($dataArray) !== $value) {
-          $sql_b .= ",";
-        }
+    $dataArray = json_decode($data, true);
+    foreach($dataArray as $key => $value) {
+      $sql_b .= ($key . "='" . addslashes(is_array($value) ? json_encode($value, 320) : $value) . "'");
+      if(end($dataArray) !== $value) {
+        $sql_b .= ",";
       }
     }
     $sql = $sql_h . $sql_b . $sql_t;
-    // return $sql;
-    $result = $this->execute($sql);
-    return $result;
+    $this->execute($sql);
+
+    // 格式化返回值
+    if($this->state["err_no"]) {
+      $ret = $this->state;
+    }
+    else {
+      $ret = array("err_no" => $this->state["err_no"], "err_code" => $id);
+    }
+    return $ret;
   }
   
   /**
@@ -128,11 +145,10 @@ class DBManager {
   public function selectItem($rule = null) {
     $sql = "SELECT * FROM " . $this->tabname;
     if($rule) {
-      $sql .= " WHERE " . $rule;
+      $sql .= (" WHERE " . $rule);
     }
     $sql .= " ORDER BY id ASC";
 
-    // $result = mysqli_query($this->link, $sql);
     $result = $this->execute($sql);
     if($result) {
       if ($result->num_rows) {
@@ -149,12 +165,8 @@ class DBManager {
     }
     else {
       // 查询语句有误
-      // 通过检查mysqli_error($this->link)的返回值判断语句是否有误
-      $ret = array("err_no" => 0, "err_code" => "请检查语法错误");
+      $ret = $this->state;
     }
-
-    // 更新操作后状态信息
-    $this->state = array("err_no"=>mysqli_errno($this->link), "err_code"=>mysqli_error($this->link));
     return $ret;
   }
 
@@ -166,35 +178,10 @@ class DBManager {
   public function getRecordCounts($rule = null) {
     $counts = 0;
     $result = $this->selectItem($rule);
-    if($result) {
+    if(!isset($result["err_no"])) {
       $counts = count($result);
     }
     return $counts;
-  }
-
-  /**
-   * 生成json文件
-   */
-  public function logJsonFile($id) {
-    $clsArray = $this->getClassData()[0];
-    $path = ROOT_PATH.$clsArray["jsonPath"];
-    if(is_dir($path) or @mkdir($path, 0777, true)) {
-      $result = file_put_contents($path.$id.".json", json_encode($this->selectItem("id=$id")[0], 320));
-    }
-    return $result;
-  }
-
-  /**
-   * 生成html文件
-   */
-  public function logHtmlFile($id) {
-    $clsArray = $this->getClassData()[0];
-    // 获取网站信息数据
-    $siteinfo = json_decode(file_get_contents(ROOT_PATH.PATH_JSON."/siteinfo.json"), true);
-    $url = "http://".$siteinfo["domain"].$clsArray["tempPath"];
-    $str = curl_request($url, json_encode($this->selectItem("id=$id")[0], 320));
-    $result = file_put_contents(ROOT_PATH.$clsArray["htmlPath"].$id.".html", $str);
-    return $result;
   }
 
   /**
@@ -218,12 +205,67 @@ class DBManager {
     }
     else {
       // 查询语句有误
-      // 通过检查mysqli_error($this->link)的返回值判断语句是否有误
       $ret = array("err_no" => 0, "err_code" => "请检查语法错误");
     }
-    // 更新操作后状态信息
-    $this->state = array("err_no"=>mysqli_errno($this->link), "err_code"=>mysqli_error($this->link));
     return $ret;
+  }
+
+  /**
+   * 生成JSON文件
+   */
+  public function logJsonFile($id) {
+    $clsArray = $this->getClassData()[0];
+    $path = ROOT_PATH.$clsArray["jsonPath"];
+    $ext = ".json";
+    if(is_dir($path) or @mkdir($path, 0777, true)) {
+      $result = file_put_contents($path.$id.$ext, json_encode($this->selectItem("id=$id")[0], 320));
+    }
+    return $result;
+  }
+
+  /**
+   * 删除JSON文件
+   */
+  public function removeJsonFile($id) {
+    $clsArray = $this->getClassData()[0];
+    $path = ROOT_PATH.$clsArray["jsonPath"];
+    $ext = ".json";
+    @unlink($path.$id.$ext);
+  }
+
+  /**
+   * 读取JSON文件内容
+   */
+  public function loadJsonFile($id) {
+    $clsArray = $this->getClassData()[0];
+    $path = ROOT_PATH.$clsArray["jsonPath"];
+    $ext = ".json";
+    return file_get_contents($path.$id.$ext);
+  }
+
+  /**
+   * 生成HTML文件
+   */
+  public function logHtmlFile($id) {
+    $clsArray = $this->getClassData()[0];
+    $ext = ".html";
+    $htmlPath = $clsArray["htmlPath"].$id.$ext;
+    // 获取网站信息数据
+    $siteinfo = json_decode(file_get_contents(ROOT_PATH.PATH_JSON."/siteinfo.json"), true);
+    $url = "http://".$siteinfo["domain"].$clsArray["tempPath"];
+    $str = curl_request($url, json_encode($this->selectItem("id=$id")[0], 320));
+    file_put_contents(ROOT_PATH.$htmlPath, $str);
+    $result = $this->updateItem($id, '{"b_posted": "T", "st_path": "'.$htmlPath.'"}');
+    return $result;
+  }
+
+  /**
+   * 删除HTML文件
+   */
+  public function removeHtmlFile($id) {
+    $clsArray = $this->getClassData()[0];
+    $path = ROOT_PATH.$clsArray["htmlPath"];
+    @unlink($path.$id.".html");
   }
 }
 

@@ -66,7 +66,7 @@ $(function() {
       dataType: "json",     //返回json格式数据
       context: $(this),
       success: function(result) {
-        if(!JSON.parse(result).err_no) {
+        if(!result.err_no) {
           location.reload(true);
         }
       },
@@ -146,9 +146,9 @@ function refreshTabList(data) {
                 dataType: "json",     //返回json格式数据
                 context: $(this),
                 success: function(result) {
-                  if(JSON.parse(result).err_no) {
+                  if(result.err_no) {
                     $(this).toggleClass("glyphicon-star-empty").toggleClass("glyphicon-star");
-                    alert(JSON.parse(result).err_code);
+                    alert(result.err_code);
                   }
                   else {
                     getCounts({rule: "b_recommends='T'", target: $(".wrap.marked>span.digital")});
@@ -193,6 +193,7 @@ function refreshTabContent(argJson) {
   var fmd = new FormData();
   fmd.append("token", "refreshTabContent");
   fmd.append("id", argJson.id);
+  fmd.append("handle", "article");
   $.ajax({
     url: "/cms/include/php/handle.php",
     type: "POST",
@@ -202,26 +203,25 @@ function refreshTabContent(argJson) {
     dataType: "json",
     context: argJson.target,
     success: function(result) {
-      var data = JSON.parse(result);
       if($(this).attr("data-id")) {
-        $(this).find("[name='cp-title']").val(data.st_title);
-        $(this).find("[name='cp-keywords']").val(data.st_keywords);
-        $(this).find("[name='cp-description']").val(data.st_description);
-        $(this).find("[name='article-title']").val(data.ct_title);
-        $(this).find("[name='article-author']").val(data.ct_author);
-        $(this).find("[name='article-class']").val(data.ct_class);
-        $(this).find("[name='article-date']").val(data.ct_issue);
+        $(this).find("[name='cp-title']").val(result.st_title);
+        $(this).find("[name='cp-keywords']").val(result.st_keywords);
+        $(this).find("[name='cp-description']").val(result.st_description);
+        $(this).find("[name='article-title']").val(result.ct_title);
+        $(this).find("[name='article-author']").val(result.ct_author);
+        $(this).find("[name='article-class']").val(result.ct_class);
+        $(this).find("[name='article-date']").val(result.ct_issue);
         if($(this).attr("id") === "editTab") {
-          window.editor_edit.html(data.ct_content);
+          window.editor_edit.html(result.ct_content);
         }
         if($(this).attr("id") === "uploadArticle") {
-          window.editor_upload.html(data.ct_content);
+          window.editor_upload.html(result.ct_content);
         }
       }
       else {
-        $(this).find("[name='cp-title']").val(data.title);
-        $(this).find("[name='cp-keywords']").val(data.keywords);
-        $(this).find("[name='cp-description']").val(data.description);
+        $(this).find("[name='cp-title']").val(result.title);
+        $(this).find("[name='cp-keywords']").val(result.keywords);
+        $(this).find("[name='cp-description']").val(result.description);
       }
     },
     error: function(msg) {
@@ -262,7 +262,8 @@ function updateItem(argJson) {
       ct_author: argJson.target.find("[name='article-author']").val(),
       ct_class: argJson.target.find("[name='article-class']").val(),
       ct_issue: argJson.target.find("[name='article-date']").val(),
-      ct_content: content
+      ct_content: content,
+      b_end: "TAB_END"
     };
     fmd.append("data", JSON.stringify(jsonData));
   }
@@ -274,17 +275,20 @@ function updateItem(argJson) {
     contentType: false,   //数据为formData时必须定义此项
     dataType: "json",     //返回json格式数据
     success: function(result) {
-      if(!JSON.parse(result).err_no) {
+      if(!result.err_no) {
         if(argJson.target) {
           argJson.target.find("span.btn-save").addClass("disabled");
-          argJson.target.attr("data-id", JSON.parse(result).err_code);
+          argJson.target.attr("data-id", result.err_code);
         }
         else {
           alert("已成功发布！");
           location.reload(true);
         }
       }
-      console.log(JSON.parse(result));
+      else {
+        alert(result.err_code);
+      }
+      console.log(result);
     },
     error: function(err) {
       console.log("fail: "+err);
@@ -298,7 +302,7 @@ function updateItem(argJson) {
  */
 function getCounts(argJson) {
   var fmd = new FormData();
-  fmd.append("token", "getArticleCounts");
+  fmd.append("token", "getCounts");
   fmd.append("handle", "article");
   fmd.append("rule", argJson.rule);
   $.ajax({

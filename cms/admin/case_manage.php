@@ -37,27 +37,26 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="navbar-config">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-              <li><a href="#">Link</a></li>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <span class="glyphicon glyphicon-user"></span>
+                  <span id="username"><?php echo $_SESSION["user"]["username"]; ?></span>
+                  <span class="caret"></span>
+                </a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Action</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else here</a></li>
+                  <li><a href="#" data-toggle="modal" data-target="#modPwd" role="button"><span class="icon icon-cuz icon-key"></span>&nbsp;修改密码</a></li>
+                  <li><a id="logout" href="#" role="button"><span class="glyphicon glyphicon-log-out"></span>&nbsp;注销登录</a></li>
                   <li role="separator" class="divider"></li>
-                  <li><a href="#">Separated link</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li><a href="#">One more separated link</a></li>
+                  <li><a href="/index.php"><span class="glyphicon glyphicon-home"></span>&nbsp;返回前台</a></li>
                 </ul>
               </li>
             </ul>
-            <form class="navbar-form navbar-left">
+            <!-- <form class="navbar-form navbar-left">
               <div class="form-group">
-                <input required type="text" class="form-control" placeholder="Search">
+                <input type="text" class="form-control" placeholder="Search">
               </div>
               <button type="submit" class="btn btn-default">Submit</button>
-            </form>
+            </form> -->
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
       </nav>
@@ -138,21 +137,21 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                 <div class="col-xs-6 col-sm-4 col-md-3">
                   <div class="wrap total">
                     <p>全部案例</p>
-                    <span class="text-primary digital"><?php echo $caseManage->getCounts(); ?></span>
+                    <span class="text-primary digital"><?php echo $caseManage->getRecordCounts(); ?></span>
                     <span>条</span>
                   </div>
                 </div>
                 <div class="col-xs-6 col-sm-4 col-md-3">
                   <div class="wrap unpost">
                     <p>暂未发布</p>
-                    <span class="text-danger digital"><?php echo $caseManage->getCounts("b_posted='F'"); ?></span>
+                    <span class="text-danger digital"><?php echo $caseManage->getRecordCounts("b_posted='F'"); ?></span>
                     <span>条</span>
                   </div>
                 </div>
                 <div class="col-xs-6 col-sm-4 col-md-3">
                   <div class="wrap marked">
                     <p>推荐阅读</p>
-                    <span class="text-success digital"><?php echo $caseManage->getCounts("b_recommends='T'"); ?></span>
+                    <span class="text-success digital"><?php echo $caseManage->getRecordCounts("b_recommends='T'"); ?></span>
                     <span>条</span>
                   </div>
                 </div>
@@ -166,8 +165,8 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
               <div class="case-wrap">
                 <!-- 动态生成案例列表 -->
                 <?php
-                $result = $caseManage->queryTable();
-                $counts = $caseManage->getCounts();
+                $result = $caseManage->selectItem();
+                $counts = $caseManage->getRecordCounts();
                 if($counts) {
                   echo '<div class="panel-group" role="tablist" aria-multiselectable="true">';
                   for ($i = 0; $i < ($counts>10?10:$counts); $i++) {
@@ -270,7 +269,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                 <div class="input-group">
                   <span class="btn btn-default btn-close" role="button">关闭</span>
                   <span class="btn btn-warning btn-save" role="button">保存</span>
-                  <span class="btn btn-success btn-post" role="button">发布</span>
+                  <!-- <span class="btn btn-success btn-post" role="button">发布</span> -->
                 </div>
               </div>
             </div> <!--#uploadCase-->
@@ -348,7 +347,7 @@ if(!isset($_SESSION["state"]) || $_SESSION["state"] !== sha1(0)) {
                 <div class="input-group">
                   <span class="btn btn-default btn-close" role="button">关闭</span>
                   <span class="btn btn-warning btn-save" role="button">保存</span>
-                  <span class="btn btn-success btn-post" role="button">发布</span>
+                  <!-- <span class="btn btn-success btn-post" role="button">发布</span> -->
                 </div>
               </div>
             </div> <!--#editTab-->

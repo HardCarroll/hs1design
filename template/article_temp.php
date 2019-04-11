@@ -137,8 +137,8 @@ function transmitType($key) {
                 <!-- <div class="list-group-item text-info text-ellipsis"><a href="Article_url">Article_Title</a></div> -->
                 <!-- 动态生成推荐阅读列表 -->
                 <?php
-                $recommends = $articleManage->queryTable("b_recommends='T'");
-                if($articleManage->getCounts("b_recommends='T'")) {
+                $recommends = $articleManage->selectItem("b_recommends='T'");
+                if($articleManage->getRecordCounts("b_recommends='T'")) {
                   foreach($recommends as $recommends_item) {
                     echo '<div class="list-group-item text-info text-ellipsis"><a href="'.$recommends_item["st_path"].'">'.$recommends_item["ct_title"].'</a></div>';
                   }
@@ -377,34 +377,6 @@ function transmitType($key) {
         <span class="col-xs-12 col-sm-4"><a href="http://www.miitbeian.gov.cn/" class="text-muted"><img src="/src/ba.png" alt="湖南炉石空间设计ICP备案号图标">湘ICP备88888888-1号</a></span>
       </div>
     </div><!-- 网页脚注区域结束 // #pageFooter end -->
-  </div>
-
-  <!-- 案例图片展示模态框 -->
-  <div id="displayModal" class="modal" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">X</span></button>
-        <h4 class="modal-title" id="displayModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-content">
-        <div class="modal-body">
-          <!-- <img class="fade" src="img_url" title="img_title" alt="img_alt"> -->
-          <!-- 动态生成模态框内案例图片展示 -->
-          <?php
-          foreach($imgs as $imgs_item) {
-            echo '<img class="fade" src="'.$imgs_item["url"].'" title="'.$imgs_item["attr_title"].'" alt="'.$imgs_item["attr_alt"].'">';
-          }
-          ?>
-        </div>
-        <div class="modal-footer">
-          <section class="btn-group">
-            <span class="btn btn-default glyphicon glyphicon-triangle-left prev"></span>
-            <span class="btn btn-default pos">1 / 5</span>
-            <span class="btn btn-default glyphicon glyphicon-triangle-right next"></span>
-          </section>
-        </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
   </div>
 
   <!-- 右下角fixed侧边栏 -->

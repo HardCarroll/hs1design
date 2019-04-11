@@ -170,9 +170,8 @@ function transmitCasetype($key) {
                 </section> -->
                 <!-- 动态生成案例图片缩略图 -->
                 <?php
-                $imgs = json_decode($dataArray["ct_image"], true);
-                // $imgs = $dataArray["ct_image"];
-                foreach($imgs as $imgs_item) {
+                $imgArray = json_decode($dataArray["ct_image"], true);
+                foreach($imgArray as $imgs_item) {
                   echo '<section class="col-xs-6 col-sm-4 col-md-3 col-lg-2 case-thumb-item"><img src="'.$imgs_item["url"].'" title="'.$imgs_item["attr_title"].'" alt="'.$imgs_item["attr_alt"].'"></section>';
                 }
                 ?>
@@ -188,8 +187,8 @@ function transmitCasetype($key) {
                 <!-- <div class="list-group-item text-info text-ellipsis"><a href="Article_url">Article_Title</a></div> -->
                 <!-- 动态生成推荐阅读列表 -->
                 <?php
-                $recommends = $caseManage->queryTable("c_recommends=1");
-                if($caseManage->getCounts("b_recommends='T'")) {
+                $recommends = $caseManage->selectItem("b_recommends='T'");
+                if($caseManage->getRecordCounts("b_recommends='T'")) {
                   foreach($recommends as $recommends_item) {
                     echo '<div class="list-group-item text-info text-ellipsis"><a href="'.$recommends_item["st_path"].'">'.$recommends_item["ct_title"].'</a></div>';
                   }
@@ -442,7 +441,7 @@ function transmitCasetype($key) {
           <!-- <img class="fade" src="img_url" title="img_title" alt="img_alt"> -->
           <!-- 动态生成模态框内案例图片展示 -->
           <?php
-          foreach($imgs as $imgs_item) {
+          foreach($imgArray as $imgs_item) {
             echo '<img class="fade" src="'.$imgs_item["url"].'" title="'.$imgs_item["attr_title"].'" alt="'.$imgs_item["attr_alt"].'">';
           }
           ?>
