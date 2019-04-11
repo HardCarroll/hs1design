@@ -3,25 +3,32 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/cms/include/php/include.php");
 
 if (isset($_POST["token"]) && !empty($_POST["token"])) {
   switch ($_POST["token"]) {
-    case "uploadFiles": // 上传文件
+    case "uploadFiles":
+      // 上传文件
       echo proc_uploadFiles($_FILES["files"]);
       break;
-    case "login": // 登录按钮点击处理过程
+    case "login":
+      // 登录按钮点击处理过程
       echo proc_login($userManage, $_POST["data"]);
       break;
     case "logout":
+      // 注销登录点击处理过程
       echo proc_logout();
       break;
     case "modifyPassword":
+      // 修改密码处理过程
       echo proc_modifyPassword($userManage, $_POST["data"]);
       break;
-    case "setSiteInfo": // 设置网站信息
+    case "setSiteInfo":
+      // 设置网站信息
       echo proc_setSiteInfo(ROOT_PATH.PATH_JSON, $_POST["siteInfo"]);
       break;
-    case "getSiteInfo": // 获取网站信息
+    case "getSiteInfo":
+      // 获取网站信息
       echo proc_getSiteInfo(ROOT_PATH.PATH_JSON);
       break;
-    case "refreshTabContent": // 更新上传与编辑页面的内容
+    case "refreshTabContent":
+      // 更新上传与编辑页面的内容
       if($_POST["handle"] === "case") {
         echo proc_refreshTabContent($caseManage, $_POST["id"] ? $_POST["id"]: 0);
       }
@@ -29,7 +36,8 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
         echo proc_refreshTabContent($articleManage, $_POST["id"] ? $_POST["id"]: 0);
       }
       break;
-    case "refreshTabList":  // 实时更新案例、文章列表
+    case "refreshTabList":
+      // 实时更新案例、文章列表
       if($_POST["handle"] === "case") {
         echo proc_refreshTabList($caseManage, $_POST["data"]);
       }
@@ -37,7 +45,8 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
         echo proc_refreshTabList($articleManage, $_POST["data"]);
       }
       break;
-    case "refreshRecommends": // 刷新推荐列表
+    case "refreshRecommends":
+      // 刷新推荐列表
       if($_POST["handle"] === "case") {
         echo proc_refreshRecommends($caseManage);
       }
@@ -45,7 +54,8 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
         echo proc_refreshRecommends($articleManage);
       }
       break;
-    case "refreshPagination": // 刷新分页列表
+    case "refreshPagination":
+      // 刷新分页列表
       if($_POST["handle"] === "case") {
         echo proc_refreshPagination($caseManage, $_POST["rule"]);
       }
@@ -53,7 +63,8 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
         echo proc_refreshPagination($articleManage, $_POST["rule"]);
       }
       break;
-    case "updateItem":  // 修改项
+    case "updateItem":
+      // 修改项
       if($_POST["handle"] === "case") {
         echo proc_updateItem($caseManage, $_POST["id"], $_POST["data"]);
       }
@@ -61,7 +72,8 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
         echo proc_updateItem($articleManage, $_POST["id"], $_POST["data"]);
       }
       break;
-    case "removeItem":  // 删除项
+    case "removeItem":
+      // 删除项
       if($_POST["handle"] === "case") {
         echo proc_removeItem($caseManage, $_POST["id"]);
       }
@@ -69,7 +81,8 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
         echo proc_removeItem($articleManage, $_POST["id"]);
       }
       break;
-    case "markItem":  //推荐项
+    case "markItem":
+      //推荐项
       if($_POST["handle"] === "case") {
         echo proc_markItem($caseManage, $_POST["id"], $_POST["data"]);
       }
@@ -77,7 +90,8 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
         echo proc_markItem($articleManage, $_POST["id"], $_POST["data"]);
       }
       break;
-    case "getCounts": // 获取记录数
+    case "getCounts":
+      // 获取记录数
       if($_POST["handle"] === "case") {
         echo $caseManage->getRecordCounts($_POST["rule"]);
       }
