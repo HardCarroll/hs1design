@@ -60,18 +60,17 @@ $(function(){
         contentType: false,
         success: function (result) {
           // var ret = JSON.parse(result);
-          // $(".modal-footer>.tips").html(ret.err_msg);
-          // if (ret.err_no) {
-          //   $("#old-pwd").focus();
-          // }
-          // else {
-          //   setTimeout(function() {
-          //     $("#modPwd").modal("hide");
-          //     location.reload(true);
-          //   }, 1600);
-          // }
+          $(".modal-footer>.tips").html(result.err_code);
+          if (result.err_no) {
+            $("#old-pwd").focus();
+          }
+          else {
+            setTimeout(function() {
+              $("#modPwd").modal("hide");
+              location.reload(true);
+            }, 1600);
+          }
           console.log(result);
-//          console.log("success: "+result);
         },
         error: function(msg) {
           console.log("fail: "+msg);

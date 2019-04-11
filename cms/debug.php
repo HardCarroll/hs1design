@@ -63,6 +63,11 @@ if(isset($_POST["token"])) {
       $result = $bbb->deleteItem(13);
       echo json_encode($result, 320);
       break;
+    case "update":
+      // $result = $userManage->selectItem()[0];
+      $result = $userManage->updateItem(666666, $_POST["data"]);
+      echo json_encode($result, 320);
+      break;
     case "debug":
       // $result = $userManage->selectItem("id=22")[0];
       // file_put_contents(ROOT_PATH.PATH_UPLOAD."/debug.json", json_encode($result, 320));

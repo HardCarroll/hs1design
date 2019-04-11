@@ -291,6 +291,13 @@ ul {
   top: 50%;
   transform: translateY(-50%);
 }
+.modal-footer>.tips {
+  float: left;
+  height: 34px;
+  line-height: 34px;
+  padding: 0 2em;
+  color: #C00;
+}
 
 @media (max-width: 768px) {
   #navbar-config {

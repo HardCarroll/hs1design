@@ -7,13 +7,13 @@ if (isset($_POST["token"]) && !empty($_POST["token"])) {
       echo proc_uploadFiles($_FILES["files"]);
       break;
     case "login": // 登录按钮点击处理过程
-      echo proc_login($dbo, json_decode($_POST["data"], true));
+      echo proc_login($userManage, $_POST["data"]);
       break;
     case "logout":
       echo proc_logout();
       break;
     case "modifyPassword":
-      echo proc_modifyPassword($_POST["data"]);
+      echo proc_modifyPassword($userManage, $_POST["data"]);
       break;
     case "setSiteInfo": // 设置网站信息
       echo proc_setSiteInfo(ROOT_PATH.PATH_JSON, $_POST["siteInfo"]);
@@ -271,18 +271,19 @@ function proc_getSiteInfo($path) {
   else {
     $result = $_SESSION["siteInfo"] = file_get_contents($path."/siteinfo.json");
   }
-  return json_encode($result);
+  return json_encode($result, 320);
 }
 
 /**
  * 登录验证处理过程
- * @param $dbo: 数据库连接句柄
+ * @param $hd: 数据库连接句柄
  * @param $data: 来自客户端的数据数组
  * @return $ret: 处理结果，以json格式返回
  */
-function proc_login($dbo, $data) {
-  $id = $data["id"];
-  $pwd = $data["pwd"];
+function proc_login($hd, $data) {
+  $dataArray = json_decode($data, true);
+  $id = $dataArray["id"];
+  $pwd = $dataArray["pwd"];
   $ret = "";
   if(isset($_SESSION["user"]) && ($_SESSION["user"]["id"]===$id || $_SESSION["user"]["username"]===$id)) {
     // 有session，则进行session验证
@@ -298,25 +299,21 @@ function proc_login($dbo, $data) {
     }
   }
   else {
-    // $dbo = new DBOperator("localhost", "hsd_admin", "hs1design.com", "hs1design");
-    if ($dbo->state["err_no"]) {
-      // 数据库连接失败跳转至登录界面
-      $_SESSION["state"] = $dbo->state["err_no"];
-      $ret = array("err_no" => $_SESSION["state"], "err_code" => $dbo->state["err_code"], "href" => "");
-    }
-    $sql = "SELECT * FROM tab_admin WHERE username='$id' or id='$id'";
-    $result = $dbo->exec_query($sql);
-    if(!$result || $dbo->state["err_no"]) {
-      if (empty($dbo->state["err_code"])) {
+    $result = $hd->selectItem("username='$id' or id='$id'");
+
+    if(!$result || $hd->state["err_no"]) {
+      if (empty($hd->state["err_code"])) {
         // 没有结果集
         $_SESSION["state"] = sha1(-1);
         $ret = array("err_no" => $_SESSION["state"], "err_code" => "用户名或密码错误", "href" => "");
       }
       else {
-        $ret = array("err_no" => $dbo->state["err_no"], "err_code" => $dbo->state["err_code"], "href" => "");
+        $ret = array("err_no" => $hd->state["err_no"], "err_code" => $hd->state["err_code"], "href" => "");
       }
     }
+
     $password = $result[0]["password"];
+    
     if ($password === $pwd) {
     //  验证成功
       $user = array("id"=>$result[0]["id"], "username"=>$result[0]["username"], "password"=>sha1($result[0]["password"]), "access"=>$result[0]["access"]);
@@ -330,7 +327,7 @@ function proc_login($dbo, $data) {
     }
   }
 
-  return json_encode($ret);
+  return json_encode($ret, 320);
 }
 
 /**
@@ -342,56 +339,43 @@ function proc_logout() {
   // 清除SESSION中存储的登录状态值
   unset($_SESSION["state"]);
   // 格式化返回结果
-  $ret = array("err_no" => 0, "err_code" => "您已成功注销，如需后台操作，请重新登录！", "href" => "/cms/admin/login.php");
+  $ret = array("err_no" => 0, "err_code" => "您已成功注销，如需继续操作，请重新登录！", "href" => "/cms/admin/login.php");
   return json_encode($ret);
 }
 
 /**
  * 修改密码处理函数
+ * @param DBManager $hd:数据库连接句柄
+ * @param mixed $data:来自客户端的数据
+ * @return string JSON格式的处理结果字符串
  */
-function proc_modifyPassword($data) {
+function proc_modifyPassword($hd, $data) {
   $arrayData = json_decode($data, true);
-  $ret = array("a" => $arrayData["username"], "b" => $arrayData["oldPwd"], "c" => $arrayData["newPwd1"], "d" => $arrayData["newPwd2"]);
-  // $usr = $_SESSION["user"]["usr"];
-  // $pwd = $_SESSION["user"]["pwd"];
-  // $password = json_decode($_POST["modpwd"], true);
-  // $ret = '';
-  // if ($password["new-pwd1"]===$password["new-pwd2"]) {
-  //   $newpwd = $password["new-pwd1"];
-  //   if ($pwd === sha1($password["old-pwd"])) {
-  //     if ($dbo->state["err_no"]) {
-  //       // 数据库连接失败
-  //       $ret = '{"err_no":'.$dbo->state["err_no"].', "err_msg":'.$dbo->state["err_code"].'}';
-  //       echo json_encode($ret);
-  //       exit;
-  //     }
-  //     $sql = "UPDATE tab_admin SET pwd='$newpwd' WHERE usr='$usr'";
-  //     $result = $dbo->exec_update($sql);
-  //     if (!$result) {
-  //       // 执行SQL语句失败
-  //       $ret = '{"err_no": '.$dbo->state["err_no"].', "err_msg": '.$dbo->state["err_code"].'}';
-  //     }
-  //     else {
-  //       unset($_SESSION["state"]);
-  //       unset($_SESSION["user"]);
-  //       $ret = '{"err_no": 0, "err_msg": "密码修改成功，请重新登录！"}';
-  //     }
-  //     echo json_encode($ret);
-  //     exit;
-  //   }
-  //   else {
-  //     $ret = '{"err_no": -1, "err_msg": "请输入正确的密码！"}';
-  //     echo json_encode($ret);
-  //     exit;
-  //   }
-  // }
-  // else {
-  //   $ret = '{"err_no": -2, "err_msg": "两次密码不同，请重新输入！"}';
-  //   echo json_encode($ret);
-  //   exit;
-  // }
+  $pwd = $_SESSION["user"]["password"];
+  $ret = '';
+  if ($arrayData["newPwd1"]===$arrayData["newPwd2"]) {
+    $newpwd = $arrayData["newPwd1"];
+    if ($pwd === sha1($arrayData["oldPwd"])) {
+      $result = $hd->updateItem($_SESSION["user"]["id"], '{"password": "'.$newpwd.'"}');
+      if (!$result) {
+        // 执行SQL语句失败
+        $ret = '{"err_no": "'.$hd->state["err_no"].'", "err_code": "'.$hd->state["err_code"].'"}';
+      }
+      else {
+        unset($_SESSION["state"]);
+        unset($_SESSION["user"]);
+        $ret = '{"err_no": 0, "err_code": "密码修改成功，请重新登录！"}';
+      }
+    }
+    else {
+      $ret = '{"err_no": -1, "err_code": "请输入正确的密码！"}';
+    }
+  }
+  else {
+    $ret = '{"err_no": -2, "err_code": "两次密码不同，请重新输入！"}';
+  }
 
-  return json_encode($ret);
+  return $ret;
 }
 
 /**

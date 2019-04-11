@@ -20,14 +20,9 @@
       <option value="2">普通用户</option>
     </select>
   </div>
-  <div class="classManage" style="border: 1px solid #a6a8a8; margin: 10px auto; padding: 5px;">
-    <input type="text" name="tabname">
-    <input type="text" name="jsonPath">
-    <input type="text" name="htmlPath">
-    <input type="text" name="tempPath">
-  </div>
   <input type="button" value="add">
   <input type="button" value="select">
+  <input type="button" value="update">
   <input type="button" value="debug">
 </body>
 </html>
@@ -58,6 +53,26 @@
     $("input[value='select']").off("click").on("click", function() {
       var fmd = new FormData();
       fmd.append("token", "select");
+      $.ajax({
+        url: "/cms/debug.php",
+        type: "POST",
+        processData: false,
+        contentType: false,
+        data: fmd,
+        dataType: "json",
+        success: function(result) {
+          console.log(result);
+        },
+        error: function(error) {
+          console.log(error);
+        }
+      });
+    });
+    $("input[value='update']").off("click").on("click", function() {
+      var data = {username: $("input[name='username']").val(), password: $("input[name='password']").val(), b_end: "TAB_END"};
+      var fmd = new FormData();
+      fmd.append("token", "update");
+      fmd.append("data", JSON.stringify(data));
       $.ajax({
         url: "/cms/debug.php",
         type: "POST",
