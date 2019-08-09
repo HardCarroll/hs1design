@@ -55,6 +55,7 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/cms/include/php/include.php");
 // var_dump($caseManage->getRecordCounts("b_recommends='T'"));
 // var_dump($caseManage->selectItem("b_recommends='T'"));
 // var_dump($caseManage->getRecordCounts());
+// echo(file_get_contents(ROOT_PATH."/cms/error_msg.json"));
 
 
 if(isset($_POST["token"])) {
@@ -82,8 +83,10 @@ if(isset($_POST["token"])) {
       // // file_put_contents(ROOT_PATH."/case/debug.html", $str);
       // echo json_encode($result, 320);
       // $result = $bbb->updateItem(22, json_encode($aaa->selectItem()[0], 320));
-      $result = $caseManage->logHtmlFile(23);
-      echo json_encode($result, 320);
+      // $result = $caseManage->logHtmlFile(23);
+      $result = file_get_contents(ROOT_PATH."/cms/error_msg.json");
+      echo $result;
+      // echo json_encode($result, 320);
       break;
   }
 }
