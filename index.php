@@ -44,7 +44,7 @@ require_once($_SERVER["DOCUMENT_ROOT"]."/lib/php/handle.php");
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand text-hide" href="/"><strong>炉石空间设计丨专注于餐厅空间设计、酒店空间设计、KTV空间设计</strong><img src="/src/HSD_BLACK.png" alt="炉石空间设计的LOGO图片"></a>
+          <a class="navbar-brand text-hide" href="/"><strong>炉石空间设计丨专注于餐厅空间设计、酒店空间设计、KTV空间设计</strong><img src="/src/hsd-logo.png" alt="炉石空间设计的LOGO图片"></a>
         </div>
         <div class="navbar-top pull-right hidden-xs">
           <section class="phone">
