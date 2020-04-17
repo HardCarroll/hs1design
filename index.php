@@ -11,6 +11,7 @@ $baseinfo = json_decode(file_get_contents($_SERVER["DOCUMENT_ROOT"]."/lib/json/b
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="renderer" content="webkit">
   <meta name="Keywords" content="<?php echo $baseinfo["site"]["keywords"] ?>">
   <meta name="Description" content="<?php echo $baseinfo["site"]["description"] ?>">
   <title><?php echo $baseinfo["site"]["title"] ?></title>

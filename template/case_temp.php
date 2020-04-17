@@ -49,6 +49,7 @@ function transmitCasetype($key) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="renderer" content="webkit">
   <meta name="Keywords" content="<?php echo $p_keywords; ?>">
   <meta name="Description" content="<?php echo $p_description; ?>">
   <title><?php echo $p_title; ?></title>
